@@ -1,0 +1,26 @@
+---
+title: "20 Jahre Doppelter Pukelsheim in der Schweiz: Was ist der mechanische Effekt des Übergangs vom Hagenbach-Bischoff-Verfahren auf die Sitzverteilung kleinerer Parteien?"
+author: "Jan Moritz Beyn"
+date: today
+format:
+  typst: default
+---
+
+## Einleitung
+
+Hier schreibe ich normalen Text.
+
+## Analyse
+
+```{r}
+#| echo: false
+#| warning: false
+
+library(ggplot2)
+
+ggplot(mtcars, aes(x = hp, y = mpg)) +
+  geom_point() +
+  labs(title = "Mein erster Plot")
+```
+
+Der Mittelwert beträgt `r round(mean(mtcars$mpg), 2)`.
