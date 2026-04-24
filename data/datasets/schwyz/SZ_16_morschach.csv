@@ -1,0 +1,5 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+12;02;SVP;SVP - Morschach;119;0;3287;0;;;Kant;1033797471;1033798194
+12;03;CVP;CVP - Morschach;177;0;4890;1;;;Kant;1033797471;1033798194
+12;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Morschach;66;0;1823;0;;;Kant;1033797471;1033798194
+12;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797471;1033798194

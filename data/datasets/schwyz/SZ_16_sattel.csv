@@ -1,0 +1,7 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+6;01;FDP;FDP.Die Liberalen - Sattel;147;0;2557;0;;;Kant;1033797380;1033798194
+6;02;SVP;SVP - Sattel;202;0;3513;1;;;Kant;1033797380;1033798194
+6;03;CVP;CVP - Sattel;185;0;3217;0;;;Kant;1033797380;1033798194
+6;04;SP-Gr-Ua;Sozialdemokratsiche Partei (SP), Grüne und Unabhängige - Sattel;33;0;574;0;;;Kant;1033797380;1033798194
+6;05;GLP;Grünliberale Kanton Schwyz - Sattel;8;0;139;0;;;Kant;1033797380;1033798194
+6;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797380;1033798194

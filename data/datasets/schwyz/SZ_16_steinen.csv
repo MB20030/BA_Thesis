@@ -1,0 +1,7 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+5;01;FDP;FDP.Die Liberalen - Steinen;242;0;1215;0;;;Kant;1033797350;1033798194
+5;02;SVP;SVP - Steinen;654;1;3283;1;;;Kant;1033797350;1033798194
+5;03;CVP;CVP - Steinen;492;0;2470;0;;;Kant;1033797350;1033798194
+5;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Steinen;208;0;1044;0;;;Kant;1033797350;1033798194
+5;05;GLP;Grünliberale Kanton Schwyz - Steinen;395;2;1983;1;;;Kant;1033797350;1033798194
+5;99;WoP;Wahlzettel ohne Parteibezeichnung;1;1;5;0;;;Kant;1033797350;1033798194

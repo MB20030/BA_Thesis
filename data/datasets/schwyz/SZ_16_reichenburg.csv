@@ -1,0 +1,6 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+25;01;FDP;FDP.Die Liberalen - Reichenburg;114;0;760;0;;;Kant;1033797791;1033798194
+25;02;SVP;SVP - Reichenburg;484;3;3227;1;;;Kant;1033797791;1033798194
+25;03;CVP;CVP - Reichenburg;740;4;4933;1;;;Kant;1033797791;1033798194
+25;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Reichenburg;162;0;1080;0;;;Kant;1033797791;1033798194
+25;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797791;1033798194

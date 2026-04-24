@@ -1,0 +1,5 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+4;02;SVP;SVP - Muotathal;1010;4;5091;1;;;Kant;1033797334;1033798194
+4;03;CVP;CVP - Muotathal;810;4;4083;1;;;Kant;1033797334;1033798194
+4;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Muotathal;163;20;822;0;;;Kant;1033797334;1033798194
+4;99;WoP;Wahlzettel ohne Parteibezeichnung;1;1;5;0;;;Kant;1033797334;1033798194

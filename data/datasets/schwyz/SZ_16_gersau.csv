@@ -1,0 +1,6 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+16;01;FDP;FDP.Die Liberalen - Gersau;395;0;5211;1;;;Kant;1033797510;1033798194
+16;02;SVP;SVP - Gersau;137;0;1807;0;;;Kant;1033797510;1033798194
+16;03;CVP;CVP - Gersau;134;0;1768;0;;;Kant;1033797510;1033798194
+16;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Gersau;92;0;1214;0;;;Kant;1033797510;1033798194
+16;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797510;1033798194

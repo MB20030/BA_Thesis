@@ -1,0 +1,6 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+7;01;FDP;FDP.Die Liberalen - Rothenthurm;141;3;1009;0;;;Kant;1033797398;1033798194
+7;02;SVP;SVP - Rothenthurm;558;14;3991;1;;;Kant;1033797398;1033798194
+7;03;CVP;CVP - Rothenthurm;550;8;3934;1;;;Kant;1033797398;1033798194
+7;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Rothenthurm;149;1;1066;0;;;Kant;1033797398;1033798194
+7;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797398;1033798194

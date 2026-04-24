@@ -1,0 +1,5 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+20;01;FDP;FDP.Die Liberalen - Vorderthal;192;0;4539;0;;;Kant;1033797642;1033798194
+20;02;SVP;SVP - Wägital;214;0;5059;1;;;Kant;1033797642;1033798194
+20;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Vorderthal;17;0;402;0;;;Kant;1033797642;1033798194
+20;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797642;1033798194

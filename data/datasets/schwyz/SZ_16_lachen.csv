@@ -1,0 +1,7 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+17;01;FDP;FDP.Die Liberalen - Lachen;2623;64;2748;1;;;Kant;1033797524;1033798194
+17;02;SVP;SVP - Lachen;2634;77;2760;2;;;Kant;1033797524;1033798194
+17;03;CVP;CVP - Lachen;1862;30;1951;1;;;Kant;1033797524;1033798194
+17;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Lachen;2184;41;2288;1;;;Kant;1033797524;1033798194
+17;05;GLP;Grünliberale Kanton Schwyz - Lachen;193;35;202;0;;;Kant;1033797524;1033798194
+17;99;WoP;Wahlzettel ohne Parteibezeichnung;49;49;51;0;;;Kant;1033797524;1033798194

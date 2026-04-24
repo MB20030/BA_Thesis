@@ -1,0 +1,7 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+3;01;FDP;FDP.Die Liberalen - Ingenbohl;2704;85;1842;1;;;Kant;1033797123;1033798194
+3;02;SVP;SVP - Ingenbohl;3818;108;2602;2;;;Kant;1033797123;1033798194
+3;03;CVP;CVP - Ingenbohl-Brunnen;4766;102;3247;2;;;Kant;1033797123;1033798194
+3;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Ingenbohl;3096;83;2110;1;;;Kant;1033797123;1033798194
+3;05;GLP;Grünliberale Kanton Schwyz - Ingenbohl;191;57;130;0;;;Kant;1033797123;1033798194
+3;99;WoP;Wahlzettel ohne Parteibezeichnung;101;101;69;0;;;Kant;1033797123;1033798194

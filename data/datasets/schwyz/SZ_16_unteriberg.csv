@@ -1,0 +1,5 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+9;01;FDP;FDP.Die Liberalen - Ybrig, Unteriberg;341;27;2880;1;;;Kant;1033797433;1033798194
+9;02;SVP;SVP - Ybrig, Unteriberg;737;29;6225;1;;;Kant;1033797433;1033798194
+9;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Unteriberg;104;0;878;0;;;Kant;1033797433;1033798194
+9;99;WoP;Wahlzettel ohne Parteibezeichnung;2;2;17;0;;;Kant;1033797433;1033798194

@@ -1,0 +1,6 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+10;01;FDP;FDP.Die Liberalen - Lauerz;193;0;5230;1;;;Kant;1033797447;1033798194
+10;02;SVP;SVP - Lauerz;81;0;2195;0;;;Kant;1033797447;1033798194
+10;03;CVP;CVP - Lauerz;81;0;2195;0;;;Kant;1033797447;1033798194
+10;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Lauerz;14;0;379;0;;;Kant;1033797447;1033798194
+10;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797447;1033798194

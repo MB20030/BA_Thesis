@@ -1,0 +1,7 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+23;01;FDP;FDP.Die Liberalen - Tuggen;123;0;936;0;;;Kant;1033797738;1033798194
+23;02;SVP;SVP - Tuggen;495;2;3767;1;;;Kant;1033797738;1033798194
+23;03;CVP;CVP - Tuggen;482;6;3668;1;;;Kant;1033797738;1033798194
+23;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige;151;0;1149;0;;;Kant;1033797738;1033798194
+23;05;GLP;Grünliberale Kanton Schwyz - Tuggen;63;0;479;0;;;Kant;1033797738;1033798194
+23;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797738;1033798194

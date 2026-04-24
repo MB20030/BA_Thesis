@@ -1,0 +1,8 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+26;01;FDP;FDP.Die Liberalen - Einsiedeln;7102;293;2085;2;;;Kant;1033797812;1033798194
+26;02;SVP;SVP - Einsiedeln;10672;597;3134;2;;;Kant;1033797812;1033798194
+26;03;CVP;CVP - Einsiedeln;8100;264;2378;2;;;Kant;1033797812;1033798194
+26;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Einsiedeln;6279;110;1844;2;;;Kant;1033797812;1033798194
+26;05;GLP;Grünliberale Kanton Schwyz - Einsiedeln;1303;97;383;1;;;Kant;1033797812;1033798194
+26;06;EVP;Evangelische Volkspartei Kanton Schwyz;321;9;94;0;;;Kant;1033797812;1033798194
+26;99;WoP;Wahlzettel ohne Parteibezeichnung;279;279;82;0;;;Kant;1033797812;1033798194

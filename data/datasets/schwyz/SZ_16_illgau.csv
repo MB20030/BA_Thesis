@@ -1,0 +1,5 @@
+SortGeschaeft;ListNr;ListCode;ListBez;StimmenTotal;StimmenZusatz;StimmenProz;Sitze;ListVerb;ListUntVerb;GeArt;GeLfnr;GeVerbNr
+14;02;SVP;SVP - Illgau;30;0;984;0;;;Kant;1033797492;1033798194
+14;03;CVP;CVP - Illgau;266;0;8721;1;;;Kant;1033797492;1033798194
+14;04;SP-Gr-Ua;Sozialdemokratische Partei (SP), Grüne und Unabhängige - Illgau;9;0;295;0;;;Kant;1033797492;1033798194
+14;99;WoP;Wahlzettel ohne Parteibezeichnung;0;0;0;0;;;Kant;1033797492;1033798194
