@@ -52,31 +52,135 @@ names(ag_09_raw)
 ```
 
 ```{r}
-#| label: clean-and-inspect-ag-09
 
-# Create and clean a new dataset in memory
-ag_09_clean <- ag_09_raw |>
+# The district seat magnitudes and the official 2009 party seat totals
+# are taken from the official Aargau election documentation and are
+# hard-coded here as fixed inputs for the counterfactual exercise.
+
+# THEREFORE LOOK IF POSSIBLE TO FIND DATASET WITH THE SEAT MAGNITUDES AND THE OFFICIAL 2009 PARTY SEAT TOTALS
+ag_09_district_seats <- c(
+  "Bezirk Aarau" = 16L,
+  "Bezirk Baden" = 30L,
+  "Bezirk Bremgarten" = 16L,
+  "Bezirk Brugg" = 11L,
+  "Bezirk Kulm" = 9L,
+  "Bezirk Laufenburg" = 7L,
+  "Bezirk Lenzburg" = 12L,
+  "Bezirk Muri" = 7L,
+  "Bezirk Rheinfelden" = 10L,
+  "Bezirk Zofingen" = 15L,
+  "Bezirk Zurzach" = 7L
+)
+
+ag_09_parties <- c(
+  "svp", "sp", "cvp", "fdp", "gruene", "evp", "sd",
+  "edu", "bdp", "uns", "glp", "npak", "l_plus", "faag"
+)
+
+# Keep the district results and convert "..." (party did not stand) to zero
+ag_09_districts <- ag_09_raw |>
   clean_names() |>
-  rename( # Rename columns to standardized names
-    total_votes = total,
-    svp_votes = svp,
-    sp_votes = sp,
-    cvp_votes = cvp,
-    fdp_votes = fdp,
-    glp_votes = glp,
-    bdp_votes = bdp,
-    gruene_votes = gruene,
-  ) |>
-  select(-bfs_nr, -month, -day) |> # delete unnecessary columns
-  slice(-(13:241)) # drop not needed municipality level columns
+  filter(location_type == "DISTRICT") |>
+  mutate(
+    district_seats = unname(ag_09_district_seats[location_name]),
+    across(
+      c(total, all_of(ag_09_parties)),
+      ~ replace_na(as.numeric(na_if(as.character(.x), "...")), 0)
+    )
+  )
 
-# Inspect the cleaned data
+# Aargau's 2005 Hagenbach-Bischoff allocation, applied separately
+# within each district. The main counterfactual assumes no list alliances.
+allocate_hb <- function(votes, n_seats) {
+  distribution_number <- floor(sum(votes) / (n_seats + 1)) + 1
+  seats <- floor(votes / distribution_number)
+
+  while (sum(seats) < n_seats) {
+    quotients <- votes / (seats + 1)
+    winner <- which.max(quotients)
+    seats[winner] <- seats[winner] + 1L
+  }
+
+  as.integer(seats)
+}
+
+ag_09_hb_by_district <- ag_09_districts |>
+  select(location_name, district_seats, all_of(ag_09_parties)) |>
+  pivot_longer(
+    cols = all_of(ag_09_parties),
+    names_to = "parties",
+    values_to = "party_votes"
+  ) |>
+  group_by(location_name) |>
+  mutate(
+    seats_hb = allocate_hb(party_votes, first(district_seats)),
+    voter_number = floor(
+      party_votes / first(district_seats) + 0.5
+    )
+  ) |>
+  ungroup()
+
+# Official party seat totals under Double Pukelsheim in 2009
+ag_09_dp_seats <- tribble(
+  ~parties, ~seats_dp,
+  "SVP",          45L,
+  "SP",           22L,
+  "CVP",          21L,
+  "FDP",          20L,
+  "GRUENE",       13L,
+  "EVP",           6L,
+  "SD",            2L,
+  "EDU",           2L,
+  "BDP",           4L,
+  "UNS",           0L,
+  "GLP",           5L,
+  "NPAK",          0L,
+  "L_PLUS",        0L,
+  "FAAG",          0L
+)
+
+# Final election-party dataset
+ag_09_clean <- ag_09_hb_by_district |>
+  group_by(parties) |>
+  summarise(
+    voter_number = sum(voter_number),
+    seats_hb = sum(seats_hb),
+    .groups = "drop"
+  ) |>
+  mutate(
+    parties = str_to_upper(parties),
+    vote_share = 100 * voter_number / sum(voter_number),
+    small_party = as.integer(vote_share < 10)
+  ) |>
+  left_join(ag_09_dp_seats, by = "parties") |>
+  transmute(
+    election_id = "AG_09",
+    parties,
+    vote_share = round(vote_share, 4),
+    small_party,
+    seats_hb = as.integer(seats_hb),
+    seats_dp = as.integer(seats_dp)
+  ) |>
+  arrange(desc(vote_share))
+
+# Validation and inspection
+stopifnot(
+  identical(
+    names(ag_09_clean),
+    c("election_id", "parties", "vote_share", "small_party",
+      "seats_hb", "seats_dp")
+  ),
+  nrow(ag_09_clean) == length(ag_09_parties),
+  sum(ag_09_clean$seats_hb) == 140L,
+  sum(ag_09_clean$seats_dp) == 140L,
+  abs(sum(ag_09_clean$vote_share) - 100) < 0.01
+)
+
 glimpse(ag_09_clean)
-print(ag_09_clean, n = Inf)Q
+print(ag_09_clean, n = Inf)
 ```
 
-The canton of Aargau, used prior to the Double Pukelsheim system the Hagenbach-Bischoff method. While the HB System was in use, some parties formed alliances (Staatskanzlei des Kantons Aargau, 2005, S. 8).  For the main counterfactual analysis, the seats were calculated on base of that these alliances would not have been formed. For a Robustness check, the seats were also calculated on base of the actual votes, which includes the alliances. The results of both calculations are compared to the actual seat distribution.
-```{r}
+For the counterfactual, the 2009 district-level party votes and the 2009 district seat magnitudes are retained. The Hagenbach--Bischoff allocation follows Sections 12--13 of the Aargau Grossratswahlgesetz used for the 2005 election: the distribution number is the next integer above the valid party votes divided by the number of seats plus one; initial seats are the integer quotients; and remaining seats are assigned sequentially using the largest quotient of party votes divided by seats already received plus one (Kanton Aargau, 2004, pp. 6--7). Although Section 8 allowed list alliances in 2005, the main counterfactual treats every party independently because list alliances were abolished for the 2009 Double Pukelsheim election. The district seat magnitudes are the official assignments for the 2009 election (Staatskanzlei des Kantons Aargau, 2008), while `seats_dp` records the officially reported result (Statistisches Amt des Kantons Aargau, 2009). Vote shares use the cantonal *Wählerzahl*: each district's party votes are divided by its seat magnitude and rounded to the nearest integer before cantonal aggregation (Grossratswahlgesetz, Section 14).
 
 ### Results
 
@@ -87,6 +191,14 @@ The canton of Aargau, used prior to the Double Pukelsheim system the Hagenbach-B
 ## Conclusion
 
 ## Bibliography
+
+Kanton Aargau. (2004). *Grossratswahlgesetz: Änderung vom 8. Juni 2004*. Abstimmungsbroschüre zur kantonalen Volksabstimmung vom 26. September 2004, pp. 5--8. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20040926-abstimmungsbroschuere.pdf
+
+Kanton Aargau. (2008). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz), Fassung gemäss Gesetz vom 18. September 2007, in Kraft seit 1. Juli 2008*. https://gesetzessammlungen.ag.ch/api/de/versions/1234/pdf_file
+
+Staatskanzlei des Kantons Aargau. (2008, September 15). *Grossratswahlen: Vorverfahren gestartet*. https://www.ag.ch/de/medien/medienmitteilungen?mm=Grossratswahlen-Vorverfahren-gestartet-50a84551-3d6d-454c-a33c-5644c8bf50a5_de
+
+Statistisches Amt des Kantons Aargau. (2009, April 21). *Detailergebnisse der Grossratswahlen vom 8. März 2009*. https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de
 
 Staatskanzlei des Kantons Aargau. (2005, 7. März). Bezirksprotokolle über die Erneuerungswahl des Grossen Rats für die Amtsperiode 2005/2009: Wahltag: 27. Februar 2005 (Amtsblattbeilage 2005-1). https://doczz.net/doc/5954970/amtsblattbeilage_vom_07.03.2005
 
