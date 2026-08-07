@@ -1,5 +1,5 @@
 ---
-title: "20 Jahre Doppelter Pukelsheim in der Schweiz: Was ist der mechanische Effekt des Übergangs vom Hagenbach-Bischoff-Verfahren auf die Sitzverteilung kleinerer Parteien?"
+title: "20 Years of the Double Pukelsheim System in Switzerland: What Is the Mechanical Effect of the Transition from the Hagenbach-Bischoff Method on the Seat Distribution of Smaller Parties?"
 author: "Jan Moritz Beyn"
 date: today
 format:
@@ -7,11 +7,11 @@ format:
 ---
 ## Abstract
 
-Hier schreibe ich normalen Text.
+Here I write normal text.
 
 ## Introduction
 
-## Theory
+## Theory/Literature Review
 
 ## Hypotheses
 
@@ -20,8 +20,13 @@ Hier schreibe ich normalen Text.
 ```{r}
 #| echo: false
 #| warning: false
+#| message: false
 
+library(tidyverse)
 library(ggplot2)
+library(readxl)
+library(janitor)
+library(here)
 
 ```
 
@@ -29,6 +34,49 @@ library(ggplot2)
 To be able to analyze the data from the different elections and compare the outcomes. Each dataset has to be cleaned. For some cantons e.g. Valais and Schwyz the data is very scattered, therefore for these multiple datasets per election have to be cleaned and merged.
 
 The procedure for the data cleaning was the following: For each canton in alphabetically order, for each election the data was cleaned.
+
+To ensure the compatibility of the different datasets, the column names were standardized. The column names were renamed for each dataset to the following: "total_votes", "svp_votes", "sp_votes", "cvp_votes", "fdp_votes", "glp_votes", "bdp_votes", "green_votes", "other_votes". It might be that some of the datasets do not contain all of these columns, since the party landscapes varies geographically and over time. 
+
+```{r}
+#| label: inspect-ag-09-raw
+
+# Import and inspect the raw Aargau 2009 dataset
+ag_09_raw <- read_excel(
+  here("data", "datasets", "aargau", "AG_09_kantonsratswahlen.xlsx"),
+  sheet = "Data"
+)
+
+glimpse(ag_09_raw)
+print(ag_09_raw, n = 20)
+names(ag_09_raw)
+```
+
+```{r}
+#| label: clean-and-inspect-ag-09
+
+# Create and clean a new dataset in memory
+ag_09_clean <- ag_09_raw |>
+  clean_names() |>
+  rename( # Rename columns to standardized names
+    total_votes = total,
+    svp_votes = svp,
+    sp_votes = sp,
+    cvp_votes = cvp,
+    fdp_votes = fdp,
+    glp_votes = glp,
+    bdp_votes = bdp,
+    gruene_votes = gruene,
+  ) |>
+  select(-bfs_nr, -month, -day) |> # delete unnecessary columns
+  slice(-(13:241)) # drop not needed municipality level columns
+
+# Inspect the cleaned data
+glimpse(ag_09_clean)
+print(ag_09_clean, n = Inf)Q
+```
+
+The canton of Aargau, used prior to the Double Pukelsheim system the Hagenbach-Bischoff method. While the HB System was in use, some parties formed alliances (Staatskanzlei des Kantons Aargau, 2005, S. 8).  For the main counterfactual analysis, the seats were calculated on base of that these alliances would not have been formed. For a Robustness check, the seats were also calculated on base of the actual votes, which includes the alliances. The results of both calculations are compared to the actual seat distribution.
+```{r}
 
 ### Results
 
@@ -39,6 +87,8 @@ The procedure for the data cleaning was the following: For each canton in alphab
 ## Conclusion
 
 ## Bibliography
+
+Staatskanzlei des Kantons Aargau. (2005, 7. März). Bezirksprotokolle über die Erneuerungswahl des Grossen Rats für die Amtsperiode 2005/2009: Wahltag: 27. Februar 2005 (Amtsblattbeilage 2005-1). https://doczz.net/doc/5954970/amtsblattbeilage_vom_07.03.2005
 
 ## Appendix
 
