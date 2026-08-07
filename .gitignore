@@ -2,3 +2,13 @@
 .Rhistory
 .RData
 .Ruserdata
+.positai
+
+# Local R/renv state (keep renv.lock and renv/activate.R tracked)
+renv/library/
+renv/staging/
+renv/python/
+renv/sandbox/
+
+# Quarto's local working directory
+.quarto/

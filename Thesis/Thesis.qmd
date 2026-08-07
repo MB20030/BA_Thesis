@@ -5,12 +5,17 @@ date: today
 format:
   typst: default
 ---
-
-## Einleitung
+## Abstract
 
 Hier schreibe ich normalen Text.
 
-## Analyse
+## Introduction
+
+## Theory
+
+## Hypotheses
+
+## Analysis
 
 ```{r}
 #| echo: false
@@ -18,9 +23,27 @@ Hier schreibe ich normalen Text.
 
 library(ggplot2)
 
-ggplot(mtcars, aes(x = hp, y = mpg)) +
-  geom_point() +
-  labs(title = "Mein erster Plot")
 ```
 
-Der Mittelwert beträgt `r round(mean(mtcars$mpg), 2)`.
+### Data Cleaning
+To be able to analyze the data from the different elections and compare the outcomes. Each dataset has to be cleaned. For some cantons e.g. Valais and Schwyz the data is very scattered, therefore for these multiple datasets per election have to be cleaned and merged.
+
+The procedure for the data cleaning was the following: For each canton in alphabetically order, for each election the data was cleaned.
+
+### Results
+
+#### Interpretation of the Results
+
+## Discussion
+
+## Conclusion
+
+## Bibliography
+
+## Appendix
+
+### Appendix 1: Explanation Data Cleaning Process
+
+### Appendix 2: Code for Data Cleaning
+
+## Declaration of AI-Assistance
