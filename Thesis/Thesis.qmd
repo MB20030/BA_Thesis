@@ -31,7 +31,7 @@ library(here)
 ```
 
 ### Data Cleaning
-To be able to analyze the data from the different elections and compare the outcomes. Each dataset has to be cleaned. For some cantons e.g. Valais and Schwyz the data is very scattered, therefore for these multiple datasets per election have to be cleaned and merged.
+To be able to analyze the data from the different elections and compare the outcomes. each dataset has to be cleaned. The data  For some cantons e.g. Valais and Schwyz the data is very scattered, therefore for there multiple datasets per election have to be cleaned and merged.
 
 The procedure for the data cleaning was the following: For each canton in alphabetically order, for each election the data was cleaned.
 
@@ -54,10 +54,8 @@ names(ag_09_raw)
 ```{r}
 
 # The district seat magnitudes and the official 2009 party seat totals
-# are taken from the official Aargau election documentation and are
-# hard-coded here as fixed inputs for the counterfactual exercise.
+# aren't officially available as a CSV/XLSX file they were therefore taken from a press release from the Canton of Aargau prior to the elections. (Kanton Aargau, 2008) 
 
-# THEREFORE LOOK IF POSSIBLE TO FIND DATASET WITH THE SEAT MAGNITUDES AND THE OFFICIAL 2009 PARTY SEAT TOTALS
 ag_09_district_seats <- c(
   "Bezirk Aarau" = 16L,
   "Bezirk Baden" = 30L,
@@ -193,6 +191,9 @@ For the counterfactual, the 2009 district-level party votes and the 2009 distric
 ## Bibliography
 
 Kanton Aargau. (2004). *Grossratswahlgesetz: Änderung vom 8. Juni 2004*. Abstimmungsbroschüre zur kantonalen Volksabstimmung vom 26. September 2004, pp. 5--8. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20040926-abstimmungsbroschuere.pdf
+
+Kanton Aargau. (2008, September 15). Grossratswahlen: Vorverfahren gestartet. https://www.ag.ch/de/medien/medienmitteilungen?mm=Grossratswahlen-Vorverfahren-gestartet-50a84551-3d6d-454c-a33c-5644c8bf50a5_de
+
 
 Kanton Aargau. (2008). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz), Fassung gemäss Gesetz vom 18. September 2007, in Kraft seit 1. Juli 2008*. https://gesetzessammlungen.ag.ch/api/de/versions/1234/pdf_file
 
