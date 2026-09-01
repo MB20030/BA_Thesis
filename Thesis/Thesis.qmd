@@ -73,15 +73,24 @@ The official Double Pukelsheim results (`seats_dp`) are sourced from official ca
 
 ## Bibliography
 
+### Textsources
+
+### Datasources
 Department für Finanzen und Ressourcen des Kantons Aargau. (2009, April 21). *Detailergebnisse der Grossratswahlen vom 8. März 2009*. https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de
 
 Kanton Aargau. (2004). *Grossratswahlgesetz: Änderung vom 8. Juni 2004*. Abstimmungsbroschüre zur kantonalen Volksabstimmung vom 26. September 2004, pp. 5--8. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20040926-abstimmungsbroschuere.pdf
 
 Kanton Aargau. (2008). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz), Fassung gemäss Gesetz vom 18. September 2007, in Kraft seit 1. Juli 2008*. https://gesetzessammlungen.ag.ch/api/de/versions/1234/pdf_file
 
+Regierungsrat des Kantons Aargau. (2013). Jahresbericht mit Jahresrechnung 2012. Kanton Aargau. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
+
+Statistisches Amt Kanton Aargau. (n.d.). Grossratswahlen: Detailresultate, ab 1985 [Data set]. Kanton Aargau. Retrieved September 1, 2026, from https://www.ag.ch/app/staag/statistikportal/
+
 Staatskanzlei des Kantons Aargau. (2008, September 15). *Grossratswahlen: Vorverfahren gestartet*. https://www.ag.ch/de/medien/medienmitteilungen?mm=Grossratswahlen-Vorverfahren-gestartet-50a84551-3d6d-454c-a33c-5644c8bf50a5_de
 
 Staatskanzlei des Kantons Aargau. (2005, 7. März). Bezirksprotokolle über die Erneuerungswahl des Grossen Rats für die Amtsperiode 2005/2009: Wahltag: 27. Februar 2005 (Amtsblattbeilage 2005-1). https://doczz.net/doc/5954970/amtsblattbeilage_vom_07.03.2005
+
+
 
 ## Appendix
 
