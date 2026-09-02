@@ -343,6 +343,8 @@ ag_09_parties <- setdiff(
   # 2016 Election
   # ===========================================================================
 
+  # Import raw Aargau 2016 dataset
+  # (Statistisches Amt Kanton Aargau, n.d.)
   ag_16_raw <- read_excel(
     here("data", "datasets", "aargau", "AG_16_kantonsratswahlen.xlsx"),
     sheet = "Data"
@@ -351,14 +353,15 @@ ag_09_parties <- setdiff(
 
   ag_16_parties <- setdiff(names(ag_16_raw), non_party_columns)
 
+  # Import raw seat allocation result 
+  # (Statistisches Amt Kanton Aargau, n.d.)
   ag_16_official_results <- read_ag_cantonal_seats(
     "AG_16_seats_cantonal_level.xlsx",
     2016,
     ag_16_parties
   )
 
-  # District seat magnitudes for 2016
-  # Source: Staatskanzlei des Kantons Aargau (2016)
+  # District seat magnitudes for 2016, (Staatskanzlei des Kantons Aargau, 2016)
   ag_16_district_seats <- c(
     "Bezirk Aarau" = 16L,
     "Bezirk Baden" = 30L,
@@ -426,7 +429,9 @@ ag_09_parties <- setdiff(
   # ===========================================================================
   # 2020 Election
   # ===========================================================================
-
+  
+  # Import raw Aargau 2020 dataset
+  # (Statistisches Amt Kanton Aargau, n.d.)
   ag_20_raw <- read_excel(
     here("data", "datasets", "aargau", "AG_20_kantonsratswahlen.xlsx"),
     sheet = "Data"
@@ -435,6 +440,8 @@ ag_09_parties <- setdiff(
 
   ag_20_parties <- setdiff(names(ag_20_raw), non_party_columns)
 
+  # Import raw district seat allocation and results dataset
+  # (Statistisches Amt Kanton Aargau, n.d.)
   ag_20_reference <- read_ag_district_seats_and_results(
     "AG_20_district_magnitudes_seat_allocation.xlsx",
     2020,
@@ -496,6 +503,8 @@ ag_09_parties <- setdiff(
   # 2024 Election
   # ===========================================================================
 
+  # Import raw Aargau 2024 dataset
+  # (Statistisches Amt Kanton Aargau, n.d.)
   ag_24_raw <- read_excel(
     here("data", "datasets", "aargau", "AG_24_kantonsratswahlen.xlsx"),
     sheet = "Data"
@@ -504,6 +513,8 @@ ag_09_parties <- setdiff(
 
   ag_24_parties <- setdiff(names(ag_24_raw), non_party_columns)
 
+   # Import raw district seat allocation and results dataset
+   # (Statistisches Amt Kanton Aargau, n.d.)
   ag_24_reference <- read_ag_district_seats_and_results(
     "AG_24_district_magnitudes_seat_allocation.xlsx",
     2024,
