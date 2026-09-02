@@ -1,42 +1,42 @@
 # BA Thesis
 
-Das eigenständige Repository für meine Bachelorarbeit.
+This repository contains the source files and the rendered PDF for my Bachelor's thesis.
 
-## Voraussetzungen
+## Requirements
 
-- R 4.5 oder neuer
-- RStudio Desktop (enthält Quarto)
+- R 4.5 or newer
+- RStudio Desktop (includes Quarto)
 - Git
 
-R 4.5.1, RStudio 2026.04 und Quarto 1.9.36 sind auf diesem Rechner bereits
-installiert. Python und `uv` werden nicht benötigt.
+## Setup
 
-## Ersteinrichtung
+1. Open `BA_Thesis.Rproj` in RStudio.
+2. In the R console run:
 
-1. `BA_Thesis.Rproj` in RStudio öffnen.
-2. In der R-Konsole einmal `source("setup.R")` ausführen.
-3. R anschließend neu starten, damit die lokale `renv`-Umgebung aktiv ist.
+```r
+source("setup.R")
+```
 
-Auf einem neuen Rechner können die festgeschriebenen Paketversionen auch direkt
-mit `renv::restore()` installiert werden.
+3. Restart R to activate the local `renv` environment.
 
-## Thesis rendern
+On a new machine you can also install the locked package versions with `renv::restore()`.
 
-In RStudio `Thesis/Thesis.qmd` öffnen und auf **Render** klicken. Alternativ in
-der R-Konsole:
+## Render the thesis
+
+In RStudio open `Thesis/Thesis.qmd` and click "Render", or run:
 
 ```r
 quarto::quarto_render("Thesis/Thesis.qmd")
 ```
 
-Die PDF wird als `Thesis/Thesis.pdf` gespeichert.
+The PDF will be created at `Thesis/Thesis.pdf`.
 
-## Struktur
+## Repository structure
 
-- `Thesis/`: Quarto-Quelldatei und gerenderte PDF der Bachelorarbeit
-- `data/datasets/`: Rohdaten nach Kanton
-- `data/preparation_and_training/`: R-Skripte für Vorbereitung und Analysen
-- `sources/`: Literatur und Quellen
-- `formalities/`: universitäre Vorgaben und Fristen
-- `proposal/`: Exposé und Planung
-- `thesis_colloqium/`: Kolloquiumsunterlagen
+- `Thesis/`: Quarto source and rendered PDF
+- `data/datasets/`: raw data by canton
+- `data/preparation_and_training/`: R scripts for data preparation and analysis
+- `sources/`: literature and references
+- `formalities/`: university guidelines and deadlines
+- `proposal/`: proposal and planning
+- `thesis_colloqium/`: colloquium materials
