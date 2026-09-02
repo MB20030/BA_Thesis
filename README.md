@@ -49,6 +49,7 @@ The PDF will be created at `Thesis/Thesis.pdf`.
 - `Thesis/`: Quarto source and rendered PDF
 - `data/datasets/`: raw data by canton
 - `data/preparation_and_training/`: R scripts for data preparation and analysis
+- `data_cleaning_canton/` : The R Code for the cleaning of all elections
 - `sources/`: literature and references
 - `formalities/`: university guidelines and deadlines
 - `proposal/`: proposal and planning
