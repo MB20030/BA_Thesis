@@ -1,5 +1,5 @@
 # Aargau-specific data cleaning and processing
-# Processes all Aargau elections (2009, 2012, 2015, 2019, 2023) and returns a unified dataset.
+# Processes all Aargau elections (2009, 2012, 2016, 2020, 2024) and returns a unified dataset.
 # 
 # This script extracts Aargau data from raw Excel files,
 # applies Hagenbach-Bischoff allocation, and merges with official results.
@@ -19,7 +19,7 @@ read_ag_cantonal_seats <- function(file_name, election_year, election_parties) {
     na = c("", "...")                             # Treat empty cells and "..." as missing values.
   )
 
-  # Give the party-result columns consistent names across the official files.
+  # Give the party result columns consistent names across the official files.
   names(official_raw)[7:20] <- c(
     "total", "svp", "sp", "cvp", "fdp", "gruene", "evp", "glp",
     "bdp", "edu", "sd", "fps", "ldu", "uebrige"
@@ -29,10 +29,10 @@ read_ag_cantonal_seats <- function(file_name, election_year, election_parties) {
     # Keep the single cantonal-level row for the requested election year.
     filter(year == election_year, locationType == "CANTON")
 
-  # Stop immediately if the expected row is missing/duplicated or does not report 140 seats.
+ 
   stopifnot(
-    nrow(official_row) == 1L,
-    as.integer(official_row$total) == 140L
+    nrow(official_row) == 1L, # stop if not exactly one row
+    as.integer(official_row$total) == 140L # stop if not exactly 140 seats
   )
 
   reported_seats <- official_row |>
@@ -40,7 +40,7 @@ read_ag_cantonal_seats <- function(file_name, election_year, election_parties) {
     pivot_longer(
       cols = everything(),       # Reshape every selected party column into a row.
       names_to = "party",       # Store the former column name as the party identifier.
-      values_to = "seats_dp"    # Store the official Double-Pukelsheim seats as a value.
+      values_to = "seats_dp"    # Store  official Double-Pukelsheim seats as a value.
     ) |>
     transmute(
       party = str_to_upper(party),                       # Match the uppercase party codes used later for joining.
@@ -56,6 +56,65 @@ read_ag_cantonal_seats <- function(file_name, election_year, election_parties) {
       seats_dp = replace_na(seats_dp, 0L)              # Give unreported contesting parties zero seats.
     ) |>
     select(canton, year, party, seats_dp) # Return only the standardized columns needed for the later join.
+}
+
+read_ag_district_seats_and_results <- function(
+  file_name,
+  election_year,
+  election_parties,
+  result_party_names
+) {
+  allocation_raw <- read_excel(
+    here("data", "datasets", "aargau", file_name),
+    sheet = "Data",
+    na = c("", "...")
+  ) |>
+    clean_names()
+
+  # The first result block contains the district magnitude in its TOTAL column
+  # and the official Double-Pukelsheim party allocations in the following columns.
+  names(allocation_raw)[7:18] <- c("district_seats", result_party_names)
+
+  district_seats <- allocation_raw |>
+    filter(year == election_year, location_type == "DISTRICT") |>
+    transmute(
+      location_name,
+      district_seats = as.integer(district_seats)
+    )
+
+  reported_seats <- allocation_raw |>
+    filter(year == election_year, location_type == "CANTON") |>
+    select(all_of(result_party_names)) |>
+    pivot_longer(
+      cols = everything(),
+      names_to = "party",
+      values_to = "seats_dp"
+    ) |>
+    transmute(
+      party = str_to_upper(party),
+      seats_dp = replace_na(as.integer(seats_dp), 0L)
+    )
+
+  official_results <- tibble(party = str_to_upper(election_parties)) |>
+    left_join(reported_seats, by = "party") |>
+    mutate(
+      canton = "AG",
+      year = as.integer(election_year),
+      seats_dp = replace_na(seats_dp, 0L)
+    ) |>
+    select(canton, year, party, seats_dp)
+
+  stopifnot(
+    nrow(district_seats) == 11L,
+    !anyNA(district_seats$district_seats),
+    sum(district_seats$district_seats) == 140L,
+    sum(official_results$seats_dp) == 140L
+  )
+
+  list(
+    district_seats = district_seats,
+    official_results = official_results
+  )
 }
 
 process_canton_AG <- function() {
@@ -115,7 +174,7 @@ ag_09_parties <- setdiff(
   )
   
   # Clean and prepare district-level data
-  # "..." entries (party did not stand) are converted to zero
+  # "..." (empty) entries are converted to zero
  ag_09_districts <- ag_09_raw |>
   filter(location_type == "DISTRICT") |> # Keep only district-level observations.
   mutate(
@@ -132,8 +191,8 @@ ag_09_parties <- setdiff(
   )
   
   # Apply Hagenbach-Bischoff allocation separately per district
-  # This implements the 2005 Aargau Grossratswahlgesetz (Sections 12-13)
-  # Assumes no list alliances (as per 2009 law)
+  # This implements the old Method used in Aargau (BGE 91 I 266, 1965, pp. 268–269).
+  # Assumes no list alliances since none are allowed in Aargau (Grossratswahlgesetz [GRWG], 1988/2007, § 8 para. 1).
   ag_09_hb_by_district <- ag_09_districts |>
     select(location_name, district_seats, all_of(ag_09_parties)) |>
     pivot_longer(
@@ -186,7 +245,7 @@ ag_09_parties <- setdiff(
   # Import raw Aargau 2012 dataset
   # (Statistisches Amt Kanton Aargau, n.d.)
   ag_12_raw <- read_excel(
-    here("data", "datasets", "aargau", "AG_13_kantonsratswahlen.xlsx"),
+    here("data", "datasets", "aargau", "AG_12_kantonsratswahlen.xlsx"),
     sheet = "Data"
   )
 
@@ -204,8 +263,7 @@ ag_09_parties <- setdiff(
     ag_12_parties                       # Ensure every party contesting in 2012 appears in the output.
   )
 
-  # District seat magnitudes for 2012
-  # Source: Staatskanzlei des Kantons Aargau (2008)
+  # District seat magnitudes for 2012 (Staatskanzlei des Kantons Aargau, 2012)
   ag_12_district_seats <- c(
     "Bezirk Aarau" = 16L,
     "Bezirk Baden" = 30L,
@@ -234,8 +292,8 @@ ag_09_parties <- setdiff(
     )
 
   # Apply Hagenbach-Bischoff allocation separately per district
-  # This implements the 2005 Aargau Grossratswahlgesetz (Sections 12-13)
-  # Assumes no list alliances (as per 2009 law)
+  # This implements the old Method used in Aargau (BGE 91 I 266, 1965, pp. 268–269).
+  # NO list alliances assumed since none are allowed in Aargau (Grossratswahlgesetz [GRWG], 1988/2007, § 8 para. 1).
   ag_12_hb_by_district <- ag_12_districts |>
     select(location_name, district_seats, all_of(ag_12_parties)) |>
     pivot_longer(
@@ -282,13 +340,248 @@ ag_09_parties <- setdiff(
   )
 
   # ===========================================================================
+  # 2016 Election
+  # ===========================================================================
+
+  ag_16_raw <- read_excel(
+    here("data", "datasets", "aargau", "AG_16_kantonsratswahlen.xlsx"),
+    sheet = "Data"
+  ) |>
+    clean_names()
+
+  ag_16_parties <- setdiff(names(ag_16_raw), non_party_columns)
+
+  ag_16_official_results <- read_ag_cantonal_seats(
+    "AG_16_seats_cantonal_level.xlsx",
+    2016,
+    ag_16_parties
+  )
+
+  # District seat magnitudes for 2016
+  # Source: Staatskanzlei des Kantons Aargau (2016)
+  ag_16_district_seats <- c(
+    "Bezirk Aarau" = 16L,
+    "Bezirk Baden" = 30L,
+    "Bezirk Bremgarten" = 16L,
+    "Bezirk Brugg" = 11L,
+    "Bezirk Kulm" = 9L,
+    "Bezirk Laufenburg" = 7L,
+    "Bezirk Lenzburg" = 12L,
+    "Bezirk Muri" = 7L,
+    "Bezirk Rheinfelden" = 10L,
+    "Bezirk Zofingen" = 15L,
+    "Bezirk Zurzach" = 7L
+  )
+
+  ag_16_districts <- ag_16_raw |>
+    filter(location_type == "DISTRICT") |>
+    mutate(
+      district_seats = unname(ag_16_district_seats[location_name]),
+      across(
+        c(total, all_of(ag_16_parties)),
+        ~ replace_na(as.numeric(na_if(as.character(.x), "...")), 0)
+      )
+    )
+
+  ag_16_hb_by_district <- ag_16_districts |>
+    select(location_name, district_seats, all_of(ag_16_parties)) |>
+    pivot_longer(
+      cols = all_of(ag_16_parties),
+      names_to = "parties",
+      values_to = "party_votes"
+    ) |>
+    group_by(location_name) |>
+    mutate(
+      seats_hb = allocate_hb(party_votes, first(district_seats)),
+      voter_number = floor(party_votes / first(district_seats) + 0.5)
+    ) |>
+    ungroup()
+
+  ag_16_hb_summary <- ag_16_hb_by_district |>
+    group_by(parties) |>
+    summarise(
+      voter_number = sum(voter_number),
+      seats_hb = sum(seats_hb),
+      .groups = "drop"
+    ) |>
+    mutate(
+      parties = str_to_upper(parties),
+      vote_share = 100 * voter_number / sum(voter_number)
+    ) |>
+    select(parties, vote_share, seats_hb)
+
+  ag_16_final <- finalize_election_data(
+    ag_16_hb_summary,
+    ag_16_official_results,
+    "AG",
+    2016
+  )
+
+  stopifnot(
+    nrow(ag_16_final) == length(ag_16_parties),
+    sum(ag_16_final$seats_hb) == 140L,
+    sum(ag_16_final$seats_dp) == 140L
+  )
+
+  # ===========================================================================
+  # 2020 Election
+  # ===========================================================================
+
+  ag_20_raw <- read_excel(
+    here("data", "datasets", "aargau", "AG_20_kantonsratswahlen.xlsx"),
+    sheet = "Data"
+  ) |>
+    clean_names()
+
+  ag_20_parties <- setdiff(names(ag_20_raw), non_party_columns)
+
+  ag_20_reference <- read_ag_district_seats_and_results(
+    "AG_20_district_magnitudes_seat_allocation.xlsx",
+    2020,
+    ag_20_parties,
+    c("svp", "fdp", "sp", "cvp", "gruene", "glp", "evp", "edu", "lovb", "fff", "ppag")
+  )
+
+  ag_20_districts <- ag_20_raw |>
+    filter(location_type == "DISTRICT") |>
+    left_join(ag_20_reference$district_seats, by = "location_name") |>
+    mutate(
+      across(
+        c(total, all_of(ag_20_parties)),
+        ~ replace_na(as.numeric(na_if(as.character(.x), "...")), 0)
+      )
+    )
+
+  ag_20_hb_by_district <- ag_20_districts |>
+    select(location_name, district_seats, all_of(ag_20_parties)) |>
+    pivot_longer(
+      cols = all_of(ag_20_parties),
+      names_to = "parties",
+      values_to = "party_votes"
+    ) |>
+    group_by(location_name) |>
+    mutate(
+      seats_hb = allocate_hb(party_votes, first(district_seats)),
+      voter_number = floor(party_votes / first(district_seats) + 0.5)
+    ) |>
+    ungroup()
+
+  ag_20_hb_summary <- ag_20_hb_by_district |>
+    group_by(parties) |>
+    summarise(
+      voter_number = sum(voter_number),
+      seats_hb = sum(seats_hb),
+      .groups = "drop"
+    ) |>
+    mutate(
+      parties = str_to_upper(parties),
+      vote_share = 100 * voter_number / sum(voter_number)
+    ) |>
+    select(parties, vote_share, seats_hb)
+
+  ag_20_final <- finalize_election_data(
+    ag_20_hb_summary,
+    ag_20_reference$official_results,
+    "AG",
+    2020
+  )
+
+  stopifnot(
+    nrow(ag_20_final) == length(ag_20_parties),
+    sum(ag_20_final$seats_hb) == 140L,
+    sum(ag_20_final$seats_dp) == 140L
+  )
+
+  # ===========================================================================
+  # 2024 Election
+  # ===========================================================================
+
+  ag_24_raw <- read_excel(
+    here("data", "datasets", "aargau", "AG_24_kantonsratswahlen.xlsx"),
+    sheet = "Data"
+  ) |>
+    clean_names()
+
+  ag_24_parties <- setdiff(names(ag_24_raw), non_party_columns)
+
+  ag_24_reference <- read_ag_district_seats_and_results(
+    "AG_24_district_magnitudes_seat_allocation.xlsx",
+    2024,
+    ag_24_parties,
+    c("svp", "fdp", "sp", "diemitte", "gruene", "glp", "evp", "edu", "lovb", "fff", "ppag")
+  )
+
+  ag_24_districts <- ag_24_raw |>
+    filter(location_type == "DISTRICT") |>
+    left_join(ag_24_reference$district_seats, by = "location_name") |>
+    mutate(
+      across(
+        c(total, all_of(ag_24_parties)),
+        ~ replace_na(as.numeric(na_if(as.character(.x), "...")), 0)
+      )
+    )
+
+  ag_24_hb_by_district <- ag_24_districts |>
+    select(location_name, district_seats, all_of(ag_24_parties)) |>
+    pivot_longer(
+      cols = all_of(ag_24_parties),
+      names_to = "parties",
+      values_to = "party_votes"
+    ) |>
+    group_by(location_name) |>
+    mutate(
+      seats_hb = allocate_hb(party_votes, first(district_seats)),
+      voter_number = floor(party_votes / first(district_seats) + 0.5)
+    ) |>
+    ungroup()
+
+  ag_24_hb_summary <- ag_24_hb_by_district |>
+    group_by(parties) |>
+    summarise(
+      voter_number = sum(voter_number),
+      seats_hb = sum(seats_hb),
+      .groups = "drop"
+    ) |>
+    mutate(
+      parties = str_to_upper(parties),
+      vote_share = 100 * voter_number / sum(voter_number)
+    ) |>
+    select(parties, vote_share, seats_hb)
+
+  ag_24_final <- finalize_election_data(
+    ag_24_hb_summary,
+    ag_24_reference$official_results,
+    "AG",
+    2024
+  )
+
+  stopifnot(
+    nrow(ag_24_final) == length(ag_24_parties),
+    sum(ag_24_final$seats_hb) == 140L,
+    sum(ag_24_final$seats_dp) == 140L
+  )
+
+  # ===========================================================================
   # Combine all Aargau elections
   # ===========================================================================
 
   ag_final <- bind_rows(
     ag_09_final,
-    ag_12_final
+    ag_12_final,
+    ag_16_final,
+    ag_20_final,
+    ag_24_final
   ) # Stack the standardized election results into one Aargau dataset.
 
   return(ag_final) # Make the combined Aargau dataset available to the calling script.
 }
+#temporary check
+ag_cleaned <- process_canton_AG()
+
+print(ag_cleaned, n = Inf)
+
+View(dplyr::filter(ag_cleaned, election_id == "AG_09"))
+View(dplyr::filter(ag_cleaned, election_id == "AG_12"))
+View(dplyr::filter(ag_cleaned, election_id == "AG_16"))
+View(dplyr::filter(ag_cleaned, election_id == "AG_20"))
+View(dplyr::filter(ag_cleaned, election_id == "AG_24"))
