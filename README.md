@@ -5,25 +5,38 @@ This repository contains the source files and the rendered PDF for my Bachelor's
 ## Requirements
 
 - R 4.5 or newer
-- RStudio Desktop (includes Quarto)
+- Visual Studio Code (with the R extension) or another editor
 - Git
+- Quarto (for rendering)
 
 ## Setup
 
-1. Open `BA_Thesis.Rproj` in RStudio.
-2. In the R console run:
+1. Open the project folder in Visual Studio Code.
+2. Start an R session (e.g. using the VS Code R extension) and run:
 
 ```r
 source("setup.R")
 ```
 
-3. Restart R to activate the local `renv` environment.
+Or from a terminal run:
+
+```bash
+Rscript -e "source('setup.R')"
+```
+
+3. Restart the R session to activate the local `renv` environment.
 
 On a new machine you can also install the locked package versions with `renv::restore()`.
 
 ## Render the thesis
 
-In RStudio open `Thesis/Thesis.qmd` and click "Render", or run:
+From the terminal run:
+
+```bash
+quarto render Thesis/Thesis.qmd
+```
+
+Or render from R:
 
 ```r
 quarto::quarto_render("Thesis/Thesis.qmd")
