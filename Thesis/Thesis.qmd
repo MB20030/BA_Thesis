@@ -117,6 +117,8 @@ The official Double Pukelsheim results (`seats_dp`) are sourced from official ca
 ### Datasources
 Bundesgericht. (1965). BGE 91 I 266. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F91-I-266%3Ade&lang=de&type=show_document
 
+Bundesgericht. (2010). BGE 136 I 352. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document
+
 Department für Finanzen und Ressourcen des Kantons Aargau. (2009, April 21). *Detailergebnisse der Grossratswahlen vom 8. März 2009*. https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de
 
 Kanton Aargau. (1988/2007). Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG), § 8 Abs. 1. https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file
@@ -141,7 +143,13 @@ Staatskanzlei des Kantons Aargau. (2016, March 18). Ausschreibung der Grossrats-
 
 Staatskanzlei des Kantons Aargau. (2005, March 7). Bezirksprotokolle über die Erneuerungswahl des Grossen Rats für die Amtsperiode 2005/2009: Wahltag: 27. Februar 2005 (Amtsblattbeilage 2005-1). https://doczz.net/doc/5954970/amtsblattbeilage_vom_07.03.2005
 
+Staatskanzlei Nidwalden. (2014). Wahlergebnis der Landratswahlen vom 23. März 2014 [Unpublished raw data]. Kanton Nidwalden.
 
+Staatskanzlei Nidwalden. (2018). Wahlergebnis der Landratswahlen vom 4. März 2018 [Unpublished raw data]. Kanton Nidwalden.
+
+Staatskanzlei Nidwalden. (2022). Wahlergebnis der Landratswahlen vom 13. März 2022 [Unpublished raw data]. Kanton Nidwalden.
+
+Staatskanzlei Nidwalden. (2026). Wahlergebnis der Landratswahlen vom 8. März 2026 [Unpublished raw data]. Kanton Nidwalden.
 
 ## Appendix
 
