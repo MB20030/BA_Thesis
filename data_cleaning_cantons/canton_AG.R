@@ -12,6 +12,9 @@ library(readxl)
 library(janitor)
 library(here)
 
+# Ensure here() uses the correct project root.
+here::i_am("data_cleaning_cantons/canton_AG.R")
+
 read_ag_cantonal_seats <- function(file_name, election_year, election_parties) {
   official_raw <- read_excel(
     here("data", "datasets", "aargau", file_name), # Build a project-independent path to the election file.
@@ -19,7 +22,7 @@ read_ag_cantonal_seats <- function(file_name, election_year, election_parties) {
     na = c("", "...")                             # Treat empty cells and "..." as missing values.
   )
 
-  # Give the party result columns consistent names across the official files.
+  # Rename and match name of the parties from seats_cantonal_level files
   names(official_raw)[7:20] <- c(
     "total", "svp", "sp", "cvp", "fdp", "gruene", "evp", "glp",
     "bdp", "edu", "sd", "fps", "ldu", "uebrige"
@@ -69,7 +72,7 @@ read_ag_district_seats_and_results <- function(
     sheet = "Data",
     na = c("", "...")
   ) |>
-    clean_names()
+    janitor::clean_names()
 
   # The first result block contains the district magnitude in its TOTAL column
   # and the official Double-Pukelsheim party allocations in the following columns.
@@ -130,7 +133,7 @@ ag_09_raw <- read_excel(
   here("data", "datasets", "aargau", "AG_09_kantonsratswahlen.xlsx"),
   sheet = "Data"
 ) |>
-  clean_names()
+  janitor::clean_names()
 
 # Identify the columns containing administrative information rather than parties.
 non_party_columns <- c(
@@ -281,7 +284,7 @@ ag_09_parties <- setdiff(
   # Clean and prepare district-level data
   # "..." entries (party did not stand) are converted to zero
   ag_12_districts <- ag_12_raw |>
-    clean_names() |> # Standardize the imported Excel column names to snake_case.
+    janitor::clean_names() |> # Standardize the imported Excel column names to snake_case.
     filter(location_type == "DISTRICT") |> # Exclude canton-level and other non-district rows.
     mutate(
       district_seats = unname(ag_12_district_seats[location_name]), # Match each district to its seat magnitude.
@@ -349,7 +352,7 @@ ag_09_parties <- setdiff(
     here("data", "datasets", "aargau", "AG_16_kantonsratswahlen.xlsx"),
     sheet = "Data"
   ) |>
-    clean_names()
+    janitor::clean_names()
 
   ag_16_parties <- setdiff(names(ag_16_raw), non_party_columns)
 
@@ -436,7 +439,7 @@ ag_09_parties <- setdiff(
     here("data", "datasets", "aargau", "AG_20_kantonsratswahlen.xlsx"),
     sheet = "Data"
   ) |>
-    clean_names()
+    janitor::clean_names()
 
   ag_20_parties <- setdiff(names(ag_20_raw), non_party_columns)
 
@@ -509,7 +512,7 @@ ag_09_parties <- setdiff(
     here("data", "datasets", "aargau", "AG_24_kantonsratswahlen.xlsx"),
     sheet = "Data"
   ) |>
-    clean_names()
+    janitor::clean_names()
 
   ag_24_parties <- setdiff(names(ag_24_raw), non_party_columns)
 
@@ -586,13 +589,3 @@ ag_09_parties <- setdiff(
 
   return(ag_final) # Make the combined Aargau dataset available to the calling script.
 }
-#temporary check
-ag_cleaned <- process_canton_AG()
-
-print(ag_cleaned, n = Inf)
-
-View(dplyr::filter(ag_cleaned, election_id == "AG_09"))
-View(dplyr::filter(ag_cleaned, election_id == "AG_12"))
-View(dplyr::filter(ag_cleaned, election_id == "AG_16"))
-View(dplyr::filter(ag_cleaned, election_id == "AG_20"))
-View(dplyr::filter(ag_cleaned, election_id == "AG_24"))

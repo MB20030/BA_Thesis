@@ -10,12 +10,48 @@ format:
 Here I write normal text.
 
 ## Introduction
+Switzerland’s cantonal electoral reforms of the last two decades have brought renewed attention to a central question of representative democracy: how parliamentary seats can be distributed in a way that reflects voter preferences as fairly as possible while still preserving territorial representation. In the Swiss case, this debate became especially prominent because traditional proportional systems in small constituencies often generated high implicit thresholds. These electoral systems therefore dis-advantaged smaller parties which led to raising concerns about electoral equality (Bundeskanzlei, 2013, pp. 8–10). The double-proportional allocation method, commonly known as the double Pukelsheim, emerged in this context as a reform intended to reduce such distortions and to strength-en the equal weight of votes across the canton (Lüscher, 2023, p. 571).
+
+At the core of this debate lies the contrast between two different logics of seat allocation. The tradi-tional Hagenbach-Bischoff method belongs to the family of divisor methods with downward round-ing and therefore tends to benefit larger parties, especially in smaller electoral districts. (Bun-deskanzlei, 2013, pp. 6–7). By contrast, the double Pukelsheim combines a canton-wide upper alloca-tion with a subsequent redistribution of seats to districts, thereby improving proportionality at the cantonal level and reducing the number of votes that remain without effective influence on seat allo-cation (Pukelsheim & Schuhmacher, 2011, pp. 1581–1582, 1591). In this sense, the reform is closely linked to the principle of Erfolgswertgleichheit, meaning that votes should contribute as equally as possible to the final electoral outcome (Bundeskanzlei, 2013, pp. 8–9).
+
+This reform is especially relevant for the representation of smaller parties. Because the double Pukelsheim aggregates party strength across the entire canton before allocating seats to districts, votes that would previously have been ineffective in small constituencies can now contribute to a seat gain at the cantonal level (Lüscher, 2025, pp. 1–2). Sandro Lüscher illustrates this mechanical effect with the case of Schwyz in 2016: under the old Hagenbach-Bischoff system, the Green Liberal Party would not have won a single seat, whereas under the new method they obtained three seats (Lüscher, 2025, p. 2-3). More generally, recent work suggests that the shift away from Hagenbach-Bischoff re-duces the structural advantage previously enjoyed by larger parties and improves the parliamentary chances of smaller competitors (Bundeskanzlei, 2025, pp. 22–25).
+At the same time, the reform does not eliminate all tensions. While the double Pukelsheim improves party proportionality and vote equality, it may also produce new frictions at the district level. Schol-ars have pointed out that the system can weaken the direct correspondence between a district’s seat share and its actual influence on the canton-wide outcome, thereby creating a tension between parti-san proportionality and territorial representation (Lüscher, 2023, pp. 577–580). 
+
+Against this background, this thesis examines the mechanical effect of electoral reform on the parlia-mentary representation of smaller parties. More specifically, it asks and shows statistcally how many seats smaller parties gain through the transition from the Hagenbach-Bischoff system to the double Pukelsheim in Swiss cantonal parliamentary elections. 
+
+The central research gap of this thesis lies in the fact that the existing literature mainly discusses the Doppelproporz in legal, normative, or system-level terms: it emphasizes improved proportionality, reduced weightless votes, and better opportunities for smaller parties, while also pointing to trade-offs such as territorial distortions and counterintuitive seat allocations. However, there is still little systematic evidence on the mechanical seat effect of the reform itself: namely, how many seats small-er parties actually gained or would have lost when comparing the observed Pukelsheim allocation with a counterfactual Hagenbach-Bischoff allocation across elections and cantons. Recent work shows that smaller parties were generally better represented under the new system and that research has increasingly focused on broader institutional effects or territorial representation, but not on a stand-ardized empirical measurement of seat gains for smaller parties across cases. The thesis fills this gap by translating the reform’s abstract proportionality advantage into a concrete, comparable outcome measure: the net seat gain or loss of smaller parties under the new versus the old allocation rule.
 
 ## Theory/Literature Review
 
 ## Hypotheses
+Research Question
+20 Years of Doppelter Pukelsheim in Switzerland: What Is the Mechanical Effect of the Transition from Hagenbach-Bischoff on the Seat Allocation of Smaller Parties and Party-System Fragmentation?
+
+Hypotheses
+
+Hypothesis 1
+H01: Across all analyzed elections, parties with less than 10% canton-wide vote share receive no more than 5% more seats in aggregate under the double-proportional Pukelsheim system than they would have received under a counterfactual Hagenbach-Bischoff allocation.
+H_0:(∑Seats_(small,Pukelsheim))/(∑Seats_(small,HB) )≤1.05
+
+H1 (Main Hypothesis): Across all analyzed elections, parties with less than 10% canton-wide vote share receive more than 5% more seats in aggregate under the double-proportional Pukelsheim system than they would have received under Hagenbach-Bischoff.
+H_1:(∑Seats_(small,Pukelsheim))/(∑Seats_(small,HB) )>1.05
+Hypothesis 2
+Option A
+H02a :The transition to the double Pukelsheim system did not lead to a systematic increase in party-system fragmentation.
+H_0,2:ENP_post-ENP_pre≤0
+
+H1₂aThe transition to the double Pukelsheim system led to a systematic increase in party-system fragmentation.
+H_1,2:ENP_post-ENP_pre>0
+
+ENPv=1/(∑_(i=1)^n▒v_i^2 )   ENPs=1/(∑_(i=1)^n▒s_i^2 )
+v = votes shares, s = seat shares
 
 ## Analysis
+
+H1: The analysis takes the actual seat allocation under the Pukelsheimer Proporz as its starting point. Based on the available election data at the municipal or district level, it then reconstructs how many seats each party would have obtained under the former Hagenbach-Bischoff system. The comparison between the actual seat distribution under the new system and the hypothetical distribution under the old system makes it possible to identify how many seats each party gained or lost as a result of the reform. In this way, the study assesses the mechanical effect of the electoral-system change on party representation, with a particular focus on smaller parties.
+For the purposes of this thesis, a smaller party is defined as a party that received in maximum 10% of the vote share in the relevant electoral unit. Youth lists and other special-interest lists, such as wom-en’s lists or pensioners’ lists, are not treated as independent parties. Instead, their votes and seats are attributed to the respective mother party, which reflects common electoral practice in Switzerland.
+The choice of 10% as the threshold is grounded in both legal and normative considerations. In its de-cision BGE 131 I 74, the Swiss Federal Supreme Court argued that direct and natural quorums, under-stood as barriers to representation within an electoral district, should generally not exceed 10%. The 2013 report of the Federal Chancellery refers to the same benchmark and further notes that the Ven-ice Commission considers thresholds in the range of 10–15% to be the upper acceptable limit. Using vote share rather than absolute party size is particularly appropriate because a party may be electoral-ly small in one region while being comparatively strong in another. Low thresholds are closely linked to the principle of Erfolgswertgleichheit, or equality of vote success value, which requires that votes should be translated into seats as equally and effectively as possible. 
+Investigating the threshold is especially important, since none of the reform cantons had a <10% threshold in all districts before the implantation of the new electoral reform (Lüscher,2024, p.115).
 
 ```{r}
 #| echo: false
@@ -29,22 +65,25 @@ library(janitor)
 library(here)
 
 # Load shared functions and canton-specific processing scripts
-source(here("R", "00_functions.R"))
-source(here("R", "canton_AG.R"))
-# source(here("R", "canton_SZ.R"))
-# source(here("R", "canton_VS.R"))
-# source(here("R", "canton_ZG.R"))
+source(here("data_cleaning_cantons", "00_functions.R"))
+source(here("data_cleaning_cantons", "canton_AG.R"))
+source(here("data_cleaning_cantons", "canton_GR.r"))
+# source(here("data_cleaning_cantons", "canton_SZ.R"))
+# source(here("data_cleaning_cantons", "canton_VS.R"))
+# source(here("data_cleaning_cantons", "canton_ZG.R"))
 # Add more cantons as they are implemented
 
 # Process all cantons
 ag_clean <- process_canton_AG()
+gr_clean <- process_canton_GR()
 # sz_clean <- process_canton_SZ()
 # vs_clean <- process_canton_VS()
 # zg_clean <- process_canton_ZG()
 
 # Combine all cantons into single dataset
 all_elections <- bind_rows(
-  ag_clean
+  ag_clean,
+  gr_clean
   # sz_clean,
   # vs_clean,
   # zg_clean
