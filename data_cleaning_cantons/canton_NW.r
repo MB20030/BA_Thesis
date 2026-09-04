@@ -293,6 +293,8 @@ process_canton_NW <- function() {
   # Workbook containing Basiszahlen, Oberzuteilung, and Unterzuteilung (Staatskanzlei Nidwalden, 2026)
   nw_26_final <- read_nw_election("nw_2026_basiszahlen.xlsx", 2026)
 
+# The data was obtained via email from Staatskanzlei Nidwalden (Kanzleisekretariat), and is not publicly available.
+ 
   bind_rows(
     nw_14_final,
     nw_18_final,
