@@ -67,10 +67,11 @@ library(here)
 # Load shared functions and canton-specific processing scripts
 source(here("data_cleaning_cantons", "00_functions.R"))
 source(here("data_cleaning_cantons", "canton_AG.R"))
-source(here("data_cleaning_cantons", "canton_GR.r"))
-# source(here("data_cleaning_cantons", "canton_SZ.R"))
-# source(here("data_cleaning_cantons", "canton_VS.R"))
-# source(here("data_cleaning_cantons", "canton_ZG.R"))
+source(here("data_cleaning_cantons", "canton_GR.r")) 
+source(here("data_cleaning_cantons", "canton_NW.R"))
+source(here("data_cleaning_cantons", "canton_SZ.R"))
+source(here("data_cleaning_cantons", "canton_VS.R"))  
+
 # Add more cantons as they are implemented
 
 # Process all cantons
@@ -130,6 +131,13 @@ Kanton Aargau. (2008). *Gesetz über die Wahl des Grossen Rates (Grossratswahlge
 Kanton Graubünden. (2022). Pressedaten Proporzwahl kantonal: Grossratswahlen 2022 [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx
 
 Kanton Graubünden. (2026). Pressedaten Proporzwahl kantonal: Grossratswahlen 2026 [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx
+
+Kanton Wallis. (2004). Gesetz über die politischen Rechte (kGPR), SGS 160.1 (Stand 9. April 2017). https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375
+Kanton Wallis. (2016, 29. September). Legislaturperiode 2017–2021: Verteilung der Anzahl Grossratssitze pro Bezirk. https://www.vs.ch/documents/529400/2263784/MM_Verteilung_Grossratssitze.pdf/30be6442-6e9e-4d91-adef-76d3f60d6107
+
+Kanton Wallis. (2020, 25. September). Legislaturperiode 2021–2025: Verteilung der Anzahl Grossratssitze pro Bezirk. https://www.vs.ch/documents/529400/8932772/2020+09+25+-+MM+-+Verteilung+Grossratssitze.pdf/62d59d10-2075-5231-e385-88688c7cb559
+
+Kanton Wallis. (2024, 20. September). Anhang zur Verteilung der Anzahl Grossratssitze pro Bezirk, Legislaturperiode 2025–2029. https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09
 
 Regierungsrat des Kantons Aargau. (2013). Jahresbericht mit Jahresrechnung 2012. Kanton Aargau. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
 
