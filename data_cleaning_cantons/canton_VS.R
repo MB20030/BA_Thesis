@@ -251,7 +251,7 @@ vs_official_dp_totals <- function(election_year) {
       "SP_GRUENE_UNABHAENGIGE",  2856L,                   3L,
       "MITTE",                  32865L,                  42L,
       "SVP",                    18909L,                  26L,
-      "NEO",                     6278L,                   7L,
+      "NEO",                    6278L,                   7L,
       "FDP",                    17434L,                  27L,
       "GRUENE",                  5862L,                   8L,
       "SP_GAUCHE_CITOYENNE",   11637L,                  17L
