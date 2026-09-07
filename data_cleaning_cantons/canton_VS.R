@@ -2,17 +2,18 @@
 # Processes the 2017, 2021, and 2025 elections and returns the standardized table
 
 # Disclaimer for the Canton of Valais:
-# Valais constitutes a special case because upper-tier apportionment is conducted separately 
-# within six electoral districts rather than canton-wide (Lüscher, 2024, p. 57). 
-# Under cantonal electoral law, lists with the same designation form a list group at the 
-# level of the respective electoral district, and seats in the upper-tier allocation are 
-# assigned to these district-level list groups (Kanton Wallis, 2004, Arts. 138a, 155).
-# Politically related lists that compete under distinct list-group structures are therefore 
-# retained separately in the analysis, since aggregating them ex post into canton-wide party
-# families would no longer correspond to the electoral units to which seats were actually allocated. 
-# To acknowledge this special case, the analysis will be made once with Valais and once without Valais.
+# Valais is a special case because upper-tier apportionment is conducted separately
+# within six electoral regions rather than canton-wide (Lüscher, 2024, p. 57).
+# Under the rules applicable to each election, seats in this allocation are assigned
+# to regional list groups (the temporary 2016 decree for 2017; the kGPR as amended on
+# 14 December 2017 for 2021 and 2025).
+# This script preserves those regional units while allocating seats, but subsequently
+# standardizes historically and linguistically related list labels into analytical
+# party families and aggregates them for the final canton-year table. The resulting
+# rows are therefore analytical party-family totals, not canton-wide legal allocation
+# units. To assess the sensitivity of the analysis to this special case, the models
+# are estimated once with Valais and once without Valais.
 library(tidyverse)
-library(readxl)
 library(here)
 
 # Make all file references independent of the current working directory.
@@ -140,39 +141,23 @@ read_vs_district <- function(
     .name_repair = ~ paste0("x", seq_along(.x))
   )
 
-  # Three 2021 files are official result summaries; the remaining workbooks
-  # contain municipal results and a district-total column at the far right.
-  is_result_summary <- str_squish(as.character(raw[[1]][1])) == "Ergebnisse"
+  # Every workbook contains municipal results and a district-total column at
+  # the far right.
+  party_labels <- as.character(raw[[1]])
+  district_total <- raw[[ncol(raw)]]
+  party_rows <- which(
+    str_detect(party_labels, "^\\d+[.]?\\s+") &
+      !str_detect(party_labels, "^\\d+[.]\\d+") &
+      !is.na(as_vs_number(district_total))
+  )
 
-  if (is_result_summary) {
-    party_rows <- which(str_detect(
-      as.character(raw[[4]]),
-      regex("^Sitze\\s*:", ignore_case = TRUE)
-    ))
-
-    district_results <- tibble(
-      party_label = as.character(raw[[3]][party_rows]),
-      party_votes = as_vs_number(raw[[5]][party_rows]),
-      reported_seats_dp = as.integer(as_vs_number(raw[[4]][party_rows]))
-    )
-  } else {
-    party_labels <- as.character(raw[[1]])
-    district_total <- raw[[ncol(raw)]]
-    party_rows <- which(
-      str_detect(party_labels, "^\\d+[.]?\\s+") &
-        !str_detect(party_labels, "^\\d+[.]\\d+") &
-        !is.na(as_vs_number(district_total))
-    )
-
-    district_results <- tibble(
-      party_label = str_remove(
-        party_labels[party_rows],
-        "^\\d+[.]?\\s+"
-      ),
-      party_votes = as_vs_number(district_total[party_rows]),
-      reported_seats_dp = NA_integer_
-    )
-  }
+  district_results <- tibble(
+    party_label = str_remove(
+      party_labels[party_rows],
+      "^\\d+[.]?\\s+"
+    ),
+    party_votes = as_vs_number(district_total[party_rows])
+  )
 
   district_results |>
     mutate(
@@ -184,21 +169,98 @@ read_vs_district <- function(
     ) |>
     select(
       election_year, district, region, district_seats, parties,
-      party_label, party_votes, reported_seats_dp
+      party_label, party_votes
     )
 }
 
-# The former Valais rule excluded lists below 8% in the district, while still
-# including their votes in the Hagenbach-Bischoff distribution number
-# (kGPR 160.1, version at 9 April 2017, arts. 154-156).
-allocate_vs_hb <- function(votes, n_seats, quorum = 0.08) {
-  stopifnot(
-    is.numeric(votes), all(is.finite(votes)), all(votes >= 0),
-    length(n_seats) == 1L, n_seats >= 0
-  )
+# The HB counterfactual follows the district-level allocation method used in
+# Valais before the Double-Pukelsheim reform. Lists below 8% in a district are
+# excluded, but their votes remain in the Hagenbach-Bischoff distribution
+# number (Kanton Wallis, 2004, arts. 154-156; version at 9 April 2017).
+# Resolve an exact highest-average tie according to former kGPR art. 156:
+# initial-allocation remainder, list votes, strongest candidate, then drawing lots.
+# `draw_lots` must be a function that returns one winner from the supplied indices.
+resolve_vs_hb_tie <- function(
+    tied,
+    votes,
+    distribution_number,
+    max_candidate_votes = NULL,
+    draw_lots = NULL
+) {
+  tied <- tied[
+    votes[tied] %% distribution_number ==
+      max(votes[tied] %% distribution_number)
+  ]
+  if (length(tied) == 1L) return(tied)
+
+  tied <- tied[votes[tied] == max(votes[tied])]
+  if (length(tied) == 1L) return(tied)
+
+  if (is.null(max_candidate_votes)) {
+    stop(
+      "The HB tie remains unresolved after remainders and list votes; ",
+      "provide `max_candidate_votes` to apply former kGPR art. 156(1)(e)."
+    )
+  }
+  if (
+    !is.numeric(max_candidate_votes) ||
+      length(max_candidate_votes) != length(votes) ||
+      any(!is.finite(max_candidate_votes)) ||
+      any(max_candidate_votes < 0) ||
+      any(max_candidate_votes != floor(max_candidate_votes))
+  ) {
+    stop("`max_candidate_votes` must contain one non-negative integer per list.")
+  }
+  tied <- tied[
+    max_candidate_votes[tied] == max(max_candidate_votes[tied])
+  ]
+  if (length(tied) == 1L) return(tied)
+
+  if (!is.function(draw_lots)) {
+    stop(
+      "The HB tie also remains unresolved after candidate votes; ",
+      "provide `draw_lots` to apply former kGPR art. 156(1)(f)."
+    )
+  }
+  winner <- draw_lots(tied)
+  if (length(winner) != 1L || is.na(winner) || !winner %in% tied) {
+    stop("`draw_lots` must return exactly one of the supplied list indices.")
+  }
+
+  as.integer(winner)
+}
+
+allocate_vs_hb <- function(
+    votes,
+    n_seats,
+    quorum = 0.08,
+    max_candidate_votes = NULL,
+    draw_lots = NULL
+) {
+  if (
+    !is.numeric(votes) || any(!is.finite(votes)) || any(votes < 0) ||
+      any(votes != floor(votes))
+  ) {
+    stop("`votes` must contain non-negative finite integers.")
+  }
+  if (
+    length(n_seats) != 1L || !is.numeric(n_seats) || !is.finite(n_seats) ||
+      n_seats < 0 || n_seats != floor(n_seats)
+  ) {
+    stop("`n_seats` must be one non-negative integer.")
+  }
+  if (
+    length(quorum) != 1L || !is.numeric(quorum) || !is.finite(quorum) ||
+      quorum < 0 || quorum > 1
+  ) {
+    stop("`quorum` must be one finite value between zero and one.")
+  }
 
   if (n_seats == 0L) {
     return(integer(length(votes)))
+  }
+  if (length(votes) == 0L || sum(votes) == 0) {
+    stop("At least one list must have a positive vote total.")
   }
 
   eligible <- votes / sum(votes) >= quorum
@@ -215,7 +277,23 @@ allocate_vs_hb <- function(votes, n_seats, quorum = 0.08) {
 
   while (sum(seats) < n_seats) {
     quotients <- if_else(eligible, votes / (seats + 1L), -Inf)
-    winner <- which.max(quotients)
+    provisional_winner <- which.max(quotients)
+    tied <- which(
+      eligible &
+        votes * (seats[provisional_winner] + 1L) ==
+          votes[provisional_winner] * (seats + 1L)
+    )
+    winner <- if (length(tied) == 1L) {
+      tied
+    } else {
+      resolve_vs_hb_tie(
+        tied,
+        votes,
+        distribution_number,
+        max_candidate_votes,
+        draw_lots
+      )
+    }
     seats[winner] <- seats[winner] + 1L
   }
 
@@ -268,6 +346,47 @@ vs_official_dp_totals <- function(election_year) {
       "SP_GAUCHE_CITOYENNE",   11637L,                  17L
     ),
     NULL
+  )
+}
+
+# Official 2017 district list seats, aggregated to the six electoral regions.
+# Source: Staat Wallis, "Grossraete 2017 - Resultate", official final results:
+# https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
+vs_official_2017_region_seats <- function() {
+  tribble(
+    ~region,     ~parties,                    ~official_seats_dp,
+    "brig",     "CSP",                       3L,
+    "brig",     "SP_GRUENE_UNABHAENGIGE",    2L,
+    "brig",     "CVP",                       5L,
+    "brig",     "SVP",                       4L,
+    "visp",     "CSP",                       7L,
+    "visp",     "CVP",                       8L,
+    "visp",     "SVP",                       3L,
+    "visp",     "SP_GRUENE_UNABHAENGIGE",    2L,
+    "visp",     "FDP",                       0L,
+    "sierre",   "GRUENE",                    2L,
+    "sierre",   "SVP",                       3L,
+    "sierre",   "FDP",                       4L,
+    "sierre",   "CVP",                       5L,
+    "sierre",   "SP_GAUCHE_CITOYENNE",       3L,
+    "sion",     "GRUENE",                    4L,
+    "sion",     "SVP",                       6L,
+    "sion",     "FDP",                       8L,
+    "sion",     "CVP",                      12L,
+    "sion",     "SP_GAUCHE_CITOYENNE",       4L,
+    "sion",     "RCV",                       0L,
+    "martigny", "CVP",                       8L,
+    "martigny", "SVP",                       3L,
+    "martigny", "SP_GAUCHE_CITOYENNE",       4L,
+    "martigny", "FDP",                       8L,
+    "martigny", "RCV",                       0L,
+    "martigny", "GRUENE",                    0L,
+    "monthey",  "FDP",                       6L,
+    "monthey",  "GRUENE",                    2L,
+    "monthey",  "SP_GAUCHE_CITOYENNE",       3L,
+    "monthey",  "SVP",                       4L,
+    "monthey",  "CVP",                       7L,
+    "monthey",  "RCV",                       0L
   )
 }
 
@@ -398,27 +517,24 @@ process_vs_election <- function(election_year) {
     )
   }
 
-  # The official 2017 Brig-region result is also available as a published
-  # four-party matrix and validates the first election's reconstruction.
+  # Validate every reconstructed 2017 region-party allocation against the
+  # official district list seats aggregated to the six electoral regions.
   if (election_year == 2017L) {
-    brig_official <- tribble(
-      ~parties,                    ~official_seats_dp,
-      "CSP",                      3L,
-      "SP_GRUENE_UNABHAENGIGE",   2L,
-      "CVP",                      5L,
-      "SVP",                      4L
-    )
-    brig_check <- brig_official |>
-      left_join(
-        dp_by_region |>
-          filter(region == "brig") |>
-          select(parties, seats_dp),
-        by = "parties"
+    official_2017 <- vs_official_2017_region_seats()
+    official_2017_check <- official_2017 |>
+      full_join(
+        dp_by_region |> select(region, parties, seats_dp),
+        by = c("region", "parties")
       )
 
     stopifnot(
-      !anyNA(brig_check$seats_dp),
-      all(brig_check$official_seats_dp == brig_check$seats_dp)
+      sum(official_2017$official_seats_dp) == 130L,
+      !anyNA(official_2017_check$official_seats_dp),
+      !anyNA(official_2017_check$seats_dp),
+      all(
+        official_2017_check$official_seats_dp ==
+          official_2017_check$seats_dp
+      )
     )
   }
 
@@ -436,37 +552,6 @@ process_vs_election <- function(election_year) {
       seats_hb = sum(seats_hb),
       .groups = "drop"
     )
-
-  reported_checks <- district_results |>
-    filter(!is.na(reported_seats_dp)) |>
-    group_by(district) |>
-    summarise(
-      district_seats = first(district_seats),
-      reported_seats_dp = sum(reported_seats_dp),
-      .groups = "drop"
-    )
-
-  # Sierre consists of one district, so its reported 2021 list seats also
-  # provide a direct check of the reconstructed upper allocation.
-  if (election_year == 2021L) {
-    sierre_reported <- district_results |>
-      filter(district == "sierre") |>
-      select(parties, reported_seats_dp)
-    sierre_reconstructed <- dp_by_region |>
-      filter(region == "sierre") |>
-      select(parties, seats_dp)
-    sierre_check <- full_join(
-      sierre_reported,
-      sierre_reconstructed,
-      by = "parties"
-    )
-
-    stopifnot(
-      nrow(reported_checks) == 3L,
-      all(reported_checks$reported_seats_dp == reported_checks$district_seats),
-      all(sierre_check$reported_seats_dp == sierre_check$seats_dp)
-    )
-  }
 
   stopifnot(
     n_distinct(district_results$district) == 14L,
@@ -486,6 +571,3 @@ process_canton_VS <- function() {
     process_vs_election(2025)
   )
 }
-
-# Temporary check - delete after use.
-print(process_canton_VS(), n = Inf)
