@@ -1,6 +1,16 @@
 # Valais-specific data cleaning and processing
 # Processes the 2017, 2021, and 2025 elections and returns the standardized table
 
+# Disclaimer for the Canton of Valais:
+# Valais constitutes a special case because upper-tier apportionment is conducted separately 
+# within six electoral districts rather than canton-wide (Lüscher, 2024, p. 57). 
+# Under cantonal electoral law, lists with the same designation form a list group at the 
+# level of the respective electoral district, and seats in the upper-tier allocation are 
+# assigned to these district-level list groups (Kanton Wallis, 2004, Arts. 138a, 155).
+# Politically related lists that compete under distinct list-group structures are therefore 
+# retained separately in the analysis, since aggregating them ex post into canton-wide party
+# families would no longer correspond to the electoral units to which seats were actually allocated. 
+# To acknowledge this special case, the analysis will be made once with Valais and once without Valais.
 library(tidyverse)
 library(readxl)
 library(here)
@@ -14,9 +24,10 @@ if (!exists("finalize_election_data", mode = "function")) {
 }
 
 # Official district magnitudes:
-# 2017: https://www.vs.ch/documents/529400/2263784/MM_Verteilung_Grossratssitze.pdf/30be6442-6e9e-4d91-adef-76d3f60d6107
-# 2021: https://www.vs.ch/documents/529400/8932772/2020+09+25+-+MM+-+Verteilung+Grossratssitze.pdf/62d59d10-2075-5231-e385-88688c7cb559
-# 2025: https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09
+# District Magnitudes for 2017: (Kanton Wallis, 2016, p. 2)
+# District Magnitudes for 2021: (Kanton Wallis, 2020, p. 2)
+# District Magnitudes for 2025: (Kanton Wallis, 2024, p. 1)
+
 vs_district_config <- function(election_year) {
   election_year <- as.integer(election_year)
 
