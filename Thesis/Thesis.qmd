@@ -143,6 +143,17 @@ Kanton Wallis. (2020, 25. September). Legislaturperiode 2021–2025: Verteilung 
 
 Kanton Wallis. (2024, 20. September). Anhang zur Verteilung der Anzahl Grossratssitze pro Bezirk, Legislaturperiode 2025–2029. https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09
 
+Kanton Zug. (2006, September 28). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (Vorlage Nr. 1300.24, Laufnummer 12 198). https://kr-geschaefte.zug.ch/dokumente/2793/pdoc_1494_1.pdf
+
+Kanton Zug. (2022a, July 1). Kantonsratswahl 2018 [Data set].
+https://wab.zug.ch/elections/kantonsratswahl-2018/data
+
+Kanton Zug. (2022b, July 1). Kantonsratswahl Kanton Zug [Data set].
+https://wab.zug.ch/elections/kantonsratswahl-kanton-zug-2014/data
+
+Kanton Zug. (2022c, October 2). Kantonsratswahl 2022 [Data set].
+https://wab.zug.ch/elections/kantonsratswahl-2022/data
+
 Lüscher, S. (2024). Redeeming the pledge of electoral equity? A study of the roads to and effects of the divisor-based biproportional apportionment method in Switzerland [Doctoral dissertation, University of Zurich]. https://doi.org/10.5167/uzh-264856
 
 Regierungsrat des Kantons Aargau. (2013). Jahresbericht mit Jahresrechnung 2012. Kanton Aargau. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
