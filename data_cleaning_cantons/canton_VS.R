@@ -5,14 +5,16 @@
 # Valais is a special case because upper-tier apportionment is conducted separately
 # within six electoral regions rather than canton-wide (Lüscher, 2024, p. 57).
 # Under the rules applicable to each election, seats in this allocation are assigned
-# to regional list groups (the temporary 2016 decree for 2017; the kGPR as amended on
-# 14 December 2017 for 2021 and 2025).
+# to regional list groups (the temporary 2016 decree for 2017; Kanton Wallis, 2004b,
+# art. 138a, version at 1 July 2018, for 2021 and 2025).
 # This script preserves those regional units while allocating seats, but subsequently
 # standardizes historically and linguistically related list labels into analytical
 # party families and aggregates them for the final canton-year table. The resulting
 # rows are therefore analytical party-family totals, not canton-wide legal allocation
 # units. To assess the sensitivity of the analysis to this special case, the models
 # are estimated once with Valais and once without Valais.
+
+#loading necessary libraries
 library(tidyverse)
 library(here)
 
@@ -29,9 +31,11 @@ if (!exists("finalize_election_data", mode = "function")) {
 # District Magnitudes for 2021: (Kanton Wallis, 2020, p. 2)
 # District Magnitudes for 2025: (Kanton Wallis, 2024, p. 1)
 
+
 vs_district_config <- function(election_year) {
   election_year <- as.integer(election_year)
 
+  # creating the list of district seats for each election year
   district_seats <- switch(
     as.character(election_year),
     "2017" = c(
@@ -95,11 +99,11 @@ standardize_vs_party <- function(party_label, election_year) {
   # cannot be divided reliably among the participating parties.
   party <- case_when(
     str_detect(normalized, "RASSEMBLEMENT CITOYEN") ~ "RCV",
-    str_detect(normalized, "CSPO|CHRISTLICHSOZIALE") ~ if_else(
-      election_year == 2021L, "CSP_GLP", "CSP"
-    ),
+    str_detect(normalized, "CSPO GLP") ~ "CSP_GLP",
+    str_detect(normalized, "CSPO|CHRISTLICHSOZIALE") ~ "CSP",
     str_detect(normalized, "NEO") ~ "NEO",
-    str_detect(normalized, "SP.*GRUENE|SP.*GRUNE|SP UND UNAB|SP GRU") ~
+    str_detect(normalized, "^SP UND UNAB") ~ "SP_UNABHAENGIGE",
+    str_detect(normalized, "SP.*GRUENE|SP.*GRUNE|SP GRU") ~
       "SP_GRUENE_UNABHAENGIGE",
     str_detect(normalized, "GRUNLIBERAL|GRUENLIBERAL|VERT LIB") ~ "GLP",
     str_detect(normalized, "SVP|UDC") ~ "SVP",
@@ -176,10 +180,11 @@ read_vs_district <- function(
 # The HB counterfactual follows the district-level allocation method used in
 # Valais before the Double-Pukelsheim reform. Lists below 8% in a district are
 # excluded, but their votes remain in the Hagenbach-Bischoff distribution
-# number (Kanton Wallis, 2004, arts. 154-156; version at 9 April 2017).
+# number (Kanton Wallis, 2004a, arts. 154-156; version at 9 April 2017).
 # Resolve an exact highest-average tie according to former kGPR art. 156:
 # initial-allocation remainder, list votes, strongest candidate, then drawing lots.
 # `draw_lots` must be a function that returns one winner from the supplied indices.
+
 resolve_vs_hb_tie <- function(
     tied,
     votes,
@@ -300,9 +305,10 @@ allocate_vs_hb <- function(
   as.integer(seats)
 }
 
-# The Double-Pukelsheim upper allocation uses standard rounding. Allocating
-# seats by the highest weight/(seats + 0.5) quotient is the equivalent
-# sequential form of that divisor method and avoids choosing a divisor by hand.
+# The Double-Pukelsheim upper allocation uses standard rounding (Kanton Wallis,
+# 2004b, art. 155; version at 1 July 2018). Allocating seats by the highest
+# weight/(seats + 0.5) quotient is the equivalent sequential form of that
+# divisor method and avoids choosing a divisor by hand.
 allocate_vs_dp_upper <- function(weighted_voters, n_seats) {
   stopifnot(
     is.numeric(weighted_voters), all(is.finite(weighted_voters)),
@@ -329,7 +335,8 @@ vs_official_dp_totals <- function(election_year) {
       ~parties,                  ~official_voter_number, ~official_seats_dp,
       "SP_GRUENE_UNABHAENGIGE",  4056L,                   4L,
       "SVP",                    20782L,                  22L,
-      "CSP_GLP",                 9005L,                   8L,
+      "CSP",                     5651L,                   5L,
+      "CSP_GLP",                 3354L,                   3L,
       "CVP",                    38360L,                  40L,
       "FDP",                    24148L,                  27L,
       "GRUENE",                 11149L,                  12L,
@@ -349,9 +356,9 @@ vs_official_dp_totals <- function(election_year) {
   )
 }
 
-# Official 2017 district list seats, aggregated to the six electoral regions.
-# Source: Staat Wallis, "Grossraete 2017 - Resultate", official final results:
-# https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
+# Official 2017 district list seats, aggregated the 14 districts
+# to the 6 electoral regions (Staat Wallis, 2017).
+
 vs_official_2017_region_seats <- function() {
   tribble(
     ~region,     ~parties,                    ~official_seats_dp,
@@ -362,7 +369,7 @@ vs_official_2017_region_seats <- function() {
     "visp",     "CSP",                       7L,
     "visp",     "CVP",                       8L,
     "visp",     "SVP",                       3L,
-    "visp",     "SP_GRUENE_UNABHAENGIGE",    2L,
+    "visp",     "SP_UNABHAENGIGE",            2L,
     "visp",     "FDP",                       0L,
     "sierre",   "GRUENE",                    2L,
     "sierre",   "SVP",                       3L,
@@ -441,8 +448,9 @@ process_vs_election <- function(election_year) {
     select(parties, vote_share, seats_hb)
 
   # A list group enters a region's upper allocation when it reaches 8% in at
-  # least one of that region's districts. Only eligible groups enter the
-  # standard-rounding allocation; unqualified groups retain zero DP seats.
+  # least one of that region's districts (Kanton Wallis, 2004b, art. 154;
+  # version at 1 July 2018). Only eligible groups enter the standard-rounding
+  # allocation; unqualified groups retain zero DP seats.
   dp_eligibility <- district_results |>
     group_by(district) |>
     mutate(district_party_share = party_votes / sum(party_votes)) |>
@@ -571,3 +579,6 @@ process_canton_VS <- function() {
     process_vs_election(2025)
   )
 }
+
+# temporary check - delete in the end.
+print(process_canton_VS(), n = Inf)

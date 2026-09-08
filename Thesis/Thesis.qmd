@@ -132,7 +132,7 @@ Kanton Graubünden. (2022). Pressedaten Proporzwahl kantonal: Grossratswahlen 20
 
 Kanton Graubünden. (2026). Pressedaten Proporzwahl kantonal: Grossratswahlen 2026 [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx
 
-Kanton Wallis. (2004). Gesetz über die politischen Rechte (kGPR), SGS 160.1 (Stand 9. April 2017). https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375
+Kanton Wallis. (2004a). Gesetz über die politischen Rechte (kGPR) vom 13. Mai 2004 (SGS 160.1; Stand 9. April 2017). https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375
 
 Kanton Wallis. (2016, 29. September). Legislaturperiode 2017–2021: Verteilung der Anzahl Grossratssitze pro Bezirk. https://www.vs.ch/documents/529400/2263784/MM_Verteilung_Grossratssitze.pdf/30be6442-6e9e-4d91-adef-76d3f60d6107
 
@@ -144,7 +144,7 @@ Lüscher, S. (2024). Redeeming the pledge of electoral equity? A study of the ro
 
 Regierungsrat des Kantons Aargau. (2013). Jahresbericht mit Jahresrechnung 2012. Kanton Aargau. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
 
-Statistisches Amt Kanton Aargau. (n.d.). Grossratswahlen: Detailresultate, ab 1985 [Data set]. Kanton Aargau. Retrieved September 1, 2026, from https://www.ag.ch/app/staag/statistikportal/
+Staat Wallis. (2017). Grossräte 2017 – Resultate: Offizielle Endresultate. Archivierte Abstimmungs- und Wahlresultate. https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
 
 Staatskanzlei des Kantons Aargau. (2008, September 15). *Grossratswahlen: Vorverfahren gestartet*. https://www.ag.ch/de/medien/medienmitteilungen?mm=Grossratswahlen-Vorverfahren-gestartet-50a84551-3d6d-454c-a33c-5644c8bf50a5_de
 
@@ -161,6 +161,8 @@ Staatskanzlei Nidwalden. (2018). Wahlergebnis der Landratswahlen vom 4. März 20
 Staatskanzlei Nidwalden. (2022). Wahlergebnis der Landratswahlen vom 13. März 2022 [Unpublished raw data]. Kanton Nidwalden.
 
 Staatskanzlei Nidwalden. (2026). Wahlergebnis der Landratswahlen vom 8. März 2026 [Unpublished raw data]. Kanton Nidwalden.
+
+Statistisches Amt Kanton Aargau. (n.d.). Grossratswahlen: Detailresultate, ab 1985 [Data set]. Kanton Aargau. Retrieved September 1, 2026, from https://www.ag.ch/app/staag/statistikportal/
 
 ## Appendix
 

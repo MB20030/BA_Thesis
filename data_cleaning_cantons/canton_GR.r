@@ -207,5 +207,5 @@ process_canton_GR <- function() {
   bind_rows(gr_22_final, gr_26_final)
 }
 
-# Temporary check — delete after use.
+# Temporary check — delete in the end.
 print(process_canton_GR(), n = Inf)

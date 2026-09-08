@@ -303,5 +303,5 @@ process_canton_NW <- function() {
   )
 }
 
-# Temporary check - delete after use.
+# Temporary check - delete in the end.
 print(process_canton_NW(), n = Inf)

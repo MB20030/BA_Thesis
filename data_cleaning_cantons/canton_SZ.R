@@ -325,5 +325,5 @@ process_canton_SZ <- function() {
 # Historical district rule: each municipality formed one electoral district (Bundesgericht 1C_407/2011, E. 5.2).
 # https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza://19-03-2012-1C_407-2011&lang=de&type=show_document
 
-# Temporary check - delete after use.
+# Temporary check - delete in the end.
 print(process_canton_SZ(), n = Inf)
