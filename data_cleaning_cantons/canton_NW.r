@@ -2,11 +2,8 @@
 # Processes the 2014, 2018, 2022, and 2026 elections and returns the
 # standardized party-level table used by the other canton scripts.
 
-library(dplyr)
-library(tidyr)
-library(stringr)
-library(tibble)
-library(readxl)
+# Load only the packages used directly in this script.
+library(tidyverse)
 library(here)
 
 # Make all file references independent of the current working directory.

@@ -71,23 +71,26 @@ source(here("data_cleaning_cantons", "canton_GR.r"))
 source(here("data_cleaning_cantons", "canton_NW.R"))
 source(here("data_cleaning_cantons", "canton_SZ.R"))
 source(here("data_cleaning_cantons", "canton_VS.R"))  
+source(here("data_cleaning_cantons", "canton_ZG.R"))
 
 # Add more cantons as they are implemented
 
 # Process all cantons
 ag_clean <- process_canton_AG()
 gr_clean <- process_canton_GR()
-# sz_clean <- process_canton_SZ()
-# vs_clean <- process_canton_VS()
-# zg_clean <- process_canton_ZG()
+nw_clean <- process_canton_NW()
+sz_clean <- process_canton_SZ()
+vs_clean <- process_canton_VS()
+zg_clean <- process_canton_ZG()
 
 # Combine all cantons into single dataset
 all_elections <- bind_rows(
   ag_clean,
-  gr_clean
-  # sz_clean,
-  # vs_clean,
-  # zg_clean
+  gr_clean,
+  nw_clean,
+  sz_clean,
+  vs_clean,
+  zg_clean
 )
 
 ```

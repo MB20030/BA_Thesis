@@ -14,7 +14,7 @@
 # units. To assess the sensitivity of the analysis to this special case, the models
 # are estimated once with Valais and once without Valais.
 
-#loading necessary libraries
+# Load only the packages used directly in this script.
 library(tidyverse)
 library(here)
 

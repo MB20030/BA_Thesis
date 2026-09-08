@@ -5,12 +5,12 @@
 # applies Hagenbach-Bischoff allocation, and merges with official results.
 #
 # Dependencies: 00_functions.R (allocate_hb, finalize_election_data)
-#               Libraries: tidyverse, readxl, janitor
 
+# Load only the packages used directly in this script.
 library(tidyverse)
 library(readxl)
-library(janitor)
 library(here)
+
 
 # Ensure here() uses the correct project root.
 here::i_am("data_cleaning_cantons/canton_AG.R")

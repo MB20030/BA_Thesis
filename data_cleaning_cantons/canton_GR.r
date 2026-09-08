@@ -1,8 +1,8 @@
 # Graubünden-specific data cleaning and processing
 # Processes the 2022 and 2026 elections and returns the standardized cleaned table
 
+# Load only the packages used directly in this script.
 library(tidyverse)
-library(readxl)
 library(here)
 
 # Make all file references independent of the current working directory.

@@ -1,13 +1,9 @@
 # Schwyz-specific data cleaning for the 2016, 2020, and 2024 elections.
 
-library(dplyr)  # Aggregate and validate election results.
-library(tidyr)  # Replace missing spreadsheet values.
-library(purrr)  # Combine municipality files and workbook blocks.
-library(stringr) # Normalize party and district labels.
-library(tibble) # Build standardized intermediate tables.
-library(readr)  # Read the 2016 and 2020 semicolon-delimited exports.
-library(readxl) # Read the 2024 cantonal Excel protocol.
-library(here)   # Build paths relative to the project root.
+# Load only the packages used directly in this script.
+library(tidyverse)
+library(readxl)
+library(here)
 
 here::i_am("data_cleaning_cantons/canton_SZ.R") # Fix the project root when this script runs alone.
 
