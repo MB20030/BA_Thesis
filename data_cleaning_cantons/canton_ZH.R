@@ -1,6 +1,11 @@
 # Zurich-specific data cleaning for the 2007, 2011, 2015, 2019, and 2023
 # cantonal elections. Each election has separate party- and candidate-results
 # workbooks.
+#
+# Source-data disclaimer: In ZH_11_parteiresultate.xlsx, every SP total in
+# column K is doubled. The cleaner divides only the 2011 SP values by two.
+# This correction reconciles the party totals with the unit totals in column G
+# and with the candidate results.
 
 library(tidyverse)
 library(here)
@@ -13,8 +18,10 @@ if (!exists("allocate_hb", mode = "function") ||
   source(here("data_cleaning_cantons", "00_functions.R"))
 }
 
-zh_source_dir <- here("data", "datasets", "zurich")
-zh_source_files <- tribble(
+# Loading the raw excel election files. 
+# 
+zh_source_dir <- here("data", "datasets", "zurich") # Raw Zurich files.
+zh_source_files <- tribble( # Match each year to its two source workbooks.
   ~year, ~party_file, ~candidate_file,
   2007L, "ZH_07_parteiresultate.xlsx", "ZH_07_kandidierendenresultate.xlsx",
   2011L, "ZH_11_parteiresultate.xlsx", "ZH_11_kandidierendenresultate.xlsx",
@@ -24,32 +31,32 @@ zh_source_files <- tribble(
 )
 
 as_zh_number <- function(value) {
-  suppressWarnings(as.numeric(as.character(value)))
+  suppressWarnings(as.numeric(as.character(value))) # Convert imported text.
 }
 
 normalize_zh_label <- function(label) {
   label |>
-    as.character() |>
-    str_replace_all("[\r\n]+", " ") |>
-    str_squish() |>
-    str_to_upper() |>
-    stringi::stri_trans_general("Latin-ASCII") |>
-    str_replace_all("[^A-Z0-9]+", " ") |>
-    str_squish()
+    as.character() |> # Treat every label as text.
+    str_replace_all("[\r\n]+", " ") |> # Remove line breaks.
+    str_squish() |> # Remove repeated spaces.
+    str_to_upper() |> # Ignore capitalization differences.
+    stringi::stri_trans_general("Latin-ASCII") |> # Remove accents and umlauts.
+    str_replace_all("[^A-Z0-9]+", " ") |> # Standardize punctuation.
+    str_squish() # Return one clean label.
 }
 
 standardize_zh_party <- function(party_label) {
   normalized <- normalize_zh_label(party_label)
 
   case_when(
-    normalized %in% c("GP", "GRUNE") ~ "GRUENE",
-    normalized %in% c("MITTE", "DIE MITTE") ~ "DIEMITTE",
-    normalized %in% c("FGA AL PDA", "AL", "PDA") ~ "FGA_AL_PDA",
+    normalized %in% c("GP", "GRUNE") ~ "GRUENE", # Match both Green labels.
+    normalized %in% c("MITTE", "DIE MITTE") ~ "DIEMITTE", # Match Mitte labels.
+    normalized %in% c("FGA AL PDA", "AL", "PDA") ~ "FGA_AL_PDA", # Join the alliance.
     normalized %in% c(
       "UBRIGE", "HANF UELI", "PIRATEN", "ERP", "IP ZH", "JUSO",
       "DIE GUTEN", "HELVIDA", "AUFL", "SAPAPO", "STOPP"
-    ) ~ "UEBRIGE",
-    TRUE ~ str_replace_all(normalized, " ", "_")
+    ) ~ "UEBRIGE", # Combine minor lists reported as "Uebrige".
+    TRUE ~ str_replace_all(normalized, " ", "_") # Keep other party codes.
   )
 }
 
@@ -59,12 +66,16 @@ read_zh_election <- function(
   candidate_file,
   election_year
 ) {
-  party_path <- file.path(source_dir, party_file)
-  candidate_path <- file.path(source_dir, candidate_file)
-  stopifnot(file.exists(party_path), file.exists(candidate_path))
+  party_path <- file.path(source_dir, party_file) # Complete party-file path.
+  candidate_path <- file.path(source_dir, candidate_file) # Candidate-file path.
+  stopifnot(file.exists(party_path), file.exists(candidate_path)) # Require both files.
 
-  party_raw <- readxl::read_excel(party_path, col_types = "text")
-  candidate_raw <- readxl::read_excel(candidate_path, col_types = "text")
+  party_raw <- readxl::read_excel(party_path, col_types = "text") # Read party votes.
+  candidate_raw <- readxl::read_excel(candidate_path, col_types = "text") # Read candidates.
+
+  if (election_year == 2011L) {
+    message("ZH 2011: correcting doubled SP vote totals in column K.")
+  }
 
   # Guard the fixed source columns supplied by the canton: B/H/K and A/C/L.
   stopifnot(
@@ -105,7 +116,7 @@ read_zh_election <- function(
   )
 
   unit_checks <- party_observations |>
-    group_by(district, unit_id) |>
+    group_by(district, unit_id) |> # Check each municipality separately.
     summarise(
       total_values = n_distinct(unit_vote_total),
       unit_vote_total = first(unit_vote_total),
@@ -120,17 +131,17 @@ read_zh_election <- function(
   # Column B identifies the voting district. Sum municipality results before
   # applying the historical district-level allocation.
   district_results <- party_observations |>
-    group_by(district, parties) |>
-    summarise(party_votes = sum(party_votes), .groups = "drop")
+    group_by(district, parties) |> # Combine municipalities by district and party.
+    summarise(party_votes = sum(party_votes), .groups = "drop") # District totals.
 
-  elected_code <- as_zh_number(candidate_raw$Kand_Gewaehlt)
+  elected_code <- as_zh_number(candidate_raw$Kand_Gewaehlt) # Column L: 1 = elected.
   candidate_results <- candidate_raw |>
     transmute(
-      district = str_squish(Geschaeft),
-      candidate_id = str_squish(Liste_KandID),
-      parties = standardize_zh_party(Liste_Code),
+      district = str_squish(Geschaeft), # Column A: voting district.
+      candidate_id = str_squish(Liste_KandID), # Unique within a district.
+      parties = standardize_zh_party(Liste_Code), # Column C: party code.
       elected_code,
-      elected = elected_code == 1
+      elected = elected_code == 1 # Convert the binary code to logical.
     )
 
   stopifnot(
@@ -158,16 +169,16 @@ read_zh_election <- function(
   # Counting elected candidates in each district reconstructs its magnitude;
   # counting them by party gives the official Double-Pukelsheim result.
   district_seats <- candidate_results |>
-    group_by(district) |>
+    group_by(district) |> # One elected candidate equals one district seat.
     summarise(district_seats = sum(elected), .groups = "drop")
 
   elected_results <- candidate_results |>
-    filter(elected) |>
-    count(parties, name = "seats_dp")
+    filter(elected) |> # Keep elected candidates only.
+    count(parties, name = "seats_dp") # Official seats by party.
 
   official_results <- district_results |>
-    distinct(parties) |>
-    left_join(elected_results, by = "parties") |>
+    distinct(parties) |> # Keep every party, including those with zero seats.
+    left_join(elected_results, by = "parties") |> # Add official DP seats.
     transmute(
       canton = "ZH",
       year = as.integer(election_year),
@@ -176,25 +187,25 @@ read_zh_election <- function(
     )
 
   hb_by_district <- district_results |>
-    left_join(district_seats, by = "district") |>
-    group_by(district) |>
+    left_join(district_seats, by = "district") |> # Add each district magnitude.
+    group_by(district) |> # Allocate seats independently in each district.
     mutate(
-      seats_hb = allocate_hb(party_votes, first(district_seats)),
-      voter_number = floor(party_votes / first(district_seats) + 0.5)
+      seats_hb = allocate_hb(party_votes, first(district_seats)), # HB seats.
+      voter_number = floor(party_votes / first(district_seats) + 0.5) # Comparable voters.
     ) |>
     ungroup()
 
   hb_results <- hb_by_district |>
-    group_by(parties) |>
+    group_by(parties) |> # Combine district results at canton level.
     summarise(
       voter_number = sum(voter_number),
       seats_hb = sum(seats_hb),
       .groups = "drop"
     ) |>
-    mutate(vote_share = 100 * voter_number / sum(voter_number)) |>
+    mutate(vote_share = 100 * voter_number / sum(voter_number)) |> # Percent share.
     select(parties, vote_share, seats_hb)
 
-  final <- finalize_election_data(
+  final <- finalize_election_data( # Apply the common canton output format.
     hb_results,
     official_results,
     "ZH",
@@ -225,7 +236,7 @@ read_zh_election <- function(
 
 process_canton_ZH <- function() {
   purrr::pmap_dfr(
-    zh_source_files,
+    zh_source_files, # Process all registered elections and stack the results.
     function(year, party_file, candidate_file) {
       read_zh_election(
         zh_source_dir,
