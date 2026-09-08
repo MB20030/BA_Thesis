@@ -67,10 +67,10 @@ library(here)
 # Load shared functions and canton-specific processing scripts
 source(here("data_cleaning_cantons", "00_functions.R"))
 source(here("data_cleaning_cantons", "canton_AG.R"))
-source(here("data_cleaning_cantons", "canton_GR.r")) 
+source(here("data_cleaning_cantons", "canton_GR.r"))
 source(here("data_cleaning_cantons", "canton_NW.R"))
 source(here("data_cleaning_cantons", "canton_SZ.R"))
-source(here("data_cleaning_cantons", "canton_VS.R"))  
+source(here("data_cleaning_cantons", "canton_VS.R"))
 source(here("data_cleaning_cantons", "canton_ZG.R"))
 
 # Add more cantons as they are implemented
