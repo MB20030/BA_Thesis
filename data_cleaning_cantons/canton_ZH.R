@@ -14,8 +14,13 @@ here::i_am("data_cleaning_cantons/canton_ZH.R") # Set a stable project root.
 
 # Load the shared allocation and output helpers when this script runs alone.
 if (!exists("allocate_hb", mode = "function") ||
+    !exists("allocate_hb_with_notes", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
   source(here("data_cleaning_cantons", "00_functions.R"))
+}
+
+if (!exists('combine_hb_seat_options', mode = 'function')) {
+  source(here('data_cleaning_cantons', '00_functions.R'))
 }
 
 # Loading the raw  election files for 2007, 2011, 2015, 2019, and 2023.
@@ -186,25 +191,62 @@ read_zh_election <- function(
       party = parties,
       seats_dp = replace_na(as.integer(seats_dp), 0L)
     )
+  # Implementing the HB Allocation method used in Zurich before the reform.
+  # (Kanton Zürich, 1983/2005, §§ 87–88b)
+
+  # Under former § 88 b, an exact quotient tie first goes to the list with
+  # more party votes. If party votes are also equal, the law requires a drawing
+  # of lots. Since a hypothetical draw cannot be reconstructed, returning every
+  # still-possible winner lets the shared allocator record the ambiguity.
+  resolve_zh_hb_tie <- function(
+      tied,
+      votes,
+      seats,
+      distribution_number,
+      party_names
+  ) {
+    tied[votes[tied] == max(votes[tied])]
+  }
 
   hb_by_district <- district_results |>
     left_join(district_seats, by = "district") |> # Add each district magnitude.
     group_by(district) |> # Allocate seats independently in each district.
-    mutate(
-      seats_hb = allocate_hb(party_votes, first(district_seats)), # HB seats.
-      voter_number = floor(party_votes / first(district_seats) + 0.5) # Comparable voters.
-    ) |>
+    group_modify(function(data, key) {
+      allocation <- allocate_hb_with_notes(
+        data$party_votes,
+        first(data$district_seats),
+        data$parties,
+        tie_resolver = resolve_zh_hb_tie
+      )
+
+      bind_cols(data, allocation) |>
+        mutate(
+          hb_tie_note = if_else(
+            is.na(hb_tie_note),
+            NA_character_,
+            paste0("District ", key$district, ": ", hb_tie_note)
+          ),
+          voter_number = floor(
+            party_votes / first(district_seats) + 0.5
+          ) # Comparable voters.
+        )
+    }) |>
     ungroup()
 
   hb_results <- hb_by_district |>
     group_by(parties) |> # Combine district results at canton level.
     summarise(
       voter_number = sum(voter_number),
-      seats_hb = sum(seats_hb),
+      seats_hb_options = combine_hb_seat_options(seats_hb_options),
+      seats_hb = unique_hb_seat_value(seats_hb_options),
+      hb_tie_note = {
+        notes <- unique(na.omit(hb_tie_note))
+        if (length(notes) == 0L) NA_character_ else paste(notes, collapse = " | ")
+      },
       .groups = "drop"
     ) |>
     mutate(vote_share = 100 * voter_number / sum(voter_number)) |> # Percent share.
-    select(parties, vote_share, seats_hb)
+    select(parties, vote_share, seats_hb, seats_hb_options, hb_tie_note)
 
   final <- finalize_election_data( # Apply the common canton output format.
     hb_results,
@@ -217,7 +259,8 @@ read_zh_election <- function(
     group_by(district) |>
     summarise(
       district_seats = first(district_seats),
-      seats_hb = sum(seats_hb),
+      seats_hb = if (anyNA(seats_hb)) NA_integer_ else sum(seats_hb),
+      has_hb_tie = any(!is.na(hb_tie_note)),
       .groups = "drop"
     )
 
@@ -225,10 +268,14 @@ read_zh_election <- function(
     nrow(district_checks) == 18L,
     !anyNA(district_checks$district_seats),
     all(district_checks$district_seats > 0L),
-    all(district_checks$seats_hb == district_checks$district_seats),
+    all(
+      district_checks$has_hb_tie |
+        district_checks$seats_hb == district_checks$district_seats
+    ),
     sum(district_checks$district_seats) == 180L,
     nrow(final) == n_distinct(district_results$parties),
-    sum(final$seats_hb) == 180L,
+    any(grepl('/', final$seats_hb, fixed = TRUE)) ||
+      sum(as.integer(final$seats_hb)) == 180L,
     sum(final$seats_dp) == 180L
   )
 

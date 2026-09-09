@@ -237,7 +237,7 @@ ag_09_parties <- setdiff(
   # Validation
   stopifnot(
     nrow(ag_09_final) == length(ag_09_parties),
-    sum(ag_09_final$seats_hb) == 140L,
+    sum(as.integer(ag_09_final$seats_hb)) == 140L,
     sum(ag_09_final$seats_dp) == 140L
   )
 
@@ -338,7 +338,7 @@ ag_09_parties <- setdiff(
   # Validation
   stopifnot(
     nrow(ag_12_final) == length(ag_12_parties),
-    sum(ag_12_final$seats_hb) == 140L,
+    sum(as.integer(ag_12_final$seats_hb)) == 140L,
     sum(ag_12_final$seats_dp) == 140L
   )
 
@@ -425,7 +425,7 @@ ag_09_parties <- setdiff(
 
   stopifnot(
     nrow(ag_16_final) == length(ag_16_parties),
-    sum(ag_16_final$seats_hb) == 140L,
+    sum(as.integer(ag_16_final$seats_hb)) == 140L,
     sum(ag_16_final$seats_dp) == 140L
   )
 
@@ -498,7 +498,7 @@ ag_09_parties <- setdiff(
 
   stopifnot(
     nrow(ag_20_final) == length(ag_20_parties),
-    sum(ag_20_final$seats_hb) == 140L,
+    sum(as.integer(ag_20_final$seats_hb)) == 140L,
     sum(ag_20_final$seats_dp) == 140L
   )
 
@@ -571,7 +571,7 @@ ag_09_parties <- setdiff(
 
   stopifnot(
     nrow(ag_24_final) == length(ag_24_parties),
-    sum(ag_24_final$seats_hb) == 140L,
+    sum(as.integer(ag_24_final$seats_hb)) == 140L,
     sum(ag_24_final$seats_dp) == 140L
   )
 

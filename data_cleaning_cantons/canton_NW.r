@@ -270,7 +270,7 @@ read_nw_election <- function(file_name, election_year) {
     !anyNA(district_results$district_seats),
     sum(district_results$district_seats) == 60L,
     nrow(final) == length(basis_parties),
-    sum(final$seats_hb) == 60L,
+    sum(as.integer(final$seats_hb)) == 60L,
     sum(final$seats_dp) == 60L
   )
 

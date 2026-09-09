@@ -10,8 +10,13 @@ here::i_am("data_cleaning_cantons/canton_GR.r")
 
 # Load shared allocation and output-format helpers when this file runs alone.
 if (!exists("allocate_hb", mode = "function") ||
+    !exists("allocate_hb_with_notes", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
   source(here("data_cleaning_cantons", "00_functions.R"))
+}
+
+if (!exists('combine_hb_seat_options', mode = 'function')) {
+  source(here('data_cleaning_cantons', '00_functions.R'))
 }
 
 standardize_gr_party <- function(party_label) {
@@ -152,12 +157,33 @@ read_gr_election <- function(file_name, election_year) {
   # across districts to obtain the canton-level counterfactual allocation.
   hb_summary <- hb_by_district |>
     group_by(district) |>
-    mutate(
-      seats_hb = allocate_hb(party_votes, first(district_seats))
-    ) |>
+    group_modify(function(data, key) {
+      allocation <- allocate_hb_with_notes(
+        data$party_votes,
+        first(data$district_seats),
+        data$parties
+      )
+
+      bind_cols(data, allocation) |>
+        mutate(
+          hb_tie_note = if_else(
+            is.na(hb_tie_note),
+            NA_character_,
+            paste0("District ", key$district, ": ", hb_tie_note)
+          )
+        )
+    }) |>
     ungroup() |>
     group_by(parties) |>
-    summarise(seats_hb = sum(seats_hb), .groups = "drop")
+    summarise(
+      seats_hb_options = combine_hb_seat_options(seats_hb_options),
+      seats_hb = unique_hb_seat_value(seats_hb_options),
+      hb_tie_note = {
+        notes <- unique(na.omit(hb_tie_note))
+        if (length(notes) == 0L) NA_character_ else paste(notes, collapse = " | ")
+      },
+      .groups = "drop"
+    )
 
   # Locate the canton-total row that contains the reported vote shares.
   canton_total_row <- which(
@@ -192,7 +218,8 @@ read_gr_election <- function(file_name, election_year) {
   # Confirm that no party was lost and both allocations distribute all seats.
   stopifnot(
     nrow(final) == length(parties),
-    sum(final$seats_hb) == 120L,
+    any(grepl('/', final$seats_hb, fixed = TRUE)) ||
+      sum(as.integer(final$seats_hb)) == 120L,
     sum(final$seats_dp) == 120L
   )
 

@@ -7,7 +7,6 @@ format:
 ---
 ## Abstract
 
-Here I write normal text.
 
 ## Introduction
 Switzerland’s cantonal electoral reforms of the last two decades have brought renewed attention to a central question of representative democracy: how parliamentary seats can be distributed in a way that reflects voter preferences as fairly as possible while still preserving territorial representation. In the Swiss case, this debate became especially prominent because traditional proportional systems in small constituencies often generated high implicit thresholds. These electoral systems therefore dis-advantaged smaller parties which led to raising concerns about electoral equality (Bundeskanzlei, 2013, pp. 8–10). The double-proportional allocation method, commonly known as the double Pukelsheim, emerged in this context as a reform intended to reduce such distortions and to strength-en the equal weight of votes across the canton (Lüscher, 2023, p. 571).
@@ -92,7 +91,7 @@ all_elections <- bind_rows(
   nw_clean,
   sz_clean,
   vs_clean,
-  zg_clean
+  zg_clean,
   zh_clean
 )
 
@@ -148,6 +147,8 @@ Kanton Wallis. (2016, 29. September). Legislaturperiode 2017–2021: Verteilung 
 Kanton Wallis. (2020, 25. September). Legislaturperiode 2021–2025: Verteilung der Anzahl Grossratssitze pro Bezirk. https://www.vs.ch/documents/529400/8932772/2020+09+25+-+MM+-+Verteilung+Grossratssitze.pdf/62d59d10-2075-5231-e385-88688c7cb559
 
 Kanton Wallis. (2024, 20. September). Anhang zur Verteilung der Anzahl Grossratssitze pro Bezirk, Legislaturperiode 2025–2029. https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09
+
+Kanton Zürich. (1983/2005). Gesetz über die Wahlen und Abstimmungen (Wahlgesetz) (LS 161; Nachtrag 47, Stand 1. Januar 2005), §§ 87–88b. https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf
 
 Kanton Zug. (2006, September 28). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (Vorlage Nr. 1300.24, Laufnummer 12 198). https://kr-geschaefte.zug.ch/dokumente/2793/pdoc_1494_1.pdf
 

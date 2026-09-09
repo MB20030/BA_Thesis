@@ -228,7 +228,7 @@ read_zg_election <- function(source_dir, file_name, election_year) {
 
   stopifnot(
     nrow(final) == n_distinct(district_results$parties),
-    sum(final$seats_hb) == 80L,
+    sum(as.integer(final$seats_hb)) == 80L,
     sum(final$seats_dp) == 80L
   )
 

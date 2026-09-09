@@ -565,7 +565,7 @@ process_vs_election <- function(election_year) {
     n_distinct(district_results$district) == 14L,
     all(district_results$party_votes >= 0),
     all(district_checks$seats_hb == district_checks$district_seats),
-    sum(final$seats_hb) == 130L,
+    sum(as.integer(final$seats_hb)) == 130L,
     sum(final$seats_dp) == 130L
   )
 

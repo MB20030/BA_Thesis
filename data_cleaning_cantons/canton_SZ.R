@@ -8,8 +8,13 @@ library(here)
 here::i_am("data_cleaning_cantons/canton_SZ.R") # Fix the project root when this script runs alone.
 
 if (!exists("allocate_hb", mode = "function") ||
+    !exists("allocate_hb_with_notes", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
   source(here("data_cleaning_cantons", "00_functions.R")) # Load the shared allocation and output helpers.
+}
+
+if (!exists('combine_hb_seat_options', mode = 'function')) {
+  source(here('data_cleaning_cantons', '00_functions.R'))
 }
 
 # SOURCE FILES: place the raw Schwyz exports in this directory and update only these names if they move.
@@ -57,10 +62,33 @@ standardize_sz_party <- function(party_label) {
 summarize_sz_hb <- function(district_results) {
   district_results |>
     group_by(district) |> # Recreate the former system municipality by municipality.
-    mutate(seats_hb = allocate_hb(party_votes, first(district_seats))) |> # Allocate each municipality's seats by HB.
+    group_modify(function(data, key) {
+      allocation <- allocate_hb_with_notes(
+        data$party_votes,
+        first(data$district_seats),
+        data$parties
+      )
+
+      bind_cols(data, allocation) |>
+        mutate(
+          hb_tie_note = if_else(
+            is.na(hb_tie_note),
+            NA_character_,
+            paste0("Municipality ", key$district, ": ", hb_tie_note)
+          )
+        )
+    }) |> # Allocate each municipality's seats by HB and retain unresolved ties.
     ungroup() |>
     group_by(parties) |> # Combine the municipal HB results at cantonal level.
-    summarise(seats_hb = sum(seats_hb), .groups = "drop")
+    summarise(
+      seats_hb_options = combine_hb_seat_options(seats_hb_options),
+      seats_hb = unique_hb_seat_value(seats_hb_options),
+      hb_tie_note = {
+        notes <- unique(na.omit(hb_tie_note))
+        if (length(notes) == 0L) NA_character_ else paste(notes, collapse = " | ")
+      },
+      .groups = "drop"
+    )
 }
 
 read_sz_2016 <- function(source_dir, file_names) {
@@ -121,7 +149,8 @@ read_sz_2016 <- function(source_dir, file_names) {
     nrow(district_totals) == 30L,
     sum(district_totals$district_seats) == 100L,
     nrow(final) == n_distinct(district_results$parties),
-    sum(final$seats_hb) == 100L,
+    any(grepl('/', final$seats_hb, fixed = TRUE)) ||
+      sum(as.integer(final$seats_hb)) == 100L,
     sum(final$seats_dp) == 100L
   )
 
@@ -233,7 +262,8 @@ read_sz_2020 <- function(source_dir, file_name) {
     sum(district_results$party_votes) == total_accounted_votes,
     all(dp_check$seats_dp == dp_check$seats_dp_reported),
     nrow(final) == n_distinct(district_results$parties),
-    sum(final$seats_hb) == 100L,
+    any(grepl('/', final$seats_hb, fixed = TRUE)) ||
+      sum(as.integer(final$seats_hb)) == 100L,
     sum(final$seats_dp) == 100L
   )
 
@@ -303,7 +333,8 @@ read_sz_2024 <- function(source_dir, file_name) {
     sum(district_totals$district_seats) == 100L,
     all(dp_check$seats_dp == dp_check$seats_dp_upper),
     nrow(final) == length(parties),
-    sum(final$seats_hb) == 100L,
+    any(grepl('/', final$seats_hb, fixed = TRUE)) ||
+      sum(as.integer(final$seats_hb)) == 100L,
     sum(final$seats_dp) == 100L
   )
 
