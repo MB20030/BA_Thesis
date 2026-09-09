@@ -96,6 +96,7 @@ all_elections <- bind_rows(
   zh_clean
 )
 
+
 ```
 
 ### Data Cleaning
@@ -122,6 +123,8 @@ The official Double Pukelsheim results (`seats_dp`) are sourced from official ca
 ### Textsources
 
 ### Datasources
+Amt für Statistik und Daten Kanton Zürich. (2024). Archiv Wahlresultate Kantonsratswahlen [Data set]. Kanton Zürich. https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich
+
 Bundesgericht. (1965). BGE 91 I 266. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F91-I-266%3Ade&lang=de&type=show_document
 
 Bundesgericht. (2010). BGE 136 I 352. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document

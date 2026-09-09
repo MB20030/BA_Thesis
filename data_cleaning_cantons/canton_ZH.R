@@ -18,8 +18,8 @@ if (!exists("allocate_hb", mode = "function") ||
   source(here("data_cleaning_cantons", "00_functions.R"))
 }
 
-# Loading the raw excel election files. 
-# 
+# Loading the raw  election files for 2007, 2011, 2015, 2019, and 2023.
+# (Amt für Statistik und Daten Kanton Zürich, 2024)
 zh_source_dir <- here("data", "datasets", "zurich") # Raw Zurich files.
 zh_source_files <- tribble( # Match each year to its two source workbooks.
   ~year, ~party_file, ~candidate_file,
@@ -74,7 +74,9 @@ read_zh_election <- function(
   candidate_raw <- readxl::read_excel(candidate_path, col_types = "text") # Read candidates.
 
   if (election_year == 2011L) {
-    message("ZH 2011: correcting doubled SP vote totals in column K.")
+    message("ZH 2011: correcting doubled SP vote totals in column K.") # Statistical Bureau of Kanton Zürich got informed of the error
+
+
   }
 
   # Guard the fixed source columns supplied by the canton: B/H/K and A/C/L.
@@ -128,8 +130,7 @@ read_zh_election <- function(
     all(unit_checks$unit_vote_total == unit_checks$party_votes)
   )
 
-  # Column B identifies the voting district. Sum municipality results before
-  # applying the historical district-level allocation.
+
   district_results <- party_observations |>
     group_by(district, parties) |> # Combine municipalities by district and party.
     summarise(party_votes = sum(party_votes), .groups = "drop") # District totals.
@@ -167,7 +168,7 @@ read_zh_election <- function(
   )
 
   # Counting elected candidates in each district reconstructs its magnitude;
-  # counting them by party gives the official Double-Pukelsheim result.
+  # counting them by party gives the official DP result.
   district_seats <- candidate_results |>
     group_by(district) |> # One elected candidate equals one district seat.
     summarise(district_seats = sum(elected), .groups = "drop")
