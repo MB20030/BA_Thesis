@@ -1,11 +1,10 @@
 # Zurich-specific data cleaning for the 2007, 2011, 2015, 2019, and 2023
 # cantonal elections. Each election has separate party- and candidate-results
 # workbooks.
-#
-# Source-data disclaimer: In ZH_11_parteiresultate.xlsx, every SP total in
-# column K is doubled. The cleaner divides only the 2011 SP values by two.
-# This correction reconciles the party totals with the unit totals in column G
-# and with the candidate results.
+
+# An initially obtained version of the 2011 Zurich party-results dataset contained incorrect SP totals.
+# After the discrepancy was reported to the Statistical Office of the Canton of Zurich,
+# a corrected version was provided. All analyses use the corrected dataset.
 
 library(tidyverse)
 library(here)
@@ -78,12 +77,6 @@ read_zh_election <- function(
   party_raw <- readxl::read_excel(party_path, col_types = "text") # Read party votes.
   candidate_raw <- readxl::read_excel(candidate_path, col_types = "text") # Read candidates.
 
-  if (election_year == 2011L) {
-    message("ZH 2011: correcting doubled SP vote totals in column K.") # Statistical Bureau of Kanton Zürich got informed of the error
-
-
-  }
-
   # Guard the fixed source columns supplied by the canton: B/H/K and A/C/L.
   stopifnot(
     identical(
@@ -102,16 +95,7 @@ read_zh_election <- function(
       unit_id = str_squish(Einheit_Code),
       unit_vote_total = as_zh_number(Einheit_StimmenTotal),
       parties = standardize_zh_party(Partei),                # Column H.
-      party_votes_raw = as_zh_number(Partei_ParteistimmenTotal) # Column K.
-    ) |>
-    mutate(
-      # The 2011 export doubles every SP total in column K. Halving those
-      # values restores the reported total for every municipality.
-      party_votes = if_else(
-        election_year == 2011L & parties == "SP",
-        party_votes_raw / 2,
-        party_votes_raw
-      )
+      party_votes = as_zh_number(Partei_ParteistimmenTotal)  # Column K.
     )
 
   stopifnot(
