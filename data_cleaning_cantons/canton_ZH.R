@@ -23,7 +23,7 @@ if (!exists('combine_hb_seat_options', mode = 'function')) {
 }
 
 # Loading the raw  election files for 2007, 2011, 2015, 2019, and 2023.
-# (Amt für Statistik und Daten Kanton Zürich, 2024)
+# (Amt für Statistik und Daten Kanton Zürich, 2026)
 zh_source_dir <- here("data", "datasets", "zurich") # Raw Zurich files.
 zh_source_files <- tribble( # Match each year to its two source workbooks.
   ~year, ~party_file, ~candidate_file,
