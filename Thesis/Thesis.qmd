@@ -72,6 +72,7 @@ source(here("data_cleaning_cantons", "canton_SZ.R"))
 source(here("data_cleaning_cantons", "canton_VS.R"))
 source(here("data_cleaning_cantons", "canton_ZG.R"))
 source(here("data_cleaning_cantons", "canton_ZH.R"))
+source(here("data_cleaning_cantons", "canton_UR.R"))
 
 # Add more cantons as they are implemented
 
@@ -83,6 +84,7 @@ sz_clean <- process_canton_SZ()
 vs_clean <- process_canton_VS()
 zg_clean <- process_canton_ZG()
 zh_clean <- process_canton_ZH()
+ur_clean <- process_canton_UR()
 
 # Combine all cantons into single dataset
 all_elections <- bind_rows(
@@ -92,7 +94,8 @@ all_elections <- bind_rows(
   sz_clean,
   vs_clean,
   zg_clean,
-  zh_clean
+  zh_clean,
+  ur_clean
 )
 
 
@@ -122,25 +125,27 @@ The official Double Pukelsheim results (`seats_dp`) are sourced from official ca
 ### Textsources
 
 ### Datasources
-Amt für Statistik und Daten Kanton Zürich. (2026). Archiv Wahlresultate Kantonsratswahlen [Data set]. Kanton Zürich. https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich
+Amt für Statistik und Daten Kanton Zürich. (2026). *Archiv Wahlresultate Kantonsratswahlen [Data set]*. Kanton Zürich. https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich
 
-Bundesgericht. (1965). BGE 91 I 266. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F91-I-266%3Ade&lang=de&type=show_document
+Bundesgericht. (1965). *BGE 91 I 266*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F91-I-266%3Ade&lang=de&type=show_document
 
-Bundesgericht. (2010). BGE 136 I 352. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document
+Bundesgericht. (2010). *BGE 136 I 352*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document
 
 Department für Finanzen und Ressourcen des Kantons Aargau. (2009, April 21). *Detailergebnisse der Grossratswahlen vom 8. März 2009*. https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de
 
-Kanton Aargau. (1988/2007). Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG), § 8 Abs. 1. https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file
+Kanton Aargau. (1988/2007). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG), § 8 Abs. 1*. https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file
 
 Kanton Aargau. (2004). *Grossratswahlgesetz: Änderung vom 8. Juni 2004*. Abstimmungsbroschüre zur kantonalen Volksabstimmung vom 26. September 2004, pp. 5--8. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20040926-abstimmungsbroschuere.pdf
 
 Kanton Aargau. (2008). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz), Fassung gemäss Gesetz vom 18. September 2007, in Kraft seit 1. Juli 2008*. https://gesetzessammlungen.ag.ch/api/de/versions/1234/pdf_file
 
-Kanton Graubünden. (2022). Pressedaten Proporzwahl kantonal: Grossratswahlen 2022 [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx
+Kanton Graubünden. (2022). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2022* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx
 
-Kanton Graubünden. (2026). Pressedaten Proporzwahl kantonal: Grossratswahlen 2026 [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx
+Kanton Graubünden. (2026). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2026* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx
 
-Kanton Wallis. (2004a). Gesetz über die politischen Rechte (kGPR) vom 13. Mai 2004 (SGS 160.1; Stand 9. April 2017). https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375
+Kanton Uri. (2018). *Synoptische Darstellung zum Gesetz über die Verhältniswahl des Landrats (Proporzgesetz)*. https://www.ur.ch/_docn/113506/LA.2017-0413_IV._Synoptische_Darstellung_Proporzgesetz.pdf
+
+Kanton Wallis. (2004a). *Gesetz über die politischen Rechte (kGPR) vom 13. Mai 2004* (SGS 160.1; Stand 9. April 2017). https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375
 
 Kanton Wallis. (2016, 29. September). Legislaturperiode 2017–2021: Verteilung der Anzahl Grossratssitze pro Bezirk. https://www.vs.ch/documents/529400/2263784/MM_Verteilung_Grossratssitze.pdf/30be6442-6e9e-4d91-adef-76d3f60d6107
 
@@ -148,42 +153,44 @@ Kanton Wallis. (2020, 25. September). Legislaturperiode 2021–2025: Verteilung 
 
 Kanton Wallis. (2024, 20. September). Anhang zur Verteilung der Anzahl Grossratssitze pro Bezirk, Legislaturperiode 2025–2029. https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09
 
-Kanton Zürich. (1983/2005). Gesetz über die Wahlen und Abstimmungen (Wahlgesetz) (LS 161; Nachtrag 47, Stand 1. Januar 2005), §§ 87–88b. https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf
+Kanton Zürich. (1983/2005). *Gesetz über die Wahlen und Abstimmungen (Wahlgesetz) * (LS 161; Nachtrag 47, Stand 1. Januar 2005), §§ 87–88b. https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf
 
 Kanton Zug. (2006, September 28). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (Vorlage Nr. 1300.24, Laufnummer 12 198). https://kr-geschaefte.zug.ch/dokumente/2793/pdoc_1494_1.pdf
 
-Kanton Zug. (2022a, July 1). Kantonsratswahl 2018 [Data set].
+Kanton Zug. (2022a, July 1). *Kantonsratswahl 2018 [Data set]*.
 https://wab.zug.ch/elections/kantonsratswahl-2018/data
 
-Kanton Zug. (2022b, July 1). Kantonsratswahl Kanton Zug [Data set].
+Kanton Zug. (2022b, July 1). *Kantonsratswahl Kanton Zug [Data set]*.
 https://wab.zug.ch/elections/kantonsratswahl-kanton-zug-2014/data
 
-Kanton Zug. (2022c, October 2). Kantonsratswahl 2022 [Data set].
+Kanton Zug. (2022c, October 2). *Kantonsratswahl 2022 [Data set]*.
 https://wab.zug.ch/elections/kantonsratswahl-2022/data
 
-Lüscher, S. (2024). Redeeming the pledge of electoral equity? A study of the roads to and effects of the divisor-based biproportional apportionment method in Switzerland [Doctoral dissertation, University of Zurich]. https://doi.org/10.5167/uzh-264856
+Lüscher, S. (2024). *Redeeming the pledge of electoral equity? A study of the roads to and effects of the divisor-based biproportional apportionment method in Switzerland* [Doctoral dissertation, University of Zurich]. https://doi.org/10.5167/uzh-264856
 
-Regierungsrat des Kantons Aargau. (2013). Jahresbericht mit Jahresrechnung 2012. Kanton Aargau. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
+Regierungsrat des Kantons Aargau. (2013). *Jahresbericht mit Jahresrechnung 2012. Kanton Aargau*. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
 
-Staat Wallis. (2017). Grossräte 2017 – Resultate: Offizielle Endresultate. Archivierte Abstimmungs- und Wahlresultate. https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
+Staat Wallis. (2017). *Grossräte 2017 – Resultate: Offizielle Endresultate. Archivierte Abstimmungs- und Wahlresultate*. https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
 
 Staatskanzlei des Kantons Aargau. (2008, September 15). *Grossratswahlen: Vorverfahren gestartet*. https://www.ag.ch/de/medien/medienmitteilungen?mm=Grossratswahlen-Vorverfahren-gestartet-50a84551-3d6d-454c-a33c-5644c8bf50a5_de
 
-Staatskanzlei des Kantons Aargau. (2012, April 5). Gemeinsame Grossrats- und Regierungsratswahlen: Vorverfahren gestartet: Anmeldefristen sind bekannt. https://www.ag.ch/de/medien/medienmitteilungen?mm=gemeinsame-grossrats-und-regierungsratswahlen-e7d48210-c7f0-46ac-8a70-ffc1aab7b4d6_de
+Staatskanzlei des Kantons Aargau. (2012, April 5). *Gemeinsame Grossrats- und Regierungsratswahlen: Vorverfahren gestartet: Anmeldefristen sind bekannt*. https://www.ag.ch/de/medien/medienmitteilungen?mm=gemeinsame-grossrats-und-regierungsratswahlen-e7d48210-c7f0-46ac-8a70-ffc1aab7b4d6_de
 
-Staatskanzlei des Kantons Aargau. (2016, March 18). Ausschreibung der Grossrats- und Regierungsratswahlen 2016: Unterlagen unter www.ag.ch/wabag verfügbar. https://www.ag.ch/de/medien/medienmitteilungen?mm=ausschreibung-der-grossrats-und-regierungsratswahlen-2016-f7404346-a5eb-46e0-8627-301716c82855_de
+Staatskanzlei des Kantons Aargau. (2016, March 18). *Ausschreibung der Grossrats- und Regierungsratswahlen 2016: Unterlagen unter www.ag.ch/wabag verfügbar*. https://www.ag.ch/de/medien/medienmitteilungen?mm=ausschreibung-der-grossrats-und-regierungsratswahlen-2016-f7404346-a5eb-46e0-8627-301716c82855_de
 
-Staatskanzlei des Kantons Aargau. (2005, March 7). Bezirksprotokolle über die Erneuerungswahl des Grossen Rats für die Amtsperiode 2005/2009: Wahltag: 27. Februar 2005 (Amtsblattbeilage 2005-1). https://doczz.net/doc/5954970/amtsblattbeilage_vom_07.03.2005
+Staatskanzlei des Kantons Aargau. (2005, March 7). *Bezirksprotokolle über die Erneuerungswahl des Grossen Rats für die Amtsperiode 2005/2009: Wahltag: 27. Februar 2005 (Amtsblattbeilage 2005-1)*. https://doczz.net/doc/5954970/amtsblattbeilage_vom_07.03.2005
 
-Staatskanzlei Nidwalden. (2014). Wahlergebnis der Landratswahlen vom 23. März 2014 [Unpublished raw data]. Kanton Nidwalden.
+Staatskanzlei Nidwalden. (2014). *Wahlergebnis der Landratswahlen vom 23. März 2014 [Unpublished raw data]*. Kanton Nidwalden.
 
-Staatskanzlei Nidwalden. (2018). Wahlergebnis der Landratswahlen vom 4. März 2018 [Unpublished raw data]. Kanton Nidwalden.
+Staatskanzlei Nidwalden. (2018). *Wahlergebnis der Landratswahlen vom 4. März 2018 [Unpublished raw data]*. Kanton Nidwalden.
 
-Staatskanzlei Nidwalden. (2022). Wahlergebnis der Landratswahlen vom 13. März 2022 [Unpublished raw data]. Kanton Nidwalden.
+Staatskanzlei Nidwalden. (2022). *Wahlergebnis der Landratswahlen vom 13. März 2022 [Unpublished raw data]*. Kanton Nidwalden.
 
-Staatskanzlei Nidwalden. (2026). Wahlergebnis der Landratswahlen vom 8. März 2026 [Unpublished raw data]. Kanton Nidwalden.
+Staatskanzlei Nidwalden. (2026). *Wahlergebnis der Landratswahlen vom 8. März 2026 [Unpublished raw data]*. Kanton Nidwalden.
 
-Statistisches Amt Kanton Aargau. (n.d.). Grossratswahlen: Detailresultate, ab 1985 [Data set]. Kanton Aargau. Retrieved September 1, 2026, from https://www.ag.ch/app/staag/statistikportal/
+Standeskanzlei Uri. (2024). *AuswertungKapitel2-2024* [Unpublished Excel Workbook]. Kanton Uri.
+
+Statistisches Amt Kanton Aargau. (n.d.). *Grossratswahlen: Detailresultate, ab 1985 [Data set]*. Kanton Aargau. Retrieved September 1, 2026, from https://www.ag.ch/app/staag/statistikportal/
 
 ## Appendix
 
