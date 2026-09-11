@@ -178,11 +178,7 @@ small_party_summary <- all_elections |>
   ) |>
   mutate(
     seat_gain_pp = 100 * (seats_dp - seats_hb) / parliament_size,
-    gain_label = if_else(
-      seats_hb > 0,
-      sprintf("%s (+%.1f pp)", election_id, seat_gain_pp),
-      sprintf("%s (excluded: 0 to %d)", election_id, seats_dp)
-    )
+    gain_label = sprintf("%s (%+.1f pp)", election_id, seat_gain_pp)
   )
 
 small_party_plot_data <- small_party_summary |>
@@ -198,7 +194,6 @@ small_party_plot_data <- small_party_summary |>
   )
 
 h1_stats <- small_party_summary |>
-  filter(seats_hb > 0) |>
   summarise(
     elections = n(), mean_gain = mean(seat_gain_pp),
     q1 = quantile(seat_gain_pp, .25), median = median(seat_gain_pp),
@@ -253,7 +248,7 @@ small_party_plot("seat_share_small_parties", "Seats won by smaller parties (%)",
 ```
 
 ::: {.callout-note title="Hypothesis 1 summary"}
-Here, “5% more” is interpreted as a gain of more than five percentage points of all available parliamentary seats. Across the `r h1_stats$elections` eligible elections, the mean gain was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). `r h1_stats$above_five` of these elections exceeded five percentage points. Schwyz 2016 (`SZ_16`) and Schwyz 2024 (`SZ_24`) are excluded because smaller parties received no seats under the counterfactual old system, leaving no positive HB baseline for the comparison.
+Here, “5% more” is interpreted as a gain of more than five percentage points of all available parliamentary seats. Across all `r h1_stats$elections` elections, the mean gain was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). `r h1_stats$above_five` elections exceeded five percentage points.
 :::
 
 #### Interpretation of the Results
@@ -340,4 +335,4 @@ Statistisches Amt Kanton Aargau. (n.d.). *Grossratswahlen: Detailresultate, ab 1
 
 ### Appendix 2: Code for Data Cleaning
 
-## Declaration of AI-Assistance
+### Declaration of AI-Assistance
