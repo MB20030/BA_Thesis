@@ -17,7 +17,8 @@ here::i_am("data_cleaning_cantons/canton_UR.R")
 if (!exists("allocate_hb_with_notes", mode = "function") ||
     !exists("combine_hb_seat_options", mode = "function") ||
     !exists("unique_hb_seat_value", mode = "function") ||
-    !exists("finalize_election_data", mode = "function")) {
+    !exists("finalize_election_data", mode = "function") ||
+    !"parliament_size" %in% names(formals(finalize_election_data))) {
   source(here("data_cleaning_cantons", "00_functions.R"))
 }
 
@@ -314,7 +315,8 @@ read_ur_election <- function(election_year) {
     hb_results,
     official_results,
     "UR",
-    election_year
+    election_year,
+    parliament_size = 64L
   )
 
   # Make sure both systems allocate all 37 proportional seats exactly once.

@@ -240,11 +240,15 @@ allocate_hb <- function(votes, n_seats, tie_resolver = NULL) {
 #   dp_results: tibble with official seats_dp
 #   canton: character, canton abbreviation (e.g., "AG")
 #   year: numeric, election year
+#   parliament_size: total seats in parliament; defaults to the analyzed DP seats
 #
 # Returns:
 #   tibble with standardized columns: 
-#   election_id, parties, vote_share, small_party, seats_hb, seats_dp
-finalize_election_data <- function(hb_results, dp_results, canton, year) {
+#   election_id, parliament_size, seats_allocated_dp, parties, vote_share,
+#   small_party, seats_hb, seats_dp
+finalize_election_data <- function(
+    hb_results, dp_results, canton, year, parliament_size = NULL
+) {
   
   election_id <- paste0(canton, "_", sprintf("%02d", year %% 100))
   
@@ -266,6 +270,12 @@ finalize_election_data <- function(hb_results, dp_results, canton, year) {
     ) |>
     mutate(
       election_id = !!election_id,
+      seats_allocated_dp = sum(seats_dp),
+      parliament_size = if (is.null(.env$parliament_size)) {
+        seats_allocated_dp
+      } else {
+        as.integer(.env$parliament_size)
+      },
       vote_share = round(vote_share, 4),
       small_party = as.integer(vote_share < 10),
       seats_hb = as.character(seats_hb_options),
@@ -273,7 +283,8 @@ finalize_election_data <- function(hb_results, dp_results, canton, year) {
       hb_tie_note = as.character(hb_tie_note)
     ) |>
     select(
-      election_id, parties, vote_share, small_party, seats_hb, seats_dp
+      election_id, parliament_size, seats_allocated_dp, parties, vote_share,
+      small_party, seats_hb, seats_dp
     ) |>
     arrange(desc(vote_share))
   
