@@ -59,20 +59,25 @@ Investigating the threshold is especially important, since none of the reform ca
 
 library(tidyverse)
 library(ggplot2)
+library(ggrepel)
 library(readxl)
 library(janitor)
 library(here)
 
-# Load shared functions and canton-specific processing scripts
-source(here("data_cleaning_cantons", "00_functions.R"))
-source(here("data_cleaning_cantons", "canton_AG.R"))
-source(here("data_cleaning_cantons", "canton_GR.r"))
-source(here("data_cleaning_cantons", "canton_NW.R"))
-source(here("data_cleaning_cantons", "canton_SZ.R"))
-source(here("data_cleaning_cantons", "canton_VS.R"))
-source(here("data_cleaning_cantons", "canton_ZG.R"))
-source(here("data_cleaning_cantons", "canton_ZH.R"))
-source(here("data_cleaning_cantons", "canton_UR.R"))
+# Load shared functions and canton-specific processing scripts. The scripts
+# print validation tables when run directly; suppress that incidental output
+# when they are sourced into the thesis.
+invisible(capture.output({
+  source(here("data_cleaning_cantons", "00_functions.R"))
+  source(here("data_cleaning_cantons", "canton_AG.R"))
+  source(here("data_cleaning_cantons", "canton_GR.r"))
+  source(here("data_cleaning_cantons", "canton_NW.R"))
+  source(here("data_cleaning_cantons", "canton_SZ.R"))
+  source(here("data_cleaning_cantons", "canton_VS.R"))
+  source(here("data_cleaning_cantons", "canton_ZG.R"))
+  source(here("data_cleaning_cantons", "canton_ZH.R"))
+  source(here("data_cleaning_cantons", "canton_UR.R"))
+}))
 
 # Add more cantons as they are implemented
 
@@ -113,6 +118,130 @@ For the counterfactual, the district-level party votes and district seat magnitu
 The official Double Pukelsheim results (`seats_dp`) are sourced from official cantonal authorities and are documented in the Bibliography. A single lookup table consolidates all official results for easy merging with the Hagenbach-Bischoff counterfactuals. All data processing is implemented in canton-specific R scripts (R/canton_*.R) which apply shared functions for algorithm execution and validation.
 
 ### Results
+
+#### Smaller-party representation across elections
+
+@fig-small-parties compares the observed Double Pukelsheim allocation
+with the counterfactual Hagenbach-Bischoff allocation for every cleaned
+election. For each election, the figure aggregates the seats and canton-wide
+vote shares of all parties below the 10% threshold defined above. The grey
+line connects the two allocations derived from the same election.
+
+```{r}
+#| label: fig-small-parties
+#| fig-cap: "Seats won by smaller parties under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation. Smaller parties are those with less than 10% of the canton-wide vote share."
+#| fig-width: 8.3
+#| fig-height: 6.5
+#| echo: false
+#| warning: false
+#| message: false
+
+# Keep every cleaned election, including elections without a party below 10%.
+election_index <- all_elections |>
+  distinct(election_id)
+
+small_party_rows <- all_elections |>
+  filter(small_party == 1L)
+
+# Ambiguous HB allocations are stored as slash-separated alternatives. They
+# must be resolved in the cleaning scripts rather than silently coerced here.
+if (any(str_detect(small_party_rows$seats_hb, fixed("/")))) {
+  stop(
+    "At least one smaller party has an unresolved Hagenbach-Bischoff tie. ",
+    "Resolve the allocation in the relevant canton cleaning script before plotting."
+  )
+}
+
+small_party_summary <- small_party_rows |>
+  group_by(election_id) |>
+  summarise(
+    vote_share_small_parties = sum(vote_share),
+    seats_hb = sum(as.integer(seats_hb)),
+    seats_dp = sum(seats_dp),
+    .groups = "drop"
+  )
+
+small_party_plot_data <- election_index |>
+  left_join(small_party_summary, by = "election_id") |>
+  mutate(
+    across(
+      c(vote_share_small_parties, seats_hb, seats_dp),
+      ~ replace_na(.x, 0)
+    )
+  ) |>
+  pivot_longer(
+    cols = c(seats_hb, seats_dp),
+    names_to = "system",
+    values_to = "seats_small_parties"
+  ) |>
+  mutate(
+    system = recode(
+      system,
+      seats_hb = "Hagenbach-Bischoff",
+      seats_dp = "Double Pukelsheim"
+    ),
+    system = factor(
+      system,
+      levels = c("Hagenbach-Bischoff", "Double Pukelsheim")
+    )
+  )
+
+ggplot(
+  small_party_plot_data,
+  aes(
+    x = seats_small_parties,
+    y = vote_share_small_parties,
+    color = system,
+    shape = system
+  )
+) +
+  geom_line(
+    aes(group = election_id),
+    color = "grey75",
+    linewidth = 0.6
+  ) +
+  geom_point(size = 3.2) +
+  geom_text_repel(
+    aes(label = election_id),
+    size = 3.2,
+    show.legend = FALSE,
+    max.overlaps = Inf,
+    box.padding = 0.3,
+    point.padding = 0.2,
+    segment.color = "grey80",
+    segment.linewidth = 0.4,
+    seed = 2026
+  ) +
+  scale_color_manual(
+    values = c(
+      "Hagenbach-Bischoff" = "#D55E00",
+      "Double Pukelsheim" = "#0072B2"
+    )
+  ) +
+  scale_x_continuous(expand = expansion(mult = c(0.05, 0.08))) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.10))) +
+  labs(
+    title = "Representation of Smaller Parties Across Elections",
+    subtitle = paste(
+      "Observed Double Pukelsheim and counterfactual",
+      "Hagenbach-Bischoff allocations"
+    ),
+    x = "Number of seats won by smaller parties",
+    y = "Aggregated vote share of smaller parties (%)",
+    color = "Electoral system",
+    shape = "Electoral system"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    legend.title = element_text(size = 11),
+    legend.text = element_text(size = 10),
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(size = 11),
+    axis.title = element_text(size = 11),
+    panel.grid.minor = element_blank()
+  )
+```
 
 #### Interpretation of the Results
 

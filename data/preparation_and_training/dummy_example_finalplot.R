@@ -1,4 +1,6 @@
 library(tidyverse)
+library(ggrepel)
+library(ggplot2)
 
 dummy_data <- tribble(
   ~election,   ~canton, ~year, ~system,               ~seats_small_parties, ~vote_share_small_parties,
@@ -41,9 +43,6 @@ dummy_data <- tribble(
   "GR_22",   "GR",    2022,  "Hagenbach-Bischoff",  2,                    10.6,
   "GR_22",   "GR",    2022,  "Pukelsheim",          4,                    10.6
 )
-library(tidyverse)
-library(ggrepel)
-library(ggplot2)
 
 
 ggplot(dummy_data, aes(x = seats_small_parties,
