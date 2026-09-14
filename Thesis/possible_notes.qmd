@@ -8,3 +8,11 @@ cantonal level but within the six newly formed districts. This parallel and sepa
 3. Generally explain the different still remaining thresholds chosen by the cantons. E.g. 8%  in one district in Valais. Also a document from Zug for that here: https://kr-geschaefte.zug.ch/dokumente/1464/14129_2170_1_WAG.pdf
 
 4. maybe add hypothesis about rural region or small region / or parliaments --> lower impact of electoral system on the results.
+
+5. canton schwyz for 2016+2020--> SP_GRUENE --> make SP_GRUENE_UN , also in 2024 only SP without Grüne
+check quickly what is FL in URI --> also check Namingconvention --> especially CVP --> DIEMITTE --> currently seems like that some canton after name_change --> i still named them CVP instead of DIEMITTE.
+check --> uebrige in canton Zurich --> any further details on who they are exactly?
+
+6. in the graphics for the thesis --> check how did it handle the elections were there were ties?
+
+:::

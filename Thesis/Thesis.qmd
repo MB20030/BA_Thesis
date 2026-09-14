@@ -105,6 +105,7 @@ invisible(capture.output({
   source(here("data_cleaning_cantons", "canton_ZG.R"))
   source(here("data_cleaning_cantons", "canton_ZH.R"))
   source(here("data_cleaning_cantons", "canton_UR.R"))
+  source(here("data_cleaning_cantons", "canton_SH.R"))
 }))
 
 # Add more cantons as they are implemented
@@ -118,7 +119,7 @@ vs_clean <- process_canton_VS()
 zg_clean <- process_canton_ZG()
 zh_clean <- process_canton_ZH()
 ur_clean <- process_canton_UR()
-
+sh_clean <- process_canton_SH()
 # Combine all cantons into single dataset
 all_elections <- bind_rows(
   ag_clean,
@@ -128,7 +129,8 @@ all_elections <- bind_rows(
   vs_clean,
   zg_clean,
   zh_clean,
-  ur_clean
+  ur_clean,
+  sh_clean
 )
 
 
@@ -280,6 +282,8 @@ Kanton Graubünden. (2022). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2
 
 Kanton Graubünden. (2026). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2026* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx
 
+Kanton Schaffhausen. (n.d.). *Frühere Urnengänge (seit 2003)*. https://archiv.sh.ch/daten/Fruehere-Urnengaenge-seit-200.1127.0.html
+
 Kanton Uri. (2018). *Synoptische Darstellung zum Gesetz über die Verhältniswahl des Landrats (Proporzgesetz)*. https://www.ur.ch/_docn/113506/LA.2017-0413_IV._Synoptische_Darstellung_Proporzgesetz.pdf
 
 Kanton Wallis. (2004a). *Gesetz über die politischen Rechte (kGPR) vom 13. Mai 2004* (SGS 160.1; Stand 9. April 2017). https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375
@@ -307,6 +311,8 @@ Lüscher, S. (2024). *Redeeming the pledge of electoral equity? A study of the r
 
 Regierungsrat des Kantons Aargau. (2013). *Jahresbericht mit Jahresrechnung 2012. Kanton Aargau*. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
 
+Regierungsrat des Kantons Schaffhausen. (2007, April 24). *Bericht und Antrag des Regierungsrates des Kantons Schaffhausen an den Kantonsrat betreffend Anpassung des Wahlsystems für den Kantonsrat (Bericht und Antrag 07-41)*. https://archiv.sh.ch/daten/fileadmin/Redaktoren/Dokumente_nicht_im_Formularpool/Regierung/Vorlagen/2007/24-4-07.pdf
+
 Staat Wallis. (2017). *Grossräte 2017 – Resultate: Offizielle Endresultate. Archivierte Abstimmungs- und Wahlresultate*. https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
 
 Staatskanzlei des Kantons Aargau. (2008, September 15). *Grossratswahlen: Vorverfahren gestartet*. https://www.ag.ch/de/medien/medienmitteilungen?mm=Grossratswahlen-Vorverfahren-gestartet-50a84551-3d6d-454c-a33c-5644c8bf50a5_de
@@ -324,6 +330,10 @@ Staatskanzlei Nidwalden. (2018). *Wahlergebnis der Landratswahlen vom 4. März 2
 Staatskanzlei Nidwalden. (2022). *Wahlergebnis der Landratswahlen vom 13. März 2022 [Unpublished raw data]*. Kanton Nidwalden.
 
 Staatskanzlei Nidwalden. (2026). *Wahlergebnis der Landratswahlen vom 8. März 2026 [Unpublished raw data]*. Kanton Nidwalden.
+
+Staatskanzlei Kanton Schaffhausen. (2020, September 27). *Resultate der Kantonsratswahl vom 27. September 2020*. Kanton Schaffhausen. https://sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Abstimmungen-und-Wahlen-6275841-DE.html
+
+Staatskanzlei Kanton Schaffhausen. (2024, September 22). *Kantonsratswahlen vom 22. September 2024 – Resultate*. Kanton Schaffhausen. https://www.sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Regierung/Staatskanzlei-15401466-DE.html
 
 Standeskanzlei Uri. (2024). *AuswertungKapitel2-2024* [Unpublished Excel Workbook]. Kanton Uri.
 
