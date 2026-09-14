@@ -60,6 +60,8 @@ standardize_sz_party <- function(party_label) {
   )
 }
 
+# Compute HB seat allocation based on the former law 
+# (Bundesgericht, 2012, E. 5.2)
 summarize_sz_hb <- function(district_results) {
   district_results |>
     group_by(district) |> # Recreate the former system municipality by municipality.
@@ -349,9 +351,6 @@ process_canton_SZ <- function() {
 
   bind_rows(sz_16_final, sz_20_final, sz_24_final) # Return the common election-party schema for all three years.
 }
-
-# Historical district rule: each municipality formed one electoral district (Bundesgericht 1C_407/2011, E. 5.2).
-# https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza://19-03-2012-1C_407-2011&lang=de&type=show_document
 
 # Temporary check - delete in the end.
 print(process_canton_SZ(), n = Inf)

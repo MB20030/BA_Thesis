@@ -31,35 +31,29 @@ We need to formulate hypotheses. The hypotheses are based on the theoretical con
 
 ### Hypothesis 1
 
-H0: Across all analyzed elections, parties with less than 10% canton-wide vote share receive no more than 5% more seats in aggregate under the double-proportional Pukelsheim system than they would have received under a counterfactual Hagenbach-Bischoff allocation.
+For each election $e$, smaller parties are those with less than 10% of the canton-wide vote. Let $S^{DP}_{e}$ and $S^{HB}_{e}$ be their combined seats under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation, respectively, and let $M_e$ be the total number of seats in that election. Their gain in seat share, shown for each election in @fig-small-parties-relative, is
 
 $$
-H_0:\quad
-\frac{\sum \operatorname{Seats}_{\text{small},\text{Pukelsheim}}}
-     {\sum \operatorname{Seats}_{\text{small},\text{HB}}}
-\leq 1.05
+\Delta_e = 100\frac{S^{DP}_{e}-S^{HB}_{e}}{M_e}\quad\text{percentage points}.
 $$
 
-H1 (Main Hypothesis): Across all analyzed elections, parties with less than 10% canton-wide vote share receive more than 5% more seats in aggregate under the double-proportional Pukelsheim system than they would have received under Hagenbach-Bischoff.
+The main hypothesis concerns the unweighted mean of these election-level gains, $\bar{\Delta}=E^{-1}\sum_{e=1}^{E}\Delta_e$, across the $E$ analyzed elections. Thus, "more than 5% more seats" means a mean gain greater than **five percentage points of all available seats**, rather than a 5% increase relative to the Hagenbach-Bischoff seat total.
 
-$$
-H_1:\quad
-\frac{\sum \operatorname{Seats}_{\text{small},\text{Pukelsheim}}}
-     {\sum \operatorname{Seats}_{\text{small},\text{HB}}}
-> 1.05
-$$
+**H₀ (null hypothesis):** The mean gain in smaller parties' seat share under Double Pukelsheim is at most five percentage points: $\bar{\Delta}\leq 5$.
+
+**H₁ (main hypothesis):** The mean gain in smaller parties' seat share under Double Pukelsheim exceeds five percentage points: $\bar{\Delta}>5$.
 
 The 10% threshold is based on that the Swiss Federal Supreme Court has argued that direct and natural quorums, understood as barriers to representation within an electoral district, should generally not exceed 10% (ADD SOURCE HERE) 
 
 ### Hypothesis 2
 
-H02 :The transition to the double Pukelsheim system did not lead to a systematic increase in party-system fragmentation.
+**H₀2 (null hypothesis):** The transition to the double Pukelsheim system did not lead to a systematic increase in party-system fragmentation.
 
 $$
 H_{0,2}:\quad \operatorname{ENP}_{\text{post}}-\operatorname{ENP}_{\text{pre}}\leq 0
 $$
 
-H1₂aThe transition to the double Pukelsheim system led to a systematic increase in party-system fragmentation.
+**H₁2:** The transition to the double Pukelsheim system led to a systematic increase in party-system fragmentation.
 
 $$
 H_{1,2}:\quad \operatorname{ENP}_{\text{post}}-\operatorname{ENP}_{\text{pre}}>0
@@ -76,7 +70,7 @@ v = votes shares, s = seat shares
 ## Analysis
 
 H1: The analysis takes the actual seat allocation under the Pukelsheimer Proporz as its starting point. Based on the available election data at the municipal or district level, it then reconstructs how many seats each party would have obtained under the former Hagenbach-Bischoff system. The comparison between the actual seat distribution under the new system and the hypothetical distribution under the old system makes it possible to identify how many seats each party gained or lost as a result of the reform. In this way, the study assesses the mechanical effect of the electoral-system change on party representation, with a particular focus on smaller parties.
-For the purposes of this thesis, a smaller party is defined as a party that received in maximum 10% of the vote share in the relevant electoral unit. Youth lists and other special-interest lists, such as wom-en’s lists or pensioners’ lists, are not treated as independent parties. Instead, their votes and seats are attributed to the respective mother party, which reflects common electoral practice in Switzerland. (ADD SOURCE HERE)
+For the purposes of this thesis, a smaller party is defined as a party with less than 10% of the canton-wide vote share in the relevant election. Youth lists and other special-interest lists, such as wom-en’s lists or pensioners’ lists, are not treated as independent parties. Instead, their votes and seats are attributed to the respective mother party, which reflects common electoral practice in Switzerland. (ADD SOURCE HERE)
 The choice of 10% as the threshold is grounded in both legal and normative considerations. In its de-cision BGE 131 I 74, the Swiss Federal Supreme Court argued that direct and natural quorums, under-stood as barriers to representation within an electoral district, should generally not exceed 10%.  The 2013 report of the Federal Chancellery refers to the same benchmark and further notes that the Venice Commission considers thresholds in the range of 10–15% to be the upper acceptable limit . Using vote share rather than absolute party size is particularly appropriate because a party may be electorally small in one region while being comparatively strong in another. Low thresholds are closely linked to the principle of Erfolgswertgleichheit, or equality of vote success value, which requires that votes should be translated into seats as equally and effectively as possible. 
 Investigating the threshold is especially important, since none of the reform cantons had a <10% threshold in all districts before the implantation of the new electoral reform (Lüscher,2024, p.115).
 
@@ -85,6 +79,7 @@ Investigating the threshold is especially important, since none of the reform ca
 #| warning: false
 #| message: false
 
+# Load packages for data processing, plotting, labels, and source files.
 library(tidyverse)
 library(ggplot2)
 library(ggrepel)
@@ -92,9 +87,8 @@ library(readxl)
 library(janitor)
 library(here)
 
-# Load shared functions and canton-specific processing scripts. The scripts
-# print validation tables when run directly; suppress that incidental output
-# when they are sourced into the thesis.
+# Load the allocation functions and canton-specific cleaning scripts.
+# Suppress validation tables printed while sourcing them.
 invisible(capture.output({
   source(here("data_cleaning_cantons", "00_functions.R"))
   source(here("data_cleaning_cantons", "canton_AG.R"))
@@ -108,9 +102,7 @@ invisible(capture.output({
   source(here("data_cleaning_cantons", "canton_SH.R"))
 }))
 
-# Add more cantons as they are implemented
-
-# Process all cantons
+# Run each canton's cleaning and seat-allocation pipeline.
 ag_clean <- process_canton_AG()
 gr_clean <- process_canton_GR()
 nw_clean <- process_canton_NW()
@@ -120,7 +112,7 @@ zg_clean <- process_canton_ZG()
 zh_clean <- process_canton_ZH()
 ur_clean <- process_canton_UR()
 sh_clean <- process_canton_SH()
-# Combine all cantons into single dataset
+# Use one party-by-election dataset for the figures below.
 all_elections <- bind_rows(
   ag_clean,
   gr_clean,
@@ -151,10 +143,10 @@ The official Double Pukelsheim results (`seats_dp`) are sourced from official ca
 
 #### Smaller-party representation across elections
 
-@fig-small-parties compares the observed Double Pukelsheim allocation with the counterfactual Hagenbach-Bischoff allocation for every cleaned election. For each election, the figure aggregates the seats and canton-wide vote shares of all parties below the 10% threshold defined above. The grey line connects the two allocations derived from the same election.
+@fig-small-parties-absolute compares the observed Double Pukelsheim allocation with the counterfactual Hagenbach-Bischoff allocation for every cleaned election. For each election, the figure aggregates the seats and canton-wide vote shares of all parties below the 10% threshold defined above. The grey line connects the two allocations derived from the same election.
 
 ```{r}
-#| label: fig-small-parties
+#| label: fig-small-parties-absolute
 #| fig-cap: "Seats won by smaller parties under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation. Smaller parties are those with less than 10% of the canton-wide vote share."
 #| fig-width: 8.3
 #| fig-height: 6.5
@@ -162,27 +154,33 @@ The official Double Pukelsheim results (`seats_dp`) are sourced from official ca
 #| warning: false
 #| message: false
 
+# Restrict the tie check to parties below the 10% vote-share threshold.
 small_party_rows <- all_elections |>
   filter(small_party == 1L)
 
+# A slash marks alternative HB seat totals from an unresolved draw.
 if (any(str_detect(small_party_rows$seats_hb, fixed("/")))) {
   stop("Resolve smaller-party HB ties before plotting.")
 }
 
+# Aggregate smaller parties within each election under both seat rules.
 small_party_summary <- all_elections |>
   group_by(election_id) |>
   summarise(
     parliament_size = first(parliament_size),
     vote_share_small_parties = sum(vote_share[small_party == 1L]),
+    # Only smaller-party seats enter the HB–DP comparison.
     seats_hb = sum(as.integer(seats_hb[small_party == 1L])),
     seats_dp = sum(seats_dp[small_party == 1L]),
     .groups = "drop"
   ) |>
   mutate(
+    # Express the DP gain as a share of all parliamentary seats.
     seat_gain_pp = 100 * (seats_dp - seats_hb) / parliament_size,
     gain_label = sprintf("%s (%+.1f pp)", election_id, seat_gain_pp)
   )
 
+# Put both systems on separate rows for plotting and calculate seat shares.
 small_party_plot_data <- small_party_summary |>
   pivot_longer(
     cols = c(seats_hb, seats_dp),
@@ -191,30 +189,38 @@ small_party_plot_data <- small_party_summary |>
   ) |>
   mutate(
     seat_share_small_parties = 100 * seats_small_parties / parliament_size,
+    # Fix the legend order across both figures.
     system = factor(recode(system, seats_hb = "Hagenbach-Bischoff", seats_dp = "Double Pukelsheim"),
                     levels = c("Hagenbach-Bischoff", "Double Pukelsheim"))
   )
 
+# Summarize election-level gains and the parliament-size-weighted mean.
 h1_stats <- small_party_summary |>
   summarise(
     elections = n(), mean_gain = mean(seat_gain_pp),
+    weighted_mean_gain = weighted.mean(seat_gain_pp, parliament_size),
     q1 = quantile(seat_gain_pp, .25), median = median(seat_gain_pp),
     q3 = quantile(seat_gain_pp, .75),
     above_five = sum(seat_gain_pp > 5)
   )
 
+# Draw either the seat-count or seat-share version of the same comparison.
 small_party_plot <- function(x, x_title, label, percent = FALSE) {
+  # Label both systems for counts, but only DP points for the denser share plot.
   label_data <- if (percent) filter(small_party_plot_data, system == "Double Pukelsheim") else small_party_plot_data
   ggplot(small_party_plot_data, aes(x = .data[[x]], y = vote_share_small_parties,
                                    color = system, shape = system)) +
+    # Connect the two outcomes from each election.
     geom_line(aes(group = election_id), color = "grey75", linewidth = 0.6) +
     geom_point(size = 3.2) +
+    # Place election or gain labels without overlapping points.
     geom_text_repel(data = label_data, aes(label = .data[[label]]), size = 3.2,
                     show.legend = FALSE, max.overlaps = Inf, box.padding = 0.3,
                     point.padding = 0.2, segment.color = "grey80",
                     segment.linewidth = 0.4, seed = 2026) +
     scale_color_manual(values = c("Hagenbach-Bischoff" = "#D55E00",
                                   "Double Pukelsheim" = "#0072B2")) +
+    # Format the x-axis as percentages only in the relative figure.
     scale_x_continuous(labels = if (percent) \(x) paste0(x, "%") else waiver(),
                        expand = expansion(mult = c(0.05, 0.08))) +
     scale_y_continuous(expand = expansion(mult = c(0.05, 0.10))) +
@@ -230,6 +236,7 @@ small_party_plot <- function(x, x_title, label, percent = FALSE) {
           panel.grid.minor = element_blank())
 }
 
+# Plot absolute smaller-party seat totals.
 small_party_plot("seats_small_parties", "Number of seats won by smaller parties", "election_id")
 ```
 
@@ -246,11 +253,12 @@ small_party_plot("seats_small_parties", "Number of seats won by smaller parties"
 #| warning: false
 #| message: false
 
+# Reuse the plot with seat shares and percentage-point gain labels.
 small_party_plot("seat_share_small_parties", "Seats won by smaller parties (%)", "gain_label", TRUE)
 ```
 
 ::: {.callout-note title="Hypothesis 1 summary"}
-Here, “5% more” is interpreted as a gain of more than five percentage points of all available parliamentary seats. Across all `r h1_stats$elections` elections, the mean gain was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). `r h1_stats$above_five` elections exceeded five percentage points.
+Across all `r h1_stats$elections` elections, the unweighted mean gain in smaller parties' share of all seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's parliament size was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
 :::
 
 #### Interpretation of the Results
@@ -269,6 +277,8 @@ Amt für Statistik und Daten Kanton Zürich. (2026). *Archiv Wahlresultate Kanto
 Bundesgericht. (1965). *BGE 91 I 266*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F91-I-266%3Ade&lang=de&type=show_document
 
 Bundesgericht. (2010). *BGE 136 I 352*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document
+
+Bundesgericht. (2012, 19. März). *Urteil 1C_407/2011, 1C_445/2011 und 1C_447/2011: Kantonsratswahlen 2012, Verletzung des Wahlrechts*. https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza%3A%2F%2F19-03-2012-1C_407-2011&lang=de&type=show_document
 
 Department für Finanzen und Ressourcen des Kantons Aargau. (2009, April 21). *Detailergebnisse der Grossratswahlen vom 8. März 2009*. https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de
 

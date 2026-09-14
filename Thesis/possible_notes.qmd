@@ -9,12 +9,4 @@ cantonal level but within the six newly formed districts. This parallel and sepa
 
 4. maybe add hypothesis about rural region or small region / or parliaments --> lower impact of electoral system on the results.
 
-5. canton schwyz for 2016+2020--> SP_GRUENE --> make SP_GRUENE_UN , also in 2024 only SP without Grüne
-check quickly what is FL in URI --> also check Namingconvention --> especially CVP --> DIEMITTE --> currently seems like that some canton after name_change --> i still named them CVP instead of DIEMITTE.
-check --> uebrige in canton Zurich --> any further details on who they are exactly?
-
-6. in the graphics for the thesis --> check how did it handle the elections were there were ties? --> only ties of big parties --> therefore no issue --> check if you can add it quickly
-S
-7. add note why schaffhausen is probably shifting analysis --> they still allow listconnections --> also many sub parties of svp --> get counted as own party
-
-8. sz --> source line 353 check
+5. add note why schaffhausen is probably shifting analysis --> they still allow listconnections --> also many sub parties of svp --> get counted as own party
