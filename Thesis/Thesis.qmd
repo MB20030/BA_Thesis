@@ -3,15 +3,104 @@ title: "20 Years of the Double Pukelsheim System in Switzerland: What Is the Mec
 author: "Jan Moritz Beyn"
 date: today
 format:
-  typst: default
+  typst:
+    papersize: a4
+    page-numbering: false
+    toc: false
+    include-in-header:
+      text: |
+        // Keep Quarto's article styling and PDF metadata, but put the cover
+        // in the document body instead of generating a second title block.
+        #let article(
+          title: none, subtitle: none, authors: none, keywords: (), date: none,
+          abstract-title: none, abstract: none, thanks: none, cols: 1,
+          lang: "en", region: "US", font: none, fontsize: 11pt,
+          title-size: 1.5em, subtitle-size: 1.25em, heading-family: none,
+          heading-weight: "bold", heading-style: "normal", heading-color: black,
+          heading-line-height: 0.65em, mathfont: none, codefont: none,
+          linestretch: 1, sectionnumbering: none, linkcolor: none,
+          citecolor: none, filecolor: none, toc: false, toc_title: none,
+          toc_depth: none, toc_indent: 1.5em, doc,
+        ) = {
+          set document(title: title, keywords: keywords)
+          set document(author: authors.map(author => content-to-string(author.name)).join(", ", last: " & ")) if authors != none and authors != ()
+          set par(justify: true, leading: linestretch * 0.65em)
+          set text(lang: lang, region: region, size: fontsize)
+          set text(font: font) if font != none
+          show math.equation: set text(font: mathfont) if mathfont != none
+          show raw: set text(font: codefont) if codefont != none
+          set heading(numbering: sectionnumbering)
+          show link: set text(fill: rgb(content-to-string(linkcolor))) if linkcolor != none
+          show ref: set text(fill: rgb(content-to-string(citecolor))) if citecolor != none
+          show link: this => {
+            if filecolor != none and type(this.dest) == label {
+              text(this, fill: rgb(content-to-string(filecolor)))
+            } else {
+              text(this)
+            }
+          }
+          doc
+        }
 ---
+```{=typst}
+#set page(numbering: none)
+
+#align(center)[
+#image("hsg_logo.svg", width: 75mm, alt: "University of St.Gallen logo")
+#v(7mm)
+  #text(size: 18pt, font: "Libertinus Serif")[University of St. Gallen]
+  #v(3mm)
+  #text(size: 10pt)[University of St.Gallen – School of Management, Economics, Law, Social Sciences, International Affairs and Computer Science]
+  #v(12mm)
+  #line(length: 100%, stroke: 0.7pt + rgb("8398b9"))
+  #v(6mm)
+  #text(size: 15pt, font: "Libertinus Serif")[20 Years of the Double Pukelsheim System in Switzerland: What Is the Mechanical Effect of the Transition from the Hagenbach-Bischoff Method on the Seat Distribution of Smaller Parties?]
+  #v(25mm)
+  #text(size: 11pt)[Jan Moritz Beyn]
+  #v(4mm)
+  #text(size: 10pt)[Talackerstrasse 11]
+  #v(3mm)
+  #text(size: 10pt)[8274 Tägerwilen]
+  #v(3mm)
+  #text(size: 10pt)[+41 79 551 89 39]
+  #v(3mm)
+  #text(size: 10pt)[janmoritz.beyn\@student.unisg.ch]
+  #v(3mm)
+  #text(size: 10pt)[23-611-908]
+  #v(12mm)
+  #text(size: 10.5pt)[University of St. Gallen]
+  #v(3mm)
+  #text(size: 10.5pt)[Bachelor Thesis Economics]
+  #v(3mm)
+  #text(size: 10.5pt)[Supervisor: Dr. Aurélien Sallin]
+  #v(3mm)
+  #text(size: 10.5pt)[Submission date: 17.11.2026]
+]
+
+#pagebreak()
+#set page(numbering: "I", number-align: right)
+#counter(page).update(1)
+```
+
 ## Abstract
 
 
+```{=typst}
+#pagebreak()
+#outline(title: [Table of Contents], depth: 3, indent: 1.5em)
+#pagebreak()
+#set page(numbering: "1", number-align: right)
+#counter(page).update(1)
+```
+
 ## Introduction
+On the 18th of December 2002 the Swiss Federal Supreme Court (FSC) came to a conclusion, which disrupted the Swiss Electoral System. In BGE 129 | 185 the FSC criticized that in the elections for the Council of the City of Zurich, the thresholds for parties to win a seat, vary heavily from district to district. Through that not every voter has the same influence and therefore is the Principle of Equal Treatment (Gleichhandlungsgebot) not given anymore.  Based on this criticism the court decided that the City of Zurich needs to implement corrective measures, it let the City decide which these would be. (BGE 129 I 185, E. 7.3, S. 199–200) The Government of the Canton of Zurich decided to keep the consituency structure (Regierungsrat des Kantons Zürich, 2014, pp. 3–4). Instead the canton of Zurich comissioned the german mathematician Friedrich Pukelsheim to develop a comprehensive and at the same time minimally invasive solution for the problem. Eventually Pukelsheim came up with a solution named "biproportional divisor method with standard rounding" which is today often simply called "double Pukelsheim" or "Biproportional apportionment". (Lüscher, 2024, pp. 9-10)
+
+Since the implementation through the Canton of Zurich in 2007, nine more cantons followed: Schaffhausen (2008), Aargau (2009), Nidwalden (2014), Zug (2014), Schwyz (2016) , Valais (2017) , Uri (2020), Graubünden (2022) in 2025 also the voters from Basel Landschaft decided to implement the Biproportional apportionment from 2027 on (Lüscher , 2024, p.17 ; Kanton Basel-Landschaft, 2025a, p.7 ; Kanton Basel-Landschaft, 2025b) 
+
 Switzerland’s cantonal electoral reforms of the last two decades have brought renewed attention to a central question of representative democracy: how parliamentary seats can be distributed in a way that reflects voter preferences as fairly as possible while still preserving territorial representation. In the Swiss case, this debate became especially prominent because traditional proportional systems in small constituencies often generated high implicit thresholds. These electoral systems therefore dis-advantaged smaller parties which led to raising concerns about electoral equality (Bundeskanzlei, 2013, pp. 8–10). The double-proportional allocation method, commonly known as the double Pukelsheim, emerged in this context as a reform intended to reduce such distortions and to strength-en the equal weight of votes across the canton (Lüscher, 2023, p. 571).
 
-At the core of this debate lies the contrast between two different logics of seat allocation. The tradi-tional Hagenbach-Bischoff method belongs to the family of divisor methods with downward round-ing and therefore tends to benefit larger parties, especially in smaller electoral districts. (Bun-deskanzlei, 2013, pp. 6–7). By contrast, the double Pukelsheim combines a canton-wide upper alloca-tion with a subsequent redistribution of seats to districts, thereby improving proportionality at the cantonal level and reducing the number of votes that remain without effective influence on seat allo-cation (Pukelsheim & Schuhmacher, 2011, pp. 1581–1582, 1591). In this sense, the reform is closely linked to the principle of Erfolgswertgleichheit, meaning that votes should contribute as equally as possible to the final electoral outcome (Bundeskanzlei, 2013, pp. 8–9).
+At the core of this debate lies the contrast between two different logics of seat allocation. The traditional Hagenbach-Bischoff method belongs to the family of divisor methods with downward round-ing and therefore tends to benefit larger parties, especially in smaller electoral districts. (Bun-deskanzlei, 2013, pp. 6–7). By contrast, the double Pukelsheim combines a canton-wide upper alloca-tion with a subsequent redistribution of seats to districts, thereby improving proportionality at the cantonal level and reducing the number of votes that remain without effective influence on seat allo-cation (Pukelsheim & Schuhmacher, 2011, pp. 1581–1582, 1591). In this sense, the reform is closely linked to the principle of Erfolgswertgleichheit, meaning that votes should contribute as equally as possible to the final electoral outcome (Bundeskanzlei, 2013, pp. 8–9).
 
 This reform is especially relevant for the representation of smaller parties. Because the double Pukelsheim aggregates party strength across the entire canton before allocating seats to districts, votes that would previously have been ineffective in small constituencies can now contribute to a seat gain at the cantonal level (Lüscher, 2025, pp. 1–2). Sandro Lüscher illustrates this mechanical effect with the case of Schwyz in 2016: under the old Hagenbach-Bischoff system, the Green Liberal Party would not have won a single seat, whereas under the new method they obtained three seats (Lüscher, 2025, p. 2-3). More generally, recent work suggests that the shift away from Hagenbach-Bischoff re-duces the structural advantage previously enjoyed by larger parties and improves the parliamentary chances of smaller competitors (Bundeskanzlei, 2025, pp. 22–25).
 At the same time, the reform does not eliminate all tensions. While the double Pukelsheim improves party proportionality and vote equality, it may also produce new frictions at the district level. Schol-ars have pointed out that the system can weaken the direct correspondence between a district’s seat share and its actual influence on the canton-wide outcome, thereby creating a tension between parti-san proportionality and territorial representation (Lüscher, 2023, pp. 577–580). 
@@ -72,7 +161,7 @@ v = votes shares, s = seat shares
 H1: The analysis takes the actual seat allocation under the Pukelsheimer Proporz as its starting point. Based on the available election data at the municipal or district level, it then reconstructs how many seats each party would have obtained under the former Hagenbach-Bischoff system. The comparison between the actual seat distribution under the new system and the hypothetical distribution under the old system makes it possible to identify how many seats each party gained or lost as a result of the reform. In this way, the study assesses the mechanical effect of the electoral-system change on party representation, with a particular focus on smaller parties.
 For the purposes of this thesis, a smaller party is defined as a party with less than 10% of the canton-wide vote share in the relevant election. Youth lists and other special-interest lists, such as wom-en’s lists or pensioners’ lists, are not treated as independent parties. Instead, their votes and seats are attributed to the respective mother party, which reflects common electoral practice in Switzerland. (ADD SOURCE HERE)
 The choice of 10% as the threshold is grounded in both legal and normative considerations. In its de-cision BGE 131 I 74, the Swiss Federal Supreme Court argued that direct and natural quorums, under-stood as barriers to representation within an electoral district, should generally not exceed 10%.  The 2013 report of the Federal Chancellery refers to the same benchmark and further notes that the Venice Commission considers thresholds in the range of 10–15% to be the upper acceptable limit . Using vote share rather than absolute party size is particularly appropriate because a party may be electorally small in one region while being comparatively strong in another. Low thresholds are closely linked to the principle of Erfolgswertgleichheit, or equality of vote success value, which requires that votes should be translated into seats as equally and effectively as possible. 
-Investigating the threshold is especially important, since none of the reform cantons had a <10% threshold in all districts before the implantation of the new electoral reform (Lüscher,2024, p.115).
+Investigating the threshold is especially important, since none of the reform cantons had a <10% threshold in all districts before the implantation of the new electoral reform (Lüscher, 2024, p. 115).
 
 ```{r}
 #| echo: false
@@ -270,6 +359,15 @@ Across all `r h1_stats$elections` elections, the unweighted mean gain in smaller
 ## Bibliography
 
 ### Textsources
+Bundesgericht. (2002). *BGE 129 I 185*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F129-I-185%3Ade&lang=de&type=show_document
+
+Kanton Basel-Landschaft. (2025a). *Abstimmung vom 9. Februar 2025: Abstimmungsvorlagen [Abstimmungsbroschüre]*. https://abstimmungen.bl.ch/app/archive/de/storage/cd604418d5ac943f3373dd673738f3101f41769264c57eba9d692ea3d9a12347.pdf
+
+Kanton Basel-Landschaft. (2025b). *Einführung des kantonalen Doppelproporzes im Kanton Basel-Landschaft – Teilrevision des Gesetzes über die politischen Rechte [Abstimmungsresultat vom 9. Februar 2025]*. https://abstimmungen.bl.ch/app/archive/de/vote/ct-13-100.html
+
+Lüscher, S. (2024). *Redeeming the pledge of electoral equity? A study of the roads to and effects of the divisor-based biproportional apportionment method in Switzerland* [Doctoral dissertation, University of Zurich]. https://doi.org/10.5167/uzh-264856
+
+Regierungsrat des Kantons Zürich. (2014, November 26). *Postulat (Änderung Wahlgesetz [Wahlkreiseinteilung]) (RRB Nr. 1254/2014; KR-Nr. 219/2014)*. https://parlzhcdws.cmicloud.ch/parlzh5/cdws//Files/89dffabbc7a240f08e824f7a30bebf4d-332/1/pdf
 
 ### Datasources
 Amt für Statistik und Daten Kanton Zürich. (2026). *Archiv Wahlresultate Kantonsratswahlen [Data set]*. Kanton Zürich. https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich
@@ -316,8 +414,6 @@ https://wab.zug.ch/elections/kantonsratswahl-kanton-zug-2014/data
 
 Kanton Zug. (2022c, October 2). *Kantonsratswahl 2022 [Data set]*.
 https://wab.zug.ch/elections/kantonsratswahl-2022/data
-
-Lüscher, S. (2024). *Redeeming the pledge of electoral equity? A study of the roads to and effects of the divisor-based biproportional apportionment method in Switzerland* [Doctoral dissertation, University of Zurich]. https://doi.org/10.5167/uzh-264856
 
 Regierungsrat des Kantons Aargau. (2013). *Jahresbericht mit Jahresrechnung 2012. Kanton Aargau*. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
 
