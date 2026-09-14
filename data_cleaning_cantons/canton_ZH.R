@@ -52,6 +52,11 @@ normalize_zh_label <- function(label) {
 standardize_zh_party <- function(party_label) {
   normalized <- normalize_zh_label(party_label)
 
+  # The party-results files aggregate minor lists as "Uebrige". The candidate
+  # files identify them as: 2007 Hanf Ueli; 2011 Piraten and ERP; 2015
+  # Piraten, IP ZH, and JUSO; 2019 die Guten and Helvida; 2023 AuFL, SaPaPo,
+  # and Stopp. (Amt für Statistik und Daten Kanton Zürich, 2026) None of these minor 
+  # list have won a seat under DP or would have won one under HB, therefore this doesn't influence our results.
   case_when(
     normalized %in% c("GP", "GRUNE") ~ "GRUENE", # Match both Green labels.
     normalized %in% c("MITTE", "DIE MITTE") ~ "DIEMITTE", # Match Mitte labels.
@@ -59,7 +64,7 @@ standardize_zh_party <- function(party_label) {
     normalized %in% c(
       "UBRIGE", "HANF UELI", "PIRATEN", "ERP", "IP ZH", "JUSO",
       "DIE GUTEN", "HELVIDA", "AUFL", "SAPAPO", "STOPP"
-    ) ~ "UEBRIGE", # Combine minor lists reported as "Uebrige".
+    ) ~ "UEBRIGE", # Match the minor-list codes to the source's aggregated "Uebrige" vote row.
     TRUE ~ str_replace_all(normalized, " ", "_") # Keep other party codes.
   )
 }

@@ -13,6 +13,8 @@ cantonal level but within the six newly formed districts. This parallel and sepa
 check quickly what is FL in URI --> also check Namingconvention --> especially CVP --> DIEMITTE --> currently seems like that some canton after name_change --> i still named them CVP instead of DIEMITTE.
 check --> uebrige in canton Zurich --> any further details on who they are exactly?
 
-6. in the graphics for the thesis --> check how did it handle the elections were there were ties?
+6. in the graphics for the thesis --> check how did it handle the elections were there were ties? --> only ties of big parties --> therefore no issue --> check if you can add it quickly
+S
+7. add note why schaffhausen is probably shifting analysis --> they still allow listconnections --> also many sub parties of svp --> get counted as own party
 
-:::
+8. sz --> source line 353 check

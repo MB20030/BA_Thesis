@@ -23,11 +23,14 @@ if (!exists("allocate_hb_with_notes", mode = "function") ||
 }
 
 # Load the election data for 2020 and 2024
-# (Standeskanzlei Uri, 2024)
+# (Standeskanzlei Uri, 2024a)
 ur_source_path <- here(
   "data", "datasets", "uri", "UR_24_auswertung.xlsx" # The 2024 file also contains the 2020 results.
 )
 ur_source_sheet <- "722 Verteilung Gden"
+
+# NOTE "FL" means "Freie Listen" and therefore ballots without a party/list designation.
+# It's not an own Party (Standeskanzlei Uri, 2024b, p. 20).
 
 
 ur_election_columns <- tribble( # create a tibble with the column positions for each year
@@ -58,12 +61,15 @@ normalize_ur_label <- function(label) {
     stringi::stri_trans_general("Latin-ASCII")
 }
 
-# Use the same short party names in both election years.
-standardize_ur_party <- function(party_label) {
+# Keep the 2020 CVP label, but use the post-renaming analytical label in 2024.
+# The workbook abbreviates both years as CVP; the 2024 official list was
+# "CVP - Die Mitte Uri" (Standeskanzlei Uri, 2024b, section 2.1).
+standardize_ur_party <- function(party_label, election_year) {
   normalized <- normalize_ur_label(party_label)
 
   case_when(
-    str_detect(normalized, "^CVP(?: |$)|^DIE MITTE(?: |$)") ~ "CVP",
+    str_detect(normalized, "^CVP(?: |$)|^DIE MITTE(?: |$)") ~
+      if_else(election_year >= 2024L, "DIEMITTE", "CVP"),
     str_detect(normalized, "^FDP(?: |$)") ~ "FDP",
     str_detect(normalized, "^GLP(?: |$)") ~ "GLP",
     str_detect(normalized, "^SP(?:/G|/GB|/GRUNE| |$)") ~ "SP/GB",
@@ -178,7 +184,7 @@ read_ur_election <- function(election_year) {
   )
 
   party_rows <- 37L:41L
-  source_parties <- standardize_ur_party(raw[[16L]][party_rows])
+  source_parties <- standardize_ur_party(raw[[16L]][party_rows], election_year)
   stopifnot(!anyNA(source_parties), !anyDuplicated(source_parties))
 
   # Read the overall party totals used later to check the municipal data.
@@ -200,7 +206,7 @@ read_ur_election <- function(election_year) {
     ur_district_blocks,
     function(district, header_row, first_party_row, last_party_row) {
       rows <- seq.int(first_party_row, last_party_row)
-      block_parties <- standardize_ur_party(raw[[1L]][rows])
+      block_parties <- standardize_ur_party(raw[[1L]][rows], election_year)
 
       stopifnot(
         normalize_ur_label(raw[[1L]][header_row]) == normalize_ur_label(district),

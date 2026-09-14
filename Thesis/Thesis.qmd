@@ -335,7 +335,9 @@ Staatskanzlei Kanton Schaffhausen. (2020, September 27). *Resultate der Kantonsr
 
 Staatskanzlei Kanton Schaffhausen. (2024, September 22). *Kantonsratswahlen vom 22. September 2024 – Resultate*. Kanton Schaffhausen. https://www.sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Regierung/Staatskanzlei-15401466-DE.html
 
-Standeskanzlei Uri. (2024). *AuswertungKapitel2-2024* [Unpublished Excel Workbook]. Kanton Uri.
+Standeskanzlei Uri. (2024a). *AuswertungKapitel2-2024* [Unpublished Excel Workbook]. Kanton Uri.
+
+Standeskanzlei Uri. (2024b). *Landratswahlen 2024: Statistische Auswertung*. Kanton Uri. https://www.ur.ch/_docn/384232/Landratswahlen_2024_stat_Auswertung.pdf
 
 Statistisches Amt Kanton Aargau. (n.d.). *Grossratswahlen: Detailresultate, ab 1985 [Data set]*. Kanton Aargau. Retrieved September 1, 2026, from https://www.ag.ch/app/staag/statistikportal/
 

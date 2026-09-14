@@ -107,7 +107,7 @@ standardize_vs_party <- function(party_label, election_year) {
       "SP_GRUENE_UNABHAENGIGE",
     str_detect(normalized, "GRUNLIBERAL|GRUENLIBERAL|VERT LIB") ~ "GLP",
     str_detect(normalized, "SVP|UDC") ~ "SVP",
-    str_detect(normalized, "DIE MITTE OBERWALLIS|LE CENTRE") ~ "MITTE",
+    str_detect(normalized, "DIE MITTE OBERWALLIS|LE CENTRE") ~ "DIEMITTE",
     str_detect(
       normalized,
       "CVP.*OBERWALLIS|CHRISTLICHDEMOKRATISCHE.*OBERWALLIS"
@@ -345,7 +345,7 @@ vs_official_dp_totals <- function(election_year) {
     "2025" = tribble(
       ~parties,                  ~official_voter_number, ~official_seats_dp,
       "SP_GRUENE_UNABHAENGIGE",  2856L,                   3L,
-      "MITTE",                  32865L,                  42L,
+      "DIEMITTE",               32865L,                  42L,
       "SVP",                    18909L,                  26L,
       "NEO",                    6278L,                   7L,
       "FDP",                    17434L,                  27L,

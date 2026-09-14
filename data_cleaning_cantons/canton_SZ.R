@@ -48,7 +48,8 @@ standardize_sz_party <- function(party_label) {
     stringi::stri_trans_general("Latin-ASCII") # Make party identifiers stable across encodings and years.
 
   case_when(
-    normalized %in% c("SP-GR-UA", "SP, G U U", "SP") ~ "SP_GRUENE", # Keep the SP-Greens-independent list together.
+    normalized %in% c("SP-GR-UA", "SP, G U U") ~ "SP_GRUENE_UN", # The 2016/2020 joint SP-Greens-independent list.
+    normalized == "SP" ~ "SP",                              # In 2024 the list is SP alone.
     normalized == "DIE MITTE" ~ "DIEMITTE",                         # Standardize the post-CVP party label.
     normalized == "EVP - EDU" ~ "EVP_EDU",                          # Keep the 2024 joint list together.
     normalized %in% c("WOP", "WAHLZETTEL OHNE PARTEIBEZEICHNUNG") ~ NA_character_, # Exclude no-party ballots.
