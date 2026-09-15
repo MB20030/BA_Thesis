@@ -353,4 +353,5 @@ process_canton_SZ <- function() {
 }
 
 # Temporary check - delete in the end.
-print(process_canton_SZ(), n = Inf)
+options(width = 200)
+print(process_canton_SZ(), n = Inf, width = 200)
