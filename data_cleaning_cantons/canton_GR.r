@@ -1,6 +1,8 @@
 # Graubünden-specific data cleaning and processing
 # Processes the 2022 and 2026 elections and returns the standardized cleaned table
 
+# Graubünden used Majorz before adopting Double Pukelsheim in 2022. The HB
+# allocation below is a hypothetical comparison, not a former Graubünden rule.
 # Load only the packages used directly in this script.
 library(tidyverse)
 library(here)
@@ -153,15 +155,22 @@ read_gr_election <- function(file_name, election_year) {
     sum(official_results$seats_dp) == 120L
   )
 
-  # Apply Hagenbach-Bischoff within each district, then aggregate party seats
-  # across districts to obtain the canton-level counterfactual allocation.
+  # Model a district-by-district Hagenbach-Bischoff allocation using the shared
+  # procedure based on Aargau's pre-2009 method (cf. BGE 91 I 266, pp. 268-269).
+  # This is a hypothetical uniform-HB comparison, not a reconstruction of
+  # Graubünden's former Majorz system or every detail of Aargau's former law.
+  # An exact tie for a remaining seat would require a hypothetical lot. 
+  # No lot is drawn: the allocator retains all possible outcomes in seats_hb_options
+  # and records affected parties in hb_tie_note.
+
   hb_summary <- hb_by_district |>
     group_by(district) |>
     group_modify(function(data, key) {
       allocation <- allocate_hb_with_notes(
         data$party_votes,
         first(data$district_seats),
-        data$parties
+        data$parties,
+        tie_resolver = NULL # Preserve every outcome of an exact quotient tie.
       )
 
       bind_cols(data, allocation) |>

@@ -195,7 +195,7 @@ ag_09_parties <- setdiff(
   
   # Apply Hagenbach-Bischoff allocation separately per district
   # This implements the old Method used in Aargau (BGE 91 I 266, 1965, pp. 268–269).
-  # Assumes no list alliances since none are allowed in Aargau (Grossratswahlgesetz [GRWG], 1988/2007, § 8 para. 1).
+  # Historical list alliances are not carried forward in the counterfactual; the 2008 reform abolished them (Kanton Aargau, 2008, p. 9).
   ag_09_hb_by_district <- ag_09_districts |>
     select(location_name, district_seats, all_of(ag_09_parties)) |>
     pivot_longer(
@@ -296,7 +296,7 @@ ag_09_parties <- setdiff(
 
   # Apply Hagenbach-Bischoff allocation separately per district
   # This implements the old Method used in Aargau (BGE 91 I 266, 1965, pp. 268–269).
-  # NO list alliances assumed since none are allowed in Aargau (Grossratswahlgesetz [GRWG], 1988/2007, § 8 para. 1).
+  # Historical list alliances are not carried forward in the counterfactual; the 2008 reform abolished them (Kanton Aargau, 2008, p. 9).
   ag_12_hb_by_district <- ag_12_districts |>
     select(location_name, district_seats, all_of(ag_12_parties)) |>
     pivot_longer(

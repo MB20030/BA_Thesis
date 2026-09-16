@@ -118,6 +118,8 @@ The following section will provide an overview over the usage of different elect
 
 Till the end  of the 19th century swiss voters elected the regional parliaments and great councils only through Majority vote. In a majority voting system, the candidates or parties who receive the relative or absolute majority receive the seats, therefore this systematically favours the dominating parties. The disadvantages for smaller parties lead to the urge of some of the political minorities, to change to a proportional system. In 1891 the canton of Ticino, was the first one to use it to vote for their Grand Council, till the end of World War I , 7 1/2 more cantons followed. When the socialist and conservative minorities on their third try in 1918 achieved, that the National Council will be elected through a proportional system, it boosted the general adoption of it across Switzerland. Most of the cantons Grand Councils as aswell the Federal Council where elected with the Hagenbach-Bischoff proportional system. In the beginning of the 21th century, the cantons of Graubünden and Appenzell Innerhoden were the only ones to still vote their parliaments with the majority system.  (Gilg, 2014, “Mehrheits- und Verhältniswahl” section ; Bundeskanzlei, 2013, p. 2) Nowadays the Kanton Appenzell Innerhoden is the only remaining canton still voting the Grand Council with the majority system (Bundeskanzlei, 2025, p. 18). It can therefore be said, that the proportional system is the dominating electoral system for regional parliaments in Switzerland. 
 
+While earlier the Hagenbach-Bischoff proportional system, was the dominating form. This changed over the last 20 years since the development of the Double Pukelsheimer. In 2025, eleven cantons distribute the parliament seats with Hagenbach-Bischoff and ten cantons distribute them with the DP, two cantons namely Glarus and Basel-Landschaft use the Sainte-Laguë method and two namely Ticino and Vaude use the Hare/Niemeyer method (Bundeskanzlei, 2025, p.18). Among the cantons analyzed here, Hagenbach-Bischoff was the former allocation method in at least part of the territory except in Graubünden, which previously used Majorz throughout. Zug's Neuheim constituency and Uri's smaller municipalities also used Majorz rather than Hagenbach-Bischoff (Bundeskanzlei, 2013, Table 1; Bundesgericht, 2010b, E. 5.1; Standeskanzlei Uri, 2020, p. 1; Statistisches Amt des Kantons Zürich, 2011, p. 286; Regierungsrat des Kantons Schaffhausen, 2007, p. 6; Regierungsrat des Kantons Aargau, 2007, p. 18).  
+
 
 ### Literature Review
 
@@ -251,13 +253,25 @@ The procedure for the data cleaning was the following: For each canton in alphab
 
 To ensure the compatibility of the different datasets, the column names were standardized. The column names were renamed for each dataset to the following: "total_votes", "svp_votes", "sp_votes", "cvp_votes", "fdp_votes", "glp_votes", "bdp_votes", "green_votes", "other_votes". It might be that some of the datasets do not contain all of these columns, since the party landscapes varies geographically and over time. 
 
-For the counterfactual, the observed district-level party votes and district seat magnitudes are retained. The Hagenbach-Bischoff allocation is reconstructed under the relevant former cantonal rules, including the former Zurich Wahlgesetz (§§ 87–88b), the pre-reform Aargau legislation, the former Uri Proporzgesetz (Arts. 22–23), and the former Valais law (Arts. 154–156); the canton-specific scripts document the remaining cases (Kanton Zürich, 1983/2005; Kanton Aargau, 2004; Kanton Uri, 2018; Kanton Wallis, 2004a). The main counterfactual treats every party independently and does not carry historical list alliances forward. This is a deliberate identification choice: the reforming cantons' Double Pukelsheim designs did not provide for inter-party list alliances (Lüscher, 2024, p. 114 and Appendix A, Table A.1), so the alliances that parties would have formed in subsequent elections under the former rules are unobserved. Leuzinger (2018, p. 42), by contrast, assumes that the alliances from the last pre-reform election would have persisted. Canton-wide vote shares are derived from the available official *Wählerzahl* or reported vote-share figures; where necessary, the cleaning scripts reconstruct voter numbers from district-level party votes and seat magnitudes. The calculation and rounding procedures vary by canton and source file.
+For the counterfactual, the observed district-level party votes and district seat magnitudes are retained. Where Hagenbach-Bischoff was used before the reform, its allocation is reconstructed under the relevant former cantonal rules, including the former Zurich Wahlgesetz (§§ 87–88b), the pre-reform Aargau legislation, the former Uri Proporzgesetz (Arts. 22–23), and the former Valais law (Arts. 154–156); the canton-specific scripts document the remaining cases (Kanton Zürich, 1983/2005; Kanton Aargau, 2004; Kanton Uri, 2018; Kanton Wallis, 2004a). The HB allocations in Graubünden and in Zug's Neuheim constituency are hypothetical comparisons rather than reconstructions of their former Majorz rules. The main counterfactual treats every party independently and does not carry historical list alliances forward. This is a deliberate identification choice: the reforming cantons' Double Pukelsheim designs did not provide for inter-party list alliances (Lüscher, 2024, p. 114 and Appendix A, Table A.1), so the alliances that parties would have formed in subsequent elections under the former rules are unobserved. Leuzinger (2018, p. 42), by contrast, assumes that the alliances from the last pre-reform election would have persisted. Canton-wide vote shares are derived from the available official *Wählerzahl* or reported vote-share figures; where necessary, the cleaning scripts reconstruct voter numbers from district-level party votes and seat magnitudes. The calculation and rounding procedures vary by canton and source file.
+
+Schaffhausen reduced its parliament from 80 to 60 seats for the first Double Pukelsheim election. The counterfactual holds the later election's 60-seat district structure fixed, so it isolates the allocation method under that structure rather than reproducing every feature of the 2004 election (Regierungsrat des Kantons Schaffhausen, 2007, pp. 1, 6).
 
 The official Double Pukelsheim results (`seats_dp`) are sourced from official cantonal authorities and are documented in the Bibliography. A single lookup table consolidates all official results for easy merging with the Hagenbach-Bischoff counterfactuals. All data processing is implemented in canton-specific R scripts (R/canton_*.R) which apply shared functions for algorithm execution and validation.
 
 ### Results
 
 #### Smaller-party representation across elections
+
+::: {.callout-note title="Scope of the canton comparisons"}
+**Graubünden.** The canton used Majorz throughout before adopting Double Pukelsheim. Its HB allocation is hypothetical, so the observations are shown in grey and excluded from the main transition estimate (Bundeskanzlei, 2013, Table 1, p. 14).
+
+**Zug.** Neuheim used Majorz before the reform, while the other ten municipalities used proportional allocation. Neuheim participates in the observed canton-wide Double Pukelsheim allocation, so all 80 seats are retained. The HB allocation for Neuheim is a hypothetical uniform-HB comparison, not a reconstruction of its former Majorz rule (Bundesgericht, 2010b, E. 5.1; Kanton Zug, 2022a, 2022b, 2022c).
+
+**Uri.** Only Altdorf, Bürglen, Erstfeld, and Schattdorf used Double Pukelsheim in the elections analyzed here. They account for 37 of the Landrat's 64 seats; the remaining municipalities used Majorz and are excluded from both allocations in this comparison (Standeskanzlei Uri, 2020, p. 1).
+
+**Valais.** Upper apportionment takes place separately within six electoral regions. If e.g. SVP/UDC stood in all six, it would enter six independent regional allocations; votes in one region cannot increase its seat entitlement in another. This analysis sums the resulting regional seats under one canton-wide party label and aggregates voter numbers to calculate canton-wide vote shares. The single party row and the classification of parties below 10% are therefore measures for comparison, not the regional units used to allocate seats (Lüscher, 2024, p. 57).
+:::
 
 @fig-small-parties-absolute compares the observed Double Pukelsheim allocation with the counterfactual Hagenbach-Bischoff allocation for every cleaned election. For each election, the figure aggregates the seats and canton-wide vote shares of all parties below the 10% threshold defined above. The grey line connects the two allocations derived from the same election.
 
@@ -291,6 +305,7 @@ small_party_summary <- all_elections |>
     .groups = "drop"
   ) |>
   mutate(
+    is_graubuenden = str_starts(election_id, "GR_"),
     # Express the DP gain as a share of all parliamentary seats.
     seat_gain_pp = 100 * (seats_dp - seats_hb) / parliament_size,
     gain_label = sprintf("%s (%+.1f pp)", election_id, seat_gain_pp)
@@ -312,6 +327,7 @@ small_party_plot_data <- small_party_summary |>
 
 # Summarize election-level gains and the parliament-size-weighted mean.
 h1_stats <- small_party_summary |>
+  filter(!is_graubuenden) |>
   summarise(
     elections = n(), mean_gain = mean(seat_gain_pp),
     weighted_mean_gain = weighted.mean(seat_gain_pp, parliament_size),
@@ -328,12 +344,20 @@ small_party_plot <- function(x, x_title, label, percent = FALSE) {
                                    color = system, shape = system)) +
     # Connect the two outcomes from each election.
     geom_line(aes(group = election_id), color = "grey75", linewidth = 0.6) +
-    geom_point(size = 3.2) +
+    geom_point(data = filter(small_party_plot_data, !is_graubuenden), size = 3.2) +
+    geom_point(data = filter(small_party_plot_data, is_graubuenden),
+           color = "grey60", shape = 16, size = 3.2) +
     # Place election or gain labels without overlapping points.
-    geom_text_repel(data = label_data, aes(label = .data[[label]]), size = 3.2,
+    geom_text_repel(data = filter(label_data, !is_graubuenden),
+            aes(label = .data[[label]]), size = 3.2,
                     show.legend = FALSE, max.overlaps = Inf, box.padding = 0.3,
                     point.padding = 0.2, segment.color = "grey80",
                     segment.linewidth = 0.4, seed = 2026) +
+    geom_text_repel(data = filter(label_data, is_graubuenden),
+            aes(label = .data[[label]]), color = "grey60", size = 3.2,
+            show.legend = FALSE, max.overlaps = Inf, box.padding = 0.3,
+            point.padding = 0.2, segment.color = "grey80",
+            segment.linewidth = 0.4, seed = 2026) +
     scale_color_manual(values = c("Hagenbach-Bischoff" = "#D55E00",
                                   "Double Pukelsheim" = "#0072B2")) +
     # Format the x-axis as percentages only in the relative figure.
@@ -374,7 +398,7 @@ small_party_plot("seat_share_small_parties", "Seats won by smaller parties (%)",
 ```
 
 ::: {.callout-note title="Hypothesis 1 summary"}
-Across all `r h1_stats$elections` elections, the unweighted mean gain in smaller parties' share of all seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's parliament size was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
+Across all `r h1_stats$elections` elections (Graubünden excluded), the unweighted mean gain in smaller parties' share of all seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's parliament size was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
 :::
 
 #### Interpretation of the Results
@@ -418,28 +442,37 @@ Lüscher, S. (2025, February 20). *20 Jahre Doppelproporz—eine Rückschau*. De
 
 Pukelsheim, F., & Schuhmacher, C. (2011). *Doppelproporz bei Parlamentswahlen – ein Rück- und Ausblick*. Aktuelle Juristische Praxis / Pratique Juridique Actuelle, 20(12), 1581–1599. https://www.math.uni-augsburg.de/htdocs/emeriti/pukelsheim/2011e.pdf
 
+Regierungsrat des Kantons Aargau. (2007, July 4). *Revision der Kantonsverfassung und des Grossratswahlgesetzes (Gesetz über die Wahl des Grossen Rates): Bericht und Entwurf zur 2. Beratung (Botschaft 07.176)*. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/archiv/2008-02-24/v3-und-4-botschaft-rr-2-beratung.pdf
+
 Regierungsrat des Kantons Luzern. (2026, March 31). *Volksinitiativen «Faire Wahlen ohne Listenflut» und «Stopp Listenflut»: Botschaft des Regierungsrates an den Kantonsrat* (B 93). https://www.lu.ch/-/klu/ris/cdws/document?fileid=641a78c026024e88bd438d2f0d3d0462
+
+Regierungsrat des Kantons Schaffhausen. (2007, April 24). *Bericht und Antrag des Regierungsrates des Kantons Schaffhausen an den Kantonsrat betreffend Anpassung des Wahlsystems für den Kantonsrat (Bericht und Antrag 07-41)*. https://archiv.sh.ch/daten/fileadmin/Redaktoren/Dokumente_nicht_im_Formularpool/Regierung/Vorlagen/2007/24-4-07.pdf
 
 Regierungsrat des Kantons Zürich. (2014, November 26). *Postulat (Änderung Wahlgesetz [Wahlkreiseinteilung]) (RRB Nr. 1254/2014; KR-Nr. 219/2014)*. https://parlzhcdws.cmicloud.ch/parlzh5/cdws//Files/89dffabbc7a240f08e824f7a30bebf4d-332/1/pdf
 
 Statistisches Amt des Kantons Zürich. 2003. *Die Zürcher Kantonsratswahlen 2003: Anhang Tabelle 3, Listen und Listenverbindungen*. Microsoft Excel spreadsheet. Accessed September 15, 2026. https://web.archive.org/web/20031207213505id_/http://www.statistik.zh.ch/statistik.info/xls/2003_23.xls.
+
+Statistisches Amt des Kantons Zürich. (2011). *Statistisches Jahrbuch des Kantons Zürich 2011*. https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00000124_00001234.pdf
+
 
 ### Datasources
 Amt für Statistik und Daten Kanton Zürich. (2026). *Archiv Wahlresultate Kantonsratswahlen [Data set]*. Kanton Zürich. https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich
 
 Bundesgericht. (1965). *BGE 91 I 266*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F91-I-266%3Ade&lang=de&type=show_document
 
-Bundesgericht. (2010). *BGE 136 I 352*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document
+Bundesgericht. (2010a). *BGE 136 I 352*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document
+
+Bundesgericht. (2010b). *BGE 136 I 376*. https://search.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-376%3Ade&lang=de&type=show_document&zoom=IN
 
 Bundesgericht. (2012, 19. März). *Urteil 1C_407/2011, 1C_445/2011 und 1C_447/2011: Kantonsratswahlen 2012, Verletzung des Wahlrechts*. https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza%3A%2F%2F19-03-2012-1C_407-2011&lang=de&type=show_document
 
 Department für Finanzen und Ressourcen des Kantons Aargau. (2009, April 21). *Detailergebnisse der Grossratswahlen vom 8. März 2009*. https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de
 
-Kanton Aargau. (1988/2007). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG), § 8 Abs. 1*. https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file
-
 Kanton Aargau. (2004). *Grossratswahlgesetz: Änderung vom 8. Juni 2004*. Abstimmungsbroschüre zur kantonalen Volksabstimmung vom 26. September 2004, pp. 5--8. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20040926-abstimmungsbroschuere.pdf
 
-Kanton Aargau. (2008). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz), Fassung gemäss Gesetz vom 18. September 2007, in Kraft seit 1. Juli 2008*. https://gesetzessammlungen.ag.ch/api/de/versions/1234/pdf_file
+Kanton Aargau. (2008). *Abstimmungsvorlagen vom 24. Februar 2008: Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates), Änderung vom 18. September 2007*, pp. 6--25. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20080224-abstimmungsbroschuere.pdf
+
+Kanton Aargau. (2009). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; Stand 1. Januar 2009)*. https://gesetzessammlungen.ag.ch/api/de/versions/519/pdf_file
 
 Kanton Graubünden. (2022). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2022* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx
 
@@ -495,6 +528,8 @@ Staatskanzlei Nidwalden. (2026). *Wahlergebnis der Landratswahlen vom 8. März 2
 Staatskanzlei Kanton Schaffhausen. (2020, September 27). *Resultate der Kantonsratswahl vom 27. September 2020*. Kanton Schaffhausen. https://sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Abstimmungen-und-Wahlen-6275841-DE.html
 
 Staatskanzlei Kanton Schaffhausen. (2024, September 22). *Kantonsratswahlen vom 22. September 2024 – Resultate*. Kanton Schaffhausen. https://www.sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Regierung/Staatskanzlei-15401466-DE.html
+
+Standeskanzlei Uri. (2020). *Landratswahlen 2020: Statistische Auswertung*. Kanton Uri. https://www.ur.ch/_docn/213898/Landratswahlen_2020_stat_Auswertung.pdf
 
 Standeskanzlei Uri. (2024a). *AuswertungKapitel2-2024* [Unpublished Excel Workbook]. Kanton Uri.
 
