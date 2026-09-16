@@ -112,6 +112,12 @@ Against this background, this thesis examines the mechanical effect of the elect
 
 ## Theory and Literature Review
 
+### Theory
+
+The following section will provide an overview over the usage of different electoral systems throughout the time within Switzerland. It aims to show why the debate about which electoral system to use is one held often and repeatedly. For that it presents the underlying arguments brought upfront to change or keep a system. The structure of this section is the following: There is a short explanation of the historical situation in Switzerland, secondly the current situation will be explained and thirdly the transition from Hagenbach-Bischoff to Dobule Pukelsheimer in the corresponding cantons will be examined.
+
+Till the end  of the 19th century swiss voters elected the regional parliaments and great councils only through Majority vote. In a majority voting system, the candidates or parties who receive the relative or absolute majority receive the seats, therefore this systematically favours the dominating parties. The disadvantages for smaller parties lead to the urge of some of the political minorities, to change to a proportional system. In 1891 the canton of Ticino, was the first one to use it to vote for their Grand Council, till the end of World War I , 7 1/2 more cantons followed. When the socialist and conservative minorities on their third try in 1918 achieved, that the National Council will be elected through a proportional system, it boosted the general adoption of it across Switzerland. Most of the cantons Grand Councils as aswell the Federal Council where elected with the Hagenbach-Bischoff proportional system. In the beginning of the 21th century, the cantons of Graubünden and Appenzell Innerhoden were the only ones to still vote their parliaments with the majority system.  (Gilg, 2014, “Mehrheits- und Verhältniswahl” section ; Bundeskanzlei, 2013, p. 2) Nowadays the Kanton Appenzell Innerhoden is the only remaining canton still voting the Grand Council with the majority system (Bundeskanzlei, 2025, p. 18). It can therefore be said, that the proportional system is the dominating electoral system for regional parliaments in Switzerland. 
+
 
 ### Literature Review
 
@@ -382,11 +388,15 @@ Across all `r h1_stats$elections` elections, the unweighted mean gain in smaller
 ### Textsources
 Bundeskanzlei. (2013, August 21). *Proporzwahlsysteme im Vergleich: Bericht der Bundeskanzlei*. https://politchronik.swiss/references/175498/download?filename=Bericht+BK+vom+21.8.13_1151_20130821.pdf&inline=true&locale=de
 
+Bundeskanzlei. (2025, June 6). *Wahlsysteme und Sitzzuteilungsverfahren im Vergleich: Bericht der Bundeskanzlei*. https://cms.news.admin.ch/fileservice/sdweb-docs-prod-nsbcch-files/files/2025/08/21/fdacd8e9-e27f-4e8d-a5f0-c3da45ed88ff.pdf
+
 Bundesgericht. (2002). *BGE 129 I 185*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F129-I-185%3Ade&lang=de&type=show_document
 
 Bundesgericht. (2005). *BGE 131 I 74*. https://servat.unibe.ch/dfr/bge/c1131074.html
 
 Grünliberale Partei Kanton Zürich. n.d. *Unsere Geschichte*. Accessed September 15, 2026. https://zh.grunliberale.ch/partei/verein/unsere-geschichte/
+
+Gilg, P. (2014, December 27). **Wahlsysteme*. In Historisches Lexikon der Schweiz. https://hls-dhs-dss.ch/de/articles/026454/2014-12-27/
 
 Grosser Rat des Kanton Thurgaus. (n.d.). *Pendente Geschäfte – Elektronische Geschäftsdatenbank GRGEKO*. Retrieved September 15, 2026, from https://grgeko.tg.ch/web/grgeko/pendente-geschaefte
 
