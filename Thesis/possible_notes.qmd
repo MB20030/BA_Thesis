@@ -11,11 +11,4 @@ cantonal level but within the six newly formed districts. This parallel and sepa
 
 5. add note why schaffhausen is probably shifting analysis --> they still allow listconnections --> also many sub parties of svp --> get counted as own party
 
-6. clarify --> graubünden majorz --> also in the code , what kind of HB is used?
-think about what to do with zug (neuheim)
-
-Yes. **Excluding Neuheim is a defensible way to make Zug’s Hagenbach–Bischoff counterfactual match the constituencies that actually used that method before reform.** The [Federal Supreme Court identified Neuheim as Zug’s sole Majorz constituency](https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?azaclir=aza&from_date=&highlight_docid=aza%3A%2F%2F20-12-2010-1C_127-2010&insertion_date=&lang=de&number_of_ranks=10&page=1&query_words=1C_22%2F2010&rank=4&sort=relevance&to_date=&top_subcollection_aza=all&type=highlight_simple_query).
-
-The important qualification is that Zug’s **observed Doppelproporz seats were allocated using votes from all eleven municipalities**, including Neuheim. So the revised result would mean: *compare the observed seats in the ten formerly Proporz municipalities with a Hagenbach–Bischoff allocation for those same ten municipalities*. It would not simulate a Doppelproporz election conducted without Neuheim.
-
-In [canton_ZG.R](/C:/Users/Moritz/Desktop/HSG/BA/BA_Thesis/data_cleaning_cantons/canton_ZG.R:126), you would need to exclude Neuheim **before aggregating both the HB seats and the official DP seats**; filtering the final party table would be too late. The comparison would cover **78 of Zug’s 80 seats**. To follow your Uri treatment, keep `parliament_size = 80` for the seat-share denominator and describe the vote shares and 10% cutoff as based on the **ten analysed municipalities**, rather than calling them cantonwide.
+6. canton aargau --> threshold only in 2011 --> how did i solve it in code?
