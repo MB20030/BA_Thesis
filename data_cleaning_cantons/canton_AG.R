@@ -259,7 +259,7 @@ ag_09_parties <- setdiff(
   )
 
   # Official Double Pukelsheim results for Aargau 2012
-  # (Regierungsrat des Kantons Aargau, 2012)
+  # (Regierungsrat des Kantons Aargau, 2013)
   ag_12_official_results <- read_ag_cantonal_seats(
     "AG_12_seats_cantonal_level.xlsx", # File containing the official cantonal seat totals.
     2012,                               # Select the 2012 cantonal result row.

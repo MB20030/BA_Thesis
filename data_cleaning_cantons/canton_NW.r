@@ -257,7 +257,7 @@ read_nw_election <- function(file_name, election_year) {
     group_by(parties) |>
     summarise(seats_hb = sum(seats_hb), .groups = "drop")
 
-  # Following the Hagenbach-Bischoff Method priorly used in Nidwalden (Bundesgericht, 2010)
+  # Following the Hagenbach-Bischoff Method priorly used in Nidwalden (Bundesgericht, 2010a)
   final <- finalize_election_data(
     vote_shares |> left_join(hb_summary, by = "parties"),
     official_results,

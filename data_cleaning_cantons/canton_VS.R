@@ -11,8 +11,7 @@
 # standardizes historically and linguistically related list labels into analytical
 # party families and aggregates them for the final canton-year table. The resulting
 # rows are therefore analytical party-family totals, not canton-wide legal allocation
-# units. To assess the sensitivity of the analysis to this special case, the models
-# are estimated once with Valais and once without Valais.
+# units. 
 
 # Load only the packages used directly in this script.
 library(tidyverse)

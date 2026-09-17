@@ -14,6 +14,8 @@ Thesis.qmd in the section "Data Sources"
 
 Is this approach correct? 
 
+Also should i unify or split the sources in the bibliography from the code and from the text in thesis.qmd?
+Currently I've unified them and don't mark them especially. Is that alright?
 
 2. How should I handle the special case of the Canton of Valais?
 
@@ -33,6 +35,3 @@ once using broader canton-wide party families, similar to how SRF presents the e
 The problem with the second approach is that I have not found an official source from the Canton of Valais that provides such a canton-wide party aggregation.
 
 Is my current approach methodologically appropriate, or would it be better to present both versions for Valais?
-
-3. How should I separate or not separate the sources from the datacleaning/R-code part and the Text itself? 
---> RN I differentiate between the data and textsources in the bibliography. --> Is that alright? --> If yes --> what happens if I use a source both in the data and in the text. --> cite twice? 

@@ -16,3 +16,5 @@ cantonal level but within the six newly formed districts. This parallel and sepa
 7. How does the seat-gain --> develop over time --> 1st election under double pukelsheim, 2nd ,3rd , 4th , 5th etc. ?
 
 8. --> should probably unify citations in bibliography --> since overlapping so much
+
+9. To assess the sensitivity of the analysis to this special case, the models are estimated once with Valais and once without Valais. --> do this?
