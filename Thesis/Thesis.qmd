@@ -9,8 +9,7 @@ format:
     toc: false
     include-in-header:
       text: |
-        // Keep Quarto's article styling and PDF metadata, but put the cover
-        // in the document body instead of generating a second title block.
+        // Keep Quarto's article styling and PDF metadata.
         #let article(
           title: none, subtitle: none, authors: none, keywords: (), date: none,
           abstract-title: none, abstract: none, thanks: none, cols: 1,
@@ -158,19 +157,29 @@ We need to formulate hypotheses. The hypotheses are based on the theoretical con
 
 ### Hypothesis 1
 
-For each election $e$, smaller parties are those with less than 10% of the canton-wide vote. Let $S^{DP}_{e}$ and $S^{HB}_{e}$ be their combined seats under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation, respectively, and let $M_e$ be the total number of seats in that election. Their gain in seat share, shown for each election in @fig-small-parties-relative, is
+For each election $e$, smaller parties are those with less than 10% of the vote in the analyzed area: the whole canton except in Uri, where only the four municipalities using Double Pukelsheim are included. Let $S^{DP}_{e}$ and $S^{HB}_{e}$ be their combined seats under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation, respectively, and let $M_e$ be the number of seats allocated through Double Pukelsheim and included in the comparison. Their gain in seat share, shown for each election in @fig-small-parties-relative, is
 
 $$
 \Delta_e = 100\frac{S^{DP}_{e}-S^{HB}_{e}}{M_e}\quad\text{percentage points}.
 $$
 
-The main hypothesis concerns the unweighted mean of these election-level gains, $\bar{\Delta}=E^{-1}\sum_{e=1}^{E}\Delta_e$, across the $E$ analyzed elections. Thus, "more than 5% more seats" means a mean gain greater than **five percentage points of all available seats**, rather than a 5% increase relative to the Hagenbach-Bischoff seat total.
+The main hypothesis concerns the unweighted mean of these election-level gains, $\bar{\Delta}=E^{-1}\sum_{e=1}^{E}\Delta_e$, across the $E$ analyzed elections. Thus, "more than 5% more seats" means a mean gain greater than **five percentage points of the seats included in the comparison**, rather than a 5% increase relative to the Hagenbach-Bischoff seat total.
 
 **H₀ (null hypothesis):** The mean gain in smaller parties' seat share under Double Pukelsheim is at most five percentage points: $\bar{\Delta}\leq 5$.
 
 **H₁ (main hypothesis):** The mean gain in smaller parties' seat share under Double Pukelsheim exceeds five percentage points: $\bar{\Delta}>5$.
 
 The 10% threshold is based on that the Swiss Federal Supreme Court has argued that direct and natural quorums, understood as barriers to representation within an electoral district, should generally not exceed 10% (BGE 131 I 74, E. 5.3–5.5; Bundeskanzlei, 2013, p. 8).
+
+#### Sub-hypothesis H1a: Differences between cantons
+
+The gain in smaller parties' seat share may vary across cantons. As an exploratory comparison, cantons where more than 100 seats are allocated through Double Pukelsheim (ZH, AG, and VS) are compared with cantons where at most 100 seats are allocated through Double Pukelsheim (UR, NW, ZG, SH, and SZ).^[Official seat totals: ZH (Amt für Statistik und Daten Kanton Zürich, 2026); AG (Statistisches Amt Kanton Aargau, n.d.); VS (Kanton Wallis, 2024); UR (Standeskanzlei Uri, 2024b); NW (Staatskanzlei Nidwalden, 2026); ZG (Kanton Zug, 2022c); SH (Staatskanzlei Kanton Schaffhausen, 2024); SZ (Kanton Schwyz, 2024); GR, shown for context (Kanton Graubünden, 2026).] Graubünden is shown separately because its pre-reform system was Majorz and its HB allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
+
+**H₀a:** The two groups have the same mean canton-level gain in smaller parties' seat share under Double Pukelsheim.
+
+**H₁a:** The mean canton-level gain in smaller parties' seat share under Double Pukelsheim differs between the two groups.
+
+For each canton, the election-level gains $\Delta_e$ are averaged first; the group mean then averages these canton means so that cantons with more observed elections receive no extra weight. The difference is described in percentage points without a directional prediction or a claim that canton size causes it. Former district magnitudes, legal thresholds, party competition, and canton-specific allocation rules could also shape the result.
 
 ### Hypothesis 2
 
@@ -199,7 +208,7 @@ v = votes shares, s = seat shares
 
 H1: The analysis takes the actual seat allocation under the Pukelsheimer Proporz as its starting point. Based on the available election data at the municipal or district level, it then reconstructs how many seats each party would have obtained under the former Hagenbach-Bischoff system. The comparison between the actual seat distribution under the new system and the hypothetical distribution under the old system makes it possible to identify how many seats each party gained or lost as a result of the reform. In this way, the study assesses the mechanical effect of the electoral-system change on party representation, with a particular focus on smaller parties.
 
-For the purposes of this thesis, a smaller party is defined as an electoral list or list group with less than 10% of the canton-wide vote share in the relevant election. Youth lists and other special-interest lists, such as women’s lists or pensioners’ lists, are treated as separate analytical units whenever they are reported separately in the official election results; their votes and seats are not attributed to a mother party. Accordingly, the term *party* in the analysis refers to the standardized electoral list or list group recorded in the dataset and does not necessarily correspond to a broader organizational party family.
+For the purposes of this thesis, a smaller party is defined as an electoral list or list group with less than 10% of the vote share in the analyzed area: the whole canton except in Uri, where the vote shares cover only the four municipalities using Double Pukelsheim. Youth lists and other special-interest lists, such as women’s lists or pensioners’ lists, are treated as separate analytical units whenever they are reported separately in the official election results; their votes and seats are not attributed to a mother party. Accordingly, the term *party* in the analysis refers to the standardized electoral list or list group recorded in the dataset and does not necessarily correspond to a broader organizational party family.
 The choice of 10% as the threshold is grounded in both legal and normative considerations. In its decision BGE 131 I 74, the Swiss Federal Supreme Court argued that direct and natural quorums, understood as barriers to representation within an electoral district, should generally not exceed 10% (E. 5.3–5.5; see also Bundeskanzlei, 2013, p. 8). Using vote share rather than absolute party size is particularly appropriate because a party may be electorally small in one region while being comparatively strong in another. Low thresholds are closely linked to the principle of Erfolgswertgleichheit, or equality of vote success value, which requires that votes should be translated into seats as equally and effectively as possible (BGE 131 I 74, E. 3.1; Bundeskanzlei, 2013, pp. 8–9).
 Investigating the threshold is especially important, since none of the reform cantons had a <10% threshold in all districts before the implantation of the new electoral reform (Lüscher, 2024, p. 115).
 
@@ -267,7 +276,7 @@ The procedure for the data cleaning was the following: For each canton in alphab
 
 To ensure the compatibility of the different datasets, the column names were standardized. The column names were renamed for each dataset to the following: "total_votes", "svp_votes", "sp_votes", "cvp_votes", "fdp_votes", "glp_votes", "bdp_votes", "green_votes", "other_votes". It might be that some of the datasets do not contain all of these columns, since the party landscapes varies geographically and over time. 
 
-For the counterfactual, the observed district-level party votes and district seat magnitudes are retained. Where Hagenbach-Bischoff was used before the reform, its allocation is reconstructed under the relevant former cantonal rules, including the former Zurich Wahlgesetz (§§ 87–88b), the pre-reform Aargau legislation, the former Uri Proporzgesetz (Arts. 22–23), and the former Valais law (Arts. 154–156); the canton-specific scripts document the remaining cases (Kanton Zürich, 1983/2005; Kanton Aargau, 2004; Kanton Uri, 2018; Kanton Wallis, 2004a). The HB allocations in Graubünden and in Zug's Neuheim constituency are hypothetical comparisons rather than reconstructions of their former Majorz rules. The main counterfactual treats every party independently and does not carry historical list alliances forward. This is a deliberate identification choice: the reforming cantons' Double Pukelsheim designs did not provide for inter-party list alliances (Lüscher, 2024, p. 114 and Appendix A, Table A.1), so the alliances that parties would have formed in subsequent elections under the former rules are unobserved. Leuzinger (2018, p. 42), by contrast, assumes that the alliances from the last pre-reform election would have persisted. Canton-wide vote shares are derived from the available official *Wählerzahl* or reported vote-share figures; where necessary, the cleaning scripts reconstruct voter numbers from district-level party votes and seat magnitudes. The calculation and rounding procedures vary by canton and source file.
+For the counterfactual, the observed district-level party votes and district seat magnitudes are retained. Where Hagenbach-Bischoff was used before the reform, its allocation is reconstructed under the relevant former cantonal rules, including the former Zurich Wahlgesetz (§§ 87–88b), the pre-reform Aargau legislation, the former Uri Proporzgesetz (Arts. 22–23), and the former Valais law (Arts. 154–156); the canton-specific scripts document the remaining cases (Kanton Zürich, 1983/2005; Kanton Aargau, 2004; Kanton Uri, 2018; Kanton Wallis, 2004a). The HB allocations in Graubünden and in Zug's Neuheim constituency are hypothetical comparisons rather than reconstructions of their former Majorz rules. The main counterfactual treats every party independently and does not carry historical list alliances forward. This is a deliberate identification choice: the reforming cantons' Double Pukelsheim designs did not provide for inter-party list alliances (Lüscher, 2024, p. 114 and Appendix A, Table A.1), so the alliances that parties would have formed in subsequent elections under the former rules are unobserved. Leuzinger (2018, p. 42), by contrast, assumes that the alliances from the last pre-reform election would have persisted. Vote shares for the analyzed area are derived from the available official *Wählerzahl* or reported vote-share figures; where necessary, the cleaning scripts reconstruct voter numbers from district-level party votes and seat magnitudes. The calculation and rounding procedures vary by canton and source file.
 
 Schaffhausen reduced its parliament from 80 to 60 seats for the first Double Pukelsheim election. The counterfactual holds the later election's 60-seat district structure fixed, so it isolates the allocation method under that structure rather than reproducing every feature of the 2004 election (Regierungsrat des Kantons Schaffhausen, 2007, pp. 1, 6).
 
@@ -282,16 +291,16 @@ The official Double Pukelsheim results (`seats_dp`) are sourced from official ca
 
 **Zug.** Neuheim used Majorz before the reform, while the other ten municipalities used proportional allocation. Neuheim participates in the observed canton-wide Double Pukelsheim allocation, so all 80 seats are retained. The HB allocation for Neuheim is a hypothetical uniform-HB comparison, not a reconstruction of its former Majorz rule (Bundesgericht, 2010b, E. 5.1; Kanton Zug, 2022a, 2022b, 2022c).
 
-**Uri.** Only Altdorf, Bürglen, Erstfeld, and Schattdorf used Double Pukelsheim in the elections analyzed here. They account for 37 of the Landrat's 64 seats; the remaining municipalities used Majorz and are excluded from both allocations in this comparison (Standeskanzlei Uri, 2020, p. 1).
+**Uri.** Only Altdorf, Bürglen, Erstfeld, and Schattdorf used Double Pukelsheim in the elections analyzed here. They account for 37 of the Landrat's 64 seats; the remaining municipalities used Majorz and are excluded from both allocations in this comparison (Standeskanzlei Uri, 2020, p. 1). Uri's vote shares, including the less-than-10% classification of smaller parties, are based only on these four municipalities, not on the whole canton.
 
 **Valais.** Upper apportionment takes place separately within six electoral regions. If e.g. SVP/UDC stood in all six, it would enter six independent regional allocations; votes in one region cannot increase its seat entitlement in another. This analysis sums the resulting regional seats under one canton-wide party label and aggregates voter numbers to calculate canton-wide vote shares. The single party row and the classification of parties below 10% are therefore measures for comparison, not the regional units used to allocate seats (Lüscher, 2024, p. 57).
 :::
 
-@fig-small-parties-absolute compares the observed Double Pukelsheim allocation with the counterfactual Hagenbach-Bischoff allocation for every cleaned election. For each election, the figure aggregates the seats and canton-wide vote shares of all parties below the 10% threshold defined above. The grey line connects the two allocations derived from the same election.
+@fig-small-parties-absolute compares the observed Double Pukelsheim allocation with the counterfactual Hagenbach-Bischoff allocation for every cleaned election. For each election, the figure aggregates the seats and vote shares in the analyzed area of all parties below the 10% threshold defined above. The grey line connects the two allocations derived from the same election.
 
 ```{r}
 #| label: fig-small-parties-absolute
-#| fig-cap: "Seats won by smaller parties under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation. Smaller parties are those with less than 10% of the canton-wide vote share."
+#| fig-cap: "Seats won by smaller parties under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation. Smaller parties have less than 10% of the vote share in the analyzed area."
 #| fig-width: 8.3
 #| fig-height: 6.5
 #| echo: false
@@ -312,6 +321,7 @@ small_party_summary <- all_elections |>
   group_by(election_id) |>
   summarise(
     parliament_size = first(parliament_size),
+    seats_allocated_dp = first(seats_allocated_dp),
     vote_share_small_parties = sum(vote_share[small_party == 1L]),
     # Only smaller-party seats enter the HB–DP comparison.
     seats_hb = sum(as.integer(seats_hb[small_party == 1L])),
@@ -320,8 +330,8 @@ small_party_summary <- all_elections |>
   ) |>
   mutate(
     is_graubuenden = str_starts(election_id, "GR_"),
-    # Express the DP gain as a share of all parliamentary seats.
-    seat_gain_pp = 100 * (seats_dp - seats_hb) / parliament_size,
+    # Express the DP gain as a share of seats included in the comparison.
+    seat_gain_pp = 100 * (seats_dp - seats_hb) / seats_allocated_dp,
     gain_label = sprintf("%s (%+.1f pp)", election_id, seat_gain_pp)
   )
 
@@ -333,18 +343,18 @@ small_party_plot_data <- small_party_summary |>
     values_to = "seats_small_parties"
   ) |>
   mutate(
-    seat_share_small_parties = 100 * seats_small_parties / parliament_size,
+    seat_share_small_parties = 100 * seats_small_parties / seats_allocated_dp,
     # Fix the legend order across both figures.
     system = factor(recode(system, seats_hb = "Hagenbach-Bischoff", seats_dp = "Double Pukelsheim"),
                     levels = c("Hagenbach-Bischoff", "Double Pukelsheim"))
   )
 
-# Summarize election-level gains and the parliament-size-weighted mean.
+# Summarize election-level gains and the mean weighted by analyzed seats.
 h1_stats <- small_party_summary |>
   filter(!is_graubuenden) |>
   summarise(
     elections = n(), mean_gain = mean(seat_gain_pp),
-    weighted_mean_gain = weighted.mean(seat_gain_pp, parliament_size),
+    weighted_mean_gain = weighted.mean(seat_gain_pp, seats_allocated_dp),
     q1 = quantile(seat_gain_pp, .25), median = median(seat_gain_pp),
     q3 = quantile(seat_gain_pp, .75),
     above_five = sum(seat_gain_pp > 5)
@@ -396,11 +406,11 @@ small_party_plot("seats_small_parties", "Number of seats won by smaller parties"
 
 #### Relative smaller-party representation across elections
 
-@fig-small-parties-relative shows the same elections using the percentage of all parliamentary seats won by smaller parties on the x-axis. Each label reports the gain under Double Pukelsheim as a percentage-point share of all available seats.
+@fig-small-parties-relative shows the same elections using the percentage of analyzed Double Pukelsheim seats won by smaller parties on the x-axis. Each label reports the gain under Double Pukelsheim as a percentage-point share of the seats included in the comparison.
 
 ```{r}
 #| label: fig-small-parties-relative
-#| fig-cap: "Percentage of seats won by smaller parties under Double Pukelsheim and counterfactual Hagenbach-Bischoff."
+#| fig-cap: "Percentage of analyzed seats won by smaller parties under Double Pukelsheim and counterfactual Hagenbach-Bischoff."
 #| fig-width: 8.3
 #| fig-height: 6.5
 #| echo: false
@@ -412,8 +422,51 @@ small_party_plot("seat_share_small_parties", "Seats won by smaller parties (%)",
 ```
 
 ::: {.callout-note title="Hypothesis 1 summary"}
-Across all `r h1_stats$elections` elections (Graubünden excluded), the unweighted mean gain in smaller parties' share of all seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's parliament size was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
+Across all `r h1_stats$elections` elections (Graubünden excluded), the unweighted mean gain in smaller parties' share of analyzed seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's number of analyzed seats was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
 :::
+
+#### H1a: Differences by Double Pukelsheim seat count
+
+The comparison below uses the same election-level percentage-point gain as H1. It averages elections within each canton before comparing the two groups defined by the number of seats allocated through Double Pukelsheim. Graubünden is only shown for context and excluded from the group means for the same reason as in the main H1 estimate.
+
+```{r}
+#| label: tbl-h1a-cantons
+#| tbl-cap: "Mean gain in smaller parties' share of analyzed seats by canton (percentage points). Source: author's aggregation of the official cantonal election datasets."
+#| echo: false
+
+h1a_cantons <- small_party_summary |>
+  mutate(canton = str_sub(election_id, 1L, 2L)) |> 
+  group_by(canton) |>
+  summarise(
+    elections = n(),
+    dp_seats = first(seats_allocated_dp),
+    parliament_seats = first(parliament_size),
+    mean_gain_pp = mean(seat_gain_pp),
+    .groups = "drop"
+  ) |>
+ mutate(
+  size_group = case_when(
+    canton == "GR" ~ "Context only (former Majorz)",
+    dp_seats > 100L ~ "More than 100 DP seats",
+    TRUE ~ "At most 100 DP seats"
+  )
+) |>
+arrange(desc(dp_seats), canton)
+
+h1a_groups <- h1a_cantons |>
+  filter(canton != "GR") |>
+  group_by(size_group) |>
+  summarise(cantons = n(), mean_gain_pp = mean(mean_gain_pp), .groups = "drop")
+knitr::kable( 
+  h1a_cantons |>
+    transmute(Canton = canton, Group = size_group,
+              Elections = elections,
+              `DP seats (parliament)` = paste0(dp_seats, " (", parliament_seats, ")"),
+              `Mean gain (pp)` = sprintf("%.1f", mean_gain_pp))
+)
+```
+
+The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"])` percentage points in the group with more than 100 Double Pukelsheim seats and `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points in the group with at most 100. Their difference (more than 100 minus at most 100) is `r sprintf("%+.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"] - h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points. With only `r sum(h1a_groups$cantons)` cantons and distinct electoral rules, this is a descriptive comparison rather than evidence of a causal effect of the number of Double Pukelsheim seats.
 
 #### Interpretation of the Results
 
@@ -493,6 +546,8 @@ Kanton Aargau. (2009). *Gesetz über die Wahl des Grossen Rates (Grossratswahlge
 Kanton Graubünden. (2022). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2022* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx
 
 Kanton Graubünden. (2026). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2026* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx
+
+Kanton Schwyz. (2024). *Protokoll der Erneuerungswahl Kantonsrat 2024 vom 3. März 2024*. https://kanzlei.sz.ch/data/publication/issues/67/downloads/de/20240303_Wahlprotokoll_Gemeinde%C3%BCbersicht_Proporzwahl_kantonal.pdf
 
 Kanton Schaffhausen. (n.d.). *Frühere Urnengänge (seit 2003)*. https://archiv.sh.ch/daten/Fruehere-Urnengaenge-seit-200.1127.0.html
 

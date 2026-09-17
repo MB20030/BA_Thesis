@@ -7,8 +7,12 @@ cantonal level but within the six newly formed districts. This parallel and sepa
 
 3. Generally explain the different still remaining thresholds chosen by the cantons. E.g. 8%  in one district in Valais. Also a document from Zug for that here: https://kr-geschaefte.zug.ch/dokumente/1464/14129_2170_1_WAG.pdf
 
-4. maybe add hypothesis about rural region or small region / or parliaments --> lower impact of electoral system on the results.
 
-5. add note why schaffhausen is probably shifting analysis --> they still allow listconnections --> also many sub parties of svp --> get counted as own party
+4. add note why schaffhausen is probably shifting analysis --> they still allow listconnections --> also many sub parties of svp --> get counted as own party
 
-6. canton aargau --> threshold only in 2011 --> how did i solve it in code?
+5. canton aargau --> threshold only in 2011 --> how did i solve it in code?
+
+
+7. How does the seat-gain --> develop over time --> 1st election under double pukelsheim, 2nd ,3rd , 4th , 5th etc. ?
+
+8. --> should probably unify citations in bibliography --> since overlapping so much
