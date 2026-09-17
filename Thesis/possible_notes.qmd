@@ -1,6 +1,5 @@
 # This document acts as a placeholder for possible notes and ideas for the thesis. 
 
-1. Canton Schwyz --> were forced by Bundesgericht to change the electoral system for the 2016 election. https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza://19-03-2012-1C_407-2011&lang=de&zoom=&type=show_document --> since they had huge tresholds in some districts up to 50%!
 
 2. Canton Valais --> using a different biproportional system than all other cantons --> "A distinctive feature of the Valais electoral system is that upper-tier apportionment is conducted not at the
 cantonal level but within the six newly formed districts. This parallel and separate apportionment process at the district level represents a unique approach among the cantons applying biproportionality. " (Luescher, 2024, p.57)
