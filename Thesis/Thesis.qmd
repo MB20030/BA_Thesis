@@ -123,9 +123,10 @@ Followingly the arguments brought up in each reform canton will be discussed in 
 
 The year in the beginning of each line, marks the year of first application of the double Pukelsheimer in the corresponding canton. 
 
-- **2007:** Zurich became the first canton to use Double Pukelsheim, which it had commissioned Friedrich Pukelsheim to develop. The reform followed a 2002 voting-rights complaint about elections to Zurich's city parliament. The Swiss Federal Supreme Court partially upheld the complaint, finding that the thresholds in some districts were too high. The canton of Zurich implemented the Pukelsheimer Proporz then with a 5% local (district)  for parties to enter the parliament. (Lüscher, 2024, pp. 9–10, 33-36)
+- **2007:** Zurich became the first canton to use Double Pukelsheim, which it had commissioned Friedrich Pukelsheim to develop. The reform followed a 2002 voting-rights complaint about elections to Zurich's city parliament. The Swiss Federal Supreme Court partially upheld the complaint, finding that the thresholds in some districts were too high. The canton of Zurich implemented the Pukelsheimer Proporz then with a 5% local (district)  for parties to enter the parliament. (Lüscher, 2024, pp. 9–10, 33-36) In 2021, Zurich added a 3% cantonwide threshold, first applied in the 2023 election. A change to how that threshold is calculated was adopted in 2025 and will first apply in the 2027 election (Regierungsrat des Kantons Zürich, 2024, pp. 2, 5; Regierungsrat des Kantons Zürich, 2025, p. 1).
 
-- **2008:** Schaffhausen
+- **2008:** Schaffhausen : In a 2004 popular vote, Schaffhausen’s electorate approved a reduction in the cantonal parliament from 80 to 60 seats. Shortly after a motion was submitted which wanted to reform the electoral law to better protect smaller parties. After this the Schaffhausen Government proposed a reform. Subsequently the parliament (2007) and the voters (2008) approved the changes. In 2015, the cantonal parliament added a majority clause, this ensures that the stronges party receives at least one seat in the corresponding district. (Lüscher , 2024 , pp. 41- 43)
+
 - **2009:** Aargau's voters voted in the year 2003 for a popular vote, which wanted to lower the amount of parliament seats from 200 to 140. This decision naturally highered the tresholds in the districts and therefore a second constitutional amendment  allowing to merge small districts was proposed and approved by the voters. Though the parlamentarians decided against making use of it. Therefore the electoral equity wasn't given anymore. The Government of Aargau had to act and proposed to the Grand Council to either merge districts or to change to the Double-Pukelsheim. The Grand Council again decided to not change anything. Shortly after this decision by the Grand Council the FSC issued in a verdict, that there are existing inequalities, because of the varying thresholds and district sizes. The court ordered that this needs to be changed. In Septembere 2007, the Grand Council with a thin majority then decided to implement the Double-Pukelsheimer. In 2011 a 5% local (district) and a 3% global quorum was added after approval of the Grand Council and the voters (Lüscher, 2024, pp. 38 - 40)
 - **2014:** Nidwalden
 - **2016:** Schwyz 
@@ -212,7 +213,7 @@ For the purposes of this thesis, a smaller party is defined as an electoral list
 The choice of 10% as the threshold is grounded in both legal and normative considerations. In its decision BGE 131 I 74, the Swiss Federal Supreme Court argued that direct and natural quorums, understood as barriers to representation within an electoral district, should generally not exceed 10% (E. 5.3–5.5; see also Bundeskanzlei, 2013, p. 8). Using vote share rather than absolute party size is particularly appropriate because a party may be electorally small in one region while being comparatively strong in another. Low thresholds are closely linked to the principle of Erfolgswertgleichheit, or equality of vote success value, which requires that votes should be translated into seats as equally and effectively as possible (BGE 131 I 74, E. 3.1; Bundeskanzlei, 2013, pp. 8–9).
 Investigating the threshold is especially important, since none of the reform cantons had a <10% threshold in all districts before the implantation of the new electoral reform (Lüscher, 2024, p. 115).
 
-```{r}
+```{r data-setup}
 #| echo: false
 #| warning: false
 #| message: false
@@ -566,6 +567,10 @@ Regierungsrat des Kantons Luzern. (2026, March 31). *Volksinitiativen «Faire Wa
 Regierungsrat des Kantons Schaffhausen. (2007, April 24). *Bericht und Antrag des Regierungsrates des Kantons Schaffhausen an den Kantonsrat betreffend Anpassung des Wahlsystems für den Kantonsrat (Bericht und Antrag 07-41)*. https://archiv.sh.ch/daten/fileadmin/Redaktoren/Dokumente_nicht_im_Formularpool/Regierung/Vorlagen/2007/24-4-07.pdf
 
 Regierungsrat des Kantons Zürich. (2014, November 26). *Postulat (Änderung Wahlgesetz [Wahlkreiseinteilung]) (RRB Nr. 1254/2014; KR-Nr. 219/2014)*. https://parlzhcdws.cmicloud.ch/parlzh5/cdws//Files/89dffabbc7a240f08e824f7a30bebf4d-332/1/pdf
+
+Regierungsrat des Kantons Zürich. (2024, March 27). *Gesetz über die politischen Rechte (GPR): Anpassung der Regelung zum 3%-Quorum bei Kantonsratswahlen* (Vorlage 5951). https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2024/338/5951_GPR_Aenderung.pdf
+
+Regierungsrat des Kantons Zürich. (2025, October 1). Gesetz über die politischen Rechte: Anpassung der Regelung zum 3%-Quorum bei Kantonsratswahlen, Inkraftsetzung (Regierungsratsbeschluss Nr. 998/2025). https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2025/998/RRB-2025-0998.pdf
 
 Staat Wallis. (2017). *Grossräte 2017 – Resultate: Offizielle Endresultate. Archivierte Abstimmungs- und Wahlresultate*. https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
 

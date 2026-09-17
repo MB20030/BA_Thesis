@@ -1,4 +1,4 @@
-# This document acts as a placeholder for possible notes and ideas for the thesis. It is not meant to be included in the final thesis document.
+# This document acts as a placeholder for possible notes and ideas for the thesis. 
 
 1. Canton Schwyz --> were forced by Bundesgericht to change the electoral system for the 2016 election. https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza://19-03-2012-1C_407-2011&lang=de&zoom=&type=show_document --> since they had huge tresholds in some districts up to 50%!
 
@@ -10,11 +10,6 @@ cantonal level but within the six newly formed districts. This parallel and sepa
 
 4. add note why schaffhausen is probably shifting analysis --> they still allow listconnections --> also many sub parties of svp --> get counted as own party
 
-5. canton aargau --> threshold only in 2011 --> how did i solve it in code?
-
-
-7. How does the seat-gain --> develop over time --> 1st election under double pukelsheim, 2nd ,3rd , 4th , 5th etc. ?
-
-8. --> should probably unify citations in bibliography --> since overlapping so much
+7. How does the seat-gain --> develop over time --> 1st election under double pukelsheim, 2nd ,3rd , 4th , 5th etc. ? --> idea --> one line per canton --> add changes of cantons with arrows to the graph --> e.g canton aargau added threshold for 2012 election etc. -_>
 
 9. To assess the sensitivity of the analysis to this special case, the models are estimated once with Valais and once without Valais. --> do this?
