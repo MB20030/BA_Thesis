@@ -15,6 +15,12 @@ library(here)
 # Ensure here() uses the correct project root.
 here::i_am("data_cleaning_cantons/canton_AG.R")
 
+# Load shared helpers when this file runs on its own.
+if (!exists("allocate_hb", mode = "function") ||
+    !exists("finalize_election_data", mode = "function")) {
+  source(here("data_cleaning_cantons", "00_functions.R"))
+}
+
 read_ag_cantonal_seats <- function(file_name, election_year, election_parties) {
   official_raw <- read_excel(
     here("data", "datasets", "aargau", file_name), # Build a project-independent path to the election file.
@@ -120,6 +126,54 @@ read_ag_district_seats_and_results <- function(
   )
 }
 
+# Apply the former Aargau Hagenbach-Bischoff method district by district
+# (BGE 91 I 266, 1965, pp. 268-269). Historical list alliances are not
+# carried forward in the counterfactual; the 2008 reform abolished them
+# (Kanton Aargau, 2008, p. 9).
+finalize_ag_election <- function(districts, parties, official_results, election_year) {
+  hb_by_district <- districts |>
+    select(location_name, district_seats, all_of(parties)) |>
+    pivot_longer(
+      cols = all_of(parties),
+      names_to = "parties",
+      values_to = "party_votes"
+    ) |>
+    group_by(location_name) |>
+    mutate(
+      seats_hb = allocate_hb(party_votes, first(district_seats)),
+      voter_number = floor(party_votes / first(district_seats) + 0.5)
+    ) |>
+    ungroup()
+
+  hb_summary <- hb_by_district |>
+    group_by(parties) |>
+    summarise(
+      voter_number = sum(voter_number),
+      seats_hb = sum(seats_hb),
+      .groups = "drop"
+    ) |>
+    mutate(
+      parties = str_to_upper(parties),
+      vote_share = 100 * voter_number / sum(voter_number)
+    ) |>
+    select(parties, vote_share, seats_hb)
+
+  final <- finalize_election_data(
+    hb_summary,
+    official_results,
+    "AG",
+    election_year
+  )
+
+  stopifnot(
+    nrow(final) == length(parties),
+    sum(as.integer(final$seats_hb)) == 140L,
+    sum(final$seats_dp) == 140L
+  )
+
+  final
+}
+
 process_canton_AG <- function() {
 
   # ===========================================================================
@@ -193,52 +247,8 @@ ag_09_parties <- setdiff(
     )
   )
   
-  # Apply Hagenbach-Bischoff allocation separately per district
-  # This implements the old Method used in Aargau (BGE 91 I 266, 1965, pp. 268–269).
-  # Historical list alliances are not carried forward in the counterfactual; the 2008 reform abolished them (Kanton Aargau, 2008, p. 9).
-  ag_09_hb_by_district <- ag_09_districts |>
-    select(location_name, district_seats, all_of(ag_09_parties)) |>
-    pivot_longer(
-      cols = all_of(ag_09_parties), # Turn the separate party columns into party-level rows.
-      names_to = "parties",        # Store each party code in a common identifier column.
-      values_to = "party_votes"    # Store its district vote total in a common value column.
-    ) |>
-    group_by(location_name) |> # Run the seat allocation independently within each district.
-    mutate(
-      seats_hb = allocate_hb(party_votes, first(district_seats)), # Allocate the district's seats using Hagenbach-Bischoff.
-      voter_number = floor(
-        party_votes / first(district_seats) + 0.5
-      ) # Convert party votes into the comparable cantonal voter-number measure.
-    ) |>
-    ungroup()
-  
-  # Aggregate to cantonal level and prepare final dataset
-  ag_09_hb_summary <- ag_09_hb_by_district |>
-    group_by(parties) |> # Combine each party's results across all Aargau districts.
-    summarise(
-      voter_number = sum(voter_number), # Sum the party's voter numbers across districts.
-      seats_hb = sum(seats_hb),         # Sum the party's district seats across districts.
-      .groups = "drop"                  # Return an ungrouped summary table.
-    ) |>
-    mutate(
-      parties = str_to_upper(parties),                       # Match the official-results party-code format.
-      vote_share = 100 * voter_number / sum(voter_number)    # Calculate each party's cantonal vote share in percent.
-    ) |>
-    select(parties, vote_share, seats_hb)
-  
-  # Finalize 2009 data
-  ag_09_final <- finalize_election_data(
-    ag_09_hb_summary,
-    ag_09_official_results,
-    "AG",
-    2009
-  )
-  
-  # Validation
-  stopifnot(
-    nrow(ag_09_final) == length(ag_09_parties),
-    sum(as.integer(ag_09_final$seats_hb)) == 140L,
-    sum(ag_09_final$seats_dp) == 140L
+  ag_09_final <- finalize_ag_election(
+    ag_09_districts, ag_09_parties, ag_09_official_results, 2009
   )
 
   # ===========================================================================
@@ -294,52 +304,8 @@ ag_09_parties <- setdiff(
       )
     )
 
-  # Apply Hagenbach-Bischoff allocation separately per district
-  # This implements the old Method used in Aargau (BGE 91 I 266, 1965, pp. 268–269).
-  # Historical list alliances are not carried forward in the counterfactual; the 2008 reform abolished them (Kanton Aargau, 2008, p. 9).
-  ag_12_hb_by_district <- ag_12_districts |>
-    select(location_name, district_seats, all_of(ag_12_parties)) |>
-    pivot_longer(
-      cols = all_of(ag_12_parties), # Turn the separate party columns into party-level rows.
-      names_to = "parties",        # Store each party code in a common identifier column.
-      values_to = "party_votes"    # Store its district vote total in a common value column.
-    ) |>
-    group_by(location_name) |> # Run the seat allocation independently within each district.
-    mutate(
-      seats_hb = allocate_hb(party_votes, first(district_seats)), # Allocate the district's seats using Hagenbach-Bischoff.
-      voter_number = floor(
-        party_votes / first(district_seats) + 0.5
-      ) # Convert party votes into the comparable cantonal voter-number measure.
-    ) |>
-    ungroup()
-
-  # Aggregate to cantonal level and prepare final dataset
-  ag_12_hb_summary <- ag_12_hb_by_district |>
-    group_by(parties) |> # Combine each party's results across all Aargau districts.
-    summarise(
-      voter_number = sum(voter_number), # Sum the party's voter numbers across districts.
-      seats_hb = sum(seats_hb),         # Sum the party's district seats across districts.
-      .groups = "drop"                  # Return an ungrouped summary table.
-    ) |>
-    mutate(
-      parties = str_to_upper(parties),                       # Match the official-results party-code format.
-      vote_share = 100 * voter_number / sum(voter_number)    # Calculate each party's cantonal vote share in percent.
-    ) |>
-    select(parties, vote_share, seats_hb)
-
-  # Finalize 2012 data
-  ag_12_final <- finalize_election_data(
-    ag_12_hb_summary,
-    ag_12_official_results,
-    "AG",
-    2012
-  )
-
-  # Validation
-  stopifnot(
-    nrow(ag_12_final) == length(ag_12_parties),
-    sum(as.integer(ag_12_final$seats_hb)) == 140L,
-    sum(ag_12_final$seats_dp) == 140L
+  ag_12_final <- finalize_ag_election(
+    ag_12_districts, ag_12_parties, ag_12_official_results, 2012
   )
 
   # ===========================================================================
@@ -389,44 +355,8 @@ ag_09_parties <- setdiff(
       )
     )
 
-  ag_16_hb_by_district <- ag_16_districts |>
-    select(location_name, district_seats, all_of(ag_16_parties)) |>
-    pivot_longer(
-      cols = all_of(ag_16_parties),
-      names_to = "parties",
-      values_to = "party_votes"
-    ) |>
-    group_by(location_name) |>
-    mutate(
-      seats_hb = allocate_hb(party_votes, first(district_seats)),
-      voter_number = floor(party_votes / first(district_seats) + 0.5)
-    ) |>
-    ungroup()
-
-  ag_16_hb_summary <- ag_16_hb_by_district |>
-    group_by(parties) |>
-    summarise(
-      voter_number = sum(voter_number),
-      seats_hb = sum(seats_hb),
-      .groups = "drop"
-    ) |>
-    mutate(
-      parties = str_to_upper(parties),
-      vote_share = 100 * voter_number / sum(voter_number)
-    ) |>
-    select(parties, vote_share, seats_hb)
-
-  ag_16_final <- finalize_election_data(
-    ag_16_hb_summary,
-    ag_16_official_results,
-    "AG",
-    2016
-  )
-
-  stopifnot(
-    nrow(ag_16_final) == length(ag_16_parties),
-    sum(as.integer(ag_16_final$seats_hb)) == 140L,
-    sum(ag_16_final$seats_dp) == 140L
+  ag_16_final <- finalize_ag_election(
+    ag_16_districts, ag_16_parties, ag_16_official_results, 2016
   )
 
   # ===========================================================================
@@ -462,44 +392,8 @@ ag_09_parties <- setdiff(
       )
     )
 
-  ag_20_hb_by_district <- ag_20_districts |>
-    select(location_name, district_seats, all_of(ag_20_parties)) |>
-    pivot_longer(
-      cols = all_of(ag_20_parties),
-      names_to = "parties",
-      values_to = "party_votes"
-    ) |>
-    group_by(location_name) |>
-    mutate(
-      seats_hb = allocate_hb(party_votes, first(district_seats)),
-      voter_number = floor(party_votes / first(district_seats) + 0.5)
-    ) |>
-    ungroup()
-
-  ag_20_hb_summary <- ag_20_hb_by_district |>
-    group_by(parties) |>
-    summarise(
-      voter_number = sum(voter_number),
-      seats_hb = sum(seats_hb),
-      .groups = "drop"
-    ) |>
-    mutate(
-      parties = str_to_upper(parties),
-      vote_share = 100 * voter_number / sum(voter_number)
-    ) |>
-    select(parties, vote_share, seats_hb)
-
-  ag_20_final <- finalize_election_data(
-    ag_20_hb_summary,
-    ag_20_reference$official_results,
-    "AG",
-    2020
-  )
-
-  stopifnot(
-    nrow(ag_20_final) == length(ag_20_parties),
-    sum(as.integer(ag_20_final$seats_hb)) == 140L,
-    sum(ag_20_final$seats_dp) == 140L
+  ag_20_final <- finalize_ag_election(
+    ag_20_districts, ag_20_parties, ag_20_reference$official_results, 2020
   )
 
   # ===========================================================================
@@ -535,44 +429,8 @@ ag_09_parties <- setdiff(
       )
     )
 
-  ag_24_hb_by_district <- ag_24_districts |>
-    select(location_name, district_seats, all_of(ag_24_parties)) |>
-    pivot_longer(
-      cols = all_of(ag_24_parties),
-      names_to = "parties",
-      values_to = "party_votes"
-    ) |>
-    group_by(location_name) |>
-    mutate(
-      seats_hb = allocate_hb(party_votes, first(district_seats)),
-      voter_number = floor(party_votes / first(district_seats) + 0.5)
-    ) |>
-    ungroup()
-
-  ag_24_hb_summary <- ag_24_hb_by_district |>
-    group_by(parties) |>
-    summarise(
-      voter_number = sum(voter_number),
-      seats_hb = sum(seats_hb),
-      .groups = "drop"
-    ) |>
-    mutate(
-      parties = str_to_upper(parties),
-      vote_share = 100 * voter_number / sum(voter_number)
-    ) |>
-    select(parties, vote_share, seats_hb)
-
-  ag_24_final <- finalize_election_data(
-    ag_24_hb_summary,
-    ag_24_reference$official_results,
-    "AG",
-    2024
-  )
-
-  stopifnot(
-    nrow(ag_24_final) == length(ag_24_parties),
-    sum(as.integer(ag_24_final$seats_hb)) == 140L,
-    sum(ag_24_final$seats_dp) == 140L
+  ag_24_final <- finalize_ag_election(
+    ag_24_districts, ag_24_parties, ag_24_reference$official_results, 2024
   )
 
   # ===========================================================================
