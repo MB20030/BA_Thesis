@@ -93,7 +93,7 @@ format:
 ```
 
 ## Introduction
-On the 18 December 2002 the Swiss Federal Supreme Court (FSC) came to a conclusion, which disrupted the Swiss Electoral System. In BGE 129 | 185 the FSC criticized that in the elections for the Council of the City of Zurich, the thresholds for parties to win a seat varied heavily from district to district. Further did some districts have thresholds for parties to win a seat of up to 34%. Consequently, votes did not have equal effect, which undermines the electoral equality enshrined in Art. 8 and 34 of the Federal Constitution. Based on this criticism the court decided that the City of Zurich had to implement corrective measures, but could choose their form. (BGE 129 I 185, E. 3, 7.3, 7.6, S. 199–200) The Government of the Canton of Zurich decided to keep the constituency structure (Regierungsrat des Kantons Zürich, 2014, pp. 3–4). Instead the canton of Zurich commissioned the german mathematician Friedrich Pukelsheim to develop a comprehensive and at the same time minimally invasive solution for the problem. Eventually Pukelsheim came up with a method called "biproportional divisor method with standard rounding" which is today often simply called "double Pukelsheim" or "Biproportional apportionment". (Lüscher, 2024, pp. 9-10)
+On the 18 December 2002 the Swiss Federal Supreme Court (FSC) came to a conclusion, which disrupted the Swiss Electoral System. In BGE 129 | 185 the FSC criticized that in the elections for the Council of the City of Zurich, the thresholds for parties to win a seat varied heavily from district to district. Further did some districts have thresholds for parties to win a seat of up to 34%. Consequently, votes did not have equal effect, which undermines the electoral equality included in Art. 8 (Equality before the law) and Art. 34 (political rights) of the Federal Constitution. Based on this criticism the court decided that the City of Zurich had to implement corrective measures, but could choose their form. (BGE 129 I 185, E. 3, 7.3, 7.6, S. 199–200 ; Schweizerische Eidgenossenschaft, 1999, Arts. 8 and 34) The Government of the Canton of Zurich decided to keep the constituency structure (Regierungsrat des Kantons Zürich, 2014, pp. 3–4). Instead the canton of Zurich commissioned the german mathematician Friedrich Pukelsheim to develop a comprehensive and at the same time minimally invasive solution for the problem. Eventually Pukelsheim came up with a method called "biproportional divisor method with standard rounding" which is today often simply called "double Pukelsheim" or "Biproportional apportionment". (Lüscher, 2024, pp. 9-10)
 
 The distinguishing feature of the Pukelsheimer Proporz, is that it through the so called upper-apportionment artificially creates a single electoral district for the initial allocation of the parliamentary seats to the parties or list groups. Through this mechanism, the difference between seat and voteshares gets minimized and with that also the effective threshold for parties to enter the parliament gets lowered. (Lüscher, 2023, p. 575)
 
@@ -143,6 +143,11 @@ In the following paragraphs the arguments brought up in each reform canton will 
 
 To summarize, in 8 of 10 reform cantons, a raised complaint at the FSC led to a later reform. Only the cantons Schaffhausen and Basel-Landschaft reform process took place without a Federal Supreme Court ruling. Nevertheless the canton of Schaffhausen's decision was directly influenced by the FSC's decisions in Aargau and Zurich. Throughout all complaints, the concern was electoral equality. In seven of them excessively high natural thresholds in proportional constituencies were central. While in Graubünden the concerns were mainly raised by the use of of the majority system for its large districts and the allocation of seats among constituencies. This demonstrates the influence of the 2002 Federal Supreme Court decision regarding Zurich's City Parliament. 
 
+Following to the BGE 129 | 185 decision, the canton of Zurich comissioned the mathematician Friedrich Pukelsheim (Lüscher, 2024, p.10). The following section explores how the algorithm works and how it makes sure that it complies with the Federal Law. 
+
+Based on Article 8 and 34 of the Federal Constitution, there are three principles which have to be followed. These are principle of equal voting value, equality of voting power and equality of electoral value. The equal voting value ensures that each voter within an electoral district gets allocated the identical number of votes. The second principle is the equality of voting power (voting weight guarantee). The aim of it is, that the seats between the electoral districts are equally distributed.  Thirdly there is the equality of electoral success, which should assure, that all votes contribute equally to the election and that as many votes as possible are taken into account in the allocation of seats. ( Pukelsheim & Schuhmacher, 2004, pp. 506-507) The equality of electoral success is violated, when the natural quorum (threshold) in a district is too high, this is given when there are less than 9 mandates within a district. Since then the threshold is higher than the 10% maximum given the FSC jurisdiction and it's calculation method, 1/(M+1) with "M" being the number of mandates. (Pukelsheim & Schuchmacher, 2004, p. 505 ; Bundesgericht, 2005, Regeste) 
+
+To approach these principles the Double Pukelsheimer or originally called the "Neues Zürcher Zuteilungsverfahren" knows a upper and a lower apportionment. 
 
 ### Literature Review
 
@@ -487,6 +492,10 @@ The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp
 
 ## Bibliography
 
+```{=typst}
+#set par(hanging-indent: 0.5in)
+```
+
 Amt für Statistik und Daten Kanton Zürich. (2026). *Archiv Wahlresultate Kantonsratswahlen* [Data set]. Kanton Zürich. https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich
 
 Bundesgericht. (1965). *BGE 91 I 266*. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F91-I-266%3Ade&lang=de&type=show_document
@@ -584,7 +593,9 @@ Lüscher, S. (2024). *Redeeming the pledge of electoral equity? A study of the r
 
 Lüscher, S. (2025, February 20). *20 Jahre Doppelproporz—eine Rückschau*. DeFacto. https://www.zora.uzh.ch/entities/publication/9b83ccf9-a61f-45ff-b0c8-c52b5cfcb1c7
 
-Pukelsheim, F., & Schuhmacher, C. (2011). Doppelproporz bei Parlamentswahlen – ein Rück- und Ausblick. *Aktuelle Juristische Praxis / Pratique Juridique Actuelle, 20*(12), 1581–1599. https://www.math.uni-augsburg.de/htdocs/emeriti/pukelsheim/2011e.pdf
+Pukelsheim, F., & Schuhmacher, C. (2004). Das neue Zürcher Zuteilungsverfahren für Parlamentswahlen.*Aktuelle Juristische Praxis / Pratique Juridique Actuelle, 13(5), 505–522*. https://www.math.uni-augsburg.de/htdocs/emeriti/pukelsheim/2004b.pdf
+
+Pukelsheim, F., & Schuhmacher, C. (2011). Doppelproporz bei Parlamentswahlen – ein Rück- und Ausblick. *Aktuelle Juristische Praxis / Pratique Juridique Actuelle, 20(12), 1581–1599*. https://www.math.uni-augsburg.de/htdocs/emeriti/pukelsheim/2011e.pdf
 
 Regierungsrat des Kantons Aargau. (2007, July 4). *Revision der Kantonsverfassung und des Grossratswahlgesetzes (Gesetz über die Wahl des Grossen Rates): Bericht und Entwurf zur 2. Beratung (Botschaft 07.176)*. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/archiv/2008-02-24/v3-und-4-botschaft-rr-2-beratung.pdf
 
@@ -601,6 +612,8 @@ Regierungsrat des Kantons Zürich. (2014, November 26). *Postulat (Änderung Wah
 Regierungsrat des Kantons Zürich. (2024, March 27). *Gesetz über die politischen Rechte (GPR): Anpassung der Regelung zum 3%-Quorum bei Kantonsratswahlen* (Vorlage 5951). https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2024/338/5951_GPR_Aenderung.pdf
 
 Regierungsrat des Kantons Zürich. (2025, October 1). Gesetz über die politischen Rechte: Anpassung der Regelung zum 3%-Quorum bei Kantonsratswahlen, Inkraftsetzung (Regierungsratsbeschluss Nr. 998/2025). https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2025/998/RRB-2025-0998.pdf
+
+Schweizerische Eidgenossenschaft. (1999). *Bundesverfassung der Schweizerischen Eidgenossenschaft vom 18. April 1999 (BV; SR 101)*. Fedlex.https://www.fedlex.admin.ch/eli/cc/1999/404/de
 
 Staat Wallis. (2017). *Grossräte 2017 – Resultate: Offizielle Endresultate. Archivierte Abstimmungs- und Wahlresultate*. https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
 
@@ -636,6 +649,10 @@ Statistisches Amt des Kantons Zürich. 2003. *Die Zürcher Kantonsratswahlen 200
 
 Statistisches Amt des Kantons Zürich. (2011). *Statistisches Jahrbuch des Kantons Zürich 2011*. https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00000124_00001234.pdf
 
+
+```{=typst}
+#set par(hanging-indent: 0pt)
+```
 
 ## Appendix
 
