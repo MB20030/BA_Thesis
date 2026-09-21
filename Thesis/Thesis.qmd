@@ -149,6 +149,12 @@ Based on Article 8 and 34 of the Federal Constitution, there are three principle
 
 To approach these principles the Double Pukelsheimer or originally called the "Neues Zürcher Zuteilungsverfahren" knows a upper and a lower apportionment. 
 
+- **Upper Apportionment** To bypass the natural quorums, in the upper apportionment, the whole canton is seen as one single district. All the seats are then allocated towards the parties. For that the votes from the district-level have to be summarized on a cantonal level, there the first difficulty emerges. Since the district magnitudes vary, the voters also have a different amount of votes, depending on from which canton they are from. Therefore to be able to summarize on a global level, the following is done. The number of party votes per constituency are taken and divided with the respective number of seats. The resulting quotient gets rounded to the next number and indicates the amount of voters per list. The rounded quotients, can then be summed across all districts and divided by the cantonal divisor to get each parties total seats. The divisor is set by an official authority, in Zurich e.g. its the Department of the Government Councillor which is responsible for the elections. The department needs to assure, that with the set divisor exactly as many seats can be allocated as there are available. The number of seats which result per party, are rounded again to the next number. (Pukelsheim & Schuchmacher, 2011, p.1584-1585 ; Kanton Zürich, 2003, § 10 and 103)
+
+- **Lower apportionment** This step assigns each party's cantonwide seats from the upper apportionment to its district lists while preserving each district's predetermined seat total. First, the party votes in each district are divided by a district divisor chosen so that the rounded results add up to the district's seats. These initial allocations may not match the parties' cantonwide entitlements: in the 2011 Zurich election, the SVP would have received 55 seats instead of the 54 assigned in the upper apportionment. To correct such differences, every district list of a party is divided by the same additional list group divisor. A divisor above one reduces the party's unrounded quotients and can remove seats while a divisor below one can add seats. Consider a hypothetical SVP list in District Y whose quotient after division by the district divisor is 2.51, giving it three seats after rounding. If increasing the SVP's list group divisor to 1.01 changes no other SVP list's rounded allocation, this quotient falls to \(2.51/1.01 \approx 2.49\), so the list receives two seats and the SVP's total seats match the ones from the upper apportionment. This change though may leave District Y one seat short, requiring an adjustment to its district divisor. The party and district divisors are then adjusted in turn until every party receives its cantonwide entitlement and every district retains its fixed number of seats. (Pukelsheim & Schuhmacher, 2011, pp. 1585–1586)
+
+
+
 ### Literature Review
 
  
@@ -569,6 +575,8 @@ Kanton Wallis. (2020, 25. September). *Legislaturperiode 2021–2025: Verteilung
 Kanton Wallis. (2024, 20. September). *Anhang zur Verteilung der Anzahl Grossratssitze pro Bezirk, Legislaturperiode 2025–2029*. https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09
 
 Kanton Zürich. (1983/2005). *Gesetz über die Wahlen und Abstimmungen (Wahlgesetz)* (LS 161; Nachtrag 47, Stand 1. Januar 2005), §§ 87–88b. https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf
+
+Kanton Zürich. *Gesetz über die politischen Rechte* (GPR) of 1 September 2003, LS 161. https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/1EED0F259F53BB22C1258D4C004EB46A/%24File/161_1.9.03_131.pdf
 
 Kanton Zug. (2006, September 28). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (Vorlage Nr. 1300.24, Laufnummer 12 198). https://kr-geschaefte.zug.ch/dokumente/2793/pdoc_1494_1.pdf
 
