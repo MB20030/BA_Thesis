@@ -13,7 +13,10 @@ if (!exists("allocate_hb_with_notes", mode = "function") ||
   source(here("data_cleaning_cantons", "00_functions.R")) # Load shared seat functions.
 }
 
-# (Kanton Schaffhausen, n.d.; Staatskanzlei Kanton Schaffhausen, 2020, 2024)
+# Historical HB allocation rule:
+# (Regierungsrat des Kantons Schaffhausen, 1979, §§ 2, 36–37).
+# This original law text was supplied by the Staatsarchiv des Kantons Schaffhausen by email.
+# Election results: (Kanton Schaffhausen, n.d.; Staatskanzlei Kanton Schaffhausen, 2020, 2024)
 sh_source_dir <- here("data", "datasets", "schaffhausen") # Folder with the PDFs.
 sh_source_files <- tibble( # Match each election year to its PDF.
   year = c(2008L, 2012L, 2016L, 2020L, 2024L),
@@ -52,6 +55,95 @@ sh_lines <- function(page) {
 
 sh_number <- function(value) {
   as.numeric(str_remove_all(value, "['’ ]")) # Remove Swiss thousands marks.
+}
+
+sh_hb_tie_resolver <- function(
+    tied, votes, seats, distribution_number, party_names, candidate_votes
+) {
+  # § 37: compare the remainders from the initial division under § 36(2).
+  remainders <- votes[tied] %% distribution_number
+  tied <- tied[remainders == max(remainders)]
+  if (length(tied) > 1L) {
+    # § 37 reaches candidate votes only if party vote totals also coincide
+    # this treats the larger party total as prior when they differ.
+    tied <- tied[votes[tied] == max(votes[tied])]
+  }
+  if (length(tied) > 1L) {
+    # Compare the next eligible candidate on each tied list under § 37.
+    next_votes <- vapply(tied, function(index) {
+      next_candidate <- seats[index] + 1L
+      if (next_candidate > length(candidate_votes[[index]])) {
+        stop("No candidate available for an HB tie in list ", party_names[index])
+      }
+      candidate_votes[[index]][next_candidate]
+    }, numeric(1L))
+    tied <- tied[next_votes == max(next_votes)]
+  }
+  # An exact candidate tie requires a lot; retain all possible outcomes.
+  tied
+}
+
+sh_candidate_vote_lists <- function(pages, district, lists, year) {
+  candidate_rows <- map_dfr(pages, function(page) {
+    lines <- sh_lines(page)
+    district_at <- which(lines == "Wahlkreis:")
+    list_at <- which(lines == "Liste:")
+    header_at <- which(lines == "Name, Beruf und Wohnort des Kandidaten Stimmenzahl")
+    total_at <- which(lines == "Kandidatenstimmen, Total")
+    if (length(district_at) != 1L || length(list_at) != 1L ||
+        length(header_at) != 1L || length(total_at) != 1L ||
+        district_at < 2L || list_at < 2L || total_at <= header_at + 2L ||
+        lines[district_at - 1L] != district) {
+      return(tibble(list_number = character(), candidate_votes = list()))
+    }
+    candidate_lines <- lines[(header_at + 1L):(total_at - 2L)]
+    votes <- sh_number(candidate_lines[
+      str_detect(candidate_lines, "^[0-9][0-9'’]*$")
+    ])
+    if (length(votes) == 0L || anyNA(votes) || any(diff(votes) > 0) ||
+        sum(votes) != sh_number(lines[total_at - 1L])) {
+      stop(year, ": invalid candidate votes in Wahlkreis ", district)
+    }
+    tibble(
+      list_number = lines[list_at - 1L],
+      candidate_votes = list(votes)
+    )
+  })
+  if (anyDuplicated(candidate_rows$list_number) ||
+      any(!candidate_rows$list_number %in% lists$list_number)) {
+    stop(year, ": invalid candidate list in Wahlkreis ", district)
+  }
+  candidate_votes <- lapply(match(lists$list_number, candidate_rows$list_number),
+    function(index) if (is.na(index)) numeric() else candidate_rows$candidate_votes[[index]]
+  )
+  if (any(lengths(candidate_votes) == 0L & lists$party_votes > 0)) {
+    stop(year, ": missing candidate votes in Wahlkreis ", district)
+  }
+  if (any(vapply(candidate_votes, sum, numeric(1L)) > lists$party_votes)) {
+    stop(year, ": candidate votes exceed list votes in Wahlkreis ", district)
+  }
+  candidate_votes
+}
+
+sh_majority_allocation <- function(candidate_votes) {
+  winners <- which(candidate_votes == max(candidate_votes))
+  if (length(winners) == 1L) {
+    seats <- as.integer(seq_along(candidate_votes) == winners)
+    return(tibble(
+      seats_hb = seats,
+      seats_hb_options = as.character(seats),
+      hb_tie_note = rep(NA_character_, length(seats))
+    ))
+  }
+  tibble(
+    seats_hb = if_else(seq_along(candidate_votes) %in% winners,
+                       NA_integer_, 0L),
+    seats_hb_options = if_else(seq_along(candidate_votes) %in% winners,
+                               "0/1", "0"),
+    hb_tie_note = if_else(seq_along(candidate_votes) %in% winners,
+                          "Equal candidate votes under § 2(2); a hypothetical lot is not drawn.",
+                          NA_character_)
+  )
 }
 
 standardize_sh_party <- function(label, year, list_number) {
@@ -211,14 +303,29 @@ read_sh_election <- function(path, year) {
     stop(year, ": district results do not reconcile with Oberzuteilung")
   }
 
-  hb_by_district <- districts |> # Former HB rule: Regierungsrat des Kantons Schaffhausen (2007, p. 6).
-    group_by(district) |> # Allocate each Wahlkreis separately.
-    group_modify(function(data, key) { # Report gives no exact HB tie rule; old law requested, no reply yet.
-      allocation <- allocate_hb_with_notes( # Keep all outcomes if an exact tie occurs.
-        data$party_votes,
-        first(data$district_seats),
-        data$parties
-      ) # None of the 30 district allocations in these five PDFs has a tie.
+ 
+  hb_by_district <- districts |> # Former rules in the archived 1979 ordinance.
+    group_by(district) |> # Allocate each constituency separately.
+    group_modify(function(data, key) {
+      candidate_votes <- sh_candidate_vote_lists(pages, key$district, data, year)
+      allocation <- if (first(data$district_seats) == 1L) {
+        # SH law uses candidate votes and a lot for a one-seat constituency
+        sh_majority_allocation(vapply(candidate_votes, function(votes) {
+          if (length(votes) == 0L) 0 else votes[1L]
+        }, numeric(1L)))
+      } else {
+        allocate_hb_with_notes(
+          data$party_votes,
+          first(data$district_seats),
+          data$parties,
+          tie_resolver = function(tied, votes, seats, distribution_number,
+                                  party_names) {
+            sh_hb_tie_resolver(tied, votes, seats, distribution_number,
+                               party_names, candidate_votes)
+          },
+          quota_rule = "ceiling" # for elections with a ceiling rule like SH 
+        )
+      }
       bind_cols(data, allocation) |>
         mutate(hb_tie_note = if_else( # Name the district if a tie is found.
           is.na(hb_tie_note), NA_character_,

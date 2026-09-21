@@ -6,4 +6,8 @@
 
 9. To assess the sensitivity of the analysis to this special case, the models are estimated once with Valais and once without Valais. --> do this?
 
-10. add court argues with articles 8 and 34 of the federal constitution
+10. create a list with all people who sent me stuff --> as appreciation
+Lüscher --> PhD Thesis
+URI --> election data
+SH --> law text
+NW --> election data

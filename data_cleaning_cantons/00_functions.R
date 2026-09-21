@@ -13,6 +13,7 @@
 # applicable law. If more than one legally possible winner remains, every
 # possible final allocation is retained instead of silently choosing the first
 # row. A hypothetical drawing of lots is therefore never invented.
+# `quota_rule` allows cantons whose law rounds an exact quota up differently.
 
 validate_hb_inputs <- function(votes, n_seats, party_names) {
   if (
@@ -43,7 +44,8 @@ hb_allocation_outcomes <- function(
     n_seats,
     party_names = names(votes),
     tie_resolver = NULL,
-    max_outcomes = 1000L
+    max_outcomes = 1000L,
+    quota_rule = c("floor_plus_one", "ceiling")
 ) {
   votes <- as.numeric(votes)
   if (is.null(party_names)) {
@@ -52,6 +54,7 @@ hb_allocation_outcomes <- function(
   party_names <- as.character(party_names)
   validate_hb_inputs(votes, n_seats, party_names)
   n_seats <- as.integer(n_seats)
+  quota_rule <- match.arg(quota_rule)
 
   if (!is.null(tie_resolver) && !is.function(tie_resolver)) {
     stop("`tie_resolver` must be NULL or a function.")
@@ -68,7 +71,12 @@ hb_allocation_outcomes <- function(
     return(matrix(integer(length(votes)), nrow = 1L))
   }
 
-  distribution_number <- floor(sum(votes) / (n_seats + 1L)) + 1L
+  raw_quota <- sum(votes) / (n_seats + 1L)
+  distribution_number <- if (quota_rule == "ceiling") {
+    ceiling(raw_quota)
+  } else {
+    floor(raw_quota) + 1L
+  }
   initial_seats <- as.integer(floor(votes / distribution_number))
   if (sum(initial_seats) > n_seats) {
     stop("The initial HB allocation exceeds the number of available seats.")
@@ -126,7 +134,8 @@ allocate_hb_with_notes <- function(
     votes,
     n_seats,
     party_names = names(votes),
-    tie_resolver = NULL
+    tie_resolver = NULL,
+    quota_rule = c("floor_plus_one", "ceiling")
 ) {
   if (is.null(party_names)) {
     party_names <- paste0("party_", seq_along(votes))
@@ -135,7 +144,8 @@ allocate_hb_with_notes <- function(
     votes,
     n_seats,
     party_names,
-    tie_resolver
+    tie_resolver,
+    quota_rule = quota_rule
   )
 
   possible_seats <- lapply(seq_along(party_names), function(index) {
@@ -213,12 +223,16 @@ unique_hb_seat_value <- function(options) {
 # tie can change the final allocation, fail explicitly so callers cannot mistake
 # row order for a legal tie-break. Call `allocate_hb_with_notes()` when the
 # ambiguity should be retained in the output data.
-allocate_hb <- function(votes, n_seats, tie_resolver = NULL) {
+allocate_hb <- function(
+    votes, n_seats, tie_resolver = NULL,
+    quota_rule = c("floor_plus_one", "ceiling")
+) {
   result <- allocate_hb_with_notes(
     votes,
     n_seats,
     party_names = names(votes),
-    tie_resolver = tie_resolver
+    tie_resolver = tie_resolver,
+    quota_rule = quota_rule
   )
   if (anyNA(result$seats_hb)) {
     stop(
