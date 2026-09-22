@@ -103,11 +103,11 @@ Since Zurich first used the system in 2007, eight further cantons have used it: 
 
 The amount of cantons who have already implemented the system or are debating about doing so, suggets that the decision by the FSC had a substantial impact on how Swiss citizens elect their regional parliaments. It seems that the double-Pukelsheimer through its wide implementation across cantons is a success story. Since the first election under double Pukelsheim in Zurich in 2007, the system has been used in 32 cantonal parliamentary elections.^[The 32 elections comprise Zurich (2007, 2011, 2015, 2019, and 2023; Amt für Statistik und Daten Kanton Zürich, 2026); Schaffhausen (2008, 2012, 2016, 2020, and 2024; Kanton Schaffhausen, n.d.; Staatskanzlei Kanton Schaffhausen, 2020, 2024); Aargau (2009, 2012, 2016, 2020, and 2024; Department für Finanzen und Ressourcen des Kantons Aargau, 2009; Regierungsrat des Kantons Aargau, 2013; Statistisches Amt Kanton Aargau, n.d.); Nidwalden (2014, 2018, 2022, and 2026; Staatskanzlei Nidwalden, 2014, 2018, 2022, 2026); Zug (2014, 2018, and 2022; Kanton Zug, 2022a, 2022b, 2022c); Schwyz (2016, 2020, and 2024; Bundesgericht, 2012); Valais (2017, 2021, and 2025; Kanton Wallis, 2016, 2020, 2024; Staat Wallis, 2017); Uri (2020 and 2024; Standeskanzlei Uri, 2024a, 2024b); and Graubünden (2022 and 2026; Kanton Graubünden, 2022, 2026).]
 
-Taken together, this number of elections and almost 20 years of experience provide a reason to evaluate the impact of the reform, especially on smaller parties. How much has the reform changed smaller parties seat shares and how large is the actual difference in seat allocation between the Hagenbach-Bischoff and Double Pukelsheim system? Are there other major differences, for example in how the reform performs in smaller versus larger parliaments, and does the reform lead to a systematic increase in party-system fragmentation?
+Taken together, this number of elections and almost 20 years of experience provide a reason to evaluate the impact of the reform, especially on smaller parties. How much has the reform changed smaller parties seat shares and how large is the actual difference in seat allocation between the Hagenbach-Bischoff and Double Pukelsheim system? Are there other major differences, for example in how the reform performs in smaller versus larger parliaments, and how does the smaller parties seat share and gain evolve across successive elections?
 
-The central research gap lies in the fact that the existing literature mainly discusses the Doppelproporz in legal, normative, or system-level terms. It emphasizes improved proportionality, fewer weightless votes, and better opportunities for smaller parties, while also pointing to trade-offs such as territorial distortions and counterintuitive seat allocations (Lüscher, 2023, 2024, 2025). The closest precedents for the calculation used in this thesis are the counterfactual comparisons by Pukelsheim and Schuhmacher, Lüscher, and Leuzinger. Pukelsheim and Schuhmacher use the actual 2011 Zurich election under Doppelproporz combined with hypothetical list alliances to calculate how the same votes would have been translated into seats under the former Hagenbach-Bischoff system, showing that larger parties receive more seats at the expense of several smaller parties under the old rule (Pukelsheim & Schuhmacher, 2011, Section D, pp. 1590–1592, Table 2). Lüscher performs a similar comparison for the 2016 Schwyz election (Lüscher, 2024, p. 13, Table 3). Leuzinger compared the then most recent elections in the seven cantons that had adopted Doppelproporz by 2018 with hypothetical allocations under their former electoral systems (Leuzinger, 2018). Unlike the present study, his counterfactual assumes that the list alliances observed in the final pre-reform election would have persisted. As a result, Leuzinger's counterfactual and the method used in this thesis yield different seat allocations for some elections. By contrast, Lüscher’s principal empirical analysis follows Swiss cantons over time and estimates how outcomes such as disproportionality and party-system fragmentation would probably have developed in the reforming cantons had they not adopted Doppelproporz (Lüscher, 2024, pp. 126–143). Compared with Leuzinger's seven-election study, the main comparison in this thesis covers 30 elections in eight cantons through 2026. It applies a consistent definition of smaller parties to measure their seat gains without assuming that pre-reform list alliances persisted. 
+The central research gap lies in the fact that the existing literature mainly discusses the Doppelproporz in legal, normative, or system-level terms. It emphasizes improved proportionality, fewer weightless votes, and better opportunities for smaller parties, while also pointing to trade-offs such as territorial distortions and counterintuitive seat allocations (Lüscher, 2023, 2024, 2025). The closest precedents for the calculation used in this thesis are the counterfactual comparisons by Pukelsheim & Schuhmacher, Lüscher, and Leuzinger. Pukelsheim & Schuhmacher use the actual 2011 Zurich election under Doppelproporz combined with hypothetical list alliances to calculate how the same votes would have been translated into seats under the former Hagenbach-Bischoff system, showing that larger parties receive more seats at the expense of several smaller parties under the old rule (Pukelsheim & Schuhmacher, 2011, Section D, pp. 1590–1592, Table 2). Lüscher performs a similar comparison for the 2016 Schwyz election (Lüscher, 2024, p. 13, Table 3). Leuzinger compared the then most recent elections in the seven cantons that had adopted Doppelproporz by 2018 with hypothetical allocations under their former electoral systems (Leuzinger, 2018). Unlike the present study, his counterfactual assumes that the list alliances observed in the final pre-reform election would have persisted. As a result, Leuzinger's counterfactual and the method used in this thesis yield different seat allocations for some elections. By contrast, Lüscher’s principal empirical analysis follows Swiss cantons over time and estimates how outcomes such as disproportionality and party-system fragmentation would probably have developed in the reforming cantons had they not adopted Doppelproporz (Lüscher, 2024, pp. 126–143). Compared with Leuzinger's seven-election study, the main comparison in this thesis covers 30 elections in eight cantons through 2026. It applies a consistent definition of smaller parties to measure their seat gains without assuming that pre-reform list alliances persisted. 
 
-Against this background, this thesis examines the mechanical effect of the electoral reform on the parliamentary representation of smaller parties. More specifically, it asks and shows statistically how many seats smaller parties gain through the transition from the Hagenbach-Bischoff system to Double Pukelsheim in Swiss cantonal parliamentary elections. It further examines whether the reform performs differently in smaller and larger parliaments and whether it leads to a systematic increase in party-system fragmentation. Its contribution is the systematic application of the counterfactual calculation to 32 cantonal elections from which 30 are in the main transition analysis and two hypothetical Graubünden cases are used as a comparison, delivering a consistent definition of smaller parties and aggregated seat-gain measures.
+Against this background, this thesis examines the mechanical effect of the electoral reform on the parliamentary representation of smaller parties. More specifically, it asks and shows statistically how many seats smaller parties gain through the transition from the Hagenbach-Bischoff system to Double Pukelsheim in Swiss cantonal parliamentary elections. It further examines whether the reform performs differently in smaller and larger parliaments and how the seat-gains of smaller parties evolve across sucessive elections. Its contribution is the systematic application of the counterfactual calculation to 32 cantonal elections from which 30 are in the main transition analysis and two hypothetical Graubünden cases are used as a comparison, delivering a consistent definition of smaller parties and aggregated seat-gain measures.
 
 ## Theory and Literature Review
 
@@ -172,7 +172,7 @@ The decision not to carry historical list alliances forward or to create hypothe
 
 To be able to answer the research question: 20 Years of Double Pukelsheim in Switzerland: What Is the Mechanical Effect of the Transition from Hagenbach-Bischoff on the Seat Allocation of Smaller Parties?
 
-To answer the research question, this thesis test two main hypotheses one concerning smaller parties seat shares and one concerning pary-system fragmentation. The hypotheses are based on the theoretical considerations and the literature review. The first hypothesis focuses on the mechanical effect of the electoral reform on smaller parties, while the second hypothesis addresses the potential impact of the reform on party-system fragmentation.
+To answer the research question, this thesis tests one main hypothesis concerning smaller parties' seat shares. A sub-hypothesis compares the gain across cantons, and an exploratory sub-question examines how it varies across successive elections within each canton. The main hypothesis is based on the theoretical considerations and the literature review and focuses on the mechanical effect of the electoral reform on smaller parties.
 
 
 ### Hypothesis 1
@@ -201,30 +201,10 @@ The gain in smaller parties' seat share may vary across cantons. As an explorato
 
 For each canton, the election-level gains $\Delta_e$ are averaged first; the group mean then averages these canton means so that cantons with more observed elections receive no extra weight. The difference is described in percentage points without a directional prediction or a claim that canton size causes it. Former district magnitudes, legal thresholds, party competition, and canton-specific allocation rules could also shape the result.
 
-### Hypothesis 2
+#### Exploratory sub-question: Change across successive elections
 
-**H₀2 (null hypothesis):** The transition to the Double Pukelsheim system did not lead to a systematic increase in party-system fragmentation.
+How does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation vary across successive elections within each canton? The analysis follows the seat shares under both allocation rules and their difference $\Delta_e$ from each canton's first election under Double Pukelsheim onward. No directional trend is hypothesized, because vote shares, the composition of parties below the 10% threshold, district seat magnitudes, and electoral rules can change between elections.
 
-$$
-H_{0,2}:\quad \operatorname{ENP}_{\text{post}}-\operatorname{ENP}_{\text{pre}}\leq 0
-$$
-
-**H₁2:** The transition to the double Pukelsheim system led to a systematic increase in party-system fragmentation.
-
-$$
-H_{1,2}:\quad \operatorname{ENP}_{\text{post}}-\operatorname{ENP}_{\text{pre}}>0
-$$
-
-The effective number of parties is calculated using the Laakso–Taagepera index (Laakso & Taagepera, 1979):
-$$
-\operatorname{ENP}_v=\frac{1}{\sum_{i=1}^{n}v_i^2}
-\qquad
-\operatorname{ENP}_s=\frac{1}{\sum_{i=1}^{n}s_i^2}
-$$
-
-Here {v_i} and {s_i} denote party {i's} vote share and seat share repectively.
-
-v = vote shares, s = seat shares
 
 ## Analysis
 
@@ -588,8 +568,6 @@ https://wab.zug.ch/elections/kantonsratswahl-kanton-zug-2014/data
 
 Kanton Zug. (2022c, October 2). *Kantonsratswahl 2022* [Data set].
 https://wab.zug.ch/elections/kantonsratswahl-2022/data
-
-Laakso, M., & Taagepera, R. (1979). “Effective” number of parties: A measure with application to West Europe. *Comparative Political Studies, 12*(1), 3–27. https://doi.org/10.1177/001041407901200101
 
 Landrat des Kantons Basel-Landschaft. (2024, October 17). *Protokoll der 24. Sitzung vom 17. Oktober 2024*. https://baselland.talus.ch/de/politik/cdws/dok.php?bereich=sitzung&did=a6839efbe42849828ff5d8b0e1574870-332&filename=Protokoll_der_Landratssitzung_vom_17.10.2024&gremium=Landrat+Basel-Landschaft&r=PDF&sitzung=24.+Sitzung&sitzungsdatum=17.10.2024&typ=pdf&v=1
 
