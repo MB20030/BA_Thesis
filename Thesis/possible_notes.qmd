@@ -8,9 +8,11 @@
 
 10. create a list with all people who sent me stuff --> as appreciation
 Lüscher --> PhD Thesis
-URI --> election data
-SH --> law text
-NW --> election data
+URI --> election data --> Adrian Zurfluh Stellvertretender Kanzleidirektor
+SH --> law text --> Roland E.Hofer Staatsarchivar
+NW --> election data --> Stefanie Haldimann Administrative Leiterin Staatskanzlei, Kanzleisekretariat
+ZH --> dataset correction after hint --> Simon Graff Wissenschaftlicher Mitarbeeiter
+SZ --> election data --> Leiter Staatskanzlei Anton Waldvogel
 
 11. add to literature review 
 http://cambridge.org/core/journals/british-journal-of-political-science/article/mechanical-and-psychological-effects-of-electoral-reform/4DCA29945DD51213B81CB54E1067BAD4
