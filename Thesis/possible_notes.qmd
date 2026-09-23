@@ -16,3 +16,7 @@ NW --> election data
 http://cambridge.org/core/journals/british-journal-of-political-science/article/mechanical-and-psychological-effects-of-electoral-reform/4DCA29945DD51213B81CB54E1067BAD4
 
 12. abkürzungsverzeichnis hinzufügen?
+
+13. H1b: The seat share gained by smaller parties under Double Pukelsheim relative to Hagenbach–Bischoff differs between elections held with an explicit quorum and elections held without one. --> another subhypothesis
+
+14. add uri decision why not all municipialities with Double Pukelsheimer?
