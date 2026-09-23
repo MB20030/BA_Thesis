@@ -204,7 +204,7 @@ The decision not to carry historical list alliances forward or to create hypothe
 
 To be able to answer the research question: 20 Years of Double Pukelsheim in Switzerland: What Is the Mechanical Effect of the Transition from Hagenbach-Bischoff on the Seat Allocation of Smaller Parties?
 
-To answer the research question, this thesis tests one main hypothesis concerning smaller parties' seat shares. A sub-hypothesis compares the gain across cantons, and an exploratory sub-question examines how it varies across successive elections within each canton. The main hypothesis is based on the theoretical considerations and the literature review and focuses on the mechanical effect of the electoral reform on smaller parties.
+To answer the research question, this thesis examines one main hypothesis concerning smaller parties' seat shares. Exploratory comparisons examine differences by the number of seats allocated through Double Pukelsheim, the presence of an explicit electoral quorum, and successive elections within each canton. The main hypothesis focuses on the mechanical effect of the electoral reform on smaller parties.
 
 
 ### Hypothesis 1
@@ -215,23 +215,21 @@ $$
 \Delta_e = 100\frac{S^{DP}_{e}-S^{HB}_{e}}{M_e}\quad\text{percentage points}.
 $$
 
-The main hypothesis is that, compared with Hagenbach-Bischoff, Double Pukelsheim increases smaller parties' share of the analyzed seats by more than five percentage points on average across elections. The hypothesis uses the unweighted mean, $\bar{\Delta}=E^{-1}\sum_{e=1}^{E}\Delta_e$, so each election counts equally. The analysis also reports a mean weighted by the number of analyzed seats in each election.
+The hypothesis uses the unweighted mean, $\bar{\Delta}=E^{-1}\sum_{e=1}^{E}\Delta_e$, so each election counts equally. The analysis also reports a mean weighted by the number of analyzed seats in each election.
 
-**H₀ (null hypothesis):** The mean gain in smaller parties' seat share under Double Pukelsheim is at most five percentage points: $\bar{\Delta}\leq 5$.
-
-**H₁ (main hypothesis):** The mean gain in smaller parties' seat share under Double Pukelsheim exceeds five percentage points: $\bar{\Delta}>5$.
+**H₁ (main hypothesis):** On average across the analyzed elections, smaller parties receive a larger share of the analyzed seats allocated through Double Pukelsheim than under the counterfactual Hagenbach-Bischoff allocation.
 
 The 10% threshold is based on that the Swiss Federal Supreme Court's reasoning that direct and natural quorums, understood as barriers to representation within an electoral district, should generally not exceed 10% (BGE 131 I 74, E. 5.3–5.5; Bundeskanzlei, 2013, p. 8).
 
-#### Sub-hypothesis H1a: Differences between cantons
+#### Exploratory comparison: Differences by Double Pukelsheim seat count
 
 The gain in smaller parties' seat share may vary across cantons. As an exploratory comparison, cantons where more than 100 seats are allocated through Double Pukelsheim (ZH, AG, and VS) are compared with cantons where at most 100 seats are allocated through Double Pukelsheim (UR, NW, ZG, SH, and SZ).^[Official seat totals: ZH (Amt für Statistik und Daten Kanton Zürich, 2026); AG (Statistisches Amt Kanton Aargau, n.d.); VS (Kanton Wallis, 2024); UR (Standeskanzlei Uri, 2024b); NW (Staatskanzlei Nidwalden, 2026); ZG (Kanton Zug, 2022c); SH (Staatskanzlei Kanton Schaffhausen, 2024); SZ (Kanton Schwyz, 2024); GR, shown for context (Kanton Graubünden, 2026).] Graubünden is shown separately because its pre-reform system was Majorz and its HB allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
 
-**H₀a:** The two groups have the same mean canton-level gain in smaller parties' seat share under Double Pukelsheim.
+For each canton, the election-level gains $\Delta_e$ are averaged first; the group mean then averages these canton means so that cantons with more observed elections receive no extra weight. The difference is described in percentage points. Former district magnitudes, legal thresholds, party competition, and canton-specific allocation rules could also shape the result.
 
-**H₁a:** The mean canton-level gain in smaller parties' seat share under Double Pukelsheim differs between the two groups.
+#### Exploratory comparison: Explicit electoral quorums
 
-For each canton, the election-level gains $\Delta_e$ are averaged first; the group mean then averages these canton means so that cantons with more observed elections receive no extra weight. The difference is described in percentage points without a directional prediction or a claim that canton size causes it. Former district magnitudes, legal thresholds, party competition, and canton-specific allocation rules could also shape the result.
+How does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation vary between elections conducted with and without an explicit electoral quorum?
 
 #### Exploratory sub-question: Change across successive elections
 
