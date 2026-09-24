@@ -14,14 +14,12 @@ NW --> election data --> Stefanie Haldimann Administrative Leiterin Staatskanzle
 ZH --> dataset correction after hint --> Simon Graff Wissenschaftlicher Mitarbeeiter
 SZ --> election data --> Leiter Staatskanzlei Anton Waldvogel
 
-11. add to literature review 
-http://cambridge.org/core/journals/british-journal-of-political-science/article/mechanical-and-psychological-effects-of-electoral-reform/4DCA29945DD51213B81CB54E1067BAD4
 
-Fiva J., Olle F., (2014) Mechanical and Psychological Effects of Electoral Reforms 
- 
-Lago I., I Coma F., (2026) The ‘odd–even effect’: The link between the number of parties and district magnitude 
 
 14. add uri decision why not all municipialities with Double Pukelsheimer?
 
 15. Replace the parliament-size question with whether smaller parties gain more in cantons with many small districts. Measure this using mean district magnitude and, optionally, the share of districts with fewer than nine seats. This is more directly connected to the mechanism than total parliament size ?? then use a theoretical fondation --> 
 Lago, I., & Martínez i Coma, F. (2024). The ‘odd–even effect’: The link between the number of parties and district magnitude. European Journal of Political Research, 63(4), 1471–1490. https://doi.org/10.1111/1475-6765.12658
+
+16. add short summary under canton by canton implementation
+The long canton-by-canton adoption section needs a concluding synthesis explicitly connecting the institutional differences to your exploratory questions about parliament size, quorums, and successive elections.
