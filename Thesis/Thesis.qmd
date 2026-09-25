@@ -807,6 +807,44 @@ Statistisches Amt des Kantons Zürich. (2011). *Statistisches Jahrbuch des Kanto
 
 ### Appendix 1: Explanation Data Cleaning Process
 
+The table below lists the official election-result sources used in the canton-specific cleaning scripts. It includes raw data inputs and official publications used to reconstruct or validate reported results; legal and methodological sources used only to specify the counterfactual allocation rules are excluded.
+
+```{=typst}
+#figure(
+  kind: table,
+  supplement: [Table],
+  caption: [Official election data sources used in the canton-specific data-cleaning scripts.],
+  table(
+    columns: (0.20fr, 0.80fr),
+    align: (left, left),
+    inset: 5pt,
+    stroke: 0.5pt,
+    table.header(
+      [*Canton*],
+      [*Data source*],
+    ),
+    [Aargau],
+    [Statistisches Amt Kanton Aargau, *Grossratswahlen: Detailresultate, ab 1985* (elections 2009, 2012, 2016, 2020, and 2024); Department für Finanzen und Ressourcen des Kantons Aargau (2009) and Regierungsrat des Kantons Aargau (2013) for validation of the 2009 and 2012 cantonal seat totals; Staatskanzlei des Kantons Aargau (2012, 2016) for the district seat magnitudes.],
+    [Graubünden],
+    [Kanton Graubünden, *Pressedaten Proporzwahl kantonal: Grossratswahlen* (official Excel workbooks for 2022 and 2026).],
+    [Nidwalden],
+    [Staatskanzlei Nidwalden, *Wahlergebnis der Landratswahlen* (unpublished Excel workbooks for 2014, 2018, 2022, and 2026, supplied by the Kanzleisekretariat via email).],
+    [Schaffhausen],
+    [Kanton Schaffhausen, *Frühere Urnengänge (seit 2003)* (official result PDFs for 2008, 2012, and 2016); Staatskanzlei Kanton Schaffhausen, *Resultate der Kantonsratswahl* (official result PDFs for 2020 and 2024).],
+    [Schwyz],
+    [Staatskanzlei Kanton Schwyz, unpublished raw data supplied via email: municipality-level CSV exports (30 files for 2016), a candidate-result CSV export (2020), and an Excel workbook (2024).],
+    [Uri],
+    [Standeskanzlei Uri, *AuswertungKapitel2-2024* (unpublished Excel workbook containing the 2020 and 2024 results, supplied via email); *Landratswahlen 2024: Statistische Auswertung* for party-label validation.],
+    [Valais],
+    [Staat Wallis, official district-level Grand Council result workbooks (2017, 2021, and 2025); official final results for 2017; Grand Council validation-commission reports for the constitutive sessions of April 2021 and April 2025; Kanton Wallis publications on district seat magnitudes for 2017, 2021, and 2025.],
+    [Zug],
+    [Kanton Zug, official open-data candidate-result CSV exports for the 2014, 2018, and 2022 cantonal elections.],
+    [Zürich],
+    [Amt für Statistik und Daten Kanton Zürich, *Archiv Wahlresultate Kantonsratswahlen* (official party-result and candidate-result Excel workbooks for 2007, 2011, 2015, 2019, and 2023).],
+  ),
+)
+```
+
 ### Appendix 2: Code for Data Cleaning
 
 ### Declaration of AI-Assistance
