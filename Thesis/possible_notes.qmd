@@ -1,6 +1,6 @@
 # This document acts as a placeholder for possible notes and ideas for the thesis. 
 
-4. add note why schaffhausen is probably shifting analysis --> they still allow listconnections --> also many sub parties of svp --> get counted as own party
+4. add note why schaffhausen is probably shifting analysis -->  also many sub parties of svp --> get counted as own party
 
 7. How does the seat-gain --> develop over time --> 1st election under double pukelsheim, 2nd ,3rd , 4th , 5th etc. ? --> idea --> one line per canton --> add changes of cantons with arrows to the graph --> e.g canton aargau added threshold for 2012 election etc. -_> canton schaffhausen majority clause 2015 --> zurich 2021 threshold
 
@@ -16,10 +16,13 @@ SZ --> election data --> Leiter Staatskanzlei Anton Waldvogel
 
 
 
-14. add uri decision why not all municipialities with Double Pukelsheimer?
-
 15. Replace the parliament-size question with whether smaller parties gain more in cantons with many small districts. Measure this using mean district magnitude and, optionally, the share of districts with fewer than nine seats. This is more directly connected to the mechanism than total parliament size ?? then use a theoretical fondation --> 
 Lago, I., & Martínez i Coma, F. (2024). The ‘odd–even effect’: The link between the number of parties and district magnitude. European Journal of Political Research, 63(4), 1471–1490. https://doi.org/10.1111/1475-6765.12658
 
-16. add short summary under canton by canton implementation
-The long canton-by-canton adoption section needs a concluding synthesis explicitly connecting the institutional differences to your exploratory questions about parliament size, quorums, and successive elections.
+17. Notes meeting with aurélien  
+DESCRIBE CLEARLY  WHERE DATA COMES FROM IN DATASECTION
+TABLE IN APPENDIX -> 2COLUMNS --> CANTON OTHER DATASOURCE
+FOR DETAIL INFORMATION ON DATA SEE APPENDIX
+FOR R -SCRIPTS --> CHECK WITH UNIVERSITY
+AI -USAGE --> TABLE OR PAGE --> tool explanation
+plus SELF -REFLECTION on ai usage 
