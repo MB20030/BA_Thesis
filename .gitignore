@@ -10,5 +10,7 @@ renv/staging/
 renv/python/
 renv/sandbox/
 
+PhD-Thesis_Luescher_20240828.pdf
+
 # Quarto's local working directory
 .quarto/
