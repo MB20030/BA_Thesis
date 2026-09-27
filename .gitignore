@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 .positai
+.PhD-Thesis_Luescher_20240828.pdf
 
 # Local R/renv state (keep renv.lock and renv/activate.R tracked)
 renv/library/
@@ -10,7 +11,6 @@ renv/staging/
 renv/python/
 renv/sandbox/
 
-PhD-Thesis_Luescher_20240828.pdf
 
 # Quarto's local working directory
 .quarto/
