@@ -3,7 +3,7 @@
 .RData
 .Ruserdata
 .positai
-.PhD-Thesis_Luescher_20240828.pdf
+sources/Textsources_Text/PhD-Thesis_Luescher_20240828.pdf
 
 # Local R/renv state (keep renv.lock and renv/activate.R tracked)
 renv/library/
