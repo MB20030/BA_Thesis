@@ -127,9 +127,7 @@ read_ag_district_seats_and_results <- function(
 }
 
 # Apply the former Aargau Hagenbach-Bischoff method district by district
-# (BGE 91 I 266, 1965, pp. 268-269). Historical list alliances are not
-# carried forward in the counterfactual; the 2008 reform abolished them
-# (Kanton Aargau, 2008, p. 9).
+# (BGE 91 I 266, 1965, pp. 268-269)
 finalize_ag_election <- function(districts, parties, official_results, election_year) {
   hb_by_district <- districts |>
     select(location_name, district_seats, all_of(parties)) |>

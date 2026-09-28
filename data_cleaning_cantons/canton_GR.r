@@ -158,8 +158,7 @@ read_gr_election <- function(file_name, election_year) {
   # Model a district-by-district Hagenbach-Bischoff allocation using the shared
   # procedure based on Aargau's pre-2009 method (cf. BGE 91 I 266, pp. 268-269).
   # This is a hypothetical uniform-HB comparison, not a reconstruction of
-  # Graubünden's former Majorz system or every detail of Aargau's former law.
-  # An exact tie for a remaining seat would require a hypothetical lot. 
+  # Graubünden's former Majorz system. An exact tie for a remaining seat would require a hypothetical lot. 
   # No lot is drawn: the allocator retains all possible outcomes in seats_hb_options
   # and records affected parties in hb_tie_note.
 

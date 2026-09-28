@@ -14,11 +14,6 @@ NW --> election data --> Stefanie Haldimann Administrative Leiterin Staatskanzle
 ZH --> dataset correction after hint --> Simon Graff Wissenschaftlicher Mitarbeeiter
 SZ --> election data --> Leiter Staatskanzlei Anton Waldvogel
 
-
-
-15. Replace the parliament-size question with whether smaller parties gain more in cantons with many small districts. Measure this using mean district magnitude and, optionally, the share of districts with fewer than nine seats. This is more directly connected to the mechanism than total parliament size ?? then use a theoretical fondation --> 
-Lago, I., & Martínez i Coma, F. (2024). The ‘odd–even effect’: The link between the number of parties and district magnitude. European Journal of Political Research, 63(4), 1471–1490. https://doi.org/10.1111/1475-6765.12658
-
 17. Notes meeting with aurélien  
 DESCRIBE CLEARLY  WHERE DATA COMES FROM IN DATASECTION
 TABLE IN APPENDIX -> 2COLUMNS --> CANTON OTHER DATASOURCE
@@ -27,3 +22,6 @@ FOR R -SCRIPTS --> CHECK WITH UNIVERSITY
 AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
 For canton zug --> add neuheim in/or out --> doesn't change general image 
+
+
+18. for schaffhausen --> also had partly majorz system --> in one seat constituencies --> but possible to reconstruct the seats in this districts --> unlike in Zug's neuheim were multiple rounds would had been needed
