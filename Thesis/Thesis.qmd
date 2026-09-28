@@ -7,6 +7,9 @@ format:
     papersize: a4
     page-numbering: false
     toc: false
+    number-sections: true
+    number-depth: 4
+    section-numbering: "1.1.1.1"
     include-in-header:
       text: |
         // Keep Quarto's article styling and PDF metadata.
@@ -190,7 +193,7 @@ Alike every proportional system, also the Double Pukelsheimer system has its fla
 
 Taken together, these criticisms illustrate the central trade-off of Double Pukelsheim. Although the system improves canton-wide proportionality and reduces the number of ineffective votes, it does so at the cost of greater computational complexity and potentially counterintuitive outcomes at the constituency level. Majority clauses and electoral thresholds can mitigate discordant seat allocations and party-system fragmentation, but may simultaneously weaken proportionality. The system therefore does not eliminate electoral distortions entirely, it rather prioritizes party proportionality and equal vote success over simplicity and fully autonomous constituency-level representation.
 
-#### The Adoption of Double Pukelsheim in Swiss Cantons
+#### The Adoption of Double Pukelsheim in Swiss Cantons {#sec-adoption}
 In the following paragraphs the arguments brought up in each reform canton will be discussed in chronological order. The year in the beginning of each entry, marks the year of first application of the double Pukelsheimer in the corresponding canton. 
 
 - **2007:** Zurich became the first canton to use Double Pukelsheim, which it had commissioned Friedrich Pukelsheim to develop. The reform followed a 2002 voting-rights complaint about elections to Zurich's city parliament. The Swiss Federal Supreme Court partially upheld the complaint. It found that the thresholds in some districts with up to 33% were massively above the 10% threshold, which is seen as compatible with the prinicples of proportional representation. Further was it claimed, that thresholds vary to much between districts. The ruling mandated the canton of Zurich to reform the system, subsequently it then implemented the Pukelsheimer Proporz with a 5% district level threshold for parties to enter the parliament. (Lüscher, 2024, pp. 9–10, 33-36) In 2021, Zurich added a 3% cantonwide threshold, first applied in the 2023 election. A change to how that threshold is calculated was adopted in 2025 and will first apply in the 2027 election (Regierungsrat des Kantons Zürich, 2024, pp. 2, 5; Regierungsrat des Kantons Zürich, 2025, p. 1).
@@ -257,35 +260,34 @@ Together, these expectations provide the foundation for the following hypothesis
 
 ## Hypotheses
 
-To be able to answer the research question: 20 Years of Double Pukelsheim in Switzerland: What Is the Mechanical Effect of the Transition from Hagenbach-Bischoff on the Seat Allocation of Smaller Parties?
-
-To answer the research question, this thesis examines one main hypothesis concerning smaller parties' seat shares. Exploratory comparisons examine differences by district magnitude under the Hagenbach–Bischoff comparison, the number of seats allocated through Double Pukelsheim, the presence of an explicit electoral quorum, and successive elections within each canton. The main hypothesis focuses on the mechanical effect of the electoral reform on smaller parties.
-
+To answer the research question, the thesis tests one main hypothesis concerning how the transition from the Hagenbach–Bischoff system to Double Pukelsheim mechanically affects the seat shares of smaller parties. Complementary exploratory analyses examine whether this effect varies with district magnitude, the presence of an explicit electoral threshold, and the number of elections held under Double Pukelsheim within each canton. Together, these analyses identify both the immediate and potentially evolving distributional consequences of the electoral-system reform.
 
 ### Hypothesis 1
 
-For each election $e$, smaller parties are those with less than 10% of the vote in the analyzed area: the whole canton except in Uri, where only the four municipalities using Double Pukelsheim are included. Let $S^{DP}_{e}$ and $S^{HB}_{e}$ be their combined seats under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation, respectively, and let $M_e$ be the number of seats allocated through Double Pukelsheim and included in the comparison. Their gain in seat share, shown for each election in @fig-small-parties-relative, is
+For each election $e$, smaller parties are those with less than 10% of the vote in the `analyzed_area`: the whole canton except in Uri, where only the four municipalities using Double Pukelsheim act as the `analyzed_area`. The 10% threshold is based on that the Swiss Federal Supreme Court's reasoning that direct and natural quorums, understood as barriers to representation within an electoral district, should generally not exceed 10% (BGE 131 I 74, E. 5.3–5.5; Bundeskanzlei, 2013, p. 8).
+
+Let $S^{DP}_{e}$ and $S^{HB}_{e}$ be their combined seats under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation, respectively, and let $M_e$ be the number of seats allocated through Double Pukelsheim and included in the comparison. Their gain in seat share, shown for each election in @fig-small-parties-relative, is
 
 $$
 \Delta_e = 100\frac{S^{DP}_{e}-S^{HB}_{e}}{M_e}\quad\text{percentage points}.
 $$
 
-The hypothesis uses the unweighted mean, $\bar{\Delta}=E^{-1}\sum_{e=1}^{E}\Delta_e$, so each election counts equally. The analysis also reports a mean weighted by the number of analyzed seats in each election.
+The hypothesis uses the unweighted mean, $\bar{\Delta} = \frac{1}{E}\sum_{e=1}^{E}\Delta_e$, so each election counts equally. The analysis also reports a mean weighted by the number of analyzed seats in each election.
 
-**H₁ (main hypothesis):** On average across the analyzed elections, smaller parties receive a larger share of the analyzed seats allocated through Double Pukelsheim than under the counterfactual Hagenbach-Bischoff allocation.
+**$H_1$:** On average across the analyzed elections, smaller parties receive a larger share of the analyzed seats allocated through Double Pukelsheim than under the counterfactual Hagenbach-Bischoff allocation.
 
-The 10% threshold is based on that the Swiss Federal Supreme Court's reasoning that direct and natural quorums, understood as barriers to representation within an electoral district, should generally not exceed 10% (BGE 131 I 74, E. 5.3–5.5; Bundeskanzlei, 2013, p. 8).
+**$H_0$:** On average across the analyzed elections, smaller parties receive a smaller or equal share of the analyzed seats allocated through Double Pukelsheim than under the counterfactual Hagenbach-Bischoff allocation.
 
 ### Exploratory Questions
 #### Exploratory question 1: Differences by district magnitude
 
-Does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach–Bischoff allocation tend to be larger in cantons with smaller electoral districts? District size is measured primarily by the mean district magnitude in the Hagenbach–Bischoff comparison. For election $e$, with $D_e$ districts and district magnitudes $m_{de}$, the mean district magnitude is
+Does the gain in smaller parties seat share under Double Pukelsheim relative to the counterfactual Hagenbach–Bischoff allocation tend to be larger in cantons with smaller electoral districts? District size is measured primarily by the mean district magnitude in the Hagenbach–Bischoff comparison. The median district magnitude is also reported to capture the size of the typical district and indicate whether the mean is influenced by a small number of unusually large or small districts. For election $e$, with $D_e$ districts and district magnitudes $m_{de}$, the mean district magnitude is
 
 $$
 \bar{m}_e=\frac{1}{D_e}\sum_{d=1}^{D_e}m_{de}=\frac{M_e}{D_e}.
 $$
 
-A lower mean district magnitude is expected to be associated with a larger gain $\Delta_e$ for smaller parties. As a complementary measure, the analysis reports the share of districts with fewer than nine seats,
+A lower mean or median district magnitude is expected to be associated with a larger gain $\Delta_e$ for smaller parties. As a complementary measure, the analysis reports the share of districts with fewer than nine seats,
 
 $$
 q_e=\frac{1}{D_e}\sum_{d=1}^{D_e}\mathbb{1}(m_{de}<9).
@@ -295,15 +297,29 @@ The nine-seat cutoff follows the Swiss Federal Supreme Court's reasoning: under 
 
 #### Exploratory question 2: Differences by DP seat count (Parliament size)
 
-How does the gain in smaller parties' seat share vary between cantons with larger and smaller numbers of seats allocated through Double Pukelsheim? As a contextual comparison, cantons where more than 100 seats are allocated through Double Pukelsheim (ZH, AG, and VS) are compared with cantons where at most 100 seats are allocated through Double Pukelsheim (UR, NW, ZG, SH, and SZ).^[Official seat totals: ZH (Amt für Statistik und Daten Kanton Zürich, 2026); AG (Statistisches Amt Kanton Aargau, n.d.); VS (Kanton Wallis, 2024); UR (Standeskanzlei Uri, 2024b); NW (Staatskanzlei Nidwalden, 2026); ZG (Kanton Zug, 2022c); SH (Staatskanzlei Kanton Schaffhausen, 2024); SZ (Kanton Schwyz, 2024); GR, shown for context (Kanton Graubünden, 2026).] For each canton, the election-level gains $\Delta_e$ are averaged first; the group mean then averages these canton means so that cantons with more observed elections receive no extra weight. Because both allocation methods distribute the same total number of seats and district magnitude is the more direct mechanism, this comparison is interpreted as contextual rather than as an isolated effect of parliament size. Graubünden is shown separately because its pre-reform system was Majorz and its Hagenbach–Bischoff allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
+How does the gain in smaller parties' seat share vary between cantons with larger and smaller numbers of seats allocated through Double Pukelsheim? 
+
+As a contextual comparison, cantons where more than 100 seats are allocated through Double Pukelsheim (ZH, AG, and VS) are compared with cantons where at most 100 seats are allocated through Double Pukelsheim (UR, NW, ZG, SH, and SZ).^[Official seat totals: ZH (Amt für Statistik und Daten Kanton Zürich, 2026); AG (Statistisches Amt Kanton Aargau, n.d.); VS (Kanton Wallis, 2024); UR (Standeskanzlei Uri, 2024b); NW (Staatskanzlei Nidwalden, 2026); ZG (Kanton Zug, 2022c); SH (Staatskanzlei Kanton Schaffhausen, 2024); SZ (Kanton Schwyz, 2024); GR, shown for context (Kanton Graubünden, 2026).] For each canton, the election-level gains $\Delta_e$ are averaged first; the group mean then averages these canton means so that cantons with more observed elections receive no extra weight. Because both allocation methods distribute the same total number of seats and district magnitude is the more direct mechanism, this comparison is interpreted as contextual rather than as an isolated effect of parliament size. Graubünden is shown separately because its pre-reform system was Majorz and its Hagenbach–Bischoff allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
 
 #### Exploratory question 3: Explicit electoral quorums
 
 How does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation vary between elections conducted with and without an explicit electoral quorum?
 
+An explicit quorum is a legally specified minimum vote share that a party or list group must reach at the district, regional, or cantonal level to qualify for seat allocation. Among the nine cantons analyzed, six applied an explicit quorum in at least one observed election; excluding Graubünden, this applies to five of the eight cantons in the main comparison, as detailed in @sec-adoption. Unlike the natural threshold created by limited district magnitude, it directly excludes parties that do not satisfy the legal requirement. 
+
+Because such quorums may prevent smaller parties from benefiting from the pooling of votes under Double Pukelsheim, the following directional expectation is formulated:
+
+**On average, the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation is smaller in elections with an explicit electoral quorum than in elections without one.** 
+
+This comparison is interpreted descriptively because the level and geographical application of the quorums differ across cantons and elections and coincide with other institutional differences.
+
 #### Exploratory question 4: Change across successive elections
 
-How does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation vary across successive elections within each canton? The analysis follows the seat shares under both allocation rules and their difference $\Delta_e$ from each canton's first election under Double Pukelsheim onward. No directional trend is hypothesized, because vote shares, the composition of parties below the 10% threshold, district seat magnitudes, and electoral rules can change between elections.
+How does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation evolve across successive elections within each canton?
+
+This analysis extends Hypothesis 1 by following the seat shares under both allocation rules and their difference $\Delta_e$ from each canton's first election under Double Pukelsheim onward. It assesses whether the overall difference identified in Hypothesis 1 is persistent across elections or driven by particular election-specific outcomes.
+
+ Stable positive values of $\Delta_e$ would indicate a persistent mechanical advantage for smaller parties, whereas substantial fluctuations or changes in sign would suggest that the effect depends strongly on the conditions of individual elections. The within-canton perspective also limits the influence of relatively stable institutional differences that complicate comparisons across cantons. No directional trend over time is hypothesized because vote shares, the composition of parties below the 10% threshold, district magnitudes, and electoral rules can change between elections.
 
 
 ## Research Design and Analysis {#analysis}
