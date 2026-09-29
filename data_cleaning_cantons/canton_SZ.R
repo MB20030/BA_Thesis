@@ -61,7 +61,7 @@ standardize_sz_party <- function(party_label) {
 }
 
 # Compute HB seat allocation based on the former law 
-# (Bundesgericht, 2012, E. 5.2)
+# (Urteil des Bundesgerichts 1C_407/2011, 1C_445/2011 und 1C_447/2011 vom 19. März 2012 E. 5.2)
 summarize_sz_hb <- function(district_results) {
   district_results |>
     group_by(district) |> # Recreate the former system municipality by municipality.

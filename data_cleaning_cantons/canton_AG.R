@@ -127,7 +127,7 @@ read_ag_district_seats_and_results <- function(
 }
 
 # Apply the former Aargau Hagenbach-Bischoff method district by district
-# (BGE 91 I 266, 1965, pp. 268-269)
+# (BGE 91 I 266 Sachverhalt A)
 finalize_ag_election <- function(districts, parties, official_results, election_year) {
   hb_by_district <- districts |>
     select(location_name, district_seats, all_of(parties)) |>
