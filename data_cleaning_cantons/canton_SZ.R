@@ -17,7 +17,7 @@ if (!exists('combine_hb_seat_options', mode = 'function')) {
   source(here('data_cleaning_cantons', '00_functions.R'))
 }
 
-# SOURCE FILES: place the raw Schwyz exports in this directory and update only these names if they move.
+# SOURCE ADD HERE: 
 sz_source_dir <- here("data", "datasets", "schwyz") # Common folder for every Schwyz source file.
 sz_source_files <- list(
   election_2016 = paste0(                                  # One SZ_16_municipality CSV per municipality.

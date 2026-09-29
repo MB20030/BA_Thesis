@@ -352,20 +352,40 @@ Here comes:
 - district structures;
 - special cases : GR, ZG, UR, VS, and SH
 
+Across the nine analyzed reform cantons, the counterfactual applies a district-level allocation to the electoral units retained from each observed election. In eight cantons, this generally reconstructs the formerly applicable Hagenbach–Bischoff regime, subject to the exceptions summarized in @tbl-counterfactual-rules. ^[Sources for the former systems: Aargau: BGE 91 I 266, 1965, pp. 268-269 ; Graubünden: Kanton Graubünden, 2003/2018, Art. 27 ; Nidwalden : Bundesgericht, 2010a, E. 3.2, p.357 ; Schaffhausen : Regierungsrat des Kantons Schaffhausen, 1979, §§ 2, 36–37 ; Schwyz : Bundesgericht, 2012, E. 5.2 ; Uri : Kanton Uri, 2018, Art. 22–23, “Bisher” ; Valais : Kanton Wallis, 2004a, arts. 154-156 ; Zug : Kanton Zug, 2006, §§ 46–47, 55–56 ; Zurich : Kanton Zürich, 1983/2005, §§ 87–88b] In Graubünden, which previously used Majorz, the Hagenbach–Bischoff allocation is entirely hypothetical and is therefore excluded from the main transition estimate. In every case, the observed votes, electoral-unit seat magnitudes, and reported list structure are held constant. The common Hagenbach–Bischoff procedure is described in the institutional background; this subsection therefore focuses on canton-specific adaptations and limitations of the reconstruction.
 
+```{=typst}
+#[
+#set table(
+  stroke: 0.5pt,
+  inset: 5pt,
+)
+```
+| Canton | Pre-reform allocation | Counterfactual treatment |
+|---|---|---|
+| Aargau | HB in 11 electoral districts | Former HB allocation reconstructed |
+| Graubünden | Majorz | Hypothetical HB with old Aargau Law in 39 electoral districts: excluded from main estimate |
+| Nidwalden | HB in 11 municipalities | Former HB allocation reconstructed |
+| Schaffhausen | HB in 5 multi-seat districts: majority rule in 1 single-seat district | Former mixed district-level system reconstructed |
+| Schwyz | HB in 30 municipalities | Former HB allocation reconstructed |
+| Uri | HB in the 4 analyzed municipalities: Majorz elsewhere | HB reconstructed for the 4 municipalities included in the analysis |
+| Valais | HB in 14 districts  | Former district-level HB regime reconstructed |
+| Zug | HB in 10 municipalities: Majorz in Neuheim | HB applied in all 11 municipalities: hypothetical for Neuheim |
+| Zurich | HB in 18 electoral districts | Former HB allocation reconstructed |
 
-For the counterfactual, the observed district-level party votes and district seat magnitudes are retained. Where Hagenbach-Bischoff was used before the reform, its allocation is reconstructed under the relevant former cantonal rules, including the former Zurich Wahlgesetz (§§ 87–88b), the pre-reform Aargau legislation, the former Uri Proporzgesetz (Arts. 22–23), and the former Valais law (Arts. 154–156); the canton-specific scripts document the remaining cases (Kanton Zürich, 1983/2005; Kanton Aargau, 2004; Kanton Uri, 2018; Kanton Wallis, 2004a).
+: Former electoral systems and counterfactual treatment by canton. {#tbl-counterfactual-rules}
 
-The HB allocations in Graubünden and in Zug's Neuheim constituency are hypothetical comparisons rather than reconstructions of their former Majorz rules. The Hagenbach–Bischoff counterfactual allocates seats to the standardized electoral units in each election’s data. Joint lists reported as one unit remain pooled but no additional alliances are assumed between separately reported units. The analysis does not carry alliances from the last pre-reform election forward, unlike Leuzinger (2018, p. 42).
-
+```{=typst}
+]
+```
 As already initially explained in the Introduction, this study does not follow Leuzinger’s or the approach of Pukelsheim and Schuhmacher of carrying historical or hypothetical list alliances forward into the counterfactual allocation. List alliances are in this thesis seen as strategic and election-specific rather than fixed institutional parameters. Their formation depends on the parties contesting an election, their relative electoral strength, ideological proximity, district-level incentives, and expectations about possible seat gains (SOURCE?). In Zurich, for example, the last Kantonsrat election under Hagenbach–Bischoff took place in 2003. Assuming that the alliances formed in 2003 would still have applied in 2023 despite two decades of changes in the party system would therefore introduce a strong and unverifiable behavioural assumption. Some parties that formed list alliances in Zurich in 2003 no longer existed or contested the 2023 election. Conversely, parties such as the Green Liberal Party, which contested the 2023 election, did not yet exist in 2003. (Statistisches Amt des Kantons Zürich 2003, table 3; Statistisches Amt des Kantons Zürich 2026; Grünliberale Partei Kanton Zürich n.d.). Therefore the counterfactual preserves joint lists or list groups represented as a single unit in the observed election data. But it does not reconstruct historical alliances or assume new alliances between separately reported units. This provides a transparent counterfactual that holds the observed electoral configuration constant and isolates the mechanical consequences of applying Hagenbach–Bischoff.
 
 The decision not to carry historical list alliances forward or to create hypothetical ones does not imply that parties would have contested the election without alliances under Hagenbach–Bischoff. Rather, their counterfactual alliance decisions cannot be reliably observed or reconstructed. Because alliances can mitigate the disadvantages experienced by smaller parties under Hagenbach–Bischoff (Pukelsheim & Schuhmacher, 2011, p. 1590), excluding unobserved alliances may affect the estimated magnitude of the resulting seat changes.
 
-::: {.callout-note title="Scope of the canton comparisons"}
+::: {.callout-note title="Treatment of the Special Cases"}
 **Graubünden.** The canton used Majorz throughout before adopting Double Pukelsheim. Its HB allocation is hypothetical, so the observations are shown in grey and excluded from the main transition estimate (Bundeskanzlei, 2013, Table 1, p. 14).
 
-**Zug.** Neuheim used Majorz before the reform, while the other ten municipalities used proportional allocation. Neuheim participates in the observed canton-wide Double Pukelsheim allocation, so all 80 seats are retained. The HB allocation for Neuheim is a hypothetical uniform-HB comparison, not a reconstruction of its former Majorz rule (Bundesgericht, 2010b, E. 5.1; Kanton Zug, 2022a, 2022b, 2022c).
+**Zug.** Neuheim used Majorz before the reform, while the other ten municipalities used proportional allocation. Neuheim participates in the observed canton-wide Double Pukelsheim allocation, so all 80 seats are retained. The HB allocation for Neuheim is a hypothetical uniform-HB comparison, not a§§ reconstruction of its former Majorz rule (Bundesgericht, 2010b, E. 5.1; Kanton Zug, 2022a, 2022b, 2022c).
 
 **Uri.** Only Altdorf, Bürglen, Erstfeld, and Schattdorf used Double Pukelsheim in the elections analyzed here. They account for 37 of the Landrat's 64 seats; the remaining municipalities used Majorz and are excluded from both allocations in this comparison (Standeskanzlei Uri, 2020, p. 1). Uri's vote shares, including the less-than-10% classification of smaller parties, are therefore based only on the four municipalities using Double Pukelsheim, not on the whole canton.
 
@@ -715,6 +735,8 @@ Kanton Basel-Landschaft. (2025b). *Einführung des kantonalen Doppelproporzes im
 Kanton Basel-Landschaft. (2026, March 13). *Gesamterneuerungswahlen des Landrats vom 11. April 2027: Mandatszuteilung an die Wahlkreise*. https://www.baselland.ch/politik-und-behorden/besondere-behoerden/landeskanzlei/medienmitteilungen/gesamterneuerungswahlen-des-landrats-vom-11-april-2027-mandatszuteilung-an-die-wahlkreise
 
 Kanton Graubünden. (2021/2026). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG)* (BR 150.400; Stand 1. Januar 2026). https://www.gr-lex.gr.ch/app/de/texts_of_law/150.400
+
+Kanton Graubünden. (2003/2018). *Verfassung des Kantons Graubünden vom 14. September 2003* (BR 110.100; Stand 1. Januar 2018). https://www.gr-lex.gr.ch/api/de/versions/2812/pdf_file
 
 Kanton Graubünden. (2022). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2022* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx
 

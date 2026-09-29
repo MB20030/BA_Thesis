@@ -30,7 +30,7 @@ ur_source_path <- here(
 ur_source_sheet <- "722 Verteilung Gden"
 
 # NOTE "FL" means "Freie Listen" and therefore ballots without a party/list designation.
-# It's not an own Party (Standeskanzlei Uri, 2024b, p. 20).
+# It's not an own Party. (Standeskanzlei Uri, 2024b, p. 20)
 
 
 ur_election_columns <- tribble( # create a tibble with the column positions for each year

@@ -179,7 +179,7 @@ read_vs_district <- function(
 # The HB counterfactual follows the district-level allocation method used in
 # Valais before the Double-Pukelsheim reform. Lists below 8% in a district are
 # excluded, but their votes remain in the Hagenbach-Bischoff distribution
-# number (Kanton Wallis, 2004a, arts. 154-156; version at 9 April 2017).
+# number (Kanton Wallis, 2004a, arts. 154-156).
 # Resolve an exact highest-average tie according to former kGPR art. 156:
 # initial-allocation remainder, list votes, strongest candidate, then drawing lots.
 # `draw_lots` must be a function that returns one winner from the supplied indices.
