@@ -17,7 +17,8 @@ if (!exists('combine_hb_seat_options', mode = 'function')) {
   source(here('data_cleaning_cantons', '00_functions.R'))
 }
 
-# SOURCE ADD HERE: 
+# loading election datasets from canton Schwyz
+# (Staatskanzlei Kanton Schwyz, 2016, 2020, 2024)
 sz_source_dir <- here("data", "datasets", "schwyz") # Common folder for every Schwyz source file.
 sz_source_files <- list(
   election_2016 = paste0(                                  # One SZ_16_municipality CSV per municipality.

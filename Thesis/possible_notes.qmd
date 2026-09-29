@@ -26,3 +26,9 @@ For canton zug --> add neuheim in/or out --> doesn't change general image
 
 19. in sz code cleaning --> add better citation
 in the bibliography the canton schwyz databooks are missing --> i should do that and then cite these in line 137 --> will do after the rest
+
+20. --> explain why GR uses AG law system
+e.g. like this 
+Because Graubünden had no former HB rules, the former Aargau specification is used only as a transparent standard district-level HB benchmark. It should not be interpreted as implying that Graubünden would necessarily have adopted the Aargau rules. In the hypothetical 2022 allocation, the FDP and SP–Greens were tied for one remaining seat in Rheinwald. Both possible outcomes are retained, producing canton-wide HB totals of 30 or 31 seats for the FDP and 21 or 22 seats for SP–Greens. Both lists exceed the 10% threshold, so the ambiguity does not affect the aggregated smaller-party outcome.
+
+21. UriOnly the four municipalities currently using DP. The other municipalities are excluded, even though four additional municipalities formerly used HB before being moved to Majorz.--> add to table?
