@@ -24,6 +24,5 @@ plus SELF -REFLECTION on ai usage
 For canton zug --> add neuheim in/or out --> doesn't change general image 
 
 
-18. for schaffhausen --> also had partly majorz system --> in one seat constituencies --> but possible to reconstruct the seats in this districts --> unlike in Zug's neuheim were multiple rounds would had been needed
-
 19. in sz code cleaning --> add better citation
+in the bibliography the canton schwyz databooks are missing --> i should do that and then cite these in line 137 --> will do after the rest
