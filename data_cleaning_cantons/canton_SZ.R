@@ -33,7 +33,7 @@ sz_source_files <- list(
     ".csv"
   ),
   election_2020 = "SZ_20_kandidierendenresultate.csv",   # Candidate and municipality results for 2020.
-  election_2024 = "SZ_24_kantonsprotokoll.xlsx"          # Cantonal protocol with Sitzverteilung for 2024.
+  election_2024 = "SZ_24_kantonsprotokoll.xlsx"          # Cantonal protocol with seat allocation for 2024.
 )
 
 as_sz_number <- function(value) {

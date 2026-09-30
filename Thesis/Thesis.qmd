@@ -402,29 +402,27 @@ With the counterfactual rules and scope established, the next subsection describ
 
 ### Data Sources and Processing {#data-cleaning}
 
-Here comes: 
+This subsection describes the official election data used in the analysis and explains how the heterogeneous cantonal source files were transformed into a harmonized dataset.
 
-- show official cantonal election sources and elections covered
-- explain the different available data levels: canton, district, or municipality.
-- Describe the standardization of party names, vote variables, districts, and seat totals.
-- Explain how joint lists and separately reported special-interest lists are recorded.
-- Explain how voter numbers or vote shares are reconstructed where necessary.
-- Describe how the cleaned cantonal datasets are combined.
-- Explain how results are validated against official DP seat allocations.
-- Refer detailed canton-specific cleaning procedures and code to the Appendix.
+Official election results were obtained primarily from publicly available datasets published by cantonal state chancelleries and statistical offices. Where machine-readable files were not available online, the responsible cantonal authorities were contacted directly. All contacted authorities except the Canton of Schaffhausen provided data in a machine-readable format, such as CSV or XLSX; the Schaffhausen results therefore had to be extracted from official PDF documents. The precise sources and elections covered are reported in Appendix `#ref(<tbl-data-sources>)`{=typst}. The granularity and organization of the source data vary considerably across cantons and elections, ranging from canton-wide files to separate district- or municipality-level results. In Schwyz, for example, the 2016 results were distributed across 30 municipality-specific workbooks, whereas the 2020 and 2024 results were each provided in a single workbook. The structure of the files also differed: some, such as those for Graubünden, were prepared for public or media use and were readily accessible, while others had originally been designed for internal administrative calculations. For most elections, information from at least two source files had to be combined.
 
+Party and list names were standardized using readable and consistent abbreviations. The same political organization was assigned a common identifier across cantons and elections wherever possible; examples include "SVP", "GLP", "ALG", and "PIRATEN". Meaningful changes over time were nevertheless retained. In particular, "CVP" and "BDP" remain separately identified before their merger, while "DIEMITTE" is used only after the formation of the new party in 2021. In bilingual Valais, French- and German-language labels referring to the same party were harmonized, generally using the German abbreviation for consistency with the other cantons. However, "SP_GAUCHE_CITOYENNE" and "SP_GRUENE_UNABHAENGIGE" were retained as distinct identifiers because they represented separately reported lists competing in different linguistic regions.
 
-(STILL NEED TO CLARIFY ON HOW MUCH OF DATA CLEANING IS EXPLAINED HERE AND HOW MUCH ONLY IN APPENDIX)
+The treatment of joint and affiliated lists follows the electoral units reported in the official results. Where several political organizations contested an election on a single joint list, that list was treated as one analytical unit. Examples include "SP_GRUENE" in Graubünden in 2022 and "FGA_AL_PDA" in Zurich in 2023. Such joint lists differ from list alliances under Hagenbach–Bischoff: parties in a list alliance retain separate lists but pool their votes at a particular stage of the seat-allocation process. Conversely, Schaffhausen reported several affiliated or special-interest lists associated with a broader parent party, including "SVP_KMU","SVP_SEN", "JG" (Green Youth) and "JFSH" (Young Liberals) as separate electoral lists. Because these lists entered the official Double Pukelsheim allocation separately, they were also retained as separate units in the analysis. This decision faithfully reproduces the official allocation structure, although it can affect the measured number and seat share of smaller parties.
 
-To be able to analyze the data from the different elections and compare the outcomes. each dataset has to be cleaned. The data  For some cantons e.g. Valais and Schwyz the data is very scattered, therefore for there multiple datasets per election have to be cleaned and merged.
+Beyond the harmonization of party and list names, the cleaning process involved restructuring vote data, identifying the relevant electoral units, and assigning their election-specific seat totals. The source files were converted into comparable tables containing party votes and the seat magnitude of each electoral district. Where parties appeared in separate columns, as in Aargau, Graubünden, and Nidwalden, these columns were reshaped into the variables "parties" and "party_votes". Candidate-level exports required a different treatment. In three Zug and Schwyz’s 2020 election, each candidate row repeated the corresponding list’s vote and seat totals. The scripts first checked that these repeated values were consistent and then retained one observation per municipality and list, preventing the totals from being counted multiple times. Source variables such as "list_votes" and "election_mandates" were thereby converted into "party_votes" and "district_seats".
+The geographic preparation depended on the structure of the official files. In Zurich, municipal party votes were summed within the electoral districts identified by the source variable "Geschaeft". Aargau’s files already contained district totals, which were selected using the "DISTRICT" classification. Similarly, the Graubünden script extracted the existing district totals by carrying each "Wahlkreis" heading down to its corresponding "Total" row. Municipalities were retained as allocation units in Nidwalden, Schwyz, and Zug. Their names were extracted from the source tables or, for Schwyz in 2016, from the municipality-specific filenames. Uri’s script explicitly selected the workbook blocks for Altdorf, Bürglen, Erstfeld, and Schattdorf. In Valais, the 14 districts were assigned to six electoral regions in R according to the official electoral structure, preserving the different geographic levels required for the district-level HB counterfactual and the regional DP upper apportionment.
+District seat magnitudes were obtained from the available official information for each election. In Aargau, district names were matched to officially sourced seat vectors or separate seat-allocation tables provided by the canton officials. Valais used explicitly recorded district magnitudes for each election year. In Zurich and Graubünden, magnitudes were reconstructed by counting elected candidates within each district. In Uri and Schwyz’s 2016 election, they were calculated by summing the official DP seats within each municipality.
 
-The procedure for the data cleaning was the following: For each canton in alphabetical order, for each election the data was cleaned.
+The shared finalization function then produced one observation per standardized party or list code and election. It created an election identifier combining the canton abbreviation and election year, such as "ZH_23", and joined the HB and DP seat totals by party. The final columns were "election_id", "parties", "vote_share", "small_party", "seats_hb", "seats_dp", "parliament_size", and "seats_allocated_dp". The last two variables distinguish the full parliament from the seats covered by the comparison: in Uri, these values are 64 and 37, respectively. District identifiers, raw party votes, and district magnitudes served as intermediate inputs rather than columns in the final combined dataset.
 
-To ensure the compatibility of the different datasets, the column names were standardized. The column names were renamed for each dataset to the following: "total_votes", "svp_votes", "sp_votes", "cvp_votes", "fdp_votes", "glp_votes", "bdp_votes", "green_votes", "other_votes". It might be that some of the datasets do not contain all of these columns, since the party landscapes varies geographically and over time. 
+Still missing:
+- Explain how voter numbers and vote shares are calculated, including differences in rounding and denominators across cantons.
+- State how the cleaned cantonal datasets are appended into "all_elections".
+- Describe the checks against official DP results, district seat totals, and parliamentary totals.
+- Refer detailed procedures, exceptions, and cleaning code to the Appendix.
+- Correct the remaining outdated paragraph: there is no single central DP lookup table, and the scripts are in "data_cleaning_cantons".
 
-Vote shares for the analyzed area are derived from the available official *Wählerzahl* or reported vote-share figures; where necessary, the cleaning scripts reconstruct voter numbers from district-level party votes and seat magnitudes.
-
-The calculation and rounding procedures vary by canton and source file.
 
 The official Double Pukelsheim results (`seats_dp`) are sourced from official cantonal authorities and are documented in the Bibliography. A single lookup table consolidates all official results for easy merging with the Hagenbach-Bischoff counterfactuals. All data processing is implemented in canton-specific R scripts (R/canton_*.R) which apply shared functions for algorithm execution and validation.
 ```{r data-setup}
@@ -908,7 +906,7 @@ The table below lists the official election-result sources used in the canton-sp
     [Zürich],
     [Amt für Statistik und Daten Kanton Zürich, *Archiv Wahlresultate Kantonsratswahlen* (official party-result and candidate-result Excel workbooks for 2007, 2011, 2015, 2019, and 2023).],
   ),
-)
+) <tbl-data-sources>
 ```
 
 ### Appendix 2: Code for Data Cleaning

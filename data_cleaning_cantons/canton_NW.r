@@ -301,4 +301,5 @@ process_canton_NW <- function() {
 }
 
 # Temporary check - delete in the end.
-print(process_canton_NW(), n = Inf)
+options(width = 200) 
+print(process_canton_NW(), n = 200)

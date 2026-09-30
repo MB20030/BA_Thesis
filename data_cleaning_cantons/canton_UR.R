@@ -72,7 +72,7 @@ standardize_ur_party <- function(party_label, election_year) {
       if_else(election_year >= 2024L, "DIEMITTE", "CVP"),
     str_detect(normalized, "^FDP(?: |$)") ~ "FDP",
     str_detect(normalized, "^GLP(?: |$)") ~ "GLP",
-    str_detect(normalized, "^SP(?:/G|/GB|/GRUNE| |$)") ~ "SP/GB",
+    str_detect(normalized, "^SP(?:/G|/GB|/GRUNE| |$)") ~ "SP_GRUENE_GBU",
     str_detect(normalized, "^SVP(?: |$)") ~ "SVP",
     TRUE ~ normalized |>
       str_replace_all("[^A-Z0-9]+", "_") |>
