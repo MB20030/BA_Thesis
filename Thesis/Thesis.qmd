@@ -89,6 +89,20 @@ format:
 
 ```{=typst}
 #pagebreak()
+```
+
+## Acknowledgements {.unnumbered}
+
+*[Placeholder: review and finalise before submission.]*
+
+I would like to thank my supervisor, Dr. Aurélien Sallin, for his support in choosing the topic of this thesis, his guidance, and his willingness to answer my questions throughout the project.
+
+I am grateful to Sandro Lüscher for sharing his PhD thesis; to Adrian Zurfluh (Uri), Stefanie Haldimann (Nidwalden), and Anton Waldvogel (Schwyz) for providing election data; to Roland E. Hofer (Schaffhausen) for providing a legal text; and to Simon Graff (Zurich) for correcting the dataset after I drew attention to an issue. Their assistance was valuable in obtaining and preparing the material for this thesis.
+
+Finally, I would like to thank Eric Oehler (B.A. in Economics), Clara Burmeister (B.Sc. in Management), and my father, Martin Beyn-Hansmann, lecturer at Lucerne University of Applied Sciences, for proofreading the thesis and helping to improve its clarity and readability.
+
+```{=typst}
+#pagebreak()
 #outline(title: [Table of Contents], depth: 3, indent: 1.5em)
 #pagebreak()
 ```
@@ -134,7 +148,7 @@ Through its upper-apportionment mechanism and the lowered threshold, the reform 
 
 Since Zurich first used the system in 2007, eight further cantons have used it: Schaffhausen (2008), Aargau (2009), Nidwalden (2014), Zug (2014), Schwyz (2016) , Valais (2017) , Uri (2020), Graubünden (2022). In 2025 also the voters from Basel Landschaft decided to implement the Biproportional apportionment from 2027 on (Lüscher , 2024, p.17 ; Kanton Basel-Landschaft, 2025a, p.7 ; Kanton Basel-Landschaft, 2025b) While nine of these cantons already implemented the algorithm, more cantons are currently discussing the implementation too. In Thurgau, the initiative "Mehr Transparenz bei Wahlen im Thurgau" is currently pending at the Grand Council of the Canton and a special parliamentary committee is currently examining the iniatitive, also in the canton of Lucerne, the iniatitive "Faire Wahlen ohne Listenflut" was submitted and the voters will be able to decide on the effectuation (Grosser Rat des Kantons Thurgau, n.d.; Regierungsrat des Kantons Luzern, 2026, pp. 19–20). In the canton of St.Gallen in 2026 an initiative to adapt the algorithm was launched (Initiativkomitee «Damit jede Stimme zählt», n.d.).
 
-The amount of cantons who have already implemented the system or are debating about doing so, suggets that the decision by the FSC had a substantial impact on how Swiss citizens elect their regional parliaments. It seems that the double-Pukelsheimer through its wide implementation across cantons is a success story. Since the first election under double Pukelsheim in Zurich in 2007, the system has been used in 32 cantonal parliamentary elections.^[The 32 elections comprise Zurich (2007, 2011, 2015, 2019, and 2023; Amt für Statistik und Daten Kanton Zürich, 2026); Schaffhausen (2008, 2012, 2016, 2020, and 2024; Kanton Schaffhausen, n.d.; Staatskanzlei Kanton Schaffhausen, 2020, 2024); Aargau (2009, 2012, 2016, 2020, and 2024; Department für Finanzen und Ressourcen des Kantons Aargau, 2009; Regierungsrat des Kantons Aargau, 2013; Statistisches Amt Kanton Aargau, n.d.); Nidwalden (2014, 2018, 2022, and 2026; Staatskanzlei Nidwalden, 2014, 2018, 2022, 2026); Zug (2014, 2018, and 2022; Kanton Zug, 2022a, 2022b, 2022c); Schwyz (2016, 2020, and 2024; Urteil des Bundesgerichts 1C_407/2011, 1C_445/2011 and 1C_447/2011 vom 19. März 2012); Valais (2017, 2021, and 2025; Kanton Wallis, 2016, 2020, 2024; Staat Wallis, 2017); Uri (2020 and 2024; Standeskanzlei Uri, 2024a, 2024b); and Graubünden (2022 and 2026; Kanton Graubünden, 2022, 2026).]
+The amount of cantons who have already implemented the system or are debating about doing so, suggets that the decision by the FSC had a substantial impact on how Swiss citizens elect their regional parliaments. It seems that the double-Pukelsheimer through its wide implementation across cantons is a success story. Since the first election under double Pukelsheim in Zurich in 2007, the system has been used in 32 cantonal parliamentary elections.^[The 32 elections comprise Zurich (2007, 2011, 2015, 2019, and 2023; Amt für Statistik und Daten Kanton Zürich, 2026); Schaffhausen (2008, 2012, 2016, 2020, and 2024; Kanton Schaffhausen, n.d.; Staatskanzlei Kanton Schaffhausen, 2020, 2024); Aargau (2009, 2012, 2016, 2020, and 2024; Department für Finanzen und Ressourcen des Kantons Aargau, 2009; Regierungsrat des Kantons Aargau, 2013; Statistisches Amt Kanton Aargau, n.d.); Nidwalden (2014, 2018, 2022, and 2026; Staatskanzlei Nidwalden, 2014, 2018, 2022, 2026); Zug (2014, 2018, and 2022; Kanton Zug, 2022a, 2022b, 2022c); Schwyz (2016, 2020, and 2024; Staatskanzlei Kanton Schwyz, 2016, 2020, 2024); Valais (2017, 2021, and 2025; Kanton Wallis, 2016, 2020, 2024; Staat Wallis, 2017); Uri (2020 and 2024; Standeskanzlei Uri, 2024a, 2024b); and Graubünden (2022 and 2026; Kanton Graubünden, 2022, 2026).]
 
 Taken together, this number of elections and almost 20 years of experience provide a reason to evaluate the impact of the reform, especially on smaller parties. How much has the reform changed smaller parties' seat shares and how large is the actual difference in seat allocation between the Hagenbach-Bischoff and Double Pukelsheim system? Are there other major differences, for example in how the reform performs in smaller versus larger parliaments, and how do smaller parties' seat shares and gains evolve across successive elections?
 

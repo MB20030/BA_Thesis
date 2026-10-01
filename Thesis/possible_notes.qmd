@@ -15,13 +15,10 @@ ZH --> dataset correction after hint --> Simon Graff Wissenschaftlicher Mitarbee
 SZ --> election data --> Leiter Staatskanzlei Anton Waldvogel
 
 17. Notes meeting with aurélien  
-DESCRIBE CLEARLY  WHERE DATA COMES FROM IN DATASECTION
 TABLE IN APPENDIX -> 2COLUMNS --> CANTON OTHER DATASOURCE
-FOR DETAIL INFORMATION ON DATA SEE APPENDIX
 FOR R -SCRIPTS --> CHECK WITH UNIVERSITY
 AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
-For canton zug --> add neuheim in/or out --> doesn't change general image 
 
 
 19. in sz code cleaning --> add better citation
