@@ -13,6 +13,7 @@ here::i_am("data_cleaning_cantons/canton_GR.r")
 # Load shared allocation and output-format helpers when this file runs alone.
 if (!exists("allocate_hb", mode = "function") ||
     !exists("allocate_hb_with_notes", mode = "function") ||
+    !exists("hb_allocation_outcomes", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
   source(here("data_cleaning_cantons", "00_functions.R"))
 }
@@ -39,6 +40,77 @@ standardize_gr_party <- function(party_label) {
       "MITTE GR" = "DIEMITTE",
       "SP & GRUENE" = "SP_GRUENE"
     )
+}
+
+# Verify that two alternative HB provisions preserve every possible allocation.
+# ZH: the former party-vote tie rule (Kanton Zürich, 1983/2005, § 88b).
+# SH: ceiling quota rounding (Regierungsrat des Kantons Schaffhausen, 1979, § 36).
+# The SH comparison keeps the benchmark's tie handling to isolate quota rounding.
+# These checks test selected provisions, not complete foreign electoral systems.
+check_gr_hb_robustness <- function(hb_by_district, election_year) {
+  resolve_zh_tie <- function(tied, votes, ...) {
+    tied[votes[tied] == max(votes[tied])]
+  }
+
+  # Compare complete allocations independently of their order in the matrix.
+  # Each matrix column represents the same party in all three calculations.
+  outcome_keys <- function(seats) {
+    sort(apply(seats, 1L, paste, collapse = "/"))
+  }
+
+  for (district_name in unique(hb_by_district$district)) {
+    district_data <- hb_by_district |>
+      filter(district == district_name)
+    votes <- district_data$party_votes
+    n_seats <- first(district_data$district_seats)
+    parties <- district_data$parties
+
+    # Include the election, district and rule in any allocation error.
+    calculate_outcomes <- function(procedure, ...) {
+      outcomes <- tryCatch(
+        hb_allocation_outcomes(votes, n_seats, parties, ...),
+        error = function(error) {
+          stop(
+            "GR HB robustness check failed: ", election_year, " / ", # fail safe if allocation fails
+            district_name, " / ", procedure, ": ", conditionMessage(error),
+            call. = FALSE
+          )
+        }
+      )
+      if (any(rowSums(outcomes) != n_seats)) {
+        stop(
+          "GR HB robustness check failed: ", election_year, " / ",
+          district_name, " / ", procedure, ": district seat total differs.",
+          call. = FALSE
+        )
+      }
+      outcomes
+    }
+
+    baseline <- calculate_outcomes("HB benchmark")
+    alternatives <- list(
+      "ZH tie rule" = calculate_outcomes(
+        "ZH tie rule", tie_resolver = resolve_zh_tie
+      ),
+      "SH quota rounding" = calculate_outcomes(
+        "SH quota rounding", quota_rule = "ceiling"
+      )
+    )
+
+    for (procedure in names(alternatives)) {
+      if (!identical(
+        outcome_keys(baseline), outcome_keys(alternatives[[procedure]])
+      )) {
+        stop(
+          "GR HB robustness check failed: ", election_year, " / ", #fail safe if mismatch appears 
+          ": possible allocations differ from the HB benchmark.",
+          call. = FALSE
+        )
+      }
+    }
+  }
+
+  invisible(TRUE)
 }
 
 # Read the Canton's Election Data (Kanton Graubünden, 2022, 2026)
@@ -155,6 +227,9 @@ read_gr_election <- function(file_name, election_year) {
     sum(official_results$seats_dp) == 120L
   )
 
+  # Run the robustness checks silently for every district in this election.
+  check_gr_hb_robustness(hb_by_district, election_year)
+
   # Model a district-by-district Hagenbach-Bischoff allocation using the shared
   # procedure based on Aargau's pre-2009 method (Kanton Aargau, 1988/2004, § 12 and § 13(1)(a–b)).
   # This is a hypothetical uniform-HB comparison, not a reconstruction of
@@ -240,6 +315,13 @@ process_canton_GR <- function() {
   gr_26_final <- read_gr_election("GR_26_pressedaten.xlsx", 2026)
 
   bind_rows(gr_22_final, gr_26_final)
+}
+
+# Run the same checks manually for both elections without printing any tables.
+# Normal processing above already runs the checks automatically.
+run_gr_hb_robustness <- function() {
+  process_canton_GR()
+  invisible(TRUE)
 }
 
 # Temporary check — delete in the end.
