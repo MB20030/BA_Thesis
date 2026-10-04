@@ -16,13 +16,14 @@ if (!exists("allocate_hb", mode = "function") ||
 }
 
 # Load the Zug election data from the official CSV exports. 
-# (Kanton Zug, 2022a, 2022b, 2022c)
+# (Kanton Zug, 2022a, 2022b, 2022c, 2026)
 zg_source_dir <- here("data", "datasets", "zug") # Folder containing the raw files.
 zg_source_files <- tribble( # Match each election year to its source file.
   ~year, ~file_name,
   2014L, "ZG_14_kandidierendenresultate.csv",
   2018L, "ZG_18_kandidierendenresultate.csv",
-  2022L, "ZG_22_kandidierendenresultate.csv"
+  2022L, "ZG_22_kandidierendenresultate.csv",
+  2026L, "ZG_26_kandidierendenresultate.csv"
 )
 
 as_zg_number <- function(value) {
@@ -175,7 +176,7 @@ read_zg_election <- function(source_dir, file_name, election_year) {
   )
 
   # The district and municipialities vote shares, have to be translated to
-  # canton-wide vote shares. (Kanton Zug, 2022a, 2022b, 2022c)
+  # canton-wide vote shares. (Kanton Zug, 2022a, 2022b, 2022c, 2026)
  
   vote_shares <- district_results |>
     mutate(

@@ -13,8 +13,4 @@ AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
 
 
-20. --> explain why GR uses AG law system
-e.g. like this 
-Because Graubünden had no former HB rules, the former Aargau specification is used only as a transparent standard district-level HB benchmark. It should not be interpreted as implying that Graubünden would necessarily have adopted the Aargau rules. In the hypothetical 2022 allocation, the FDP and SP–Greens were tied for one remaining seat in Rheinwald. Both possible outcomes are retained, producing canton-wide HB totals of 30 or 31 seats for the FDP and 21 or 22 seats for SP–Greens. Both lists exceed the 10% threshold, so the ambiguity does not affect the aggregated smaller-party outcome.
-
 21. improve data appendix table
