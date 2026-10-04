@@ -6,23 +6,12 @@
 
 9. To assess the sensitivity of the analysis to this special case, the models are estimated once with Valais and once without Valais. --> do this?
 
-10. create a list with all people who sent me stuff --> as appreciation
-Lüscher --> PhD Thesis
-URI --> election data --> Adrian Zurfluh Stellvertretender Kanzleidirektor
-SH --> law text --> Roland E.Hofer Staatsarchivar
-NW --> election data --> Stefanie Haldimann Administrative Leiterin Staatskanzlei, Kanzleisekretariat
-ZH --> dataset correction after hint --> Simon Graff Wissenschaftlicher Mitarbeeiter
-SZ --> election data --> Leiter Staatskanzlei Anton Waldvogel
-
 17. Notes meeting with aurélien  
 TABLE IN APPENDIX -> 2COLUMNS --> CANTON OTHER DATASOURCE
 FOR R -SCRIPTS --> CHECK WITH UNIVERSITY
 AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
 
-
-19. in sz code cleaning --> add better citation
-in the bibliography the canton schwyz databooks are missing --> i should do that and then cite these in line 137 --> will do after the rest
 
 20. --> explain why GR uses AG law system
 e.g. like this 

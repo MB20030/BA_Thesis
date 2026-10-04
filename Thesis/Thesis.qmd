@@ -361,7 +361,7 @@ The resulting contrast is interpreted as a mechanical allocation difference cond
 
 Applying the general counterfactual strategy requires several canton-specific decisions concerning electoral rules, list alliances, electoral units, and seat magnitudes. This subsection explains these decisions and defines the scope of the comparison.
 
-Across the nine analyzed reform cantons, the counterfactual applies a district-level allocation to the electoral units retained from each observed election. In eight cantons, this generally reconstructs the formerly applicable Hagenbach–Bischoff regime, subject to the exceptions summarized in @tbl-counterfactual-rules. ^[Aargau (BGE 91 I 266, Sachverhalt A ; Staatskanzlei des Kantons Aargau, 2004, section “Neu: 140 statt 200 Mitglieder”); Graubünden (Kanton Graubünden, 2003/2018, Art. 27; hypothetical HB specification based on BGE 91 I 266, Sachverhalt A); Nidwalden (BGE 136 I 352, E. 3.2); Schaffhausen (Regierungsrat des Kantons Schaffhausen, 1979, §§ 2, 36–37; Regierungsrat des Kantons Schaffhausen, 2007, pp. 2, 6); Schwyz (Urteil des Bundesgerichts 1C_407/2011 vom 19. März 2012, E. 5.2); Uri (Kanton Uri, 2018, Art. 22–23, “Bisher”; Kanton Uri, 2019, pp. 4, 11); Valais (BGE 140 I 107, Sachverhalt, pp. 108–109; Kanton Wallis, 2004a, Arts. 154–156); Zug (Kanton Zug, 2006, §§ 46–47, 55–56; BGE 136 I 376 E. 4.2, 4.4 and 5.1); and Zurich (Bentz, 2003, p. 2; Kanton Zürich, 1983/2005, §§ 87–88b)] In Graubünden, which previously used Majorz, the Hagenbach–Bischoff allocation is entirely hypothetical and is therefore excluded from the main transition estimate. In every case, the observed votes, electoral-unit seat magnitudes, and reported list structure are held constant. The common Hagenbach–Bischoff procedure is described in the institutional background; this subsection therefore focuses on canton-specific adaptations and limitations of the reconstruction.
+Across the nine analyzed reform cantons, the counterfactual applies a district-level allocation to the electoral units retained from each observed election. In eight cantons, this generally reconstructs the formerly applicable Hagenbach–Bischoff regime, subject to the exceptions summarized in @tbl-counterfactual-rules. ^[Aargau (Kanton Aargau, 1988/2004, § 12 and § 13(1)(a–b); Staatskanzlei des Kantons Aargau, 2004, section “Neu: 140 statt 200 Mitglieder”); Graubünden (Kanton Graubünden, 2003/2018, Art. 27; hypothetical HB specification based on Kanton Aargau, 1988/2004, § 12 and § 13(1)(a–b)); Nidwalden (BGE 136 I 352, E. 3.2); Schaffhausen (Regierungsrat des Kantons Schaffhausen, 1979, §§ 2, 36–37; Regierungsrat des Kantons Schaffhausen, 2007, pp. 2, 6); Schwyz (Urteil des Bundesgerichts 1C_407/2011 vom 19. März 2012, E. 5.2); Uri (Kanton Uri, 2018, Art. 22–23, “Bisher”; Kanton Uri, 2019, pp. 4, 11); Valais (BGE 140 I 107, Sachverhalt, pp. 108–109; Kanton Wallis, 2004a, Arts. 154–156); Zug (Kanton Zug, 2006, §§ 46–47, 55–56; BGE 136 I 376 E. 4.2, 4.4 and 5.1); and Zurich (Bentz, 2003, p. 2; Kanton Zürich, 1983/2005, §§ 87–88b)] In Graubünden, which previously used Majorz, the Hagenbach–Bischoff allocation is entirely hypothetical and is therefore excluded from the main transition estimate. In every case, the observed votes, electoral-unit seat magnitudes, and reported list structure are held constant. The common Hagenbach–Bischoff procedure is described in the institutional background; this subsection therefore focuses on canton-specific adaptations and limitations of the reconstruction.
 
 Importantly, the comparison concerns the complete election-specific allocation regimes rather than only the mathematical difference between the two apportionment algorithms. The observed outcome incorporates the Double-Pukelsheim rules applicable in the respective election, including any explicit electoral quorum or majority clause. Further the counterfactual applies the relevant former district-level rules to the observed votes and electoral structure. Consequently, differences in seat allocation may reflect both the change in apportionment method and associated differences between the applicable rule packages.
 
@@ -375,7 +375,7 @@ Importantly, the comparison concerns the complete election-specific allocation r
 | Canton | Pre-reform allocation | Counterfactual treatment | Canton-specific counterfactual rule |
 |---|---|---|---|
 | AG | HB in 11 electoral districts | Former HB allocation reconstructed | Standard HB procedure |
-| GR | Majorz | Hypothetical district-level HB allocation in 39 electoral districts ; excluded from the main estimate | Hypothetical standard HB specification based on the former Aargau procedure |
+| GR | Majorz | Hypothetical district-level HB allocation in 39 electoral districts ; excluded from the main estimate | Hypothetical standard HB specification based on the basis Forumula in Aargau Law |
 | NW | HB in 11 municipalities | Former HB allocation reconstructed | Standard HB procedure |
 | SH | HB in 5 multi-seat districts, majority rule in 1 single-seat district | Former mixed district-level system reconstructed | Ceiling-based distribution number; relative majority in the single-seat district; statutory tie-breaking where required |
 | SZ | HB in 30 municipalities | Former HB allocation reconstructed | Standard HB procedure; unresolved exact ties retained as alternatives |
@@ -401,7 +401,7 @@ A second research-design choice concerns the electoral units and their seat magn
 The remaining deviations from this general approach are summarized below.
 
 ::: {.callout-note title="Treatment of the Special Cases"}
-**Graubünden.** The HB allocation is hypothetical and based on the former Aargau Law. Thus the observations are shown in grey and excluded from the main transition estimate.
+**Graubünden.** The HB allocation is hypothetical and applied using the common allocation procedure employed elsewhere in the analysis. It's basic formula is taken from the former Aargau Law (Kanton Aargau, 1988/2004, § 12 and § 13(1)(a–b)).  Thus the observations are shown in grey and excluded from the main transition estimate. In the 2022 election, appears an unresolved exact tie between the "FDP" and "SP_GRUENE" in Rheinwald, to resolve it an hypothetical lot would be needed. The tie, which doesn't affect the aggregated seat total of smaller parties, is therefore retained as an unresolved alternative in the counterfactual.(Kanton Aargau, 2004, § 13; author’s calculations using Kanton Graubünden, 2022)
 
 **Zug.** Neuheim used Majorz before the reform. An exact Majorz counterfactual cannot be reconstructed because the results of a hypothetical second ballot are unobservable. Neuheim is therefore included using a hypothetical HB allocation.(BGE 136 I 376 E. 5.1; Kanton Zug, 2022a, 2022b, 2022c) The specific implementation approach adopted for Neuheim has no bearing on the main analysis.
 
@@ -702,8 +702,6 @@ Amt für Statistik und Daten Kanton Zürich. (2026). *Archiv Wahlresultate Kanto
 
 Bentz, D. (2003). Die Zürcher Kantonsratswahlen 2003 (statistik.info 23/2003). Statistisches Amt des Kantons Zürich. https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00000572_00001485.pdf
 
-BGE 91 I 266. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F91-I-266%3Ade&lang=de&type=show_document
-
 BGE 129 I 185. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F129-I-185%3Ade&lang=de&type=show_document
 
 BGE 131 I 74. https://www.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F131-I-74&type=show_document
@@ -738,7 +736,7 @@ Grosser Rat des Kantons Thurgau. (n.d.). *Kantonale Volksinitiative „Mehr Tran
 
 Initiativkomitee “Damit jede Stimme zählt.” (n.d.). *Initiative für ein faires Wahlsystem im Kanton St. Gallen*. Retrieved September 15, 2026, from https://jede-stimme-zaehlt.ch/
 
-Kanton Aargau. (2004). *Grossratswahlgesetz: Änderung vom 8. Juni 2004*. Abstimmungsbroschüre zur kantonalen Volksabstimmung vom 26. September 2004, pp. 5--8. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20040926-abstimmungsbroschuere.pdf
+Kanton Aargau. (1988/2004). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 8. Juni 2004, in Kraft seit 1. November 2004* (SAR 152.100). https://www.lexfind.ch/tolv/2551/de
 
 Kanton Aargau. (2008). *Abstimmungsvorlagen vom 24. Februar 2008: Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates), Änderung vom 18. September 2007*, pp. 6--25. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20080224-abstimmungsbroschuere.pdf
 

@@ -5,7 +5,9 @@
 # Hagenbach-Bischoff Allocation Algorithm
 # ==============================================================================
 # Applies the Hagenbach-Bischoff method to allocate seats based on party votes
-# Compatible with Swiss cantonal election systems (e.g., Aargau 2005 system)
+# General HB allocator with configurable quota and tie-breaking rules.
+# Canton-specific eligibility, alliances and candidate limits require
+# separate implementation where applicable.
 #
 # Exact quotient ties are detected by integer cross-multiplication rather than
 # floating-point equality. Because cantonal laws can prescribe different
