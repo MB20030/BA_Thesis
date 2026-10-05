@@ -6,10 +6,6 @@
 9. To assess the sensitivity of the analysis to this special case, the models are estimated once with Valais and once without Valais. --> do this?
 
 17. Notes meeting with aurélien  
-TABLE IN APPENDIX -> 2COLUMNS --> CANTON OTHER DATASOURCE
 FOR R -SCRIPTS --> CHECK WITH UNIVERSITY
 AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
-
-
-21. improve data appendix table

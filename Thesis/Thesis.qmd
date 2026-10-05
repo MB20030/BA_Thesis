@@ -293,20 +293,22 @@ The hypothesis uses the unweighted mean, $\bar{\Delta} = \frac{1}{E}\sum_{e=1}^{
 ### Exploratory Questions
 #### Exploratory question 1: Differences by district magnitude
 
-Does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach–Bischoff allocation tend to be larger in cantons with smaller electoral districts? District size is measured primarily by the mean district magnitude in the Hagenbach–Bischoff comparison. The median district magnitude is also reported to capture the size of the typical district and indicate whether the mean is influenced by a small number of unusually large or small districts. For election $e$, with $D_e$ districts and district magnitudes $m_{de}$, the mean district magnitude is
+Does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach–Bischoff allocation tend to be larger in cantons whose initial district structure was more fragmented? All district measures use a fixed historical baseline from each canton's last pre-reform election, with Schaffhausen adjusted to 60 seats. District size is measured primarily by the mean baseline district magnitude. The median is also reported to capture the size of the typical baseline district and indicate whether the mean is influenced by a small number of unusually large or small districts. For canton $c$, with $D_{c,0}$ baseline districts and district magnitudes $m_{dc,0}$, the mean district magnitude is
 
 $$
-\bar{m}_e=\frac{1}{D_e}\sum_{d=1}^{D_e}m_{de}=\frac{M_e}{D_e}.
+\bar{m}_{c,0}=\frac{1}{D_{c,0}}\sum_{d=1}^{D_{c,0}}m_{dc,0}=\frac{M_{c,0}}{D_{c,0}}.
 $$
 
-**A lower mean or median district magnitude is expected to be associated with a larger gain $\Delta_e$ for smaller parties.**
- As a complementary measure, the analysis reports the share of districts with fewer than nine seats,
+**A lower baseline mean or median district magnitude is expected to be associated with a larger average gain for smaller parties.**
+ As a complementary measure, the analysis reports the baseline share of districts with fewer than nine seats,
 
 $$
-q_e=\frac{1}{D_e}\sum_{d=1}^{D_e}\mathbb{1}(m_{de}<9).
+q_{c,0}=\frac{1}{D_{c,0}}\sum_{d=1}^{D_{c,0}}\mathbb{1}(m_{dc,0}<9).
 $$
 
-The nine-seat cutoff follows the Swiss Federal Supreme Court's reasoning: under the natural-quorum approximation $1/(M+1)$, districts with fewer than nine seats impose a threshold above 10%. A larger value of $q_e$ is therefore expected to be associated with a larger gain $\Delta_e$ (BGE 131 I 74 E. 5.3–5.4 ; Bundeskanzlei, 2013, p. 8). Because the number of transition cantons is small and their electoral rules differ, these relationships are interpreted descriptively rather than as isolated causal effects of district magnitude. Graubünden is shown only as a contextual comparison because its pre-reform system was Majorz and its Hagenbach–Bischoff allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
+The nine-seat cutoff follows the Swiss Federal Supreme Court's reasoning: under the natural-quorum approximation $1/(M+1)$, districts with fewer than nine seats impose a threshold above 10%. A larger baseline value of $q_{c,0}$ is therefore expected to be associated with a larger average gain (BGE 131 I 74 E. 5.3–5.4 ; Bundeskanzlei, 2013, p. 8). Because the number of transition cantons is small and their electoral rules differ, these relationships are interpreted descriptively rather than as isolated causal effects of district magnitude. Graubünden is shown only as a contextual comparison because its pre-reform system was Majorz and its Hagenbach–Bischoff allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
+
+As a complementary measure, EQ1 examines inequality between district sizes using the coefficient of variation (CV). While the median captures the size of the typical district, CV describes how widely district magnitudes differ relative to their mean. In BGE 136 I 352 E. 3.5, the Federal Supreme Court discusses unequal district seat counts and cites academic literature proposing deviations of at most one-third from the mean. However, the Court explicitly declines to establish a generally permissible numerical deviation. This motivates examining district-size dispersion, but the one-third benchmark concerns individual deviations and is not a cutoff for CV. No directional hypothesis is formulated for CV because greater dispersion does not necessarily imply smaller typical districts or a larger gain for smaller parties.
 
 #### Exploratory question 2: Differences by DP seat count (Parliament size)
 
@@ -424,11 +426,11 @@ Party and list names were standardized using readable and consistent abbreviatio
 
 The treatment of joint and affiliated lists follows the electoral units reported in the official results. Where several political organizations contested an election on a single joint list, that list was treated as one analytical unit. Examples include "SP_GRUENE" in Graubünden in 2022 and "FGA_AL_PDA" in Zurich in 2023. Such joint lists differ from list alliances under Hagenbach–Bischoff: parties in a list alliance retain separate lists but pool their votes at a particular stage of the seat-allocation process. Conversely, Schaffhausen reported several affiliated or special-interest lists associated with a broader parent party, including "SVP_KMU","SVP_SEN", "JG" (Green Youth) and "JFSH" (Young Liberals) as separate electoral lists. Because these lists entered the official Double Pukelsheim allocation separately, they were also retained as separate units in the analysis. This decision faithfully reproduces the official allocation structure, although it can affect the measured number and seat share of smaller parties.
 
-Beyond the harmonization of party and list names, the cleaning process involved restructuring vote data, identifying the relevant electoral units, and assigning their election-specific seat totals. The source files were converted into comparable tables containing party votes and the seat magnitude of each electoral district. Where parties appeared in separate columns, as in Aargau, Graubünden, and Nidwalden, these columns were reshaped into the variables "parties" and "party_votes". Candidate-level exports required a different treatment. In all four Zug and Schwyz’s 2020 election, each candidate row repeated the corresponding list’s vote and seat totals. The scripts first checked that these repeated values were consistent and then retained one observation per municipality and list, preventing the totals from being counted multiple times. Source variables such as "list_votes" and "election_mandates" were thereby converted into "party_votes" and "district_seats".
-The geographic preparation depended on the structure of the official files. In Zurich, municipal party votes were summed within the electoral districts identified by the source variable "Geschaeft". Aargau’s files already contained district totals, which were selected using the "DISTRICT" classification. Similarly, the Graubünden script extracted the existing district totals by carrying each "Wahlkreis" heading down to its corresponding "Total" row. Municipalities were retained as allocation units in Nidwalden, Schwyz, and Zug. Their names were extracted from the source tables or, for Schwyz in 2016, from the municipality-specific filenames. Uri’s script explicitly selected the workbook blocks for Altdorf, Bürglen, Erstfeld, and Schattdorf. In Valais, the 14 districts were assigned to six electoral regions in R according to the official electoral structure, preserving the different geographic levels required for the district-level HB counterfactual and the regional DP upper apportionment.
+Beyond the harmonization of party and list names, the cleaning process involved restructuring vote data, identifying the relevant electoral units, and assigning their election-specific seat totals. The source files were converted into comparable tables containing party votes and the seat magnitude of each electoral district. Where parties appeared in separate columns, as in Aargau, Graubünden, and Nidwalden, these columns were reshaped into the variables *parties* and *party_votes*. Candidate-level exports required a different treatment. In all four Zug and Schwyz’s 2020 election, each candidate row repeated the corresponding list’s vote and seat totals. The scripts first checked that these repeated values were consistent and then retained one observation per municipality and list, preventing the totals from being counted multiple times. Source variables such as *list_votes* and *election_mandates* were thereby converted into *party_votes* and *district_seats*.
+The geographic preparation depended on the structure of the official files. In Zurich, municipal party votes were summed within the electoral districts identified by the source variable *Geschaeft*. Aargau’s files already contained district totals, which were selected using the *DISTRICT* classification. Similarly, the Graubünden script extracted the existing district totals by carrying each "Wahlkreis" heading down to its corresponding *Total* row. Municipalities were retained as allocation units in Nidwalden, Schwyz, and Zug. Their names were extracted from the source tables or, for Schwyz in 2016, from the municipality-specific filenames. Uri’s script explicitly selected the workbook blocks for Altdorf, Bürglen, Erstfeld, and Schattdorf. In Valais, the 14 districts were assigned to six electoral regions in R according to the official electoral structure, preserving the different geographic levels required for the district-level HB counterfactual and the regional DP upper apportionment.
 District seat magnitudes were obtained from the available official information for each election. In Aargau, district names were matched to officially sourced seat vectors or separate seat-allocation tables provided by the canton officials. Valais used explicitly recorded district magnitudes for each election year. In Zurich and Graubünden, magnitudes were reconstructed by counting elected candidates within each district. In Uri and Schwyz’s 2016 election, they were calculated by summing the official DP seats within each municipality.
 
-The shared finalization function then produced one observation per standardized party or list code and election. It created an election identifier combining the canton abbreviation and election year, such as "ZH_23", and joined the HB and DP seat totals by party. The final columns were "election_id", "parties", "vote_share", "small_party", "seats_hb", "seats_dp", "parliament_size", and "seats_allocated_dp". The last two variables distinguish the full parliament from the seats covered by the comparison: in Uri, these values are 64 and 37, respectively. District identifiers, raw party votes, and district magnitudes served as intermediate inputs rather than columns in the final combined dataset.
+The shared finalization function then produced one observation per standardized party or list code and election. It created an election identifier combining the canton abbreviation and election year, such as *ZH_23*, and joined the HB and DP seat totals by party. The final columns were *election_id*, *parties*, *vote_share*, *small_party*, *seats_hb*, *seats_dp*, *parliament_size*, and *seats_allocated_dp*. The last two variables distinguish the full parliament from the seats covered by the comparison: in Uri, these values are 64 and 37, respectively. District identifiers, raw party votes, and district magnitudes served as intermediate inputs rather than columns in the final combined dataset.
 
 Vote shares were derived using the information available in each canton’s official election files. In Aargau, Zurich, Zug, and Valais, party votes were divided by the corresponding district’s seat magnitude to obtain voter equivalents. These quotients were rounded to the nearest integer, with half values rounded upwards, before being summed by party across districts. Each party’s vote share was then calculated as its aggregated voter number divided by the total voter number of all included parties, multiplied by 100. Nidwalden instead used the voter numbers supplied in the official upper-apportionment worksheet. Schaffhausen used the published voter numbers extracted from the official result PDFs; reconstructed voter numbers were compared with these published values using election-specific tolerances to accommodate differences in reporting precision.
 
@@ -436,7 +438,7 @@ Other datasets supplied vote shares directly or required different denominators.
 
 The Double Pukelsheim results were assembled separately within the canton-specific scripts from official seat tables, municipal allocations, or elected-candidate records. Valais required a separate reconstruction of the upper apportionment within its six electoral regions, followed by comparisons with published official results. Each script supplied its election-specific DP results to the shared finalization function, which joined them to the HB counterfactuals by standardized party identifier. Validation routines checked electoral-unit coverage and seat totals and, where alternative representations were available, reconciled candidate counts or aggregated lower allocations with reported list mandates or upper-apportionment totals. District-level consistency checks and final allocation totals were applied according to the available source structure. Uri’s allocation checks covered the 37 proportional seats included in the analysis, while the full parliamentary size remained recorded as 64. Unresolved HB ties were retained as alternative allocations.
 
-All processing was implemented in the canton-specific R scripts in "data_cleaning_cantons", supported by the shared functions in "00_functions".R. Each "process_canton_*()" function combined its cleaned elections into a cantonal dataset. These nine datasets were subsequently appended row-wise using "bind_rows()" to create "all_elections", preserving one observation per standardized party or list and election. Detailed procedures, source-specific exceptions, and validation arrangements are documented in Appendix 1, with the cleaning code provided in Appendix 2.
+All processing was implemented in the canton-specific R scripts in *data_cleaning_cantons*, supported by the shared functions in *00_functions.R*. Each *process_canton_*()* function combined its cleaned elections into a cantonal dataset. These nine datasets were subsequently appended row-wise using *bind_rows()* to create *all_elections*, preserving one observation per standardized party or list and election. Detailed procedures, source-specific exceptions, and validation arrangements are documented in Appendix 1, with the cleaning code provided in Appendix 2.
 
 ```{r data-setup}
 #| echo: false
@@ -494,24 +496,36 @@ all_elections <- bind_rows(
 
 ### Measures and Analytical Strategy 
 
-Here comes:
+The analyzed area comprises the whole canton except in Uri, where it covers only Altdorf, Bürglen, Erstfeld, and Schattdorf, the four municipalities using Double Pukelsheim. These municipalities account for 37 of the canton's 64 parliamentary seats. The variable *seats_allocated_dp* records the number of seats covered by the comparison, while *parliament_size* records the full size of the cantonal parliament. These values are equal in all analyzed cantons except Uri.
 
-- Smaller party definition and 10% cutoff.
-- Unit of analysis: election, and analyzed area
-- Definition and interpretation of \(\Delta_e\).
-- Unweighted mean used for H1.
-- Seat-weighted mean as supplementary information.
-- Distributional statistics reported.
-- Procedure for the DP-seat-count comparison.
-- Procedure for the quorum comparison.
-- Procedure for examining successive elections.
-- Graubünden’s exclusion from the main estimate.
-- why seats_allocated_dp is the denominator
+For the purposes of this thesis, a smaller party is defined as an electoral list or list group with a vote share below 10% in the analyzed area. Youth lists and other special-interest lists are treated as separate analytical units whenever they enter the official Double Pukelsheim allocation separately; their votes and seats are not attributed to a parent party. Accordingly, the term *party* refers to the standardized electoral list or list group recorded in the dataset and does not necessarily correspond to a broader organizational party family. Smaller parties are identified separately for each election using their observed vote shares. The same set of smaller parties is then used when comparing the two seat allocations within that election.
 
-The specification of the limited Double Pukelsheimer Process in Canton of Uri, where only 37 of the 64 parliamentary seats are allocated using Double Pukelsheim, led to the introduction of the variable `*seats_allocated_dp*. For all other cantons but Uri, the variables *parliament_size* and *seats_allocated_dp* are equal. The variable *seats_allocated_dp* is used as the denominator in the calculation of smaller parties' seat-share gain because it reflects the number of seats actually allocated under Double Pukelsheim in the analyzed area, which is relevant for assessing the mechanical advantage of smaller parties under this allocation method. Moreover is this specification in Uri also relevant when talking about the *analyzed_area* variable, since for all Cantons but Uri, this area equals the whole canton size, but for Uri it only includes the four municipalities using Double Pukelsheim.
+The main analysis compares the combined seat shares of smaller parties within each election. For this purpose, the seats of all lists below the 10% vote-share threshold are summed separately under Double Pukelsheim and Hagenbach–Bischoff. Each total is divided by the number of analyzed seats, recorded in *seats_allocated_dp*, and multiplied by 100 to obtain the corresponding seat share as a percentage. This produces one aggregate seat-share difference per election. Using the analyzed seats as the denominator ensures that the measure refers to the same area as the votes and seat allocations included in the comparison.
 
-For the purposes of this thesis, a smaller party is defined as an electoral list or list group with a vote share below 10% in the analyzed area. The analyzed area is equal to the whole canton except in Uri, where the vote shares cover only the four municipalities using Double Pukelsheim. Youth lists and other special-interest lists, such as women’s lists or pensioners’ lists, are treated as separate analytical units whenever they are reported separately in the official election results; their votes and seats are not attributed to a parent party. Accordingly, the term *party* in the analysis refers to the standardized electoral list or list group recorded in the dataset and does not necessarily correspond to a broader organizational party family. The choice of 10% as the threshold is grounded in both legal and normative considerations. The Swiss Federal Supreme Court treated 10% as an upper limit for direct quorums and a target for natural quorums when redesigning an electoral system (BGE 131 I 74 E. 5.3–5.4 ; see also Bundeskanzlei, 2013, p. 8). Using vote share rather than absolute party size is particularly appropriate because a party may be electorally small in one region while being comparatively strong in another. Low thresholds are closely linked to the principle of Erfolgswertgleichheit which is the equality in the effect of votes on seat allocation, which requires that votes should be translated into seats as equally and effectively as possible (BGE 131 I 74 E. 3.1; Bundeskanzlei, 2013, pp. 8–9).
-This threshold is especially relevant to the cantons analyzed here: before their reforms, each had at least one district with an electoral threshold of 10% or higher (Lüscher, 2024, p. 115).
+The election-level outcome is the difference between these two seat shares, denoted by $\Delta_e$ and defined in Hypothesis 1. Positive values indicate that smaller parties collectively receive a larger seat share under Double Pukelsheim; negative values indicate a smaller share. A value of five percentage points means that their combined share of the analyzed seats is five percentage points higher under Double Pukelsheim. A positive aggregate difference does not imply that every smaller party gains seats.
+
+Hypothesis 1 is assessed using the unweighted mean of the election-level differences, giving each election equal weight. This summarizes the average difference across the analyzed elections. Consequently, cantons with more observed elections contribute more observations to the main mean. A supplementary mean weights each election-level difference by the number of analyzed seats. It expresses the total net seat gain of smaller parties across the included elections as a percentage of the total analyzed seats, giving greater weight to elections with more seats. The median and the first and third quartiles are reported alongside these means to describe the typical election-level difference and the spread of the middle half of the observations. The main summaries exclude Graubünden for the reasons set out in "Counterfactual Assumptions and Scope"; its observations are presented separately for context.
+
+For EQ1, election-level seat-share gains are first averaged within each canton. These canton-level outcomes are examined against mean district magnitude, median district magnitude, the share of districts below nine seats, and CV. District counts, mean and median district magnitudes, shares below nine seats, and CV are all calculated from the same fixed allocation in each canton's last pre-reform election, with Schaffhausen adjusted to 60 seats as specified below. These historical characteristics are held fixed when comparing the canton-level average gains across the analyzed elections. Uri covers the same four municipalities included in the HB–DP comparison, and Valais's district count refers to its 14 HB allocation districts. For each measure, cantons are grouped below or at or above its unweighted mean across the eight transition cantons. Group means give each canton equal weight, and the group difference is calculated as below-mean minus at-or-above-mean. Graubünden is shown only for context and excluded from cutoffs and group means.
+
+CV divides the population standard deviation of the baseline district magnitudes by their baseline mean:
+
+$$
+CV_{c,0}=\frac{\sqrt{\frac{1}{D_{c,0}}\sum_{d=1}^{D_{c,0}}(m_{dc,0}-\bar m_{c,0})^2}}{\bar m_{c,0}}.
+$$
+
+Here, $c$ denotes the canton and $0$ its pre-reform baseline; $D_{c,0}$ is the number of districts, $m_{dc,0}$ their seat magnitudes, and $\bar m_{c,0}$ their mean. The denominator of the variance is $D_{c,0}$ because the analysis covers the full set of districts in the analyzed area. A higher CV indicates greater dispersion relative to average district size; a CV of 0.5 means that the standard deviation is half the mean. All district measures are calculated once per canton from this baseline and are held fixed across its analyzed elections.
+
+The historical reference year applies to all district measures. Historical seat allocations are documented in the cantonal publications and court judgments cited below.^[Sources by canton and reference year: Aargau 2005 (Kanton Aargau, 2004); Graubünden 2018 (Kanton Graubünden, n.d.); Nidwalden 2010 (BGE 136 I 352, E. 3.5); Schaffhausen 2004, adjusted to 60 seats (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2); Schwyz 2012 (Urteil des Bundesgerichts 1C_407/2011 vom 19. März 2012, Sachverhalt A); Uri 2016 (Standeskanzlei Uri, 2016, p. 5); Valais 2013 (BGE 140 I 107, Sachverhalt A); Zug 2010 (Staatskanzlei des Kantons Zug, 2010, p. 92); Zurich 2003 (Regierungsrat des Kantons Zürich, 2002).] Later district magnitudes may change, so the district measures describe associations with the initial structure. For Schaffhausen, the 2004 structure is adjusted to 60 seats using the published allocation in the government's reform report (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2). This is an adjusted historical baseline, rather than the actual 80-seat allocation of the 2004 election. The election-specific HB–DP allocations are unchanged.
+
+For the comparison by Double Pukelsheim seat count, election-level differences are first averaged within each canton. Cantons are then grouped according to whether they allocate more than 100 or at most 100 seats through Double Pukelsheim. The 100-seat cutoff serves as a descriptive grouping of the observed cantons. Group means are calculated from the canton-level averages, giving each canton equal weight irrespective of the number of observed elections. The difference between the group means is calculated as the mean for cantons with more than 100 seats minus the mean for cantons with at most 100 seats. Graubünden is excluded from these group means. Given the small number of cantons and their differing electoral rules, the comparison is interpreted descriptively.
+
+To examine successive elections, the seat shares under both allocation methods and their difference $\Delta_e$ are plotted chronologically within each canton from its first election under Double Pukelsheim onward. Because the smaller-party classification is recalculated for every election, this comparison follows the category of smaller parties, whose membership may change over time.
+
+Still to add:
+
+- Procedure for the quorum comparison, once the classification and weighting of observations have been settled.
+- Explicit quorums: how to classify elections as having or lacking a quorum, and how to calculate and compare the group summaries.
 
 
 ### Results
@@ -646,13 +660,294 @@ small_party_plot("seat_share_small_parties", "Seats won by smaller parties (%)",
 ::: {.callout-note title="Hypothesis 1 summary"}
 Across all `r h1_stats$elections` elections (Graubünden excluded), the unweighted mean gain in smaller parties' share of analyzed seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's number of analyzed seats was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
 :::
+#### Exploratory question 1: Differences by district magnitude
 
-#### Exploratory comparison 1: Double Pukelsheim seat count
+@tbl-district-magnitude reports the district measures defined above. District counts, mean and median district magnitudes, shares below nine seats, and CV all describe the same fixed historical baseline, with Schaffhausen adjusted to 60 seats. Graubünden is displayed only for context.
+
+```{r}
+#| label: tbl-district-magnitude
+#| tbl-cap: "Pre-reform district structure by canton. Source: author's calculations using official cantonal allocations and court judgments."
+#| tbl-colwidths: [10, 13, 13, 14, 18, 21, 11]
+#| echo: false
+#| warning: false
+#| message: false
+
+eq1_env <- new.env(parent = globalenv()) 
+
+sys.source(here("data_cleaning_cantons", "00_functions.R"), eq1_env) # Load the shared cleaning functions 
+eq1_env$district_registry <- list() # create empty list to store the values
+eq1_env$original_finalize <- eq1_env$finalize_election_data # Keep the original function before wrapping it.
+eq1_env$finalize_election_data <- function(
+    hb_results, dp_results, canton, year, parliament_size = NULL) {
+  caller <- parent.frame() # Access the reader that called this function and its local district table.
+  table_name <- switch(canton, AG = "districts", GR = "hb_by_district",
+                       SH = "district_totals", ZH = "district_seats",
+                       "district_results") 
+  district_name <- if (canton == "AG") "location_name" else "district" # Standardize Aargau's name column.
+  districts <- get(table_name, envir = caller, inherits = FALSE) |> 
+    transmute(district = .data[[district_name]], district_seats) |> # Keep only district names and seat counts
+    distinct() # Remove repeated identical rows.
+  stopifnot(!anyDuplicated(districts$district), !anyNA(districts),
+            all(districts$district_seats > 0),
+            all(districts$district_seats == floor(districts$district_seats))) # Stop if names or seat counts are invalid.
+  result <- original_finalize(hb_results, dp_results, canton, year, parliament_size) # Calculate the usual election output
+  stopifnot(sum(districts$district_seats) == first(result$seats_allocated_dp)) # District seats must match DP seat coverage.
+  id <- first(result$election_id) # Election identifier
+  district_registry[[id]] <<- districts |>
+    mutate(election_id = id, canton = canton, year = year, .before = 1) 
+  result # Return the original election output 
+}
+environment(eq1_env$finalize_election_data) <- eq1_env 
+
+eq1_codes <- c("AG", "GR", "NW", "SH", "SZ", "UR", "VS", "ZG", "ZH") # Cantons included, with GR for context.
+for (code in eq1_codes) { # Load each canton's reader into the separate workspace.
+  expressions <- parse(here("data_cleaning_cantons", paste0("canton_", code, ".R")),
+                       encoding = "UTF-8") 
+  for (expression in expressions) {
+    
+    if (is.call(expression) && identical(expression[[1]], as.name("print"))) next
+    eval(expression, envir = eq1_env) # Run the remaining definitions in the separate workspace.
+  }
+}
+eq1_parties <- map_dfr(eq1_codes, function(code) {
+  get(paste0("process_canton_", code), envir = eq1_env)() # Run each reader; map_dfr stacks the resulting rows.
+})
+eq1_districts <- bind_rows(eq1_env$district_registry) # Stack the captured district tables across elections.
+stopifnot(n_distinct(eq1_parties$election_id) == 33L,
+          n_distinct(eq1_districts$election_id) == 33L,
+          isTRUE(all.equal(arrange(eq1_parties, election_id, parties),
+                           arrange(all_elections, election_id, parties)))) 
+
+# Use the same election-level outcome as H1; validate analyzed seat coverage.
+eq1_elections <- eq1_districts |>
+  group_by(canton, election_id, year) |> # Calculate coverage separately for each election.
+  summarise(
+    districts = n(), analyzed_seats = sum(district_seats), # Count districts and total their seats.
+    .groups = "drop" # Return an ordinary, ungrouped table.
+  ) |>
+  left_join(small_party_summary |>
+              select(election_id, seats_allocated_dp, seat_gain_pp),
+            by = "election_id") # Match each election to H1's smaller-party gain
+stopifnot(!anyNA(eq1_elections),
+          all(eq1_elections$analyzed_seats == eq1_elections$seats_allocated_dp)) # Check complete matches and equal seat coverage.
+
+# Fixed last-pre-reform allocations. Named vectors preserve district provenance.
+
+eq1_baseline_seats <- list( 
+  AG = c(Aarau = 16, Baden = 30, Bremgarten = 16, Brugg = 11, Kulm = 9,
+         Laufenburg = 6, Lenzburg = 12, Muri = 7, Rheinfelden = 10,
+         Zofingen = 15, Zurzach = 8),
+  GR = c(Alvaschein = 2, Avers = 1, Belfort = 1, Berguen = 1, Bregaglia = 1,
+         Brusio = 1, Calanca = 1, Chur = 20, Churwalden = 1, Davos = 6,
+         Disentis = 4, Domleschg = 3, Fuenf_Doerfer = 12, Ilanz = 6,
+         Jenaz = 1, Klosters = 3, Kueblis = 1, Lumnezia_Lugnez = 2,
+         Luzein = 1, Maienfeld = 4, Mesocco = 2, Oberengadin = 8,
+         Poschiavo = 2, Ramosch = 1, Rhaezuens = 7, Rheinwald = 1,
+         Roveredo = 3, Ruis = 1, Safien = 1, Schams = 1, Schanfigg = 2,
+         Schiers = 3, Seewis = 1, Suot_Tasna = 3, Sur_Tasna = 1,
+         Surses = 1, Thusis = 4, Trins = 5, Val_Muestair = 1),
+  NW = c(Stans = 11, Ennetmoos = 3, Dallenwil = 3, Stansstad = 6,
+         Oberdorf = 5, Buochs = 8, Ennetbuergen = 6, Wolfenschiessen = 3,
+         Beckenried = 5, Hergiswil = 8, Emmetten = 2),
+  # Published adjustment of the 2004 district structure to a 60-seat parliament.
+  SH = c(Schaffhausen = 28, Neuhausen = 8, Klettgau = 12, Reiat = 7,
+         Stein = 4, Buchberg_Ruedlingen = 1),
+  SZ = c(Schwyz = 10, Arth = 7, Ingenbohl = 6, Muothathal = 2, Steinen = 2,
+         Sattel = 1, Rothenthurm = 1, Oberiberg = 1, Unteriberg = 1,
+         Lauerz = 1, Steinerberg = 1, Morschach = 1, Alpthal = 1, Illgau = 1,
+         Riemenstalden = 1, Gersau = 1, Lachen = 5, Altendorf = 4,
+         Galgenen = 3, Vorderthal = 1, Innerthal = 1, Schuebelbach = 6,
+         Tuggen = 2, Wangen = 3, Reichenburg = 2, Einsiedeln = 10,
+         Kuessnacht = 8, Wollerau = 4, Freienbach = 10, Feusisberg = 3),
+  UR = c(Altdorf = 15, Buerglen = 7, Erstfeld = 6, Schattdorf = 9), 
+  VS = c(Goms = 2, Oestlich_Raron = 2, Brig = 12, Visp = 12,
+         Westlich_Raron = 4, Leuk = 6, Siders = 17, Ering = 5, Sitten = 17,
+         Gundis = 10, Martinach = 16, Entremont = 6, St_Maurice = 5,
+         Monthey = 16),
+  ZG = c(Zug = 19, Oberaegeri = 4, Unteraegeri = 6, Menzingen = 3,
+         Baar = 15, Cham = 10, Huenenberg = 6, Steinhausen = 6, Risch = 6,
+         Walchwil = 3, Neuheim = 2),
+  ZH = c(Zuerich_1_2 = 5, Zuerich_3_9 = 13, Zuerich_4_5 = 5,
+         Zuerich_6_10 = 9, Zuerich_7_8 = 7, Zuerich_11_12 = 11,
+         Dietikon = 11, Affoltern = 6, Horgen = 16, Meilen = 13, Hinwil = 11,
+         Uster = 16, Pfaeffikon = 7, Winterthur_Stadt = 13,
+         Winterthur_Land = 7, Andelfingen = 4, Buelach = 16, Dielsdorf = 10)
+)
+eq1_baseline_years <- c(AG = 2005L, GR = 2018L, NW = 2010L, SH = 2004L,
+                        SZ = 2012L, UR = 2016L, VS = 2013L, ZG = 2010L,
+                        ZH = 2003L) # Historical reference years
+eq1_baseline_totals <- c(AG = 140, GR = 120, NW = 60, SH = 60, SZ = 100,
+                         UR = 37, VS = 130, ZG = 80, ZH = 180) # Expected seat totals
+stopifnot(identical(names(eq1_baseline_seats), eq1_codes),
+          all(map_lgl(eq1_baseline_seats, function(x) {
+            !anyNA(x) && !anyDuplicated(names(x)) &&
+              all(x > 0 & x == floor(x))
+          })),
+          all(map_dbl(eq1_baseline_seats, sum) == eq1_baseline_totals)) # Check canton order, valid district entries, and seat totals.
+eq1_baseline <- imap_dfr(eq1_baseline_seats, function(seats, code) { # Process each vector and its canton name
+  tibble(canton = code, reference_year = eq1_baseline_years[[code]], # Match the canton to its reference year.
+         baseline_districts = length(seats), # Number of entries = number of baseline districts.
+         mean_magnitude_baseline = mean(seats), # Total baseline seats divided by the district count.
+         median_magnitude_baseline = median(seats), # Middle size; average the two middle values for an even district count.
+         share_below9_pct_baseline = 100 * mean(seats < 9), # mean is the share with strictly fewer than 9 seats
+         cv_magnitude_baseline = sqrt(mean((seats - mean(seats))^2)) / mean(seats)) # Population SD divided by mean
+})
+stopifnot(all(is.finite(eq1_baseline$cv_magnitude_baseline)),
+          all(eq1_baseline$cv_magnitude_baseline >= 0)) # CV must be finite and nonnegative.
+
+eq1_cantons <- eq1_elections |>
+  group_by(canton) |> # Collapse election-level outcomes into one row per canton.
+  summarise(
+    elections = n(), districts_min = min(districts), districts_max = max(districts),
+    mean_gain_pp = mean(seat_gain_pp), .groups = "drop" # Average outcomes across elections, giving each election equal weight.
+  ) |>
+  left_join(eq1_baseline, by = "canton") # Attach fixed historical predictors
+stopifnot(!anyNA(eq1_cantons),
+          all(eq1_cantons$districts_min == eq1_cantons$districts_max),
+          all(eq1_cantons$baseline_districts == eq1_cantons$districts_min)) # Check no missing values and consistent district counts.
+
+# The cutoff for each measure is the unweighted mean across transition cantons.
+eq1_points <- eq1_cantons |>
+  select(canton, mean_gain_pp, ends_with("_baseline")) |> # Keep the outcome and four baseline measures for plotting.
+  pivot_longer(-c(canton, mean_gain_pp), names_to = "metric", values_to = "value") |> # One row per canton and measure.
+  group_by(metric) |> # Each measure has its own cutoff and groups.
+  mutate(cutoff = mean(value[canton != "GR"]), # Unweighted mean of the eight transition cantons; exclude GR.
+         group = case_when(canton == "GR" ~ "GR: context only",
+                           value < cutoff ~ "Below mean",
+                           TRUE ~ "At/above mean")) |> # GR gets a context label; equality with the cutoff goes in the upper group.
+  ungroup() |> # Remove grouping before setting display labels.
+  mutate(metric = factor(
+    metric,
+    levels = c("mean_magnitude_baseline", "median_magnitude_baseline",
+               "share_below9_pct_baseline", "cv_magnitude_baseline"),
+    labels = c("Mean district size (seats)", "Pre-reform median size (seats)",
+               "Districts below 9 seats (%)", "Pre-reform district-size CV")),
+    group = factor(group, c("Below mean", "At/above mean", "GR: context only"))) # Factors control panel and legend order.
+eq1_groups <- eq1_points |>
+  filter(canton != "GR") |> # Context canton does not contribute to group comparisons.
+  group_by(metric, group) |> # Summarize each below-mean or upper group separately for each measure.
+  summarise(cantons = n(), mean_gain_pp = mean(mean_gain_pp),
+            members = paste(sort(canton), collapse = ", "), .groups = "drop") # Count cantons, average their gains equally, and list members.
+eq1_differences <- eq1_groups |>
+  select(metric, group, mean_gain_pp) |>
+  pivot_wider(names_from = group, values_from = mean_gain_pp) |> # Put the two group means in separate columns.
+  mutate(below_minus_above_pp = `Below mean` - `At/above mean`) # Negative = the below-mean group gained less.
+eq1_cutoffs <- eq1_points |>
+  distinct(metric, cutoff) # One cutoff per measure, used in the text and dashed lines.
+
+knitr::kable( # Render table
+  eq1_cantons |>
+    transmute(
+      Canton = canton, Districts = baseline_districts,
+      `Reference year` = reference_year,
+      `Mean seats` = sprintf("%.2f", mean_magnitude_baseline), # Display two decimals; underlying values remain unrounded.
+      `Pre-reform median` = sprintf("%.2f", median_magnitude_baseline),
+      `Below 9 seats (%)` = sprintf("%.1f", share_below9_pct_baseline), # Display this percentage with one decimal.
+      `Pre-reform CV` = sprintf("%.2f", cv_magnitude_baseline)
+    ),
+  align = c("l", "r", "r", "r", "r", "r", "r") # Left-align canton names; right-align the numerical columns.
+)
+```
+
+@fig-district-magnitude relates each district measure to the canton-level mean gain in smaller parties' seat share. Colours distinguish cantons below and at or above the unweighted cross-canton mean of the respective measure. The cutoffs are `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Mean district size (seats)"])` seats for mean magnitude, `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Pre-reform median size (seats)"])` seats for median magnitude, `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Districts below 9 seats (%)"])`% for the share below nine seats, and `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Pre-reform district-size CV"])` for the CV. The median-magnitude grouping therefore uses the mean of the canton-level median measures as its cutoff.
+
+```{r}
+#| label: fig-district-magnitude
+#| fig-cap: "Mean smaller-party seat-share gain under Double Pukelsheim relative to counterfactual Hagenbach-Bischoff, by initial district magnitude and its dispersion. All district measures use the fixed historical baseline (SH adjusted to 60 seats). Dashed lines mark cross-canton means; Graubünden is contextual."
+#| fig-width: 8.3
+#| fig-height: 6.8
+#| echo: false
+#| warning: false
+#| message: false
+
+eq1_colours <- c("Below mean" = "#0072B2", "At/above mean" = "#D55E00",
+                 "GR: context only" = "#8A8A8A") # Blue below mean, orange at/above mean, grey for GR.
+eq1_scatter <- ggplot(eq1_points, aes(value, mean_gain_pp, colour = group)) + # x = district measure; y = canton gain; colour = group.
+  geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) + # Reference line where DP and HB give equal smaller-party shares.
+  geom_vline(data = eq1_cutoffs, aes(xintercept = cutoff), inherit.aes = FALSE,
+             linetype = "dashed", colour = "grey60", linewidth = .4) + # Draw each panel's cutoff using its own data, independently of point mappings.
+  geom_point(size = 2.8) + # One point per canton in each panel.
+  geom_text_repel(aes(label = canton), seed = 1, size = 3.3,
+                  max.overlaps = Inf, show.legend = FALSE) + # Repel canton labels; seed fixes placement; keep all labels without a text legend.
+  facet_wrap(~ metric, scales = "free_x", ncol = 2) + # Four panels in two columns; separate x scales because units differ.
+  scale_colour_manual(values = eq1_colours, drop = FALSE) + # Apply the same group colours in every panel.
+  scale_x_continuous(expand = expansion(mult = c(.12, .15))) + # Add space at the plot edges for labels.
+  scale_y_continuous(expand = expansion(mult = c(.12, .15))) +
+  labs(x = "District measure (fixed historical baseline)",
+       y = "Mean smaller-party seat-share gain (pp)", colour = NULL, # pp means percentage points; NULL removes the legend title.
+       caption = "Dashed lines: means across eight transition cantons. GR is contextual; Uri covers four DP municipalities.") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom", panel.grid.minor = element_blank(),
+        strip.text = element_text(face = "bold", size = 10),
+        plot.caption = element_text(hjust = 0, size = 8.5)) # Legend below, no minor grid, bold panel titles, left-aligned caption.
+eq1_scatter # Print the saved plot into the thesis figure.
+```
+
+@fig-district-magnitude-groups shows the corresponding group comparisons. Mean district magnitude and pre-reform median district magnitude produce identical group membership with these cutoffs, so they share one panel. Black diamonds indicate group means calculated with equal weight per canton.
+
+```{r}
+#| label: fig-district-magnitude-groups
+#| fig-cap: "Canton-level mean smaller-party seat-share gains in groups below and at or above the cross-canton mean of each fixed historical district measure. Black diamonds denote equally weighted group means; Graubünden is excluded."
+#| fig-width: 10.5
+#| fig-height: 4.4
+#| echo: false
+#| warning: false
+#| message: false
+
+eq1_group_points <- filter(eq1_points, canton != "GR") # Group-comparison plot includes only the eight transition cantons.
+eq1_group_means <- eq1_groups # Start with the equally weighted group means calculated above.
+eq1_size_membership <- eq1_group_points |>
+  filter(metric %in% c("Mean district size (seats)", "Pre-reform median size (seats)")) |>
+  select(canton, metric, group) |>
+  pivot_wider(names_from = metric, values_from = group) # Put each canton's mean-size and median-size group side by side.
+eq1_combine_size <- all(eq1_size_membership[[2]] == eq1_size_membership[[3]]) # Check whether every canton has the same group in both.
+if (eq1_combine_size) { # Combine these panels only when their group membership is identical.
+  eq1_group_points <- eq1_group_points |>
+    filter(metric != "Pre-reform median size (seats)") |> # Remove the duplicate median grouping from the plotted points.
+    mutate(metric = recode(as.character(metric),
+                           `Mean district size (seats)` = "Baseline mean / median size"))
+  eq1_group_means <- eq1_group_means |>
+    filter(metric != "Pre-reform median size (seats)") |> # Remove duplicate group means; underlying baseline measures stay separate.
+    mutate(metric = recode(as.character(metric),
+                           `Mean district size (seats)` = "Baseline mean / median size"))
+  eq1_group_levels <- c("Baseline mean / median size", "Districts below 9 seats (%)",
+                        "Pre-reform district-size CV")
+  eq1_group_points$metric <- factor(eq1_group_points$metric, eq1_group_levels)
+  eq1_group_means$metric <- factor(eq1_group_means$metric, eq1_group_levels) # Keep points and means in the same panel order.
+}
+eq1_group_plot <- ggplot(eq1_group_points, aes(group, mean_gain_pp, colour = group)) + # x = below/above group; y = canton-average gain.
+  geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) +
+  geom_point(position = position_jitter(width = .08, height = 0, seed = 1), size = 2.5) + # Slight horizontal spread avoids overlaps; y values stay exact.
+  geom_text_repel(aes(label = canton), seed = 1, size = 3.1,
+                  nudge_x = .15, direction = "y", box.padding = .5,
+                  max.overlaps = Inf, show.legend = FALSE) + # Move canton labels mainly vertically to improve readability.
+  geom_point(data = eq1_group_means, shape = 18, size = 5, colour = "black") + # Add a black diamond for each group's mean gain.
+  facet_wrap(~ metric, nrow = 1) + # Show the measure panels in a single row.
+  scale_colour_manual(values = eq1_colours, drop = TRUE) + # Reuse blue/orange colours; omit the unused GR category.
+  scale_y_continuous(expand = expansion(mult = c(.12, .15))) +
+  labs(x = NULL, y = "Mean smaller-party seat-share gain (pp)", colour = NULL,
+       caption = "Points: canton averages. Black diamonds: equally weighted group means. GR excluded.") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "none", panel.grid.minor = element_blank(),
+        strip.text = element_text(face = "bold", size = 10),
+        plot.caption = element_text(hjust = 0, size = 9)) # Hide the redundant legend and left-align the caption.
+eq1_group_plot # Print the saved group-comparison plot into the thesis.
+```
+
+For both mean district magnitude and pre-reform median district magnitude, the below-mean group comprises Nidwalden, Schwyz, and Zug; Aargau, Schaffhausen, Uri, Valais, and Zurich form the at-or-above-mean group. Their average gains are `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Mean district size (seats)" & eq1_groups$group == "Below mean"])` and `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Mean district size (seats)" & eq1_groups$group == "At/above mean"])` percentage points, respectively. The below-minus-above difference is `r sprintf("%+.2f", eq1_differences$below_minus_above_pp[eq1_differences$metric == "Mean district size (seats)"])` percentage points, opposite to the expected direction.
+
+For the share of districts below nine seats, Aargau, Uri, Valais, and Zurich form the below-mean group, while Nidwalden, Schaffhausen, Schwyz, and Zug form the at-or-above-mean group. Their average gains are `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Districts below 9 seats (%)" & eq1_groups$group == "Below mean"])` and `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Districts below 9 seats (%)" & eq1_groups$group == "At/above mean"])` percentage points. The higher-share group gains `r sprintf("%.2f", -eq1_differences$below_minus_above_pp[eq1_differences$metric == "Districts below 9 seats (%)"])` percentage points more, consistent with the expected direction.
+
+For pre-reform district-size variation, the below-mean-CV group comprises `r eq1_groups$members[eq1_groups$metric == "Pre-reform district-size CV" & eq1_groups$group == "Below mean"]`, and the at-or-above-mean-CV group comprises `r eq1_groups$members[eq1_groups$metric == "Pre-reform district-size CV" & eq1_groups$group == "At/above mean"]`. Their average gains are `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Pre-reform district-size CV" & eq1_groups$group == "Below mean"])` and `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Pre-reform district-size CV" & eq1_groups$group == "At/above mean"])` percentage points, respectively; the below-minus-above difference is `r sprintf("%+.2f", eq1_differences$below_minus_above_pp[eq1_differences$metric == "Pre-reform district-size CV"])` percentage points. This comparison adds information about the distribution of district sizes, but dispersion alone does not establish the magnitude of smaller parties' gains.
+
+Individual canton gains vary substantially within groups. These comparisons describe associations across eight transition cantons and do not isolate a causal effect of district magnitude or its dispersion.
+
+#### Exploratory question 2: Differences by DP seat count (Parliament size)
 
 The comparison below uses the same election-level percentage-point gain as H1. It averages elections within each canton before comparing the two groups defined by the number of seats allocated through Double Pukelsheim. Graubünden is only shown for context and excluded from the group means for the same reason as in the main H1 estimate.
 
 ```{r}
-#| label: tbl-h1a-cantons
+#| label: tbl-dp-seat-count
 #| tbl-cap: "Mean gain in smaller parties' share of analyzed seats by canton (percentage points). Source: author's aggregation of the official cantonal election datasets."
 #| echo: false
 
@@ -690,6 +985,8 @@ knitr::kable(
 
 The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"])` percentage points in the group with more than 100 Double Pukelsheim seats and `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points in the group with at most 100. Their difference (more than 100 minus at most 100) is `r sprintf("%+.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"] - h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points. With only `r sum(h1a_groups$cantons)` cantons and distinct electoral rules, this is a descriptive comparison rather than evidence of a causal effect of the number of Double Pukelsheim seats.
 
+#### Exploratory question 3: Explicit electoral quorums
+#### Exploratory question 4: Change across successive elections
 ## Discussion
 
 ## Conclusion
@@ -740,6 +1037,8 @@ Initiativkomitee “Damit jede Stimme zählt.” (n.d.). *Initiative für ein fa
 
 Kanton Aargau. (1988/2004). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 8. Juni 2004, in Kraft seit 1. November 2004* (SAR 152.100). https://www.lexfind.ch/tolv/2551/de
 
+Kanton Aargau. (2004, December 14). *SVP/FDP, SP/Grüne und CVP/EVP: Grossratswahlen 2005: Listenverbindungen*. https://www.ag.ch/de/medien/medienmitteilungen?mm=svp-fdp-sp-gruene-und-cvp-evp-c849a7cb-e1b5-4aaf-9c77-2513b9eecbdf_de
+
 Kanton Aargau. (2008). *Abstimmungsvorlagen vom 24. Februar 2008: Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates), Änderung vom 18. September 2007*, pp. 6--25. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20080224-abstimmungsbroschuere.pdf
 
 Kanton Aargau. (2009). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; Stand 1. Januar 2009)*. https://gesetzessammlungen.ag.ch/api/de/versions/519/pdf_file
@@ -752,9 +1051,11 @@ Kanton Basel-Landschaft. (2025b). *Einführung des kantonalen Doppelproporzes im
 
 Kanton Basel-Landschaft. (2026, March 13). *Gesamterneuerungswahlen des Landrats vom 11. April 2027: Mandatszuteilung an die Wahlkreise*. https://www.baselland.ch/politik-und-behorden/besondere-behoerden/landeskanzlei/medienmitteilungen/gesamterneuerungswahlen-des-landrats-vom-11-april-2027-mandatszuteilung-an-die-wahlkreise
 
-Kanton Graubünden. (2021/2026). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG)* (BR 150.400; Stand 1. Januar 2026). https://www.gr-lex.gr.ch/app/de/texts_of_law/150.400
+Kanton Graubünden. (n.d.). *Verteilung der Grossratssitze auf die Wahlkreise aufgrund der Zahlen der eidgenössischen Statistik der Bevölkerung und der Haushalte (ständige schweizerische Wohnbevölkerung Graubündens per 31. Dezember 2016)* [Seat allocation for the 2018 Grand Council election]. https://www.gr.ch/DE/Medien/Mitteilungen/MMStaka/2018/MedienDokumente/Sitzverteilung%202018.pdf
 
 Kanton Graubünden. (2003/2018). *Verfassung des Kantons Graubünden vom 14. September 2003* (BR 110.100; Stand 1. Januar 2018). https://www.gr-lex.gr.ch/api/de/versions/2812/pdf_file
+
+Kanton Graubünden. (2021/2026). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG)* (BR 150.400; Stand 1. Januar 2026). https://www.gr-lex.gr.ch/app/de/texts_of_law/150.400
 
 Kanton Graubünden. (2022). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2022* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx
 
@@ -825,6 +1126,8 @@ Regierungsrat des Kantons Schaffhausen. (1979, November 13). Verordnung des Regi
 
 Regierungsrat des Kantons Schaffhausen. (2007, April 24). *Bericht und Antrag des Regierungsrates des Kantons Schaffhausen an den Kantonsrat betreffend Anpassung des Wahlsystems für den Kantonsrat (Bericht und Antrag 07-41)*. https://archiv.sh.ch/daten/fileadmin/Redaktoren/Dokumente_nicht_im_Formularpool/Regierung/Vorlagen/2007/24-4-07.pdf
 
+Regierungsrat des Kantons Zürich. (2002, June 27). *Ein Kantonsratssitz mehr für Uster, einer weniger für Stadtzürcher Kreise 11 und 12*. Kanton Zürich. https://www.zh.ch/de/news-uebersicht/medienmitteilungen/2002/06/126_kantonsratssitz.html
+
 Regierungsrat des Kantons Zürich. (2014, November 26). *Postulat (Änderung Wahlgesetz [Wahlkreiseinteilung]) (RRB Nr. 1254/2014; KR-Nr. 219/2014)*. https://parlzhcdws.cmicloud.ch/parlzh5/cdws//Files/89dffabbc7a240f08e824f7a30bebf4d-332/1/pdf
 
 Regierungsrat des Kantons Zürich. (2024, March 27). *Gesetz über die politischen Rechte (GPR): Anpassung der Regelung zum 3%-Quorum bei Kantonsratswahlen* (Vorlage 5951). https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2024/338/5951_GPR_Aenderung.pdf
@@ -847,6 +1150,8 @@ Staatskanzlei des Kantons Aargau. (2012, April 5). *Gemeinsame Grossrats- und Re
 
 Staatskanzlei des Kantons Aargau. (2016, March 18). *Ausschreibung der Grossrats- und Regierungsratswahlen 2016: Unterlagen unter www.ag.ch/wabag verfügbar*. https://www.ag.ch/de/medien/medienmitteilungen?mm=ausschreibung-der-grossrats-und-regierungsratswahlen-2016-f7404346-a5eb-46e0-8627-301716c82855_de
 
+Staatskanzlei des Kantons Zug. (2010, October 3). *Gesamterneuerungswahlen im Kanton Zug vom 3. Okt. 2010: Pressedokumentation: Schlussergebnisse*. Kanton Zug. https://cdn.zg.ch/dam/jcr%3Ad626fe28-3ba9-4192-9474-645344ce60b1/PressedokumentationSchlussergebnisse%20KR%20RR%202010.pdf
+
 Staatskanzlei Nidwalden. (2014). *Wahlergebnis der Landratswahlen vom 23. März 2014* [Unpublished raw data]. Kanton Nidwalden.
 
 Staatskanzlei Nidwalden. (2018). *Wahlergebnis der Landratswahlen vom 4. März 2018* [Unpublished raw data]. Kanton Nidwalden.
@@ -864,6 +1169,8 @@ Staatskanzlei Kanton Schwyz. (2024). *Kantonsprotokoll der Erneuerungswahl Kanto
 Staatskanzlei Kanton Schaffhausen. (2020, September 27). *Resultate der Kantonsratswahl vom 27. September 2020*. Kanton Schaffhausen. https://sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Abstimmungen-und-Wahlen-6275841-DE.html
 
 Staatskanzlei Kanton Schaffhausen. (2024, September 22). *Kantonsratswahlen vom 22. September 2024 – Resultate*. Kanton Schaffhausen. https://www.sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Regierung/Staatskanzlei-15401466-DE.html
+
+Standeskanzlei Uri. (2016, July 4). *Landratswahlen 2016: Statistische Auswertung*. Kanton Uri. https://www.ur.ch/_docn/84386/Landratswahlen_2016_stat_Auswertung.pdf
 
 Standeskanzlei Uri. (2020). *Landratswahlen 2020: Statistische Auswertung*. Kanton Uri. https://www.ur.ch/_docn/213898/Landratswahlen_2020_stat_Auswertung.pdf
 
