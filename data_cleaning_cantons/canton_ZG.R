@@ -41,7 +41,7 @@ standardize_zg_party <- function(party_label) {
   case_when(
     normalized %in% c("ALTERNATIVE", "ALG") ~ "ALG", # Merge ALG labels.
     normalized %in% c("GRUNLIBERALE", "GLP") ~ "GLP", # Merge GLP labels.
-    normalized == "DIE MITTE" ~ "DIEMITTE", # Use one Mitte label.
+    normalized %in% c("DIE MITTE", "MITTE") ~ "DIEMITTE", # Use one Mitte label.
     normalized == "AUBU" ~ "AUBUE", # Restore the transliterated party code.
     TRUE ~ normalized |>
       str_replace_all("[^A-Z0-9]+", "_") |> # Replace punctuation with underscores.
@@ -245,4 +245,5 @@ process_canton_ZG <- function() {
 }
 
 # Temporary check - delete in the end.
-print(process_canton_ZG(), n = Inf)
+options(width = 200)
+print(process_canton_ZG(), n = 200)

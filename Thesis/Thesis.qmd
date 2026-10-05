@@ -508,6 +508,8 @@ Here comes:
 - Graubünden’s exclusion from the main estimate.
 - why seats_allocated_dp is the denominator
 
+The specification of the limited Double Pukelsheimer Process in Canton of Uri, where only 37 of the 64 parliamentary seats are allocated using Double Pukelsheim, led to the introduction of the variable `*seats_allocated_dp*. For all other cantons but Uri, the variables *parliament_size* and *seats_allocated_dp* are equal. The variable *seats_allocated_dp* is used as the denominator in the calculation of smaller parties' seat-share gain because it reflects the number of seats actually allocated under Double Pukelsheim in the analyzed area, which is relevant for assessing the mechanical advantage of smaller parties under this allocation method. Moreover is this specification in Uri also relevant when talking about the *analyzed_area* variable, since for all Cantons but Uri, this area equals the whole canton size, but for Uri it only includes the four municipalities using Double Pukelsheim.
+
 For the purposes of this thesis, a smaller party is defined as an electoral list or list group with a vote share below 10% in the analyzed area. The analyzed area is equal to the whole canton except in Uri, where the vote shares cover only the four municipalities using Double Pukelsheim. Youth lists and other special-interest lists, such as women’s lists or pensioners’ lists, are treated as separate analytical units whenever they are reported separately in the official election results; their votes and seats are not attributed to a parent party. Accordingly, the term *party* in the analysis refers to the standardized electoral list or list group recorded in the dataset and does not necessarily correspond to a broader organizational party family. The choice of 10% as the threshold is grounded in both legal and normative considerations. The Swiss Federal Supreme Court treated 10% as an upper limit for direct quorums and a target for natural quorums when redesigning an electoral system (BGE 131 I 74 E. 5.3–5.4 ; see also Bundeskanzlei, 2013, p. 8). Using vote share rather than absolute party size is particularly appropriate because a party may be electorally small in one region while being comparatively strong in another. Low thresholds are closely linked to the principle of Erfolgswertgleichheit which is the equality in the effect of votes on seat allocation, which requires that votes should be translated into seats as equally and effectively as possible (BGE 131 I 74 E. 3.1; Bundeskanzlei, 2013, pp. 8–9).
 This threshold is especially relevant to the cantons analyzed here: before their reforms, each had at least one district with an electoral threshold of 10% or higher (Lüscher, 2024, p. 115).
 
@@ -886,41 +888,116 @@ Urteil des Bundesgerichts 1C_407/2011, 1C_445/2011 und 1C_447/2011 vom 19. März
 
 ### Appendix 1: Explanation Data Cleaning Process
 
-The table below lists the official election-result sources used in the canton-specific cleaning scripts. It includes raw data inputs and official publications used to reconstruct or validate reported results; legal and methodological sources used only to specify the counterfactual allocation rules are excluded.
+The table below identifies the election data and legal sources used in the canton-specific cleaning scripts and counterfactual Hagenbach–Bischoff allocation. It specifies source titles, election coverage, file types, and the purpose of publications used to reconstruct or validate the results, together with the relevant legal provisions. Clickable citations and source titles lead to online sources where available; unpublished material supplied by email is identified explicitly. Author–year and case citations correspond to entries in the bibliography.
 
 ```{=typst}
+#show <tbl-data-sources>: set block(breakable: true)
 #figure(
   kind: table,
   supplement: [Table],
-  caption: [Official election data sources used in the canton-specific data-cleaning scripts.],
-  table(
-    columns: (0.20fr, 0.80fr),
-    align: (left, left),
-    inset: 5pt,
-    stroke: 0.5pt,
-    table.header(
-      [*Canton*],
-      [*Data source*],
-    ),
-    [Aargau],
-    [Statistisches Amt Kanton Aargau, *Grossratswahlen: Detailresultate, ab 1985* (elections 2009, 2012, 2016, 2020, and 2024); Department für Finanzen und Ressourcen des Kantons Aargau (2009) and Regierungsrat des Kantons Aargau (2013) for validation of the 2009 and 2012 cantonal seat totals; Staatskanzlei des Kantons Aargau (2012, 2016) for the district seat magnitudes.],
-    [Graubünden],
-    [Kanton Graubünden, *Pressedaten Proporzwahl kantonal: Grossratswahlen* (official Excel workbooks for 2022 and 2026).],
-    [Nidwalden],
-    [Staatskanzlei Nidwalden, *Wahlergebnis der Landratswahlen* (unpublished Excel workbooks for 2014, 2018, 2022, and 2026, supplied by the Kanzleisekretariat via email).],
-    [Schaffhausen],
-    [Kanton Schaffhausen, *Frühere Urnengänge (seit 2003)* (official result PDFs for 2008, 2012, and 2016); Staatskanzlei Kanton Schaffhausen, *Resultate der Kantonsratswahl* (official result PDFs for 2020 and 2024).],
-    [Schwyz],
-    [Staatskanzlei Kanton Schwyz, unpublished raw data supplied via email: municipality-level CSV exports (30 files for 2016), a candidate-result CSV export (2020), and an Excel workbook (2024).],
-    [Uri],
-    [Standeskanzlei Uri, *AuswertungKapitel2-2024* (unpublished Excel workbook containing the 2020 and 2024 results, supplied via email); *Landratswahlen 2024: Statistische Auswertung* for party-label validation.],
-    [Valais],
-    [Staat Wallis, official district-level Grand Council result workbooks (2017, 2021, and 2025); official final results for 2017; Grand Council validation-commission reports for the constitutive sessions of April 2021 and April 2025; Kanton Wallis publications on district seat magnitudes for 2017, 2021, and 2025.],
-    [Zug],
-    [Kanton Zug, official open-data candidate-result CSV exports for the 2014, 2018, 2022 and 2026 cantonal elections.],
-    [Zürich],
-    [Amt für Statistik und Daten Kanton Zürich, *Archiv Wahlresultate Kantonsratswahlen* (official party-result and candidate-result Excel workbooks for 2007, 2011, 2015, 2019, and 2023).],
-  ),
+  caption: [Election data sources and legal bases for the counterfactual Hagenbach–Bischoff allocation.],
+  {
+    set text(size: 10pt)
+    set par(justify: false, leading: 0.45em)
+    set table.cell(breakable: false)
+    show link: it => text(fill: rgb("1a5c99"), underline(it))
+    table(
+      columns: (24mm, 1.5fr, 1.1fr),
+      align: (left, left, left),
+      inset: 5pt,
+      stroke: 0.5pt,
+      table.header(
+        [*Canton*],
+        [*Election data: description and source*],
+        [*HB allocation: legal basis and source*],
+      ),
+      [Aargau],
+      [
+        _Grossratswahlen: Detailresultate, ab 1985_: official district results for 2009, 2012, 2016, 2020, and 2024 (#link("https://www.ag.ch/app/staag/statistikportal/")[Statistisches Amt Kanton Aargau, n.d.]).
+
+        _Detailergebnisse der Grossratswahlen vom 8. März 2009_ and _Jahresbericht mit Jahresrechnung 2012_: validation of cantonal seat totals (#link("https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de")[Department für Finanzen und Ressourcen des Kantons Aargau, 2009]); (#link("https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf")[Regierungsrat des Kantons Aargau, 2013]).
+
+        _Gemeinsame Grossrats- und Regierungsratswahlen: Vorverfahren gestartet_ (2012) and _Ausschreibung der Grossrats- und Regierungsratswahlen 2016_: district seat magnitudes (#link("https://www.ag.ch/de/medien/medienmitteilungen?mm=gemeinsame-grossrats-und-regierungsratswahlen-e7d48210-c7f0-46ac-8a70-ffc1aab7b4d6_de")[Staatskanzlei des Kantons Aargau, 2012]\; #link("https://www.ag.ch/de/medien/medienmitteilungen?mm=ausschreibung-der-grossrats-und-regierungsratswahlen-2016-f7404346-a5eb-46e0-8627-301716c82855_de")[2016]).
+      ],
+      [
+        _Grossratswahlgesetz (SAR 152.100), version in force from 1 November 2004_: initial allocation and allocation of remaining seats (#link("https://www.lexfind.ch/tolv/2551/de")[Kanton Aargau, 1988/2004, § 12 and § 13(1)(a–b)]).
+      ],
+      [Graubünden],
+      [
+        _Pressedaten Proporzwahl kantonal: Grossratswahlen_: official election-result Excel workbooks for 2022 and 2026 (#link("https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx")[Kanton Graubünden, 2022]\; #link("https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx")[2026]).
+      ],
+      [
+        _Grossratswahlgesetz (SAR 152.100), version in force from 1 November 2004_: basis for the hypothetical HB allocation (#link("https://www.lexfind.ch/tolv/2551/de")[Kanton Aargau, 1988/2004, § 12 and § 13(1)(a–b)]).
+
+        _Verfassung des Kantons Graubünden (BR 110.100), version of 1 January 2018_: confirms the former Majorz system (#link("https://www.gr-lex.gr.ch/api/de/versions/2812/pdf_file")[Kanton Graubünden, 2003/2018, Art. 27]).
+      ],
+      [Nidwalden],
+      [
+        _Wahlergebnis der Landratswahlen_: unpublished Excel workbooks for 2014, 2018, 2022, and 2026, supplied by the Kanzleisekretariat via email (Staatskanzlei Nidwalden, 2014, 2018, 2022, 2026).
+      ],
+      [
+        _BGE 136 I 352_: Federal Supreme Court description of the former district-level HB allocation (#link("https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document")[BGE 136 I 352, E. 3.2]).
+      ],
+      [Schaffhausen],
+      [
+        _Frühere Urnengänge (seit 2003)_: official result PDFs for 2008, 2012, and 2016 (#link("https://archiv.sh.ch/daten/Fruehere-Urnengaenge-seit-200.1127.0.html")[Kanton Schaffhausen, n.d.]).
+
+        _Resultate der Kantonsratswahl_: official result PDFs for 2020 and 2024 (#link("https://sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Abstimmungen-und-Wahlen-6275841-DE.html")[Staatskanzlei Kanton Schaffhausen, 2020]\; #link("https://www.sh.ch/CMS/Webseite/Kanton-Schaffhausen/Beh-rde/Regierung/Staatskanzlei-15401466-DE.html")[2024]).
+      ],
+      [
+        _Proporzwahlverordnung vom 13. November 1979 (Amtsdruckschrift 2734)_: single-seat district rule, HB distribution number, and tie-breaking provisions. Original text supplied by the Staatsarchiv via email (Regierungsrat des Kantons Schaffhausen, 1979, §§ 2, 36–37).
+      ],
+      [Schwyz],
+      [
+        _Kantonsratswahlen 2016: Gemeindeergebnisse_: 30 unpublished municipality-level CSV files supplied via email (Staatskanzlei Kanton Schwyz, 2016).
+
+        _Kandidierendenresultate: Kantonsratswahlen 2020_: candidate-result CSV export (#link("https://kanzlei.sz.ch/app/archive/de/elections/wahl-des-kantonsrates-vom-22-maerz-2020-in-der-gemeinde/data.html")[Staatskanzlei Kanton Schwyz, 2020]).
+
+        _Kantonsprotokoll der Erneuerungswahl Kantonsrat 2024_: election-result Excel workbook (#link("https://kanzlei.sz.ch/app/publication/de/03-03-2024/k1/downloads")[Staatskanzlei Kanton Schwyz, 2024]).
+      ],
+      [
+        _Urteil des Bundesgerichts vom 19. März 2012 (1C\_407/2011, 1C\_445/2011 und 1C\_447/2011)_: description of the former municipality-level HB allocation (#link("https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza%3A%2F%2F19-03-2012-1C_407-2011&lang=de&type=show_document")[Bundesgericht, 19. März 2012, E. 5.2]).
+      ],
+      [Uri],
+      [
+        _AuswertungKapitel2-2024_: unpublished Excel workbook containing the 2020 and 2024 results, supplied via email (Standeskanzlei Uri, 2024a).
+
+        _Landratswahlen 2024: Statistische Auswertung_: official report used for party-label validation (#link("https://www.ur.ch/_docn/384232/Landratswahlen_2024_stat_Auswertung.pdf")[Standeskanzlei Uri, 2024b]).
+      ],
+      [
+        _Synoptische Darstellung zum Gesetz über die Verhältniswahl des Landrats (Proporzgesetz)_: former allocation and tie-breaking rules in the column “Bisher” (#link("https://www.ur.ch/_docn/113506/LA.2017-0413_IV._Synoptische_Darstellung_Proporzgesetz.pdf")[Kanton Uri, 2018, Arts. 22–23]).
+      ],
+      [Valais],
+      [
+        Official district-level Grand Council result workbooks for 2017, 2021, and 2025 (Excel files).
+
+        _Grossräte 2017 – Resultate: Offizielle Endresultate_: validation of the 2017 results (#link("https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137")[Staat Wallis, 2017]).
+
+        Grand Council validation-commission reports: #link("https://parlement.vs.ch/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeWxtQWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ%3D%3D--e4df6e6ad05064aff30b6cd328ba8ba74657b18c/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2h3WkdZNkRIRnlYMnhwYm10cEF3bWlBZz09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0%3D--2fe42c3d8cc336c73008e8188942da29604218de/2021.04_PDF_der_konstituirende_Session.pdf")[Bericht zur konstituierenden Session vom 19. April 2021] and #link("https://parlement.vs.ch/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMjgvQXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ%3D%3D--5ca9119576c8ebd9f28d5a3ef2e12bc8fe35e90b/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBPZ2h3WkdZNkRIRnlYMnhwYm10cEE1QUJCQT09IiwiZXhwIjpudWxsLCJwdXIiOiJ2YXJpYXRpb24ifX0%3D--eb5bc4588af09c7812d3d3245ae4d83df8583c66/2025.04_Validation%20des%20mandats_RAPP_COM_FR.pdf")[Rapport relatif à la session constitutive du 14 avril 2025]\; validation of cantonal vote and seat totals.
+
+        _Verteilung der Anzahl Grossratssitze pro Bezirk_ (legislatures 2017–2021 and 2021–2025) and _Anhang zur Verteilung der Anzahl Grossratssitze pro Bezirk, Legislaturperiode 2025–2029_: district seat magnitudes (#link("https://www.vs.ch/documents/529400/2263784/MM_Verteilung_Grossratssitze.pdf/30be6442-6e9e-4d91-adef-76d3f60d6107")[Kanton Wallis, 2016]\; #link("https://www.vs.ch/documents/529400/8932772/2020+09+25+-+MM+-+Verteilung+Grossratssitze.pdf/62d59d10-2075-5231-e385-88688c7cb559")[2020]\; #link("https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09")[2024]).
+      ],
+      [
+        _Gesetz über die politischen Rechte (kGPR; SGS 160.1), version of 9 April 2017_: statutory eligibility threshold and district-level HB allocation (#link("https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375")[Kanton Wallis, 2004a, Arts. 154–156]).
+      ],
+      [Zug],
+      [
+        _Kantonsratswahl Kanton Zug_ (2014), _Kantonsratswahl 2018_, _Kantonsratswahl 2022_, and _Erneuerungswahl für den Kantonsrat 2026_: official open-data candidate-result CSV exports (#link("https://wab.zug.ch/elections/kantonsratswahl-kanton-zug-2014/data")[Kanton Zug, 2022b]\; #link("https://wab.zug.ch/elections/kantonsratswahl-2018/data")[2022a]\; #link("https://wab.zug.ch/elections/kantonsratswahl-2022/data")[2022c]\; #link("https://wab.zug.ch/elections/kr-wahl-2026/data-parties-csv")[2026]).
+      ],
+      [
+        _Wahl- und Abstimmungsgesetz (WAG), original text of 28 September 2006_: former HB and Majorz provisions (#link("https://kr-geschaefte.zug.ch/dokumente/2793/pdoc_1494_1.pdf")[Kanton Zug, 2006, §§ 46–47, 55–56]).
+
+        _BGE 136 I 376_: confirms Neuheim’s former Majorz system; Neuheim is included using a hypothetical HB allocation (#link("https://search.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-376%3Ade&lang=de&type=show_document&zoom=IN")[BGE 136 I 376, E. 5.1]).
+      ],
+      [Zürich],
+      [
+        _Archiv Wahlresultate Kantonsratswahlen_: official party-result and candidate-result Excel workbooks for 2007, 2011, 2015, 2019, and 2023 (#link("https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich")[Amt für Statistik und Daten Kanton Zürich, 2026]).
+      ],
+      [
+        _Gesetz über die Wahlen und Abstimmungen (Wahlgesetz; LS 161), version of 1 January 2005_: former HB allocation and tie-breaking provisions (#link("https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf")[Kanton Zürich, 1983/2005, §§ 87–88b]).
+      ],
+    )
+  },
 ) <tbl-data-sources>
 ```
 

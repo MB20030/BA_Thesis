@@ -12,7 +12,7 @@ library(readxl)
 library(here)
 
 
-# Ensure here() uses the correct project root.
+# set path
 here::i_am("data_cleaning_cantons/canton_AG.R")
 
 # Load shared helpers when this file runs on its own.
@@ -25,7 +25,7 @@ read_ag_cantonal_seats <- function(file_name, election_year, election_parties) {
   official_raw <- read_excel(
     here("data", "datasets", "aargau", file_name), # Build a project-independent path to the election file.
     sheet = "Data",                                # Read the worksheet containing the official results.
-    na = c("", "...")                             # Treat empty cells and "..." as missing values.
+    na = c("", "...")                             # Treat empty cells and "..." as NAs.
   )
 
   # Rename and match name of the parties from seats_cantonal_level files
