@@ -345,4 +345,5 @@ process_canton_UR <- function() {
 }
 
 # Temporary check - delete in the end.
-print(process_canton_UR(), n = Inf)
+options(width = 200)
+print(process_canton_UR(), n = 200)

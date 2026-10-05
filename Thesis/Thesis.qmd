@@ -994,6 +994,67 @@ knitr::kable(
 The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"])` percentage points in the group with more than 100 Double Pukelsheim seats and `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points in the group with at most 100. Their difference (more than 100 minus at most 100) is `r sprintf("%+.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"] - h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points. However, this comparison is based on only `r sum(h1a_groups$cantons)`  cantons operating under distinct electoral rules. Group averages may also conceal substantial variation between individual cantons, and the observed difference could reflect other institutional characteristics rather than the number of seats itself. The results therefore describe a difference within this sample but do not establish that a larger number of Double Pukelsheim seats causes greater gains.
 
 #### Exploratory question 3: Explicit electoral quorums
+```{r}
+#| label: fig-quorums
+#| fig-cap: "Smaller-party seat-share gains by explicit electoral quorum."
+#| fig-height: 6
+#| echo: false
+eq3_elections <- small_party_summary |> 
+  filter(!is_graubuenden) |> # exclude Graubünden
+  mutate( 
+    canton = str_sub(election_id, 1, 2), # extract canton code from election ID
+    quorum = case_when( 
+      election_id == "AG_09" ~ "Without explicit quorum", # Aargau introduced quroum for 2013 election
+      canton %in% c("NW", "SH", "UR") ~ "Without explicit quorum", 
+      canton %in% c("AG", "SZ", "VS", "ZG", "ZH") ~ "With explicit quorum",
+      TRUE ~ NA_character_
+    ),
+    quorum = factor(
+      quorum,
+      levels = c("Without explicit quorum", "With explicit quorum")
+    )
+  )
+
+stopifnot(!anyNA(eq3_elections$quorum)) # Check that all elections have been assigned a quorum category
+
+eq3_cantons <- eq3_elections |> # Collapse election-level outcomes into one row per canton and quorum category.
+  group_by(quorum) |>
+  summarise(
+    cantons = n_distinct(canton),
+    elections = n(),
+    mean_gain_pp = mean(seat_gain_pp),
+    .groups = "drop"
+  )
+
+eq3_groups <- eq3_cantons |> # Summarize the mean gain for each quorum category.
+  select(quorum, mean_gain_pp) |>
+  pivot_wider(names_from = quorum, values_from = mean_gain_pp) |>
+  mutate(without_minus_with_pp = `Without explicit quorum` - `With explicit quorum`)
+
+eq3_group_plot <- ggplot(eq3_elections, aes(quorum, seat_gain_pp, colour = quorum)) + # x = quorum category; y = canton-average gain.
+  geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) +
+  geom_point(size = 2.5) +
+    geom_text_repel( # Repel canton labels to avoid overlap
+    aes(label = election_id), # label each point with the election ID
+    seed = 1,
+    size = 3,
+    nudge_x = .15,
+    direction = "y",
+    box.padding = .4,
+    max.overlaps = Inf,
+    show.legend = FALSE
+  ) +
+  geom_point(data = eq3_cantons, aes(quorum, mean_gain_pp), shape = 18, size = 5, colour = "black") + # Add a black diamond for each group's mean gain.
+  scale_colour_manual(values = c("Without explicit quorum" = "#0072B2", "With explicit quorum" = "#D55E00")) +
+  labs(x = NULL, y = "Mean smaller-party seat-share gain (pp)", colour = NULL,
+       caption = "Points: canton-level election averages. Black diamonds: equally weighted group means.") +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "none", panel.grid.minor = element_blank(),
+        axis.text.x = element_text(size = 12),
+        plot.caption = element_text(hjust = 0, size = 9)) 
+eq3_group_plot # Print the saved group-comparison plot into the thesis.
+```
+
 #### Exploratory question 4: Change across successive elections
 ## Discussion
 
