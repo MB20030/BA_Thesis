@@ -994,6 +994,35 @@ knitr::kable(
 The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"])` percentage points in the group with more than 100 Double Pukelsheim seats and `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points in the group with at most 100. Their difference (more than 100 minus at most 100) is `r sprintf("%+.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"] - h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points. However, this comparison is based on only `r sum(h1a_groups$cantons)`  cantons operating under distinct electoral rules. Group averages may also conceal substantial variation between individual cantons, and the observed difference could reflect other institutional characteristics rather than the number of seats itself. The results therefore describe a difference within this sample but do not establish that a larger number of Double Pukelsheim seats causes greater gains.
 
 #### Exploratory question 3: Explicit electoral quorums
+
+```{=typst}
+#[
+#set table(
+  stroke: 0.5pt,
+  inset: 5pt,
+)
+```
+| Canton | implemented Thresholds | relevant years |
+|---|---|---|
+| Aargau | none | 2009 |
+| Aargau | 5% district level or 3% cantonal level | 2012, 2016, 2020, 2024 |
+| Graubünden |3% cantonal level | 2022, 2026|
+| Nidwalden | none | 2014, 2018, 2022, 2026 |
+| Schaffhausen | none | 2008, 2012, 2016, 2020, 2024 |
+| Schwyz | 1% cantonal level | 2016, 2020, 2024 |
+| Uri | none | 2020, 2024 |
+| Valais | 8% district level | 2017, 2021 ,2025  |
+| Zug | 5% district level or 3% cantonal level | 2014, 2018, 2022, 2026 |
+| Zurich | 5% district level | 2007, 2011, 2015, 2019 |
+| Zurich | 5% district level or 3% cantonal level | 2023 |
+
+: Explicit electoral thresholds under Double Pukelsheim in the elections studied. {#tbl-explicit-quroums tbl-colwidths="[20, 45, 35]"}
+
+Source: Author’s compilation. Threshold rules are based on the sources discussed in @sec-adoption. Election years refer to the elections included in the empirical analysis, whose data sources are documented in @sec-data-appendix.
+
+```{=typst}
+]
+```
 ```{r}
 #| label: fig-quorums
 #| fig-cap: "Smaller-party seat-share gains by explicit electoral quorum."
@@ -1262,7 +1291,7 @@ Urteil des Bundesgerichts 1C_407/2011, 1C_445/2011 und 1C_447/2011 vom 19. März
 
 ## Appendix
 
-### Appendix 1: Explanation Data Cleaning Process
+### Appendix 1: Explanation Data Cleaning Process {#sec-data-appendix}
 
 The table below identifies the election data and legal sources used in the canton-specific cleaning scripts and counterfactual Hagenbach–Bischoff allocation. It specifies source titles, election coverage, file types, and the purpose of publications used to reconstruct or validate the results, together with the relevant legal provisions. Clickable citations and source titles lead to online sources where available; unpublished material supplied by email is identified explicitly. Author–year and case citations correspond to entries in the bibliography.
 
