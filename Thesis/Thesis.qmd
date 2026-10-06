@@ -520,7 +520,7 @@ The historical reference year applies to all district measures. Historical seat 
 
 For the comparison by Double Pukelsheim seat count, election-level differences are first averaged within each canton. Cantons are then grouped according to whether they allocate more than 100 or at most 100 seats through Double Pukelsheim. The 100-seat cutoff serves as a descriptive grouping of the observed cantons. Group means are calculated from the canton-level averages, giving each canton equal weight irrespective of the number of observed elections. The difference between the group means is calculated as the mean for cantons with more than 100 seats minus the mean for cantons with at most 100 seats. Graubünden is excluded from these group means. Given the small number of cantons and their differing electoral rules, the comparison is interpreted descriptively.
 
-To examine successive elections, the seat shares under both allocation methods and their difference $\Delta_e$ are plotted chronologically within each canton from its first election under Double Pukelsheim onward. Because the smaller-party classification is recalculated for every election, this comparison follows the category of smaller parties, whose membership may change over time.
+To examine successive elections, the seat-share difference $\Delta_e$ is plotted within each canton against the election number since its first election under Double Pukelsheim. Arrows identify the first election affected by the subsequent rule changes annotated in the figure. Because the smaller-party classification is recalculated for every election, this comparison follows the category of smaller parties, whose membership may change over time.
 
 Still to add:
 
@@ -535,6 +535,7 @@ Still to add:
 #show <fig-small-parties-relative>: set figure(placement: auto)
 #show <fig-district-magnitude>: set figure(placement: auto)
 #show <fig-district-magnitude-groups>: set figure(placement: auto)
+#show <fig-successive-elections>: set figure(placement: auto)
 ```
 
 #### Main result: Smaller parties' seat-share gain
@@ -1033,7 +1034,7 @@ eq3_elections <- small_party_summary |>
   mutate( 
     canton = str_sub(election_id, 1, 2), # extract canton code from election ID
     quorum = case_when( 
-      election_id == "AG_09" ~ "Without explicit quorum", # Aargau introduced quroum for 2013 election
+      election_id == "AG_09" ~ "Without explicit quorum", # Aargau introduced its quorum for the 2012 election.
       canton %in% c("NW", "SH", "UR") ~ "Without explicit quorum", 
       canton %in% c("AG", "SZ", "VS", "ZG", "ZH") ~ "With explicit quorum",
       TRUE ~ NA_character_
@@ -1085,6 +1086,174 @@ eq3_group_plot # Print the saved group-comparison plot into the thesis.
 ```
 
 #### Exploratory question 4: Change across successive elections
+
+@fig-successive-elections follows smaller parties' net seat-share gain within each canton, aligning elections by their order since the introduction of Double Pukelsheim. The first election under the system is numbered 1, the next is numbered 2, and so on; the same election number therefore represents different calendar years across cantons. The outcome is the observed Double Pukelsheim seat share minus the counterfactual Hagenbach-Bischoff seat share, expressed in percentage points of the seats included in the comparison. The smaller-party category is recalculated for each election using the existing vote-share cutoff of less than 10%.
+
+Arrows mark the first election affected by three subsequent rule changes: Aargau's introduction of a 5% district-level or 3% cantonwide quorum in 2012 (second election); Schaffhausen's majority clause, adopted in 2015 and effective in 2016 (third election); and Zurich's additional 3% cantonwide eligibility route, effective in 2021 and first applied in 2023 (fifth election). The Zurich rule supplements the existing 5% district-level route. These dates follow the institutional history in @sec-adoption; Schaffhausen's amendment history records 1 March 2016 as the entry into force of Art. 2d para. 1bis (Kanton Schaffhausen, 1904/2019). Graubünden is shown as a dashed contextual series because its previous system was Majorz, making the HB allocation hypothetical.
+
+```{r}
+#| label: fig-successive-elections
+#| fig-cap: "Smaller-party net seat-share gains across successive elections under Double Pukelsheim. Arrows identify the first election under each annotated rule change. Graubünden is contextual only. Sources: Large text boxes are based on the sources discussed in @sec-adoption; small text boxes are based on the author's calculations."
+#| fig-width: 8.3
+#| fig-height: 6
+#| echo: false
+#| warning: false
+#| message: false
+
+# Reuse the election-level outcome calculated for the main comparison.
+# Number elections chronologically within each canton, rather than pooling years.
+eq4_elections <- small_party_summary |>
+  mutate(
+    canton = str_sub(election_id, 1, 2),
+    election_year = 2000L + as.integer(str_extract(election_id, "[0-9]{2}$")),
+    net_seat_gain = seats_dp - seats_hb,
+    comparison = if_else(is_graubuenden, "Context only", "HB transition")
+  ) |>
+  arrange(canton, election_year) |>
+  group_by(canton) |>
+  mutate(election_number = row_number()) |>
+  ungroup()
+
+stopifnot(
+  !anyDuplicated(eq4_elections[c("canton", "election_year")]),
+  !anyNA(eq4_elections$election_year),
+  all(is.finite(eq4_elections$seat_gain_pp))
+)
+
+
+eq4_events <- tribble(
+  ~canton, ~election_year, ~label, ~label_x,
+  "AG", 2012L, "AG: quorum introduced\n5% district OR 3% canton\nFirst applied: 2012 (2nd)", 1.55,
+  "SH", 2016L, "SH: majority clause\nAdopted: 2015\nFirst applied: 2016 (3rd)", 3.15,
+  "ZH", 2023L, "ZH: 3% cantonwide route\nEffective: 2021\nFirst applied: 2023 (5th)", 4.75
+) |>
+  left_join(
+    select(eq4_elections, canton, election_year, election_number, seat_gain_pp),
+    by = c("canton", "election_year"),
+    relationship = "one-to-one"
+  )
+
+# Smaller boxed notes identify changes in membership of the below-10% group.
+# label_x uses election numbers; label_y uses seat-gain percentage points.
+eq4_notes <- tribble(
+  ~canton, ~election_year, ~label, ~label_x, ~label_y,
+  "AG", 2020L, "AG 2020: Greens\n move above 10%", 3.75, 2.15,
+  "AG", 2024L, "AG 2024: Greens\n fall below 10%", 4.75, 6.0,
+  "NW", 2026L, "NW 2026: Greens\nfall below 10%", 4.25, 13.65,
+  "UR", 2024L, "UR 2024: GLP\nenters <10% group", 2.50, 0.70,
+  "ZG", 2018L, "ZG 2018: SP\nmoves above 10%", 1.50, 6.60,
+  "ZH", 2011L, "ZH 2011: GLP\nmoves above 10%", 2.35, 15.00,
+  "ZH", 2015L, "ZH 2015: GLP + Greens\nfall below 10%", 3.00, 16.40,
+  "ZH", 2019L, "ZH 2019: GLP + Greens\nmove above 10%", 4.35, 8.70
+) |>
+  left_join(
+    select(eq4_elections, canton, election_year, election_number, seat_gain_pp),
+    by = c("canton", "election_year"),
+    relationship = "one-to-one"
+  )
+
+# Fail explicitly if an event is accidentally mapped to an absent/wrong election.
+stopifnot(
+  !anyNA(eq4_events$election_number),
+  identical(eq4_events$election_number, c(2L, 3L, 5L)),
+  !anyNA(eq4_notes$election_number)
+)
+
+eq4_colours <- c(
+  AG = "#0072B2", GR = "#8A8A8A", NW = "#009E73",
+  SH = "#D55E00", SZ = "#AA4499", UR = "#332288",
+  VS = "#882255", ZG = "#44AA99", ZH = "#9A7300"
+)
+eq4_canton_labels <- c(
+  AG = "AG - Aargau", GR = "GR - Graubünden (context)", NW = "NW - Nidwalden",
+  SH = "SH - Schaffhausen", SZ = "SZ - Schwyz", UR = "UR - Uri",
+  VS = "VS - Valais", ZG = "ZG - Zug", ZH = "ZH - Zurich"
+)
+
+# Reserve a band above the observed outcomes for the three arrow labels.
+eq4_top <- max(eq4_elections$seat_gain_pp)
+eq4_span <- max(1, diff(range(c(0, eq4_elections$seat_gain_pp))))
+eq4_events <- eq4_events |>
+  mutate(label_y = eq4_top + .30 * eq4_span)
+
+eq4_plot <- ggplot(eq4_elections,
+                   aes(election_number, seat_gain_pp, group = canton, colour = canton)) +
+  geom_hline(yintercept = 0, colour = "grey60", linewidth = .4) +
+  geom_line(aes(linetype = comparison), linewidth = .8) +
+  geom_point(aes(shape = canton), size = 2.6) +
+  # Arrowheads end at the actual election outcome, not at its text label.
+  geom_segment(
+    data = eq4_events,
+    aes(x = label_x, y = label_y - .09 * eq4_span,
+        xend = election_number, yend = seat_gain_pp, colour = canton),
+    inherit.aes = FALSE, linewidth = .45,
+    arrow = grid::arrow(length = grid::unit(2, "mm"), type = "closed"),
+    show.legend = FALSE
+  ) +
+  geom_label(
+    data = eq4_events,
+    aes(label_x, label_y, label = label, colour = canton),
+    inherit.aes = FALSE, size = 2.8, lineheight = 1.05,
+    fill = "white", linewidth = .25,
+    label.padding = grid::unit(.25, "lines"), show.legend = FALSE
+  ) +
+  scale_colour_manual(values = eq4_colours, breaks = names(eq4_colours),
+                      labels = eq4_canton_labels) +
+  scale_shape_manual(values = c(AG = 16, GR = 1, NW = 17, SH = 15, SZ = 18,
+                                UR = 3, VS = 7, ZG = 0, ZH = 8),
+                     breaks = names(eq4_colours), labels = eq4_canton_labels) +
+  scale_linetype_manual(values = c("HB transition" = "solid", "Context only" = "dashed"),
+                        guide = "none") +
+  scale_x_continuous(
+    breaks = seq_len(max(eq4_elections$election_number)),
+    labels = function(x) paste0(x, ifelse(x == 1, "st", ifelse(x == 2, "nd", ifelse(x == 3, "rd", "th")))),
+    expand = expansion(mult = c(.10, .10))
+  ) +
+  scale_y_continuous(breaks = pretty(c(0, eq4_top)),
+                     expand = expansion(mult = c(.06, .10))) +
+  labs(
+    x = "Election under Double Pukelsheim (within each canton)",
+    y = "Smaller-party net seat-share gain (pp)", colour = NULL, shape = NULL,
+    caption = paste(
+      "Gain = observed DP minus counterfactual HB; smaller parties have less than 10% of the vote.",
+      "GR: hypothetical HB comparison. Uri: 37 proportional seats. Calendar years differ across cantons.",
+      sep = "\n"
+    )
+  ) +
+  guides(colour = guide_legend(ncol = 3, byrow = TRUE,
+                              override.aes = list(linetype = ifelse(names(eq4_colours) == "GR", "dashed", "solid"))),
+         shape = guide_legend(ncol = 3, byrow = TRUE)) +
+  theme_minimal(base_size = 11) +
+  theme(
+    legend.position = "bottom", legend.text = element_text(size = 9),
+    panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(),
+    axis.text.x = element_text(size = 11),
+    plot.caption = element_text(hjust = 0, size = 8),
+    plot.margin = margin(10, 12, 8, 8)
+  )
+
+eq4_plot <- eq4_plot +
+  geom_segment(
+    data = eq4_notes,
+    aes(x = label_x, y = label_y,
+        xend = election_number, yend = seat_gain_pp, colour = canton),
+    inherit.aes = FALSE, linewidth = .3,
+    arrow = grid::arrow(length = grid::unit(1.2, "mm"), type = "closed"),
+    show.legend = FALSE
+  ) +
+  geom_label(
+    data = eq4_notes,
+    aes(x = label_x, y = label_y, label = label, colour = canton),
+    inherit.aes = FALSE, size = 2.3, lineheight = 1.05,
+    fill = "white", linewidth = .2,
+    label.padding = grid::unit(.2, "lines"), show.legend = FALSE
+  )
+eq4_plot
+```
+
+
+The figure describes within-canton variation in the mechanical allocation difference. Changes around an annotated election cannot by themselves establish an effect of the rule change: vote distributions, district magnitudes, and the composition of the smaller-party category may also have changed. Later election numbers contain fewer cantons, so comparisons across election numbers should follow the individual canton lines rather than interpret a changing pooled average.
+
 ## Discussion
 
 ## Conclusion
