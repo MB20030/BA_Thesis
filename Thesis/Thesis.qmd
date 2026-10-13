@@ -531,6 +531,7 @@ The historical reference year applies to all district measures. Historical seat 
 
 For the comparison by Double Pukelsheim seat count, election-level differences are first averaged within each canton. Cantons are then grouped according to whether they allocate more than 100 or at most 100 seats through Double Pukelsheim. The 100-seat cutoff serves as a descriptive grouping of the observed cantons. Group means are calculated from the canton-level averages, giving each canton equal weight irrespective of the number of observed elections. The difference between the group means is calculated as the mean for cantons with more than 100 seats minus the mean for cantons with at most 100 seats. Graubünden is excluded from these group means. Given the small number of cantons and their differing electoral rules, the comparison is interpreted descriptively.
 
+
 To examine successive elections, the seat-share difference $\Delta_e$ is plotted within each canton against the election number since its first election under Double Pukelsheim. Arrows identify the first election affected by the subsequent rule changes annotated in the figure. Because the smaller-party classification is recalculated for every election, this comparison follows the category of smaller parties, whose membership may change over time.
 
 Still to add:
@@ -542,8 +543,7 @@ Still to add:
 ### Results
 
 ```{=typst}
-#show <fig-small-parties-absolute>: set figure(placement: auto)
-#show <fig-small-parties-relative>: set figure(placement: auto)
+#show <fig-small-parties-relative>: set figure(placement: none)
 #show <fig-district-magnitude>: set figure(placement: auto)
 #show <fig-district-magnitude-groups>: set figure(placement: auto)
 #show <fig-successive-elections>: set figure(placement: auto)
@@ -551,13 +551,11 @@ Still to add:
 
 #### Main result: Smaller parties' seat-share gain
 
-@fig-small-parties-absolute compares the observed Double Pukelsheim allocation with the counterfactual Hagenbach-Bischoff allocation for every cleaned election. For each election, the figure aggregates the seats and vote shares in the analyzed area of all parties below the 10% threshold defined above. The grey line connects the two allocations derived from the same election.
+@fig-small-parties-relative compares smaller parties' combined seat shares under the observed Double Pukelsheim allocation and the counterfactual Hagenbach-Bischoff allocation for every cleaned election. Smaller parties are defined as parties with less than 10% of the vote share in the analyzed area. The x-axis reports their combined share of analyzed seats, while the y-axis reports their combined vote share. The grey line connects the two allocations derived from the same election, and each label reports the gain under Double Pukelsheim in percentage points. This seat-share difference is the outcome used to assess Hypothesis 1 and allows comparisons across elections with different numbers of analyzed seats. The corresponding comparison in absolute seat counts is provided in @fig-small-parties-absolute in Appendix 3.
 
 ```{r}
-#| label: fig-small-parties-absolute
-#| fig-cap: "Seats won by smaller parties under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation. Smaller parties have less than 10% of the vote share in the analyzed area."
-#| fig-width: 8.3
-#| fig-height: 6.5
+#| label: h1-data-and-plot-setup
+#| include: false
 #| echo: false
 #| warning: false
 #| message: false
@@ -655,17 +653,11 @@ small_party_plot <- function(x, x_title, label, percent = FALSE) {
           panel.grid.minor = element_blank())
 }
 
-# Plot absolute smaller-party seat totals.
-small_party_plot("seats_small_parties", "Number of seats won by smaller parties", "election_id")
 ```
-
-#### Election-level variation
-
-@fig-small-parties-relative shows the same elections using the percentage of analyzed Double Pukelsheim seats won by smaller parties on the x-axis. Each label reports the gain under Double Pukelsheim as a change in seat share, expressed in percentage points.
 
 ```{r}
 #| label: fig-small-parties-relative
-#| fig-cap: "Percentage of analyzed seats won by smaller parties under Double Pukelsheim and counterfactual Hagenbach-Bischoff."
+#| fig-cap: "Percentage of analyzed seats won by smaller parties under Double Pukelsheim and counterfactual Hagenbach-Bischoff. Labels report the Double Pukelsheim gain in percentage points. Graubünden is shown for context only."
 #| fig-width: 8.3
 #| fig-height: 6.5
 #| echo: false
@@ -679,6 +671,13 @@ small_party_plot("seat_share_small_parties", "Seats won by smaller parties (%)",
 ::: {.callout-note title="Hypothesis 1 summary"}
 Across all `r h1_stats$elections` elections (Graubünden excluded), the unweighted mean gain in smaller parties' share of analyzed seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's number of analyzed seats was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
 :::
+
+These results descriptively support Hypothesis 1 and indicate that smaller parties indeed in the 31 elections held receive a larger share of the analyzed seats under Double Pukelsheim than under Hagenbach-Bischoff. The effect is especially pointed out, through that in every election where small parties contested (every election but Uri 2020), they aggregately received a larger seat share. This finding is in accordance with Leuzinger's observation for the seven from him examined elections (Leuzinger, 2018, p.42). The weighted, unweighted mean and median are all relatively close to each other, indicating that the effect is not driven by a few elections with many seats and that the positive effect isn't determined by extreme outliers. 
+
+The average gain differs across the cantons for e.g. is there the Canton of Schaffhausen, with a stable high seat gain for smaller parties. There the high seat-share gain can be partially explained through the decision to treat affiliated parties as independent lists. Therefore these affiliated lists were classified as smaller parties, if they didn't reach the 10% threshold themselfs and with that higher the relative gain for smaller parties. Across the five Schaffhausen elections, the average effect of this decision is that the relative gain drops from 15.67 to 8.67 percentage points. Taking the effect into account, the mechanical transition effect in Schaffhausen is still relatively big compared to other cantons. Cantons with constantly relatively low stable seat gain shares on the other hand are for e.g. Uri, Zug and Schwyz. 
+
+To sum up the analysis, covers all 31 cantonal parliamentary elections held under Double Pukelsheim in Switzerland from the cantons that transitioned from Hagenbach-Bischoff. Across these elections, smaller parties received a higher aggregate seat share under Double Pukelsheim. This finding is based on the mechanical allocation difference conditional on the observed votes and specified counterfactual rules and therefore does not capture the whole transition effect. The next section examines whether the magnitude of this effect is associated with the cantons district magnitudes. 
+
 #### Exploratory question 1: Differences by district magnitude
 
 This section examines how district magnitude varies across the cantons included in the analysis, considering both typical district size and variation within cantons. @tbl-district-magnitude summarizes these differences using district counts, mean and median district magnitudes, the share of districts with fewer than nine seats, and the coefficient of variation. All measures refer to the fixed historical baseline defined above, with Schaffhausen adjusted to 60 seats. Graubünden is shown for context only.
@@ -1589,5 +1588,26 @@ The table below identifies the election data and legal sources used in the canto
 ```
 
 ### Appendix 2: Code for Data Cleaning
+
+### Appendix 3: Smaller parties' absolute seat counts {#sec-absolute-seats-appendix}
+
+```{typst}
+#show <fig-small-parties-absolute>: set figure(placement: none)
+```
+
+@fig-small-parties-absolute supplements the seat-share comparison used to assess Hypothesis 1 in @fig-small-parties-relative. It shows the absolute number of seats won collectively by parties below the 10% vote-share threshold under the observed Double Pukelsheim allocation and the counterfactual Hagenbach-Bischoff allocation. The grey line connects the two outcomes for each election. Because the number of analyzed seats differs across elections, these absolute counts provide context for the magnitude of the gains, while Hypothesis 1 is assessed using the difference in seat shares.
+
+```{r}
+#| label: fig-small-parties-absolute
+#| fig-cap: "Seats won by smaller parties under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation. Smaller parties have less than 10% of the vote share in the analyzed area. Graubünden is shown for context only."
+#| fig-width: 8.3
+#| fig-height: 6.5
+#| echo: false
+#| warning: false
+#| message: false
+
+# Reuse the H1 comparison with absolute smaller-party seat totals.
+small_party_plot("seats_small_parties", "Number of seats won by smaller parties", "election_id")
+```
 
 ### Declaration of AI-Assistance

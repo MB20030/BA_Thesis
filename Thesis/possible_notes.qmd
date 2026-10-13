@@ -2,10 +2,10 @@
 
 
 
-9. To assess the sensitivity of the analysis to this special case, the models are estimated once with Valais and once without Valais. --> do this?
+9. To assess the sensitivity of the analysis to this special case, the models are estimated once with Valais and once without Valais. --> do this? --> check which sensitivity checks lüscher di
 
 17. Notes meeting with aurélien  
-FOR R -SCRIPTS --> CHECK WITH UNIVERSITY
+FOR R -SCRIPTS --> CHECK WITH UNIVERSITY --> they said upload R-scripts to thesis plattform separately, 
 AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
 
@@ -15,3 +15,10 @@ plus SELF -REFLECTION on ai usage
 19. for eq2 maybe add graphic , and median gain?
 
 20. eq3 either don't mention graubünden in hypothesis or include it for context in the analysis
+
+21. what lüscher did: 
+Include/exclude Uri — pp. 132–133, Figure 43	Compared the relationship between average district size and disproportionality before and after reform, both including and excluding Uri. Uri combines PR in districts with ≥5 seats with majority voting in smaller districts and had only one post-reform observation.	Excluding Uri made the pattern clearer: cantons with smaller districts experienced larger reductions in disproportionality. After reform, disproportionality was low and essentially unrelated to district size.
+Exclude Graubünden — pp. 126 and 132	Excluded GR from the counterfactual analysis and the district-size assessment because relevant pre-reform data were missing under its former majoritarian system.	This was a data-driven exclusion, without an accompanying with/without comparison.
+Account for different electoral thresholds — p. 125	Constructed an effective-threshold variable using different rules for conventional PR, biproportional elections, and statutory quorums. Where two quorums existed, he used the canton-wide quorum.	This accounts for implementation differences in the variable construction; he does not report sensitivity checks using alternative threshold definitions.
+
+22. mention in data cleaning --> ocurring mistake in zurich and resolving of it
