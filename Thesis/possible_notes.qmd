@@ -10,7 +10,6 @@ AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
 
 
-18. maybe add whether my research fits to the finding of leuzinger 10% of seats change party book
 
 19. for eq2 maybe add graphic , and median gain?
 

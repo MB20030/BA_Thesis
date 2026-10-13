@@ -97,7 +97,7 @@ format:
 
 I would like to thank my supervisor, Dr. Aurélien Sallin, for his support in choosing the topic of this thesis, his guidance, and his willingness to answer my questions throughout the project.
 
-I am grateful to Sandro Lüscher for sharing his PhD thesis; to Adrian Zurfluh (Uri), Stefanie Haldimann (Nidwalden), and Anton Waldvogel (Schwyz) for providing election data; to Roland E. Hofer (Schaffhausen) for providing a legal text; and to Simon Graff (Zurich) for correcting the dataset after I drew attention to an issue. Their assistance was valuable in obtaining and preparing the material for this thesis.
+I am grateful to Sandro Lüscher for sharing his PhD thesis; to Adrian Zurfluh (Canton of Uri), Stefanie Haldimann (Canton of Nidwalden), and Anton Waldvogel (Canton of Schwyz) for providing election data; to Roland E. Hofer (Canton of Schaffhausen) for providing a legal text; and to Simon Graf (Canton of Zurich) for correcting the dataset after I drew attention to an issue. Their assistance was valuable in obtaining and preparing the material for this thesis.
 
 Finally, I would like to thank Eric Oehler (B.A. in Economics), Clara Burmeister (B.Sc. in Management), and my father, Martin Beyn-Hansmann, lecturer at Lucerne University of Applied Sciences, for proofreading the thesis and helping to improve its clarity and readability.
 
@@ -449,6 +449,8 @@ Vote shares were derived using the information available in each canton’s offi
 
 The Double Pukelsheim results were assembled separately within the canton-specific scripts from official seat tables, municipal allocations, or elected-candidate records. Valais required a separate reconstruction of the upper apportionment within its six electoral regions, followed by comparisons with published official results. Each script supplied its election-specific DP results to the shared finalization function, which joined them to the HB counterfactuals by standardized party identifier. Validation routines checked electoral-unit coverage and seat totals and, where alternative representations were available, reconciled candidate counts or aggregated lower allocations with reported list mandates or upper-apportionment totals. District-level consistency checks and final allocation totals were applied according to the available source structure. Uri’s allocation checks covered the 37 proportional seats included in the analysis, while the full parliamentary size remained recorded as 64. Unresolved HB ties were retained as alternative allocations.
 
+One of the consistency checks revealed an error in the Zurich 2011 election data. There the party-votes total for the Socialdemocrats, were dobuled across all constituencies. The mistakes was found through the comparison of the summed party votes with the reported unit totals and cross-checking candidate and supplementary votes. Followingly, the error was reported to the Statistical Office of the Canton of Zurich. They confirmed the mistake and resolved it, the underlying cause was that a duplicate SP entry in the list-to-party mapping table had caused double counting during the aggregation of the official municipal results. The corrected dataset was uploaded and is used in this analysis. (S.Graf, personal communication, 2026-09-11)
+
 All processing was implemented in the canton-specific R scripts in *data_cleaning_cantons*, supported by the shared functions in *00_functions.R*. Each *process_canton_*()* function combined its cleaned elections into a cantonal dataset. These nine datasets were subsequently appended row-wise using *bind_rows()* to create *all_elections*, preserving one observation per standardized party or list and election. Detailed procedures, source-specific exceptions, and validation arrangements are documented in Appendix 1, with the cleaning code provided in Appendix 2.
 
 ```{r data-setup}
@@ -505,7 +507,7 @@ all_elections <- bind_rows(
 
 ```
 
-### Measures and Analytical Strategy 
+### Measures and Analytical Strategy {#sec-measures}
 
 The analyzed area comprises the whole canton except in Uri, where it covers only Altdorf, Bürglen, Erstfeld, and Schattdorf, the four municipalities using Double Pukelsheim. These municipalities account for 37 of the canton's 64 parliamentary seats. The variable *seats_allocated_dp* records the number of seats covered by the comparison, while *parliament_size* records the full size of the cantonal parliament. These values are equal in all analyzed cantons except Uri.
 
@@ -544,12 +546,12 @@ Still to add:
 
 ```{=typst}
 #show <fig-small-parties-relative>: set figure(placement: none)
-#show <fig-district-magnitude>: set figure(placement: auto)
-#show <fig-district-magnitude-groups>: set figure(placement: auto)
-#show <fig-successive-elections>: set figure(placement: auto)
+#show <fig-district-magnitude>: set figure(placement: none)
+#show <fig-district-magnitude-groups>: set figure(placement: none)
+#show <fig-successive-elections>: set figure(placement: none)
 ```
 
-#### Main result: Smaller parties' seat-share gain
+#### Hypothesis 1: Smaller parties' seat-share gain
 
 @fig-small-parties-relative compares smaller parties' combined seat shares under the observed Double Pukelsheim allocation and the counterfactual Hagenbach-Bischoff allocation for every cleaned election. Smaller parties are defined as parties with less than 10% of the vote share in the analyzed area. The x-axis reports their combined share of analyzed seats, while the y-axis reports their combined vote share. The grey line connects the two allocations derived from the same election, and each label reports the gain under Double Pukelsheim in percentage points. This seat-share difference is the outcome used to assess Hypothesis 1 and allows comparisons across elections with different numbers of analyzed seats. The corresponding comparison in absolute seat counts is provided in @fig-small-parties-absolute in Appendix 3.
 
@@ -680,7 +682,7 @@ To sum up the analysis, covers all 31 cantonal parliamentary elections held unde
 
 #### Exploratory question 1: Differences by district magnitude
 
-This section examines how district magnitude varies across the cantons included in the analysis, considering both typical district size and variation within cantons. @tbl-district-magnitude summarizes these differences using district counts, mean and median district magnitudes, the share of districts with fewer than nine seats, and the coefficient of variation. All measures refer to the fixed historical baseline defined above, with Schaffhausen adjusted to 60 seats. Graubünden is shown for context only.
+This section examines how district magnitude varies across the cantons included in the analysis, considering both typical district size and variation within cantons. @tbl-district-magnitude summarizes these differences using district counts, the share of districts with fewer than nine seats, mean and median district magnitudes aswell as the coefficient of variation. All measures refer to the fixed historical baseline defined in @sec-measures , with Schaffhausen adjusted to 60 seats. Graubünden is shown for context only.
 
 ```{r}
 #| label: tbl-district-magnitude
