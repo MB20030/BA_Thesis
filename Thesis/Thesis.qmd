@@ -326,7 +326,7 @@ The motivation to include CV as a measure is based on the FSC reasoning in BGE 1
 The second exploratory question examines the relationship between the parliament size and the average gain of smaller parties, with the following question:
 How is the number of seats allocated through Double Pukelsheim associated with the average gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach–Bischoff allocation?
 
-For each canton, the election-level gains $\Delta_e$ are averaged first so that cantons with more observed elections receive no extra weight. The resulting canton-level mean is then examined in relation to the number of seats allocated through Double Pukelsheim. Because both allocation methods distribute the same number of seats within each election and district magnitude is the more direct mechanism, no directional relationship is hypothesized. The association is interpreted descriptively rather than as an isolated causal effect of the number of Double Pukelsheim seats. Graubünden is shown separately because its pre-reform system was Majorz and its Hagenbach–Bischoff allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
+For each canton, the election-level gains $\Delta_e$ are averaged first so that cantons with more observed elections receive no extra weight. The resulting canton-level mean is then examined in relation to the number of seats allocated through Double Pukelsheim. As a cutoff value for the two comparison groups 100 was chosen, since then the eight relevant cantons split equally. Because both allocation methods distribute the same number of seats within each election and district magnitude is the more direct mechanism, no directional relationship is hypothesized. The association is interpreted descriptively rather than as an isolated causal effect of the number of Double Pukelsheim seats. Graubünden is shown separately because its pre-reform system was Majorz and its Hagenbach–Bischoff allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
 
 #### Exploratory question 3: Explicit electoral quorums
 
@@ -531,7 +531,7 @@ Here, $c$ denotes the canton and $0$ its pre-reform baseline; $D_{c,0}$ is the n
 
 The historical reference year applies to all district measures. Historical seat allocations are documented in the cantonal publications and court judgments cited below.^[Sources by canton and reference year: Aargau 2005 (Kanton Aargau, 2004); Graubünden 2018 (Kanton Graubünden, n.d.); Nidwalden 2010 (BGE 136 I 352, E. 3.5); Schaffhausen 2004, adjusted to 60 seats (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2); Schwyz 2012 (Urteil des Bundesgerichts 1C_407/2011 vom 19. März 2012, Sachverhalt A); Uri 2016 (Standeskanzlei Uri, 2016, p. 5); Valais 2013 (BGE 140 I 107, Sachverhalt A); Zug 2010 (Staatskanzlei des Kantons Zug, 2010, p. 92); Zurich 2003 (Regierungsrat des Kantons Zürich, 2002).] Later district magnitudes may change, so the district measures describe associations with the initial structure. For Schaffhausen, the 2004 structure is adjusted to 60 seats using the published allocation in the government's reform report (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2). This is an adjusted historical baseline, rather than the actual 80-seat allocation of the 2004 election. The election-specific HB–DP allocations are unchanged.
 
-For the comparison by Double Pukelsheim seat count, election-level differences are first averaged within each canton. Cantons are then grouped according to whether they allocate more than 100 or at most 100 seats through Double Pukelsheim. The 100-seat cutoff serves as a descriptive grouping of the observed cantons. Group means are calculated from the canton-level averages, giving each canton equal weight irrespective of the number of observed elections. The difference between the group means is calculated as the mean for cantons with more than 100 seats minus the mean for cantons with at most 100 seats. Graubünden is excluded from these group means. Given the small number of cantons and their differing electoral rules, the comparison is interpreted descriptively.
+For the comparison by Double Pukelsheim seat count, election-level differences are first averaged within each canton. Cantons are then grouped according to whether they allocate atleast 100 or fewer than 100 seats through Double Pukelsheim. The 100-seat cutoff serves as a descriptive grouping of the observed cantons. Group means are calculated from the canton-level averages, giving each canton equal weight irrespective of the number of observed elections. The difference between the group means is calculated as the mean for cantons with atleast 100 seats minus the mean for cantons with fewer than 100 seats. Graubünden is excluded from these group means. Given the small number of cantons and their differing electoral rules, the comparison is interpreted descriptively.
 
 
 To examine successive elections, the seat-share difference $\Delta_e$ is plotted within each canton against the election number since its first election under Double Pukelsheim. Arrows identify the first election affected by the subsequent rule changes annotated in the figure. Because the smaller-party classification is recalculated for every election, this comparison follows the category of smaller parties, whose membership may change over time.
@@ -985,8 +985,8 @@ h1a_cantons <- small_party_summary |>
  mutate(
   size_group = case_when(
     canton == "GR" ~ "Context only (former Majorz)",
-    dp_seats > 100L ~ "More than 100 DP seats",
-    TRUE ~ "At most 100 DP seats"
+    dp_seats >= 100L ~ "At least 100 DP seats",
+    TRUE ~ "Fewer than 100 DP seats"
   )
 ) |>
 arrange(desc(dp_seats), canton)
@@ -1004,7 +1004,49 @@ knitr::kable(
 )
 ```
 
-The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"])` percentage points in the group with more than 100 Double Pukelsheim seats and `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points in the group with at most 100. Their difference (more than 100 minus at most 100) is `r sprintf("%+.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "More than 100 DP seats"] - h1a_groups$mean_gain_pp[h1a_groups$size_group == "At most 100 DP seats"])` percentage points. However, this comparison is based on only `r sum(h1a_groups$cantons)`  cantons operating under distinct electoral rules. Group averages may also conceal substantial variation between individual cantons, and the observed difference could reflect other institutional characteristics rather than the number of seats itself. The results therefore describe a difference within this sample but do not establish that a larger number of Double Pukelsheim seats causes greater gains.
+The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At least 100 DP seats"])` percentage points in the group with atleast 100 Double Pukelsheim seats and `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "Fewer than 100 DP seats"])` percentage points in the group with at most 100. The atleast-fewer difference is therefore `r sprintf("%+.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At least 100 DP seats"] - h1a_groups$mean_gain_pp[h1a_groups$size_group == "Fewer than 100 DP seats"])` percentage points.
+
+To visualize the analysis of a possible relationship between parliament size and the smaller parties seat-share gain, is visualized in a scatterplot. In @fig-dp-seat-count each canton's average smaller-party-seat-share is plotted against the number of seats allocated through Double Pukelsheim. The two cantons are distinguished by colours, while Graubünden is displayed separately for context. 
+
+```{r}
+#| label: fig-dp-seat-count
+#| fig-cap: "Canton-level mean smaller-party seat-share gain by the number of seats allocated through Double Pukelsheim. Graubünden is shown for context."
+#| fig-width: 8.3
+#| fig-height: 4.5
+#| echo: false
+#| warning: false
+#| message: false
+
+ggplot(h1a_cantons, # reuse the table's dataset
+       aes(x = dp_seats, y = mean_gain_pp, colour = size_group)) + # set y and x-axis
+  geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) + 
+  geom_vline(xintercept = 100, linetype = "dashed", # mark cutoff value
+             colour = "grey60", linewidth = .4) +
+  geom_point(size = 2.8) +
+  geom_text_repel(aes(label = canton), seed = 1, size = 3.3, # label all cantons and reduce overlap
+                  max.overlaps = Inf, show.legend = FALSE) +
+  scale_colour_manual(values = c( # set colors for groups
+    "Fewer than 100 DP seats" = "#0072B2",
+    "At least 100 DP seats" = "#D55E00",
+    "Context only (former Majorz)" = "#8A8A8A"
+  )) +
+  scale_x_continuous(expand = expansion(mult = c(.12, .15))) + 
+  scale_y_continuous(expand = expansion(mult = c(.12, .15))) +
+  labs(
+    x = "Seats allocated through Double Pukelsheim", # label the x-axis
+    y = "Mean smaller-party seat-share gain (pp)", # label the y-axis
+    colour = NULL,
+    caption = "Dashed line: 100-seat cutoff. Uri covers four DP municipalities."
+  ) +
+  theme_minimal(base_size = 11) + # apply the minimal theme
+  theme(
+    legend.position = "bottom",
+    panel.grid.minor = element_blank(),
+    plot.caption = element_text(hjust = 0, size = 8.5)
+  )
+```
+
+The @fig-dp-seat-count reveals no clear consistent relationship between DP seat count and smaller parties average seat share gains across the eight cantons in the main analysis. Which is also illustrated through the fact, that the mean of both groups is with 6.3, respectively 6.7 percentage points close together. Noticeable again is the high seat-gain share of Schaffhausen, which was priorly discussed for e.g. in @sec-h1-results. Since this comparison is based on only `r sum(h1a_groups$cantons)`  cantons operating under distinct electoral rules. Group averages may also conceal substantial variation between individual cantons, and the observed difference could reflect other institutional characteristics rather than the number of seats itself. The results therefore describe a difference within this sample but do not establish that a larger number of Double Pukelsheim seats causes greater gains.
 
 #### Exploratory question 3: Explicit electoral quorums
 
