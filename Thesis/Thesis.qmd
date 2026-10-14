@@ -107,6 +107,20 @@ Finally, I would like to thank Eric Oehler (B.A. in Economics), Clara Burmeister
 #pagebreak()
 ```
 
+## List of Figures {.unnumbered}
+
+```{=typst}
+#outline(title: none, target: figure.where(kind: "quarto-float-fig").or(figure.where(kind: image)))
+#pagebreak()
+```
+
+## List of Tables {.unnumbered}
+
+```{=typst}
+#outline(title: none, target: figure.where(kind: "quarto-float-tbl").or(figure.where(kind: table)))
+#pagebreak()
+```
+
 ## List of Abbreviations
 
 ```{=typst}
@@ -114,22 +128,34 @@ Finally, I would like to thank Eric Oehler (B.A. in Economics), Clara Burmeister
   columns: (28mm, 1fr),
   row-gutter: 2.2mm,
   [*AG*], [Canton of Aargau],
+  [*ALG*], [Alternative – the Greens Zug (Alternative – die Grünen Zug)],
+  [*BDP*], [Conservative Democratic Party],
   [*BGE*], [Decisions of the Swiss Federal Supreme Court (official collection)],
+  [*CSV*], [Comma-separated values],
+  [*CV*], [Coefficient of variation],
   [*CVP*], [Christian Democratic People's Party],
   [*DP*], [Double Pukelsheim system],
+  [*EQ1*], [Exploratory question 1 (district magnitude)],
+  [*FDP*], [FDP.The Liberals],
   [*FSC*], [Swiss Federal Supreme Court],
   [*GLP*], [Green Liberal Party],
   [*GR*], [Canton of Graubünden],
   [*HB*], [Hagenbach-Bischoff method],
+  [*JFSH*], [Young Liberals Schaffhausen (Jungfreisinnige Schaffhausen)],
+  [*JUSO*], [Young Socialists Switzerland],
   [*NW*], [Canton of Nidwalden],
+  [*PDF*], [Portable Document Format],
   [*pp*], [percentage points],
   [*PR*], [proportional representation],
+  [*Q1*], [First quartile (25th percentile)],
+  [*Q3*], [Third quartile (75th percentile)],
   [*SH*], [Canton of Schaffhausen],
+  [*SP*], [Social Democratic Party of Switzerland],
   [*SVP*], [Swiss People's Party],
   [*SZ*], [Canton of Schwyz],
-  [*UDC*], [Democratic Union of the Centre (French-language abbreviation for SVP)],
   [*UR*], [Canton of Uri],
   [*VS*], [Canton of Valais],
+  [*XLSX*], [Excel workbook file format (Office Open XML)],
   [*ZG*], [Canton of Zug],
   [*ZH*], [Canton of Zurich],
 )
@@ -1050,6 +1076,7 @@ The @fig-dp-seat-count reveals no clear consistent relationship between DP seat 
 
 #### Exploratory question 3: Explicit electoral quorums
 
+Exploratory question 3 researches on whether the implementation of explicit electoral quroums have an influence on the smaller parties seat-share gain. The explicit quroums ensure that only parties which reach a specific vote-share are considered for the allocation of seats. This may prevent smaller parties from entering the parliament, which is why it's expected in this thesis, that in cantons with a quorum, the seat-share gain of smaller parties is reduced. This directional estimation is analyzed followingly: 
 ```{=typst}
 #[
 #set table(
@@ -1071,13 +1098,16 @@ The @fig-dp-seat-count reveals no clear consistent relationship between DP seat 
 | Zurich | 5% district level | 2007, 2011, 2015, 2019 |
 | Zurich | 5% district level or 3% cantonal level | 2023 |
 
-: Explicit electoral thresholds under Double Pukelsheim in the elections studied. {#tbl-explicit-quroums tbl-colwidths="[20, 45, 35]"}
+: Situation regarding explicit electoral thresholds under Double Pukelsheim in the elections studied. {#tbl-explicit-quroums tbl-colwidths="[20, 45, 35]"}
 
 Source: Author’s compilation. Threshold rules are based on the sources discussed in @sec-adoption. Election years refer to the elections included in the empirical analysis, whose data sources are documented in @sec-data-appendix.
 
 ```{=typst}
 ]
 ```
+As documented in the table, out of eight analysis cantons, five applied a threshold. With Aargau being a special case, since the canton applied it only after their first election under Double Pukelsheim. The most often used explicit qourum is the combination of a 5% district-level and a 3% cantonal level threshold of which atleast one has to be reached. This combination was used in 9 of 19 elections held with an explicit threshold. 
+
+The difference is visualized followingly, in a bivariate analyisis presented as a grouped dot plot.
 ```{r}
 #| label: fig-quorums
 #| fig-cap: "Smaller-party seat-share gains by explicit electoral quorum."
@@ -1138,6 +1168,13 @@ eq3_group_plot <- ggplot(eq3_elections, aes(quorum, seat_gain_pp, colour = quoru
         plot.caption = element_text(hjust = 0, size = 9)) 
 eq3_group_plot # Print the saved group-comparison plot into the thesis.
 ```
+
+@fig-quorums provides a descriptive comparison of smaller-party seat-share gains by the presence of an explicit electoral quorum. Average gains are higher in the group without an explicit quorum (`r sprintf("%.1f", eq3_cantons$mean_gain_pp[eq3_cantons$quorum == "Without explicit quorum"])` percentage points) than in the group with one (`r sprintf("%.1f", eq3_cantons$mean_gain_pp[eq3_cantons$quorum == "With explicit quorum"])` percentage points). Both groups exhibit substantial variation. From which the canton of Schaffhausen sticks out, as mentioned in prior analysises.
+
+Especially interesting, is Aargau, where in 2009 the election was held without a threshold and in the elections 2012, 2016, 2020 and 2024 with a threshold. The data shows that the seat-share gain for the pre-reform election 2009 and the first post-reform election 2012 is equally big with 9.3 percentage points. In the following elections, the seat-share gain dropped and was between 5.0 to 7.1 percentage points. The unchanged gain between 2009 and 2012 contrasts with the priorly seen difference between the groups.  This suggests that the overall group difference does not consistently appear within individual cantons, although the two-election comparison cannot isolate the quorum’s effect.
+
+The main comparison indicates an association but does not establish a causal effect of electoral quorums. 
+
 
 #### Exploratory question 4: Change across successive elections
 
