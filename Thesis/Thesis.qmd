@@ -965,7 +965,7 @@ Taken together, the four district measures reveal no consistent pattern linking 
 
 #### Exploratory question 2: Differences by DP seat count (Parliament size)
 
-The comparison below uses the same election-level percentage-point gain as H1. It averages elections within each canton before comparing the two groups defined by the number of seats allocated through Double Pukelsheim. Graubünden is only shown for context and excluded from the group means for the same reason as in the main H1 estimate.
+The following expoloratory question examines possible differences of the smaller party seat share gain between the different amounts of seats distributed with DP and with the parliament size. As priorly mentioned is the variable *seats_allocated_dp* used since in the canton of Uri only four municipialities use the Double Pukelsheim system and with that only 37 of the parliaments 64 seats are distributed by the new system. The comparison below averages elections within each canton before comparing the two groups defined by the number of seats allocated through Double Pukelsheim. Graubünden is as always only shown for context and excluded from the group means.
 
 ```{r}
 #| label: tbl-dp-seat-count
