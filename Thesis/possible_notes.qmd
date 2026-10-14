@@ -20,4 +20,4 @@ Include/exclude Uri — pp. 132–133, Figure 43	Compared the relationship betwe
 Exclude Graubünden — pp. 126 and 132	Excluded GR from the counterfactual analysis and the district-size assessment because relevant pre-reform data were missing under its former majoritarian system.	This was a data-driven exclusion, without an accompanying with/without comparison.
 Account for different electoral thresholds — p. 125	Constructed an effective-threshold variable using different rules for conventional PR, biproportional elections, and statutory quorums. Where two quorums existed, he used the canton-wide quorum.	This accounts for implementation differences in the variable construction; he does not report sensitivity checks using alternative threshold definitions.
 
-22. mention in data cleaning --> ocurring mistake in zurich and resolving of it
+23. update list of abbreviations
