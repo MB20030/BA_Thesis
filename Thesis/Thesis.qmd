@@ -893,7 +893,7 @@ knitr::kable( # Render table
   align = c("l", "r", "r", "r", "r", "r", "r") # Left-align canton names; right-align the numerical columns.
 )
 ```
- Source: author's calculations using official cantonal allocations and court judgments.
+*Notes* Source: author's calculations using official cantonal allocations and court judgments. To compute the measures for Uri, only the four DP consitutiencies (Municpialities) were taken.
 
 @fig-district-magnitude relates each district measure to the canton-level mean gain in smaller parties' seat share. Colours distinguish cantons below and at or above the unweighted cross-canton mean of the respective measure. The cutoffs are defined by the mean of the eight relevant cantons and are the following: `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Mean district size (seats)"])` seats for the unweighted mean magnitude, `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Pre-reform median size (seats)"])` seats for median magnitude, `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Districts below 9 seats (%)"])`% for the share below nine seats, and `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Pre-reform district-size CV"])` for the CV. A CV of 0.6 means, that the standard deviation is 60% of the mean. The cross-canton means are marked with dashed lines.
 
@@ -1118,13 +1118,12 @@ The difference is visualized followingly, in a bivariate analyisis presented as 
 #| fig-height: 6
 #| echo: false
 eq3_elections <- small_party_summary |> 
-  filter(!is_graubuenden) |> # exclude Graubünden
   mutate( 
     canton = str_sub(election_id, 1, 2), # extract canton code from election ID
     quorum = case_when( 
       election_id == "AG_09" ~ "Without explicit quorum", # Aargau introduced its quorum for the 2012 election.
       canton %in% c("NW", "SH", "UR") ~ "Without explicit quorum", 
-      canton %in% c("AG", "SZ", "VS", "ZG", "ZH") ~ "With explicit quorum",
+      canton %in% c("AG", "GR", "SZ", "VS", "ZG", "ZH") ~ "With explicit quorum",
       TRUE ~ NA_character_
     ),
     quorum = factor(
@@ -1136,6 +1135,7 @@ eq3_elections <- small_party_summary |>
 stopifnot(!anyNA(eq3_elections$quorum)) # Check that all elections have been assigned a quorum category
 
 eq3_cantons <- eq3_elections |> # Collapse election-level outcomes into one row per canton and quorum category.
+  filter(canton != "GR") |>
   group_by(quorum) |>
   summarise(
     cantons = n_distinct(canton),
@@ -1151,19 +1151,20 @@ eq3_groups <- eq3_cantons |> # Summarize the mean gain for each quorum category.
 
 eq3_group_plot <- ggplot(eq3_elections, aes(quorum, seat_gain_pp, colour = quorum)) + # x = quorum category; y = canton-average gain.
   geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) +
-  geom_point(size = 2.5) +
+  geom_point(aes(colour = if_else(canton == "GR", "context only", as.character(quorum))), size = 2.5) +
     geom_text_repel( # Repel canton labels to avoid overlap
-    aes(label = election_id), # label each point with the election ID
+    aes(label = election_id, colour = if_else(canton == "GR", "context only", as.character(quorum))), # label GR consistently with grey colour
     seed = 1,
     size = 3,
-    nudge_x = .15,
+    nudge_x = .35,
+    hjust = 0, 
     direction = "y",
     box.padding = .4,
     max.overlaps = Inf,
     show.legend = FALSE
   ) +
-  geom_point(data = eq3_cantons, aes(quorum, mean_gain_pp), shape = 18, size = 5, colour = "black") + # Add a black diamond for each group's mean gain.
-  scale_colour_manual(values = c("Without explicit quorum" = "#0072B2", "With explicit quorum" = "#D55E00")) +
+  geom_point(data = eq3_cantons, aes(quorum, mean_gain_pp), shape = 18, size = 5, colour = "black") + # Add black diamond for group's mean gain.
+  scale_colour_manual(values = c("Without explicit quorum" = "#0072B2", "With explicit quorum" = "#D55E00", "context only" = "#8A8A8A")) + # colour the three categories
   labs(x = NULL, y = "Mean smaller-party seat-share gain (pp)", colour = NULL,
        caption = "Points: canton-level election averages. Black diamonds: equally weighted group means.") +
   theme_minimal(base_size = 11) +
@@ -1725,3 +1726,8 @@ small_party_plot("seats_small_parties", "Number of seats won by smaller parties"
 ```
 
 ### Declaration of AI-Assistance
+
+#### Self Reflection on AI-Usage 
+--> add how to deal with tendency of LLMs to glaze you --> e.g. say reason why you think one should consider this particular aspect or not, then respond to me with a suggestion
+--> add how to deal with LLMs giving too long texts --> repetitive explanations 
+--> add AI better than me at structuring, table of contents, finding discrepancies there etc
