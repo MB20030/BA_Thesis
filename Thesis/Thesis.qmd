@@ -111,7 +111,6 @@ Finally, I would like to thank Eric Oehler (B.A. in Economics), Clara Burmeister
 
 ```{=typst}
 #outline(title: none, target: figure.where(kind: "quarto-float-fig").or(figure.where(kind: image)))
-#pagebreak()
 ```
 
 ## List of Tables {.unnumbered}
@@ -685,7 +684,7 @@ small_party_plot <- function(x, x_title, label, percent = FALSE) {
 
 ```{r}
 #| label: fig-small-parties-relative
-#| fig-cap: "Percentage of analyzed seats won by smaller parties under Double Pukelsheim and counterfactual Hagenbach-Bischoff. Labels report the Double Pukelsheim gain in percentage points. Graubünden is shown for context only."
+#| fig-cap: "Smaller-party seat-share gain across all 31 elections" 
 #| fig-width: 8.3
 #| fig-height: 6.5
 #| echo: false
@@ -712,7 +711,7 @@ This section examines how district magnitude varies across the cantons included 
 
 ```{r}
 #| label: tbl-district-magnitude
-#| tbl-cap: "Pre-reform district structure by canton. Source: author's calculations using official cantonal allocations and court judgments."
+#| tbl-cap: "Pre-reform district structure by canton"
 #| tbl-colwidths: [13, 14, 14, 14, 15, 14, 14]
 #| echo: false
 #| warning: false
@@ -894,12 +893,13 @@ knitr::kable( # Render table
   align = c("l", "r", "r", "r", "r", "r", "r") # Left-align canton names; right-align the numerical columns.
 )
 ```
+ Source: author's calculations using official cantonal allocations and court judgments.
 
-@fig-district-magnitude relates each district measure to the canton-level mean gain in smaller parties' seat share. Colours distinguish cantons below and at or above the unweighted cross-canton mean of the respective measure. The cutoffs are defined by the mean of the eight relevant cantons and are the following: `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Mean district size (seats)"])` seats for the unweighted mean magnitude, `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Pre-reform median size (seats)"])` seats for median magnitude, `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Districts below 9 seats (%)"])`% for the share below nine seats, and `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Pre-reform district-size CV"])` for the CV. A CV of 0.6 means, that the standard deviation is 60% of the mean.
+@fig-district-magnitude relates each district measure to the canton-level mean gain in smaller parties' seat share. Colours distinguish cantons below and at or above the unweighted cross-canton mean of the respective measure. The cutoffs are defined by the mean of the eight relevant cantons and are the following: `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Mean district size (seats)"])` seats for the unweighted mean magnitude, `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Pre-reform median size (seats)"])` seats for median magnitude, `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Districts below 9 seats (%)"])`% for the share below nine seats, and `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Pre-reform district-size CV"])` for the CV. A CV of 0.6 means, that the standard deviation is 60% of the mean. The cross-canton means are marked with dashed lines.
 
 ```{r}
 #| label: fig-district-magnitude
-#| fig-cap: "Mean smaller-party seat-share gain under Double Pukelsheim relative to counterfactual Hagenbach-Bischoff, by initial district magnitude and its dispersion. Dashed lines mark the cross-canton means and Graubünden is contextual."
+#| fig-cap: "Smaller-party seat-share gains by district magnitude and dispersion"
 #| fig-width: 8.3
 #| fig-height: 6.8
 #| echo: false
@@ -933,7 +933,7 @@ Figure 2, shows no clear, consistent relationship between the former district st
 
 ```{r}
 #| label: fig-district-magnitude-groups
-#| fig-cap: "Canton-level mean smaller-party seat-share gains in groups below and at or above the cross-canton mean of each fixed historical district measure. Black diamonds denote equally weighted group means; Graubünden is excluded. The groups for the means and pre-reform median district magnitudes are equal and presented together."
+#| fig-cap: "Smaller-party seat-share gains by historical district characteristics"
 #| fig-width: 10.5
 #| fig-height: 4.4
 #| echo: false
@@ -981,6 +981,8 @@ eq1_group_plot <- ggplot(eq1_group_points, aes(group, mean_gain_pp, colour = gro
 eq1_group_plot # Print the saved group-comparison plot into the thesis.
 ```
 
+*Notes:* Cantons are grouped below or at or above the cross-canton mean of each historical district measure. Points show canton-level mean gains and black diamonds indicate equally weighted group means. Graubünden is excluded. 
+
 For both mean district magnitude and pre-reform median district magnitude, the average gains for the below mean group are `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Mean district size (seats)" & eq1_groups$group == "Below mean"])` and `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Mean district size (seats)" & eq1_groups$group == "At/above mean"])` percentage points for the at/above mean group. The at/above group results, are relatively spread out, while the below groups cantons are quite close to eachother. The below-minus-above difference is `r sprintf("%+.2f", eq1_differences$below_minus_above_pp[eq1_differences$metric == "Mean district size (seats)"])` percentage points and with that opposite to the expected direction. 
 
 For the share of districts below nine seats, the average gains for the below mean group are `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Districts below 9 seats (%)" & eq1_groups$group == "Below mean"])` and `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Districts below 9 seats (%)" & eq1_groups$group == "At/above mean"])` percentage points for the at/above mean group. The higher-share group gains of `r sprintf("%.2f", -eq1_differences$below_minus_above_pp[eq1_differences$metric == "Districts below 9 seats (%)"])` percentage points more are consistent with the expected direction. However is in the below group Schaffhausen included, whose comparatively high gain raises the group average. As discussed in @sec-h1-results does the separate treatment of affiliated lists contribute to Schaffhausen's high gain. Therefore the result needs to be interpreted sensitively. 
@@ -995,7 +997,7 @@ The following expoloratory question examines possible differences of the smaller
 
 ```{r}
 #| label: tbl-dp-seat-count
-#| tbl-cap: "Mean gain in smaller parties' share of analyzed seats by canton (percentage points). Source: author's aggregation of the official cantonal election datasets."
+#| tbl-cap: "Mean smaller-party seat-share gain by number of seats allocated under Double Pukelsheim (Parliament size)"
 #| echo: false
 
 h1a_cantons <- small_party_summary |>
@@ -1030,13 +1032,15 @@ knitr::kable(
 )
 ```
 
+*Notes* Source: author's aggregation of the official cantonal election datasets.
+
 The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At least 100 DP seats"])` percentage points in the group with atleast 100 Double Pukelsheim seats and `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "Fewer than 100 DP seats"])` percentage points in the group with at most 100. The atleast-fewer difference is therefore `r sprintf("%+.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At least 100 DP seats"] - h1a_groups$mean_gain_pp[h1a_groups$size_group == "Fewer than 100 DP seats"])` percentage points.
 
 To visualize the analysis of a possible relationship between parliament size and the smaller parties seat-share gain, is visualized in a scatterplot. In @fig-dp-seat-count each canton's average smaller-party-seat-share is plotted against the number of seats allocated through Double Pukelsheim. The two cantons are distinguished by colours, while Graubünden is displayed separately for context. 
 
 ```{r}
 #| label: fig-dp-seat-count
-#| fig-cap: "Canton-level mean smaller-party seat-share gain by the number of seats allocated through Double Pukelsheim. Graubünden is shown for context."
+#| fig-cap: "Smaller-party seat-share gains by Double Pukelsheim seat count"
 #| fig-width: 8.3
 #| fig-height: 4.5
 #| echo: false
@@ -1186,7 +1190,7 @@ Regarding the events and their noteboxes, there are two different formats. The b
 
 ```{r}
 #| label: fig-successive-elections
-#| fig-cap: "Smaller-party net seat-share gains across successive elections under Double Pukelsheim. Arrows identify the first election under each annotated rule change. Graubünden is contextual only. Sources: Large text boxes are based on the sources discussed in @sec-adoption; small text boxes are based on the author's calculations."
+#| fig-cap: "Smaller-party seat-share gains across successive elections under Double Pukelsheim"
 #| fig-width: 8.3
 #| fig-height: 6
 #| echo: false
@@ -1344,6 +1348,7 @@ eq4_plot <- eq4_plot +
 eq4_plot
 ```
 
+*Notes* Sources: Large text boxes are based on the sources discussed in @sec-adoption; small text boxes are based on the author's calculations.
 ```{r}
 #| label: eq4-transition-summary
 #| include: false
@@ -1588,7 +1593,7 @@ The table below identifies the election data and legal sources used in the canto
 ```{=typst}
 #show <tbl-data-sources>: set block(breakable: true)
 #figure(
-  kind: table,
+  kind: "quarto-float-tbl",
   supplement: [Table],
   caption: [Election data sources and legal bases for the counterfactual Hagenbach–Bischoff allocation.],
   {
@@ -1708,7 +1713,7 @@ The table below identifies the election data and legal sources used in the canto
 
 ```{r}
 #| label: fig-small-parties-absolute
-#| fig-cap: "Seats won by smaller parties under Double Pukelsheim and the counterfactual Hagenbach-Bischoff allocation. Smaller parties have less than 10% of the vote share in the analyzed area. Graubünden is shown for context only."
+#| fig-cap: "Smaller-party absolute seat gain across all 31 elections "
 #| fig-width: 8.3
 #| fig-height: 6.5
 #| echo: false

@@ -11,8 +11,6 @@ plus SELF -REFLECTION on ai usage
 
 
 
-19. for eq2 maybe add graphic , and median gain?
-
 20. eq3 either don't mention graubünden in hypothesis or include it for context in the analysis
 
 21. what lüscher did: 
@@ -24,5 +22,3 @@ Account for different electoral thresholds — p. 125	Constructed an effective-t
 what's estimation of zürich adding 3% canton wide threshold to the existing 5% district level one? 
 
 23. --> lowering threshold? : enables parties which aren't particulary strong in one district to reach parliament, but doesn't 
-
-24. shorten figure and table names
