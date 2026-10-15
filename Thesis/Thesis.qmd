@@ -1173,14 +1173,16 @@ eq3_group_plot # Print the saved group-comparison plot into the thesis.
 
 Especially interesting, is Aargau, where in 2009 the election was held without a threshold and in the elections 2012, 2016, 2020 and 2024 with a threshold. The data shows that the seat-share gain for the pre-reform election 2009 and the first post-reform election 2012 is equally big with 9.3 percentage points. In the following elections, the seat-share gain dropped and was between 5.0 to 7.1 percentage points. The unchanged gain between 2009 and 2012 contrasts with the priorly seen difference between the groups.  This suggests that the overall group difference does not consistently appear within individual cantons, although the two-election comparison cannot isolate the quorum’s effect.
 
-The main comparison indicates an association but does not establish a causal effect of electoral quorums. 
+To summarize the analysis about the effect of the implementation of explicit quoroms, it can be stated that within the 31 relevant elections, indeed a difference can be seen. Especially does the direction of the seen pattern match the expectation, that explicit quorums limit smaller parties gains under Dobule Pukelsheim.  However, because of the limited amount of elections held till date and the different application of thresholds and electoral law, the difference needs to be interpreted cautiosly.  
 
 
 #### Exploratory question 4: Change across successive elections
 
-@fig-successive-elections follows smaller parties' net seat-share gain within each canton, aligning elections by their order since the introduction of Double Pukelsheim. The first election under the system is numbered 1, the next is numbered 2, and so on; the same election number therefore represents different calendar years across cantons. The outcome is the observed Double Pukelsheim seat share minus the counterfactual Hagenbach-Bischoff seat share, expressed in percentage points of the seats included in the comparison. The smaller-party category is recalculated for each election using the existing vote-share cutoff of less than 10%.
+The preceding analysis showed that cantons differ in their implementation of the Double Pukelsheimer system. These institutional differences motivate a closer examination of within-canton patterns. The last exploratory question therefore examines how the smaller parties seat-share gain changed across successive elections within a canton. For that each canton and it's successive changes are analyzed separately. To possibly better understand changes, events such as electoral reforms and changes in the party composition are documented. Generally stable positive values of $\Delta_e$ indicate a persistent mechanical advantage for smaller parties, while substantial fluctuation or even changes in sign would suggest that the effect is strongly dependent on the individual circumstances of an election. 
 
-Arrows mark the first election affected by three subsequent rule changes: Aargau's introduction of a 5% district-level or 3% cantonwide quorum in 2012 (second election); Schaffhausen's majority clause, adopted in 2015 and effective in 2016 (third election); and Zurich's additional 3% cantonwide eligibility route, effective in 2021 and first applied in 2023 (fifth election). The Zurich rule supplements the existing 5% district-level route. These dates follow the institutional history in @sec-adoption; Schaffhausen's amendment history records 1 March 2016 as the entry into force of Art. 2d para. 1bis (Kanton Schaffhausen, 1904/2019). Graubünden is shown as a dashed contextual series because its previous system was Majorz, making the HB allocation hypothetical.
+Since @fig-successive-elections aligns every Double Pukelsheim election for each canton independently by their order, the first election under the system is numbered 1, the next is numbered 2, and so on. This means that the same election number represents different calendar years across cantons.  As in the main hypothesis the outcome is the observed Double Pukelsheim seat share minus the counterfactual Hagenbach-Bischoff seat share, expressed in percentage points of the seats included in the comparison. The smaller-party category is recalculated for each election using the existing vote-share cutoff of less than 10%.
+
+Regarding the events and their noteboxes, there are two different formats. The bigger boxes mark electoral rule changes, from which there were three relevant ones: Aargau's introduction of a 5% district-level or 3% cantonwide quorum in 2012 (second election); Schaffhausen's majority clause, applied in 2016 (third election); and Zurich's additional 3% cantonwide eligibility route, first applied in 2023 (fifth election). The Zurich rule supplements the existing 5% district-level quroum and as in Aargau, the parties have to only reach either 5% within a district or 3% on the cantonal level. These dates follow the institutional history in @sec-adoption; Schaffhausen's amendment history records 1 March 2016 as the effective date of implementation (Kanton Schaffhausen, 1904/2019). The smaller boxes are marking the point, when there's a memberchange within the smaller parties group. Graubünden is shown as priorly only contextual.
 
 ```{r}
 #| label: fig-successive-elections
@@ -1215,8 +1217,8 @@ stopifnot(
 eq4_events <- tribble(
   ~canton, ~election_year, ~label, ~label_x,
   "AG", 2012L, "AG: quorum introduced\n5% district OR 3% canton\nFirst applied: 2012 (2nd)", 1.55,
-  "SH", 2016L, "SH: majority clause\nAdopted: 2015\nFirst applied: 2016 (3rd)", 3.15,
-  "ZH", 2023L, "ZH: 3% cantonwide route\nEffective: 2021\nFirst applied: 2023 (5th)", 4.75
+  "SH", 2016L, "SH: majority clause\nFirst applied: 2016 (3rd)", 3.15,
+  "ZH", 2023L, "ZH: quorum change\n3% canton added to 5% district\nFirst applied: 2023 (5th)", 4.75
 ) |>
   left_join(
     select(eq4_elections, canton, election_year, election_number, seat_gain_pp),
@@ -1342,8 +1344,34 @@ eq4_plot <- eq4_plot +
 eq4_plot
 ```
 
+```{r}
+#| label: eq4-transition-summary
+#| include: false
 
-The figure describes within-canton variation in the mechanical allocation difference. Changes around an annotated election cannot by themselves establish an effect of the rule change: vote distributions, district magnitudes, and the composition of the smaller-party category may also have changed. Later election numbers contain fewer cantons, so comparisons across election numbers should follow the individual canton lines rather than interpret a changing pooled average.
+# Calculate paired changes within cantons before averaging each transition.
+eq4_transition_stats <- eq4_elections |>
+  filter(!is_graubuenden) |>
+  arrange(canton, election_number) |>
+  group_by(canton) |>
+  mutate(change_pp = seat_gain_pp - lag(seat_gain_pp)) |>
+  ungroup() |>
+  filter(election_number > 1L) |>
+  group_by(election_number) |>
+  summarise(
+    cantons = n_distinct(canton),
+    mean_change_pp = mean(change_pp),
+    .groups = "drop"
+  ) |>
+  arrange(election_number)
+```
+
+::: {.callout-note title="EQ4 summary"} 
+Excluding Graubünden, the average within-canton change in smaller parties' seat-share gain was `r paste(sprintf("%+.1f percentage points from election %d to %d (%d cantons)", eq4_transition_stats$mean_change_pp, eq4_transition_stats$election_number - 1L, eq4_transition_stats$election_number, eq4_transition_stats$cantons), collapse = "; ")`. Each average gives equal weight to the cantons observed in both elections of the respective transition.
+:::
+
+Generally spoken, are the seat-share gains with some canton-specific fluctuations, relatively persistent. As seen in the analysis of Hypothesis 1, there is only one election with Uri 2020, in which there was no positive seat-share gain. This is the case, since there simply no a small party classified list ran. The strongest fluctuations can be seen for Schaffhausen, Zurich and Nidwalden. In Schaffhausen the seat-share gain rose from the first to the 2nd election from roughly 10 to roughly 17 percentage points, where it settled afterward quite stable. From the 2015 Zurich, to the 2019 Zurich election, the seat-share gain dropped by roughly 5 percentage points, a reason for this may be that both the GLP and the Green Party left the smaller-parties group, which means that there were less smaller parties for the 2019 election. In Nidwalden since the implementation, the share rose continously,  from the 3rd to the 4th election, the share rose by 5 percentage points which might be influenced by that the Green Party entered the smaller parties group.
+
+The figure describes within-canton variation in the mechanical allocation difference. Changes around an annotated election cannot by themselves establish an effect of the rule change: vote distributions, district magnitudes, and the composition of the smaller-party category may also have changed. Later election numbers contain fewer cantons, so comparisons across election numbers should follow the individual canton lines rather than interpret a changing pooled average. 
 
 ## Discussion
 
