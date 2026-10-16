@@ -19,3 +19,9 @@ what's estimation of zürich adding 3% canton wide threshold to the existing 5% 
 have been settled.
 • Explicit quorums: how to classify elections as having or lacking a quorum, and how to 
 calculate and compare the group summaries.
+
+
+25. does it make sense to analyze --> parties which reach 8% in elections typically profit the most across elections bli bla blub, parties with 5-6% this much etc. 
+
+26. display error in chapter 5.1 --> This leads to the following directional hypothesis: 𝐻1: Across the analyzed elections, the 
+mean mechanical difference ({}
