@@ -580,4 +580,5 @@ process_canton_VS <- function() {
 }
 
 # temporary check - delete in the end.
-print(process_canton_VS(), n = Inf)
+options(width = 200) 
+print(process_canton_VS(), n = 200)
