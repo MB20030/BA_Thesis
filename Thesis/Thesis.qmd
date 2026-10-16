@@ -1351,37 +1351,49 @@ eq4_plot
 
 *Notes* Sources: Large text boxes are based on the sources discussed in @sec-adoption; small text boxes are based on the author's calculations.
 ```{r}
-#| label: eq4-transition-summary
+#| label: eq4-summary
 #| include: false
 
-# Calculate paired changes within cantons before averaging each transition.
-eq4_transition_stats <- eq4_elections |>
-  filter(!is_graubuenden) |>
-  arrange(canton, election_number) |>
-  group_by(canton) |>
-  mutate(change_pp = seat_gain_pp - lag(seat_gain_pp)) |>
-  ungroup() |>
-  filter(election_number > 1L) |>
-  group_by(election_number) |>
-  summarise(
-    cantons = n_distinct(canton),
-    mean_change_pp = mean(change_pp),
-    .groups = "drop"
+# Calculate average transition changes and average seat-share gain by election number
+eq4_election_stats <- eq4_elections |>
+  filter(!is_graubuenden) |> # Exclude Graubünden 
+  arrange(canton, election_number) |> # Order elections chronologically for each canton
+  group_by(canton) |> # Calculate changes separately for each canton.
+  mutate(
+    change_pp = seat_gain_pp - lag(seat_gain_pp) # calculate difference between preceeding and current election
   ) |>
-  arrange(election_number)
+  ungroup() |> # remove canton grouping for 2nd calculation
+  group_by(election_number) |> # Group 1st, 2nd, 3rd etc elections together
+  summarise(
+    cantons = n_distinct(canton), # Count cantons for each group
+    mean_gain_pp = mean(seat_gain_pp), # Calculate the equally weighted average seat-share gain.
+    mean_change_pp = if (all(is.na(change_pp))) {
+      NA_real_ # Election 0 doesn't exist, therefore excluded later in the note
+    } else {
+      mean(change_pp, na.rm = TRUE) # Average the within-canton changes, excluding missing values.
+    },
+    .groups = "drop" 
+  ) |>
+  arrange(election_number) # Display the results
 ```
 
 ::: {.callout-note title="EQ4 summary"} 
-Excluding Graubünden, the average within-canton change in smaller parties' seat-share gain was `r paste(sprintf("%+.1f percentage points from election %d to %d (%d cantons)", eq4_transition_stats$mean_change_pp, eq4_transition_stats$election_number - 1L, eq4_transition_stats$election_number, eq4_transition_stats$cantons), collapse = "; ")`. Each average gives equal weight to the cantons observed in both elections of the respective transition.
+Excluding Graubünden, the average within-canton change in smaller parties’ seat-share gain was `r with(filter(eq4_election_stats, election_number > 1L), paste(sprintf("%+.1f percentage points from election %d to %d (%d cantons)", mean_change_pp, election_number - 1L, election_number, cantons), collapse = "; "))`. The average seat-share gains across the cantons were `r paste(sprintf("%.1f percentage points in election %d (%d cantons)", eq4_election_stats$mean_gain_pp, eq4_election_stats$election_number, eq4_election_stats$cantons), collapse = "; ")`. Each average gives equal weight to the cantons observed in both elections of the respective transition.
 :::
 
-Generally spoken, are the seat-share gains with some canton-specific fluctuations, relatively persistent. As seen in the analysis of Hypothesis 1, there is only one election with Uri 2020, in which there was no positive seat-share gain. This is the case, since there simply no a small party classified list ran. The strongest fluctuations can be seen for Schaffhausen, Zurich and Nidwalden. In Schaffhausen the seat-share gain rose from the first to the 2nd election from roughly 10 to roughly 17 percentage points, where it settled afterward quite stable. From the 2015 Zurich, to the 2019 Zurich election, the seat-share gain dropped by roughly 5 percentage points, a reason for this may be that both the GLP and the Green Party left the smaller-parties group, which means that there were less smaller parties for the 2019 election. In Nidwalden since the implementation, the share rose continously,  from the 3rd to the 4th election, the share rose by 5 percentage points which might be influenced by that the Green Party entered the smaller parties group.
+Generally spoken, are the seat-share gains with some canton-specific fluctuations, relatively persistent. As seen in the analysis of Hypothesis 1, there is only one election with Uri 2020, in which there was no positive seat-share gain. This is the case, since there simply no *smaller_party* ran. Another interesting observation, is the fact that the average seat-share gain rises successively from election to election. This with the caveat of the limited number of cantons and that this number lowers throughout the later elections. For a possible effect speaking is, that the cantons of Schaffhausen and Zurich which appear in all comparisons and have relatively high seat-gain shares also experience drops in their share throughout the elections. This while the average seat-share gain rises continously. Additionally is the analysis, less dependent on political trends specific to a single election year, since for example the second elections held under Double Pukelsheim range from 2011 in Zurich to 2024 in Uri. This though does not isolate the pattern from political trends. A possible partial explanation for the observed pattern, is the broader increas in party-system fragmentation, which was documented by Lüscher (2024, pp. 133-135). This because if smaller parties receive wider support, their combined disadvantage under the former Hagenbach-Bischoff and with that their seat-share gain under Double Pukelsheim may increase. Nevertheless, whether this mechanism actually explains the observed pattern remains untested.
 
-The figure describes within-canton variation in the mechanical allocation difference. Changes around an annotated election cannot by themselves establish an effect of the rule change: vote distributions, district magnitudes, and the composition of the smaller-party category may also have changed. Later election numbers contain fewer cantons, so comparisons across election numbers should follow the individual canton lines rather than interpret a changing pooled average. 
+Besides the broader image, there are also interesting patterns within the cantons. The biggest changes between two elections, can be seen for Schaffhausen, Zurich and Nidwalden. In Schaffhausen the seat-share gain rose from the first to the 2nd election from roughly 10 to roughly 17 percentage points, where it settled afterward quite stable. A possible partial reason, is the higher number of smaller parties in the parliament which increased from seven in 2008 to nine in 2012. From the 2015 Zurich, to the 2019 Zurich election, the seat-share gain dropped by roughly 5 percentage points, a reason for this is possibly, that both the GLP and the Greens exceeded the 10% smaller-parties threshold while the BDP lost its parliamentary representation. This led to the circumstance, that from seven smaller parliamentary parties in 2015, the number dropped to four in 2019. In Nidwalden since the implementation the seat-gain share rose continously. The strongest difference  was observed from the 3rd to the 4th election, where the share rose by 5 percentage points. This effect might be partially influenced by the in the smaller party composition, since the green party fell below the 10% threshold.  For Aargau, Zug, Schwyz and Uri we can observe relatively stable patterns with smaller fluctuations. For the canton of Uri only two elections were observed, which is why no pattern can be inferred. 
+
+The analyis across all 31 elections, therefore indicates that the mechanical seat-share gain for smaller parties persists across sucessive elections. The strength and variation in the magnitude differ between the cantons. In the analyzed elections, the gain not only persisted, but rose across sucessive elections. The average within-canton change though isn't rising consecutively with a small decline between the third and fourth election. The analysis and it's effects may be partly affected through the changes in the party composition of the smaller parties group. The results therefore imply a consistent gain for smaller-parties across cantons and elections. However it can't be established and is further not supported by the literature, that additional elections under Double Pukelsheim increase the gain.
 
 ## Discussion
 
 ## Conclusion
+
+```{=typst}
+#pagebreak()
+```
 
 ## Bibliography
 

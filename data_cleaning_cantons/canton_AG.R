@@ -446,5 +446,6 @@ ag_09_parties <- setdiff(
   return(ag_final) # Make the combined Aargau dataset available to the calling script.
 }
 
-# Temporary check - delete in the end.
-print(process_canton_AG(), n = Inf)
+# Temporary check - delete in the end
+options(width = 200) 
+print(process_canton_AG(), n = 200)
