@@ -1,27 +1,10 @@
 # This document acts as a placeholder for possible notes and ideas for the thesis. 
 
 
-
-
 17. Notes meeting with aurélien  
 FOR R -SCRIPTS --> CHECK WITH UNIVERSITY --> they said upload R-scripts to thesis plattform separately, 
 AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
 
-
-22.  can aargau threshold implementation effect be also appearing just later --> e.g. when party structure changes ? 
-what's estimation of zürich adding 3% canton wide threshold to the existing 5% district level one? 
-
-23. --> lowering threshold? : enables parties which aren't particulary strong in one district to reach parliament, but doesn't 
-
-24. for chapter 6.4 still missing : Still to add:
-• Procedure for the quorum comparison, once the classification and weighting of observations 
-have been settled.
-• Explicit quorums: how to classify elections as having or lacking a quorum, and how to 
-calculate and compare the group summaries.
-
-
+ 
 25. does it make sense to analyze --> parties which reach 8% in elections typically profit the most across elections bli bla blub, parties with 5-6% this much etc. 
-
-26. display error in chapter 5.1 --> This leads to the following directional hypothesis: 𝐻1: Across the analyzed elections, the 
-mean mechanical difference ({}
