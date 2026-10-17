@@ -1,56 +1,39 @@
-# BA Thesis
+# Bachelor's Thesis: 20 Years of Double Pukelsheim in Switzerland
 
-This repository contains the source files and the rendered PDF for my Bachelor's thesis.
+This repository contains the thesis, data, and R code for my Bachelor's thesis in Economics at the University of St. Gallen. It examines how the transition from the Hagenbach-Bischoff method to the Double Pukelsheim electoral system affects the parliamentary representation of smaller parties in Swiss cantons.
 
-## Requirements
+## What is analyzed?
 
-- R 4.5 or newer
-- Visual Studio Code (with the R extension) or another editor
-- Git
-- Quarto (for rendering)
+The central question is whether, and by how much, smaller parties receive a larger share of parliamentary seats under Double Pukelsheim than under the former Hagenbach-Bischoff system. Under Hagenbach-Bischoff, seats were generally allocated independently within each constituency. In constituencies with few seats, smaller parties could struggle to win representation even when they had meaningful support across the canton. Double Pukelsheim pools support across constituencies for the initial allocation of seats to parties, before distributing those seats among their constituency lists.
 
-## Setup
+For each election, the thesis compares the official Double Pukelsheim result with a **counterfactual allocation**: a calculation of how the same observed votes would translate into seats under the specified former cantonal rules. The votes, constituencies, number of seats, and reported electoral lists remain the same in both calculations. The reconstruction accounts for canton-specific allocation rules, but does not assume hypothetical alliances between separately reported lists.
 
-1. Open the project folder in Visual Studio Code.
-2. Start an R session (e.g. using the VS Code R extension) and run:
+**Smaller parties** are defined as electoral lists or list groups receiving less than 10% of the vote in the area analyzed. This classification is determined separately for each election, and the same group is compared under both allocation systems. Independently reported youth or affiliated lists remain separate units. The analysis adds up the seats won by these smaller lists under each system and compares their combined share of the seats covered by the analysis. For example, a combined seat share of 20% under Double Pukelsheim versus 15% under Hagenbach-Bischoff represents a gain of five percentage points. A collective gain does not mean that every smaller list benefits.
 
-```r
-source("setup.R")
-```
+Beyond the overall seat-share difference, the thesis explores how the results relate to:
 
-Or from a terminal run:
+- **Constituency size and variation:** whether gains differ according to the number of seats per constituency and how unevenly those seats are distributed across constituencies.
+- **Parliament size:** whether gains differ between cantons allocating larger or smaller numbers of seats through Double Pukelsheim.
+- **Electoral thresholds:** whether gains differ between elections with and without explicit minimum vote-share requirements for representation.
+- **Successive elections:** whether the advantage for smaller parties persists over time within each canton, taking changes in the composition of the below-10% group into account.
 
-```bash
-Rscript -e "source('setup.R')"
-```
+The comparison measures the mechanical effect of applying different allocation rules to the observed election results. Voters and parties might have behaved differently under the former system, so it does not estimate the reform's full causal effect. The exploratory comparisons describe patterns across cantons and elections without establishing that any single institutional feature causes those differences.
 
-3. Restart the R session to activate the local `renv` environment.
+## Data
 
-On a new machine you can also install the locked package versions with `renv::restore()`.
+The main analysis covers 31 cantonal parliamentary elections between 2007 and 2026 in Aargau, Nidwalden, Schaffhausen, Schwyz, Uri, Valais, Zug, and Zurich. Two elections in Graubünden provide additional context; they are excluded from the main transition comparison because the canton previously used a majority voting system. These elections were till the completion, all available elections under Double Pukelsheim for regional parliaments in Switzerland.
 
-## Render the thesis
+The data come from official cantonal election results published by statistical offices and state chancelleries, supplemented by files supplied directly by cantonal authorities. They include party and list votes, constituency seat totals, and official seat allocations, collected in CSV, Excel, and PDF formats and harmonized in R.
 
-From the terminal run:
+## Repository contents
 
-```bash
-quarto render Thesis/Thesis.qmd
-```
+- [Thesis](Thesis/Thesis.pdf): the thesis PDF; its source is in `Thesis/`.
+- `data/datasets/`: election data organized by canton.
+- `data_cleaning_cantons/`: R scripts for cleaning data and calculating counterfactual seat allocations.
+- `sources/`: some of the literature and reference material.
 
-Or render from R:
+## Contact
 
-```r
-quarto::quarto_render("Thesis/Thesis.qmd")
-```
+If you have any questions about the thesis, data, or analysis, feel free to contact me at [beynmoritz@gmail.com](mailto:beynmoritz@gmail.com).
 
-The PDF will be created at `Thesis/Thesis.pdf`.
-
-## Repository structure
-
-- `Thesis/`: Quarto source and rendered PDF
-- `data/datasets/`: raw data by canton
-- `data/preparation_and_training/`: R scripts for data preparation and analysis
-- `data_cleaning_canton/` : The R Code for the cleaning of all elections
-- `sources/`: literature and references
-- `formalities/`: university guidelines and deadlines
-- `proposal/`: proposal and planning
-- `thesis_colloqium/`: colloquium materials
+Moritz
