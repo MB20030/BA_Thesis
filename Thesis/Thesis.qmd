@@ -722,9 +722,96 @@ Across all `r h1_stats$elections` elections (Graubünden excluded), the unweight
 
 These results descriptively support Hypothesis 1 and indicate that smaller parties indeed in the 31 elections held receive a larger share of the analyzed seats under Double Pukelsheim than under Hagenbach-Bischoff. The effect is especially pointed out, through that in every election where small parties contested (every election but Uri 2020), they aggregately received a larger seat share. This finding is in accordance with Leuzinger's observation for the seven from him examined elections (Leuzinger, 2018, p.42). The weighted mean, unweighted mean and median are all relatively close to each other, indicating that the effect is not driven by a few elections with many seats and that the positive effect isn't determined by extreme outliers. 
 
-The finding is further robust to alternative definitions of smaller parties. Using a vote-share cutoff of less than 8%, the mean gain is `r sprintf("%.2f", mean(sensitivity_8$gain_pp))` percentage points. Also do the smaller parties c further smaller parties collectively receive a higher seat share under Double Pukelsheim in `r sum(sensitivity_8$gain_pp > 0)` of the `r sum(sensitivity_8$small_parties > 0)` where atleast one parliamentary party with a maximum of 8% vote-share contested. The exception is  `r paste(str_replace(no_gain_8$election_id, "_", " 20"), collapse = " and ")` , where the aggregated difference is zero and the upper-allocation process isn't done across the whole canton. With a cutoff of less than 12%, the mean gain is `r sprintf("%.2f", mean(sensitivity_12$gain_pp))` percentage points. Regarding the collectively higher seat share in this case, in  `r sum(sensitivity_12$gain_pp > 0)` of the `r sum(sensitivity_12$small_parties > 0)` relevant elections, the smaller parties received a higher seat-share gain. With again Uri 2020, being the exclusion, where no party with less than 12% vote-share ran.
-
 The average gain differs across the cantons for e.g. is there the Canton of Schaffhausen, with a stable high seat gain for smaller parties. There the high seat-share gain can be partially explained through the decision to treat affiliated parties as independent lists. Therefore these affiliated lists were classified as smaller parties, if they didn't reach the 10% threshold themselfs and with that higher the relative gain for smaller parties. Across the five Schaffhausen elections, the average effect of this decision is that the relative gain drops from 15.67 to 8.67 percentage points. Taking the effect into account, the mechanical transition effect in Schaffhausen is still relatively big compared to other cantons. Cantons with constantly relatively low stable seat gain shares on the other hand are for e.g. Uri, Zug and Schwyz. 
+
+The general finding is further robust to alternative definitions of smaller parties. Using a vote-share cutoff of less than 8%, the mean gain is `r sprintf("%.2f", mean(sensitivity_8$gain_pp))` percentage points. Also do the smaller parties c further smaller parties collectively receive a higher seat share under Double Pukelsheim in `r sum(sensitivity_8$gain_pp > 0)` of the `r sum(sensitivity_8$small_parties > 0)` where atleast one parliamentary party with a maximum of 8% vote-share contested. The exception is  `r paste(str_replace(no_gain_8$election_id, "_", " 20"), collapse = " and ")` , where the aggregated difference is zero and the upper-allocation process isn't done across the whole canton. With a cutoff of less than 12%, the mean gain is `r sprintf("%.2f", mean(sensitivity_12$gain_pp))` percentage points. Regarding the collectively higher seat share in this case, in  `r sum(sensitivity_12$gain_pp > 0)` of the `r sum(sensitivity_12$small_parties > 0)` relevant elections, the smaller parties received a higher seat-share gain. With again Uri 2020, being the exclusion, where no party with less than 12% vote-share ran.
+
+These measures deliver a profound picture over the aggregated seat-share gain of smaller parties, but they don't reveal which category of smaller parties profit most from the transition. Is it rather smaller parties between 3-4% or ones with 8-10%? Therefore this subanalysis examines this for all 31 transition elections. 
+
+```{r}
+#| label: fig-party-size-gains
+#| fig-cap: "Mechanical seat-share gains by party vote-share group"
+#| fig-width: 7.5
+#| fig-height: 4.8
+#| echo: false
+#| message: false
+
+library(tidyverse)
+
+party_size_data <- all_elections |>
+  filter(
+    !str_starts(election_id, "GR_"), # Exclude Graubünden.
+    vote_share >= 0,
+    vote_share < 15 # Filter only parties with vote-shares below 15%
+  ) |>
+  mutate(
+    gain_pp = 100 * ( # Gain as percentage points of analyzed seats.
+      seats_dp - as.integer(seats_hb)
+    ) / seats_allocated_dp,
+
+    size_group = cut( # Group parties by their election-specific vote share.
+      vote_share,
+      breaks = c(0, 2, 4, 6, 8, 10, 12, 15), # Eight boundaries define seven groups.
+      labels = c(
+        "0-<2%", "2-<4%", "4-<6%",
+        "6-<8%", "8-<10%", "10-<12%", "12-<15%"
+      ),
+      right = FALSE # Include lower boundaries: 4% enters 4-<6%.
+    )
+  )
+
+party_size_means <- party_size_data |>
+  group_by(size_group) |>
+  summarise(mean_gain_pp = mean(gain_pp), .groups = "drop") # Equal weight per party-election.
+
+ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
+  geom_hline(
+    yintercept = 0,
+    colour = "grey50",
+    linewidth = 0.4
+  ) +
+  geom_point(
+    position = position_jitter(
+      width = 0.12, height = 0, seed = 2026 # Separate dots horizontally only.
+    ),
+    colour = "#0072B2",
+    alpha = 0.45,
+    size = 2
+  ) +
+  geom_point(
+    data = party_size_means,
+    aes(y = mean_gain_pp), # Mark each group's mean.
+    colour = "#000000",
+    shape = 18,
+    size = 4
+  ) +
+  geom_text(
+    data = party_size_means,
+    aes(y = mean_gain_pp, label = sprintf("%.2f", mean_gain_pp)), # Label means in pp.
+    nudge_x = 0.18,
+    hjust = 0,
+    colour = "#000000",
+    size = 3
+  ) +
+  labs(
+    x = "Party vote-share group in the analyzed area",
+    y = "Seat-share gain under DP relative to HB (pp)",
+    caption = paste(
+      "Blue points: individual party–election observations.",
+      "Black diamonds and labels: group means (pp).",
+      "Graubünden excluded."
+    )
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    panel.grid.minor = element_blank(),
+    plot.caption = element_text(hjust = 0)
+  )
+
+
+```
+
+
 
 To sum up the analysis, covers all 31 cantonal parliamentary elections held under Double Pukelsheim in Switzerland from the cantons that transitioned from Hagenbach-Bischoff. Across these elections, smaller parties received a higher aggregate seat share under Double Pukelsheim. This finding is based on the mechanical allocation difference conditional on the observed votes and specified counterfactual rules and therefore does not capture the whole transition effect. The next section examines whether the magnitude of this effect is associated with the cantons district magnitudes. 
 
