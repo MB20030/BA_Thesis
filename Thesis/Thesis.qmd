@@ -97,13 +97,11 @@ format:
 
 ## Acknowledgements {.unnumbered}
 
-*[Placeholder: review and finalise before submission.]*
-
 I would like to thank my supervisor, Dr. Aurélien Sallin, for his support in choosing the topic of this thesis, his guidance, and his willingness to answer my questions throughout the project.
 
-I am grateful to Sandro Lüscher for sharing his PhD thesis; to Adrian Zurfluh (Canton of Uri), Stefanie Haldimann (Canton of Nidwalden), and Anton Waldvogel (Canton of Schwyz) for providing election data; to Roland E. Hofer (Canton of Schaffhausen) for providing a legal text; and to Simon Graf (Canton of Zurich) for correcting the dataset after I drew attention to an issue. Their assistance was valuable in obtaining and preparing the material for this thesis.
+I am grateful to Sandro Lüscher for sharing his PhD thesis; to Adrian Zurfluh (Canton of Uri), Stefanie Haldimann (Canton of Nidwalden), and Anton Waldvogel (Canton of Schwyz) for providing election data; to Roland E. Hofer (Canton of Schaffhausen) for providing a legal text; and to Simon Graf (Canton of Zurich) for his assistance with corrections to the dataset. Their assistance was valuable in obtaining and preparing the material for this thesis.
 
-Finally, I would like to thank Eric Oehler (B.A. in Economics), Clara Burmeister (B.Sc. in Management), and my father, Martin Beyn-Hansmann, lecturer at Lucerne University of Applied Sciences, for proofreading the thesis and helping to improve its clarity and readability.
+Finally, I would like to thank my father Martin Beyn-Hansmann, lecturer at Lucerne University of Applied Sciences, Clara Burmeister (B.Sc. in Management & Information Systems) and Eric Oehler (B.A. in Economics), for proofreading the thesis and helping to improve its clarity and readability.
 
 ```{=typst}
 #pagebreak()
@@ -396,7 +394,7 @@ Third, the specified former allocation regime is applied separately within each 
 
 Fourth, the counterfactual seats obtained in the individual constituencies are aggregated to the party-election level and merged with the official Double Pukelsheim seat totals.
 
-Finally, the resulting datasets are validated by checking party coverage, vote and seat consistency, electoral-unit seat totals, and the total number of seats allocated under both regimes. Where the source data provide multiple measures of the official Double Pukelsheim result—such as upper-apportionment totals, lower-apportionment totals, reported list mandates, or elected-candidate counts—these measures are additionally reconciled. If exact ties between parties occur, they are if possible resolved with the applicable former cantonal laws. For the two cases in which the tie persisted, both possible seat allocations were presented for the affected parties. This assures, that a seat is never assigned unintentionally through e.g. the arbitrary ordering of rows. The two mentioned unresolved alternatives were observed in Graubünden 2022 and Schwyz 2024 and concern only parties above the 10% threshold and therefore do not affect the main smaller-party comparison.
+Finally, the resulting datasets are validated by checking party coverage, vote and seat consistency, electoral-unit seat totals, and the total number of seats allocated under both regimes. Where the source data provide multiple measures of the official Double Pukelsheim result such as upper-apportionment totals, lower apportionment totals, reported list mandates, or elected-candidate counts these measures are additionally reconciled. If exact ties between parties occur, they are if possible resolved with the applicable former cantonal laws. For the two cases in which the tie persisted, both possible seat allocations were presented for the affected parties. This assures, that a seat is never assigned unintentionally through e.g. the arbitrary ordering of rows. The two mentioned unresolved alternatives were observed in Graubünden 2022 and Schwyz 2024 and concern only parties above the 10% threshold and therefore do not affect the main smaller-party comparison.
 
 The resulting contrast between the observed Double Pukelsheim allocation and the countrefactual is interpreted as a mechanical allocation difference conditional on the observed post-reform votes and not as the reforms complete causal effect. This since these votes were cast under Double Pukelsheim and the analysis cannot determine how voters, parties, number of candidates, campaign strategies, or list alliances would have differed if the former electoral regime had remained in force. 
 
@@ -762,7 +760,7 @@ party_size_data <- all_elections |>
 
 party_size_means <- party_size_data |>
   group_by(size_group) |>
-  summarise(mean_gain_pp = mean(gain_pp), .groups = "drop") # Equal weight per party-election.
+  summarise(mean_gain_pp = mean(gain_pp), n = n(), .groups = "drop") # Equal weight per party-election.
 
 ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
   geom_hline(
@@ -793,12 +791,22 @@ ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
     colour = "#000000",
     size = 3
   ) +
+  scale_x_discrete(
+    labels = setNames(
+      paste0(
+        party_size_means$size_group,
+        "\n(n = ", party_size_means$n, ")"
+      ),
+      party_size_means$size_group
+    )
+  ) +
   labs(
     x = "Party vote-share group in the analyzed area",
     y = "Seat-share gain under DP relative to HB (pp)",
     caption = paste(
       "Blue points: individual party–election observations.",
       "Black diamonds and labels: group means (pp).",
+      "n = party-election observations per group.",
       "Graubünden excluded."
     )
   ) +
@@ -811,9 +819,9 @@ ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
 
 ```
 
+The summary of the `r nrow(party_size_data)` party-election observations shows that parties between 4-6% vote share tend to profit the most from the implementation of the Double Pukelsheim. For parties with more than 10% the seat-share gain is on average significantly lower. For parties with atleast 12 and below 15% the average gain reaches a point, where the parties with 0.46 percentage points barely profit anymore from the implementation. On the other side of the scale for the parties below 2% one can see that they profit slightly, while there are multiple observations were a list didn't profit at all. From the 66 observations below 2%, 45 lists receive no seats under eiter allocation. This partly explains the limited gains for parties in that group. Overall does the analysis, show that smaller parties tend to profit from the implementation whereas bigger parties in average subsequently lose their prior advantage under the old system. To be able to identify a possible gradual pattern, the analysis was also done without grouping. The figure there shows no clear monotonic relationship, further can the substantial variation between parties of the same vote share be seen throughout the analysis. With the observation, that observations at a very low share cluster around zeero, while positive gains occur across most of the remaining range. Further do most negative observations appear in the upper end of the range. The figure can be found in the Appendix in @sec-additional-analysis.
 
-
-To sum up the analysis, covers all 31 cantonal parliamentary elections held under Double Pukelsheim in Switzerland from the cantons that transitioned from Hagenbach-Bischoff. Across these elections, smaller parties received a higher aggregate seat share under Double Pukelsheim. This finding is based on the mechanical allocation difference conditional on the observed votes and specified counterfactual rules and therefore does not capture the whole transition effect. The next section examines whether the magnitude of this effect is associated with the cantons district magnitudes. 
+To sum up the analysis of Hypothesis 1: It covers all 31 cantonal parliamentary elections held under Double Pukelsheim in Switzerland from the cantons that transitioned from Hagenbach-Bischoff. Across these elections, smaller parties received under all definitions of smaller parties, a higher aggregate seat share under Double Pukelsheim. This pattern also persisted throghout almost every within election comparison of smaller parties. Further did the analyis show, that parties between 4% and below 10% profited most from the implementation of the Double Pukelsheim. These findings are based on the mechanical allocation difference conditional on the observed votes and specified counterfactual rules and therefore do not capture the whole transition effect. The next section examines whether the magnitude of this effect is associated with the cantons district magnitudes. 
 
 #### Exploratory question 1: Differences by district magnitude
 
@@ -1838,7 +1846,9 @@ The table below identifies the election data and legal sources used in the canto
 
 ### Appendix 2: Code for Data Cleaning
 
-### Appendix 3: Smaller parties' absolute seat counts {#sec-absolute-seats-appendix}
+### Appendix 3: Additional Analysis {#sec-additional-analysis}
+ 
+#### Smaller parties' absolute seat counts {#sec-absolute-seats-appendix}
 
 ```{=typst}
 #show <fig-small-parties-absolute>: set figure(placement: none)
@@ -1857,6 +1867,47 @@ The table below identifies the election data and legal sources used in the canto
 
 # Reuse the H1 comparison with absolute smaller-party seat totals.
 small_party_plot("seats_small_parties", "Number of seats won by smaller parties", "election_id")
+```
+
+#### Mechanical seat-share gains by exact party vote share
+
+@fig-party-size-gains-continuous supplements the @fig-party-size-gains in the Analysis of Hypothesis 1. Conversely to @fig-party-size-gains it uses no grouping and plots each party-election observation at its exact vote share. It shows substantial variation in mechanical seat-share gains among parties with similar vote shares aswell as no clear monotonic relationship. Additionally to @fig-party-size-gains it shows that lists with very low vote shares cluster around zero. The @fig-party-size-gains-continuous therefore provides additional context for the group averages reported in the main analysis.
+
+```{r}
+#| label: fig-party-size-gains-continuous
+#| fig-cap: "Mechanical seat-share gains by exact party vote share"
+#| fig-width: 7.5
+#| fig-height: 4.8
+#| echo: false
+#| message: false
+
+ggplot(party_size_data, aes(x = vote_share, y = gain_pp)) + # Reuse data with exact vote shares.
+  geom_hline(
+    yintercept = 0, # Mark no difference between DP and HB.
+    colour = "grey50",
+    linewidth = 0.4
+  ) +
+  geom_point(
+    colour = "#0072B2",
+    alpha = 0.45, # Transparency to show overlapping observations
+    size = 2
+  ) +
+  scale_x_continuous(
+    breaks = seq(0, 15, by = 2.5) # Show ticks and gridlines every 2.5 percentage points.
+  ) +
+  labs(
+    x = "Party vote share in the analyzed area (%)",
+    y = "Seat-share gain under DP relative to HB (pp)",
+    caption = paste(
+      "Each point represents one party-election observation.",
+      "Parties below 15% vote share; Graubünden excluded."
+    )
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    panel.grid.minor = element_blank(),
+    plot.caption = element_text(hjust = 0)
+  )
 ```
 
 ### Declaration of AI-Assistance
