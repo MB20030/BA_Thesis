@@ -307,7 +307,9 @@ To answer the research question, the thesis tests one main hypothesis concerning
 
 ### Hypothesis 1
 
-For each election $e$, smaller parties or electoral lists are those with less than 10% of the vote in the *analyzed area*. The variable *analyzed area* describes the whole canton except in Uri, where the *analyzed area* includes only the four municipalities using the DP-System. The 10% cutoff is chosen with reference to the Swiss Federal Supreme Court's benchmark that natural (implicit) thresholds should not exceed 10% when an electoral system is redesigned (BGE 131 I 74 E. 5.3–5.4; Bundeskanzlei, 2013, p. 8). This benchmark motivates the definition of smaller parties used in this analysis.
+The Hypothesis 1 researches whether smaller parties when holding votes constant collectively receive a larger seat share under Double Pukelsheim than under the conterfactual Hagenbach-Bischoff allocation. 
+
+For the analysis the following preqreuisites and decision are taken. In each election $e$, smaller parties or electoral lists are those with less than 10% of the vote in the *analyzed area*. The variable *analyzed area* describes the whole canton except in Uri, where the *analyzed area* includes only the four municipalities using the DP-System. The 10% cutoff is chosen with reference to the Swiss Federal Supreme Court's benchmark that natural (implicit) thresholds should not exceed 10% when an electoral system is redesigned (BGE 131 I 74 E. 5.3–5.4; Bundeskanzlei, 2013, p. 8). This benchmark motivates the definition of smaller parties used in this analysis. As a sensitivity check, the 10% threshold is complemented by an analysis with a 8% and 12% threshold.
 
 Let $S^{DP}{e}$ and $S^{HB}{e}$ denote the aggregated number of seats allocated to smaller parties in election $e$ under Double Pukelsheim and the counterfactual Hagenbach–Bischoff system, respectively. Aswell as let $M_e$ denote the total number of seats included in the comparison. Smaller parties’ combined gain in seat share, shown for each election in @fig-small-parties-relative, is calculated as follows:
 
@@ -319,6 +321,8 @@ The hypothesis uses the unweighted mean, $\bar{\Delta} = \frac{1}{E}\sum_{e=1}^{
 
 This leads to the following directional hypothesis: 
 **$H_1$:** Across the analyzed elections, the mean mechanical difference $\bar{\Delta}$ is positive: electoral lists or list groups with less than 10% of the vote receive, on average, a larger share of the analyzed seats under Double Pukelsheim than under the counterfactual Hagenbach–Bischoff allocation.
+
+As a supplementary and exploratory analyis, it's examined how individual parties seat-share gains vary across vote-share groups. Here no directional hypothsis regarding the ordering of the groups is formulated. Instead the comparison provides context for the aggregate resulty by showing which party-sizes experience higher and lower seat-share gains. 
 
 ### Exploratory Questions
 #### Exploratory question 1: Differences by district magnitude
