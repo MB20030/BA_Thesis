@@ -1937,6 +1937,233 @@ ggplot(party_size_plot_data, aes(x = vote_share, y = gain_pp)) + # Include GR fo
   )
 ```
 
+### Appendix 4:  Leave-one-canton-out robustness checks {#sec-leave-one-out}
+
+#### Hypothesis 1 
+
+```{r}
+#| label: loco-results-h1
+#| echo: false
+#| tbl-colwidths: [24,24,24,28]
+
+loco_data_h1 <- small_party_summary |>
+  filter(!is_graubuenden) |> # Exclude the context-only canton.
+  mutate(canton = str_sub(election_id, 1, 2)) # Extract canton codes.
+
+stopifnot(
+  nrow(loco_data_h1) == 31L, # Check election count.
+  n_distinct(loco_data_h1$canton) == 8L # Check canton count.
+)
+
+loco_results_h1 <- map_dfr( # Combine results from all eight cantons
+  sort(unique(loco_data_h1$canton)),
+  function(omitted) {
+
+    loco_data_h1 |>
+      filter(canton != omitted) |> # Remove all elections from this canton.
+      summarise(
+        omitted_canton = omitted,
+        elections = n(), # Count remaining elections.
+        mean_gain = mean(seat_gain_pp), # Give each election equal weight.
+        weighted_mean_gain = weighted.mean(
+          seat_gain_pp, seats_allocated_dp # Weight by analyzed seats.
+        )
+      )
+  }
+)
+
+knitr::kable( # Display the results in the appendix.
+  loco_results_h1,
+  digits = 2,
+  col.names = c(
+    "Canton omitted", "Elections remaining",
+    "Mean gain (pp)", "Weighted mean gain (pp)"
+  ),
+  caption = "Smaller-party seat-share gains after excluding each canton."
+)
+```
+
+####  Exploratory Question 1
+
+```{r}
+#| label: loco-results-eq1
+#| echo: false
+#| tbl-colwidths: [20,20,20,20,20]
+
+# Include the original sample as a reference, then omit each canton.
+loco_eq1_cases <- c(
+  "Full sample",
+  sort(setdiff(unique(eq1_points$canton), "GR"))
+)
+
+loco_eq1_results <- map_dfr(loco_eq1_cases, function(omitted) {
+
+  eq1_points |>
+    filter(canton != "GR", canton != omitted) |>
+    group_by(metric, group) |>
+    summarise(
+      mean_gain_pp = mean(mean_gain_pp),
+      .groups = "drop"
+    ) |>
+    pivot_wider(
+      names_from = group,
+      values_from = mean_gain_pp
+    ) |>
+    mutate(
+      omitted_canton = omitted,
+      difference_pp = `Below mean` - `At/above mean`
+    ) |>
+    select(omitted_canton, metric, difference_pp)
+})
+
+# Display the four comparisons side by side.
+loco_eq1_table <- loco_eq1_results |>
+  pivot_wider(
+    names_from = metric,
+    values_from = difference_pp
+  )
+
+knitr::kable(
+  loco_eq1_table,
+  digits = 2,
+  col.names = c(
+    "Canton omitted", "Mean size", "Median size",
+    "Share below 9", "CV"
+  ),
+  caption = paste(
+    "Leave-one-canton-out sensitivity of district-characteristic",
+    "group differences (percentage points; original cutoffs retained)."
+  )
+)
+```
+
+#### Exploratory Question 3 
+
+```{r}
+#| label: loco-results-eq3
+#| echo: false
+#| tbl-colwidths: [22, 26, 26, 26]
+
+loco_eq3_cases <- c(
+  "Full sample", # Reference result before excluding any canton.
+  sort(setdiff(unique(eq3_elections$canton), "GR"))
+)
+
+loco_eq3_results <- map_dfr(loco_eq3_cases, function(omitted) {
+
+  eq3_elections |>
+    filter(canton != "GR", canton != omitted) |> # Remove the whole canton.
+    group_by(quorum) |>
+    summarise(
+      mean_gain_pp = mean(seat_gain_pp), # Equal weight per election.
+      .groups = "drop"
+    ) |>
+    pivot_wider(
+      names_from = quorum,
+      values_from = mean_gain_pp
+    ) |>
+    mutate(
+      omitted_canton = omitted,
+      difference_pp = `Without explicit quorum` -
+                      `With explicit quorum`
+    ) |>
+    select(
+      omitted_canton,
+      `Without explicit quorum`,
+      `With explicit quorum`,
+      difference_pp
+    )
+})
+
+knitr::kable(
+  loco_eq3_results,
+  digits = 2,
+  col.names = c(
+    "Canton omitted", "Without quorum (pp)",
+    "With quorum (pp)", "Difference (pp)"
+  ),
+  caption = paste(
+    "Leave-one-canton-out sensitivity of the electoral-quorum",
+    "comparison. Difference: without minus with quorum."
+  )
+)
+```
+
+#### Exploratory Question 4
+```{=typst}
+#[
+#let election-colours = (
+  rgb("#b5d7f8"), // Election 1: pale blue
+  rgb("#bff3c2"), // Election 2: pale green
+  rgb("#f5e4c6"), // Election 3: pale yellow
+  rgb("#e2caf1"), // Election 4: pale purple
+  rgb("#e9bbad"), // Election 5: pale orange
+)
+
+#set table(
+  fill: (x, y) => if y == 0 {
+    none // Leave the header unshaded.
+  } else {
+    election-colours.at(calc.rem(y - 1, 5))
+  },
+)
+
+```
+```{r}
+#| label: loco-results-eq4
+#| echo: false
+#| tbl-colwidths: [22, 16, 16, 23, 23]
+
+loco_eq4_cases <- c(
+  "Full sample", # Baseline: omit no additional canton.
+  sort(setdiff(unique(eq4_elections$canton), "GR"))
+)
+
+loco_eq4_results <- map_dfr(loco_eq4_cases, function(omitted) {
+
+  eq4_elections |>
+    filter(canton != "GR", canton != omitted) |>
+    arrange(canton, election_number) |>
+    group_by(canton) |>
+    mutate(
+      change_pp = seat_gain_pp - lag(seat_gain_pp) # Within-canton change.
+    ) |>
+    ungroup() |>
+    group_by(election_number) |>
+    summarise(
+      cantons = n_distinct(canton), # Remaining elections
+      mean_gain_pp = mean(seat_gain_pp),
+      mean_change_pp = if (all(is.na(change_pp))) {
+        NA_real_ # No preceding election for election 1.
+      } else {
+        mean(change_pp, na.rm = TRUE)
+      },
+      .groups = "drop"
+    ) |>
+    mutate(omitted_canton = omitted) |>
+    select(
+      omitted_canton, election_number, cantons,
+      mean_gain_pp, mean_change_pp
+    )
+})
+
+knitr::kable(
+  loco_eq4_results,
+  digits = 2,
+  col.names = c(
+    "Canton omitted", "Election number", "Cantons",
+    "Mean gain (pp)", "Mean change (pp)"
+  ),
+  caption = paste(
+    "Leave-one-canton-out sensitivity of successive-election summaries.",
+    "Changes are calculated within cantons before averaging."
+  )
+)
+```
+
+```{=typst}
+]
+```
 ### Declaration of AI-Assistance
 
 #### Self Reflection on AI-Usage 
