@@ -728,7 +728,7 @@ The average gain differs across the cantons for e.g. is there the Canton of Scha
 
 The general finding is further robust to alternative definitions of smaller parties. Using a vote-share cutoff of less than 8%, the mean gain is `r sprintf("%.2f", mean(sensitivity_8$gain_pp))` percentage points. Also do the smaller parties c further smaller parties collectively receive a higher seat share under Double Pukelsheim in `r sum(sensitivity_8$gain_pp > 0)` of the `r sum(sensitivity_8$small_parties > 0)` where atleast one parliamentary party with a maximum of 8% vote-share contested. The exception is  `r paste(str_replace(no_gain_8$election_id, "_", " 20"), collapse = " and ")` , where the aggregated difference is zero and the upper-allocation process isn't done across the whole canton. With a cutoff of less than 12%, the mean gain is `r sprintf("%.2f", mean(sensitivity_12$gain_pp))` percentage points. Regarding the collectively higher seat share in this case, in  `r sum(sensitivity_12$gain_pp > 0)` of the `r sum(sensitivity_12$small_parties > 0)` relevant elections, the smaller parties received a higher seat-share gain. With again Uri 2020, being the exclusion, where no party with less than 12% vote-share ran.
 
-These measures deliver a profound picture over the aggregated seat-share gain of smaller parties, but they don't reveal which category of smaller parties profit most from the transition. Is it rather smaller parties between 3-4% or ones with 8-10%? Therefore this subanalysis examines this for all 31 transition elections. 
+These measures deliver a profound picture over the aggregated seat-share gain of smaller parties, but they don't reveal which category of smaller parties profit most from the transition. Is it rather smaller parties between 3-4% or ones with 8-10%? Therefore this subanalysis examines this for all 31 transition elections. Both party-size figures additionally show observations from the two Graubünden elections for context. Since Graubünden previously used Majorz, its HB comparison is hypothetical and its results are only contextual. 
 
 ```{r}
 #| label: fig-party-size-gains
@@ -740,13 +740,14 @@ These measures deliver a profound picture over the aggregated seat-share gain of
 
 library(tidyverse)
 
-party_size_data <- all_elections |>
+party_size_plot_data <- all_elections |>
   filter(
-    !str_starts(election_id, "GR_"), # Exclude Graubünden.
     vote_share >= 0,
     vote_share < 15 # Filter only parties with vote-shares below 15%
   ) |>
   mutate(
+    comparison = if_else(str_starts(election_id, "GR_"),
+                         "Graubünden (context)", "Transition cantons"),
     gain_pp = 100 * ( # Gain as percentage points of analyzed seats.
       seats_dp - as.integer(seats_hb)
     ) / seats_allocated_dp,
@@ -762,6 +763,10 @@ party_size_data <- all_elections |>
     )
   )
 
+# Keep the transition sample separate for all summaries and counts.
+party_size_data <- party_size_plot_data |>
+  filter(comparison == "Transition cantons")
+
 party_size_means <- party_size_data |>
   group_by(size_group) |>
   summarise(mean_gain_pp = mean(gain_pp), n = n(), .groups = "drop") # Equal weight per party-election.
@@ -773,11 +778,12 @@ ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
     linewidth = 0.4
   ) +
   geom_point(
+    data = party_size_plot_data,
+    aes(colour = comparison, shape = comparison),
     position = position_jitter(
       width = 0.12, height = 0, seed = 2026 # Separate dots horizontally only.
     ),
-    colour = "#0072B2",
-    alpha = 0.45,
+    alpha = 0.6,
     size = 2
   ) +
   geom_point(
@@ -804,19 +810,27 @@ ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
       party_size_means$size_group
     )
   ) +
+  scale_colour_manual(
+    values = c("Transition cantons" = "#0072B2", "Graubünden (context)" = "#707070"),
+    breaks = c("Transition cantons", "Graubünden (context)"), name = NULL
+  ) +
+  scale_shape_manual(
+    values = c("Transition cantons" = 16, "Graubünden (context)" = 1),
+    breaks = c("Transition cantons", "Graubünden (context)"), name = NULL
+  ) +
   labs(
     x = "Party vote-share group in the analyzed area",
     y = "Seat-share gain under DP relative to HB (pp)",
     caption = paste(
-      "Blue points: individual party–election observations.",
-      "Black diamonds and labels: group means (pp).",
-      "n = party-election observations per group.",
-      "Graubünden excluded."
+      "Black diamonds and labels: transition-canton group means (pp).",
+      "n counts transition observations only.\n",
+      "Grey open circles: Graubünden's hypothetical HB comparison (context only)."
     )
   ) +
   theme_minimal(base_size = 11) +
   theme(
     panel.grid.minor = element_blank(),
+    legend.position = "bottom",
     plot.caption = element_text(hjust = 0)
   )
 
@@ -1875,7 +1889,7 @@ small_party_plot("seats_small_parties", "Number of seats won by smaller parties"
 
 #### Mechanical seat-share gains by exact party vote share
 
-@fig-party-size-gains-continuous supplements the @fig-party-size-gains in the Analysis of Hypothesis 1. Conversely to @fig-party-size-gains it uses no grouping and plots each party-election observation at its exact vote share. It shows substantial variation in mechanical seat-share gains among parties with similar vote shares aswell as no clear monotonic relationship. Additionally to @fig-party-size-gains it shows that lists with very low vote shares cluster around zero. The @fig-party-size-gains-continuous therefore provides additional context for the group averages reported in the main analysis.
+@fig-party-size-gains-continuous supplements the @fig-party-size-gains in the Analysis of Hypothesis 1. Conversely to @fig-party-size-gains it uses no grouping and plots each party-election observation at its exact vote share. It shows substantial variation in mechanical seat-share gains among parties with similar vote shares aswell as no clear monotonic relationship. Additionally to @fig-party-size-gains it shows that lists with very low vote shares cluster around zero. The @fig-party-size-gains-continuous therefore provides additional context for the group averages reported in the main analysis. As in the grouped figure, grey open circles show Graubünden's hypothetical HB comparison for context only and the observations do not enter the transition summaries.
 
 ```{r}
 #| label: fig-party-size-gains-continuous
@@ -1885,31 +1899,40 @@ small_party_plot("seats_small_parties", "Number of seats won by smaller parties"
 #| echo: false
 #| message: false
 
-ggplot(party_size_data, aes(x = vote_share, y = gain_pp)) + # Reuse data with exact vote shares.
+ggplot(party_size_plot_data, aes(x = vote_share, y = gain_pp)) + # Include GR for context at exact vote shares.
   geom_hline(
     yintercept = 0, # Mark no difference between DP and HB.
     colour = "grey50",
     linewidth = 0.4
   ) +
   geom_point(
-    colour = "#0072B2",
-    alpha = 0.45, # Transparency to show overlapping observations
+    aes(colour = comparison, shape = comparison),
+    alpha = 0.6, # Transparency to show overlapping observations
     size = 2
   ) +
   scale_x_continuous(
     breaks = seq(0, 15, by = 2.5) # Show ticks and gridlines every 2.5 percentage points.
   ) +
+  scale_colour_manual(
+    values = c("Transition cantons" = "#0072B2", "Graubünden (context)" = "#707070"),
+    breaks = c("Transition cantons", "Graubünden (context)"), name = NULL
+  ) +
+  scale_shape_manual(
+    values = c("Transition cantons" = 16, "Graubünden (context)" = 1),
+    breaks = c("Transition cantons", "Graubünden (context)"), name = NULL
+  ) +
   labs(
     x = "Party vote share in the analyzed area (%)",
     y = "Seat-share gain under DP relative to HB (pp)",
     caption = paste(
-      "Each point represents one party-election observation.",
-      "Parties below 15% vote share; Graubünden excluded."
+      "Each point represents one party-election observation below 15% vote share.\n",
+      "Grey open circles: Graubünden's hypothetical HB comparison (context only)."
     )
   ) +
   theme_minimal(base_size = 11) +
   theme(
     panel.grid.minor = element_blank(),
+    legend.position = "bottom",
     plot.caption = element_text(hjust = 0)
   )
 ```
