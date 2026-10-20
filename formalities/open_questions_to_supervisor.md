@@ -5,7 +5,7 @@
 3. Regarding my prior question in EQ1 : Would it make sense to add an exploratory OLS regression to each panel of Figure 2 to quantify the linear association between district characteristics and smaller parties’ gains, given that there are only eight cantons?
 I'm thinking to let it out, since with 8 cantons it adds probably little to no additional knowledge.
 
-4. I'm thinking about doing a leave one canton out check in the Appendix. There I recalculate the main results with letting out every canton once, to check whether the results are depending heavily on outliers of on canton. Probably Schaffhausen! 
+4. I've included leave one canton out check in the Appendix. There I recalculate the main results with letting out every canton once, to check whether the results are depending heavily on outliers of on canton. It shows that there are some sign switches in the gain. Mainly caused by Schaffhausen and Zurich.
 
 5. How should I cite my own calculations, Is it enough to say all statements are based on authors calculation with the cantonal databooks as sources?
 

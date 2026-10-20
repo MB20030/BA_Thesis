@@ -1939,32 +1939,38 @@ ggplot(party_size_plot_data, aes(x = vote_share, y = gain_pp)) + # Include GR fo
 
 ### Appendix 4:  Leave-one-canton-out robustness checks {#sec-leave-one-out}
 
-Bold values identify the canton omission that produces the largest absolute change from the full-sample result in each outcome column. For EQ4, this comparison is made separately within each election number. Comparisons use unrounded results and if ties appear, they are highlighted together.
+Bold values identify the canton omission that produces the largest absolute change from the full-sample result in each outcome column. For EQ4, this comparison is made separately within each election number. The comparisons use unrounded results. 
 
 ```{r}
 #| label: loco-highlight-helper
 #| echo: false
 
+# Return a table-ready copy with the most influential omission in bold
 loco_highlight_influence <- function(data, measures, groups = character()) {
   highlight_group <- function(group_data) {
+    # Each table or group needs exactly one baseline row for comparison.
     reference_row <- which(group_data$omitted_canton == "Full sample")
     stopifnot(length(reference_row) == 1L)
 
     for (measure in measures) {
       values <- group_data[[measure]]
+      # relevant is absolute distance from baseline 
       deviation <- abs(values - values[reference_row])
+      # Exclude the baseline and NA
       candidates <- which(
         group_data$omitted_canton != "Full sample" & is.finite(deviation)
       )
+      # Leave column unhighlighted if no valid omission changes result
       strongest <- integer()
       if (length(candidates) > 0L) {
         largest_change <- max(deviation[candidates])
         if (largest_change > 0) {
+          # Keep all ties 
           strongest <- candidates[near(deviation[candidates], largest_change)]
         }
       }
 
-      # Format a display copy; retain the numeric source tables for calculations.
+      # Only returned copy becomes text
       formatted <- ifelse(is.na(values), "NA", sprintf("%.2f", values))
       formatted[strongest] <- paste0("**", formatted[strongest], "**")
       group_data[[measure]] <- formatted
@@ -1973,8 +1979,10 @@ loco_highlight_influence <- function(data, measures, groups = character()) {
   }
 
   if (length(groups) == 0L) {
+    
     highlight_group(data)
   } else {
+    # EQ4: repeat independently per election number
     data |>
       group_by(across(all_of(groups))) |>
       group_modify(~ highlight_group(.x)) |>
@@ -2028,6 +2036,8 @@ knitr::kable( # Display the results in the appendix.
   caption = "Smaller-party seat-share gains in the full sample and after excluding each canton."
 )
 ```
+
+Both the unweighted and weighted mean gains are relatively consistent after the exclusion of every canton. The omission of Schaffhausen and Zurich for the unweighted respectively the weighted mean. In both cases the gain declines when they are excluded. This is aligned with the observation, that both Zurich and Schaffhausen receive relatively high seat-share gains. Further are both of them included in the observation with the maximumly possible five elections. The canton of Zurich further has the largest parliament of all analyzed  cantons, giving it extra influence in the weighted mean analysis. The positive aggregate finding reported in @sec-h1-results therefore remains robust to the exclusion of any single canton.
 
 ####  Exploratory Question 1
 
@@ -2086,6 +2096,8 @@ knitr::kable(
   )
 )
 ```
+
+As for Hypothesis 1, the omission of Schaffhausen comes with the highest absolute differences in all four measures. The differences for mean and median district magnitude remain negative, whereas those for the share of districts below nine seats and the CV change from negative to positive. The direction of the two latter comparisons therefore depends on the inclusion of Schaffhausen. These robustness checks therefore demonstrate sensitivity to the sample composition. 
 
 #### Exploratory Question 3 
 
@@ -2159,6 +2171,8 @@ knitr::kable(
   )
 )
 ```
+
+As in the prior robustness checks are the cantons of Zurich and Schaffhausen responsible for the highest absolute differences. The omission of Schaffhausen reverses the group difference. This leads to that without the Schaffhausen elections, the average seat-gain share is higher for elections with quorums compared to the ones without quroums. The sample for the without quroum group consists of twelve elections, from which five are from Schaffhausen. Further do all Schaffhausen elections, experience an above average seat-share gain. Thus is the observed difference sensitive to Schaffhausen's inclusion and should not be interpreted as a stable relationship betwenn an explicit electoral quroum and the smaller party seat-share gains.
 
 #### Exploratory Question 4
 ```{r}
@@ -2247,6 +2261,8 @@ knitr::kable(
 ```{=typst}
 ]
 ```
+For exploratory question four, the robustness check was done for each election number separately. Zurich or Schaffhausen produces the larges absolute change in six out nine comparisons. The mean seat-share gains remain positive under every omission. However, the mean change from election three to four switches from negative to positive when Zurich is excluded, while the change from election four to five switches from positive to negative when Aargau is excluded. These later transitions include only five respectively three cantons. This makes their averages particularly sensitive to individual cantons.
+
 ### Declaration of AI-Assistance
 
 #### Self Reflection on AI-Usage 
