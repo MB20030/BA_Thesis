@@ -1939,6 +1939,50 @@ ggplot(party_size_plot_data, aes(x = vote_share, y = gain_pp)) + # Include GR fo
 
 ### Appendix 4:  Leave-one-canton-out robustness checks {#sec-leave-one-out}
 
+Bold values identify the canton omission that produces the largest absolute change from the full-sample result in each outcome column. For EQ4, this comparison is made separately within each election number. Comparisons use unrounded results and if ties appear, they are highlighted together.
+
+```{r}
+#| label: loco-highlight-helper
+#| echo: false
+
+loco_highlight_influence <- function(data, measures, groups = character()) {
+  highlight_group <- function(group_data) {
+    reference_row <- which(group_data$omitted_canton == "Full sample")
+    stopifnot(length(reference_row) == 1L)
+
+    for (measure in measures) {
+      values <- group_data[[measure]]
+      deviation <- abs(values - values[reference_row])
+      candidates <- which(
+        group_data$omitted_canton != "Full sample" & is.finite(deviation)
+      )
+      strongest <- integer()
+      if (length(candidates) > 0L) {
+        largest_change <- max(deviation[candidates])
+        if (largest_change > 0) {
+          strongest <- candidates[near(deviation[candidates], largest_change)]
+        }
+      }
+
+      # Format a display copy; retain the numeric source tables for calculations.
+      formatted <- ifelse(is.na(values), "NA", sprintf("%.2f", values))
+      formatted[strongest] <- paste0("**", formatted[strongest], "**")
+      group_data[[measure]] <- formatted
+    }
+    group_data
+  }
+
+  if (length(groups) == 0L) {
+    highlight_group(data)
+  } else {
+    data |>
+      group_by(across(all_of(groups))) |>
+      group_modify(~ highlight_group(.x)) |>
+      ungroup()
+  }
+}
+```
+
 #### Hypothesis 1 
 
 ```{r}
@@ -1955,12 +1999,12 @@ stopifnot(
   n_distinct(loco_data_h1$canton) == 8L # Check canton count.
 )
 
-loco_results_h1 <- map_dfr( # Combine results from all eight cantons
-  sort(unique(loco_data_h1$canton)),
+loco_results_h1 <- map_dfr( # Include the full-sample reference, then omit each canton.
+  c("Full sample", sort(unique(loco_data_h1$canton))),
   function(omitted) {
 
     loco_data_h1 |>
-      filter(canton != omitted) |> # Remove all elections from this canton.
+      filter(omitted == "Full sample" | canton != omitted) |>
       summarise(
         omitted_canton = omitted,
         elections = n(), # Count remaining elections.
@@ -1973,13 +2017,15 @@ loco_results_h1 <- map_dfr( # Combine results from all eight cantons
 )
 
 knitr::kable( # Display the results in the appendix.
-  loco_results_h1,
+  loco_highlight_influence(loco_results_h1, c("mean_gain", "weighted_mean_gain")),
+  format = "pipe",
+  align = c("l", "r", "r", "r"),
   digits = 2,
   col.names = c(
     "Canton omitted", "Elections remaining",
     "Mean gain (pp)", "Weighted mean gain (pp)"
   ),
-  caption = "Smaller-party seat-share gains after excluding each canton."
+  caption = "Smaller-party seat-share gains in the full sample and after excluding each canton."
 )
 ```
 
@@ -2024,7 +2070,11 @@ loco_eq1_table <- loco_eq1_results |>
   )
 
 knitr::kable(
-  loco_eq1_table,
+  loco_highlight_influence(
+    loco_eq1_table, setdiff(names(loco_eq1_table), "omitted_canton")
+  ),
+  format = "pipe",
+  align = c("l", "r", "r", "r", "r"),
   digits = 2,
   col.names = c(
     "Canton omitted", "Mean size", "Median size",
@@ -2051,6 +2101,11 @@ loco_eq3_cases <- c(
 
 loco_eq3_results <- map_dfr(loco_eq3_cases, function(omitted) {
 
+  omitted_groups <- eq3_elections |>
+    filter(canton == omitted) |>
+    pull(quorum) |>
+    as.character()
+
   eq3_elections |>
     filter(canton != "GR", canton != omitted) |> # Remove the whole canton.
     group_by(quorum) |>
@@ -2065,7 +2120,16 @@ loco_eq3_results <- map_dfr(loco_eq3_cases, function(omitted) {
     mutate(
       omitted_canton = omitted,
       difference_pp = `Without explicit quorum` -
-                      `With explicit quorum`
+                      `With explicit quorum`,
+      # Hide unaffected means after calculating the comparison with that group.
+      across(
+        all_of(c("Without explicit quorum", "With explicit quorum")),
+        ~ if (omitted != "Full sample" && !(cur_column() %in% omitted_groups)) {
+          NA_real_
+        } else {
+          .x
+        }
+      )
     ) |>
     select(
       omitted_canton,
@@ -2076,7 +2140,12 @@ loco_eq3_results <- map_dfr(loco_eq3_cases, function(omitted) {
 })
 
 knitr::kable(
-  loco_eq3_results,
+  loco_highlight_influence(
+    loco_eq3_results,
+    c("Without explicit quorum", "With explicit quorum", "difference_pp")
+  ),
+  format = "pipe",
+  align = c("l", "r", "r", "r"),
   digits = 2,
   col.names = c(
     "Canton omitted", "Without quorum (pp)",
@@ -2084,35 +2153,18 @@ knitr::kable(
   ),
   caption = paste(
     "Leave-one-canton-out sensitivity of the electoral-quorum",
-    "comparison. Difference: without minus with quorum."
+    "comparison. NA marks a group in which the omitted canton has no elections.",
+    "Aargau contributes to both groups and is omitted from both.",
+    "Difference: without minus with quorum, using the full-sample mean for an unaffected group."
   )
 )
 ```
 
 #### Exploratory Question 4
-```{=typst}
-#[
-#let election-colours = (
-  rgb("#b5d7f8"), // Election 1: pale blue
-  rgb("#bff3c2"), // Election 2: pale green
-  rgb("#f5e4c6"), // Election 3: pale yellow
-  rgb("#e2caf1"), // Election 4: pale purple
-  rgb("#e9bbad"), // Election 5: pale orange
-)
-
-#set table(
-  fill: (x, y) => if y == 0 {
-    none // Leave the header unshaded.
-  } else {
-    election-colours.at(calc.rem(y - 1, 5))
-  },
-)
-
-```
 ```{r}
-#| label: loco-results-eq4
+#| label: loco-eq4-data
 #| echo: false
-#| tbl-colwidths: [22, 16, 16, 23, 23]
+#| tbl-colwidths: [21,21,16,21,21]
 
 loco_eq4_cases <- c(
   "Full sample", # Baseline: omit no additional canton.
@@ -2140,23 +2192,54 @@ loco_eq4_results <- map_dfr(loco_eq4_cases, function(omitted) {
       },
       .groups = "drop"
     ) |>
+    filter(
+      omitted == "Full sample" |
+        election_number %in% eq4_elections$election_number[
+          eq4_elections$canton == omitted
+        ] # Omit only relevant cantons for each election number
+    ) |>
     mutate(omitted_canton = omitted) |>
     select(
       omitted_canton, election_number, cantons,
       mean_gain_pp, mean_change_pp
     )
-})
+}) |>
+  arrange(election_number, omitted_canton != "Full sample", omitted_canton) |>
+  select(election_number, omitted_canton, cantons, mean_gain_pp, mean_change_pp)
+
+# Locate reference rows dynamically because election-number groups vary in size.
+loco_eq4_full_sample_rows <- which(loco_eq4_results$omitted_canton == "Full sample")
+knitr::asis_output(paste0(
+  "```{=typst}\n#[\n#set table(\n",
+  "  fill: (x, y) => if y in (",
+  paste(loco_eq4_full_sample_rows, collapse = ", "),
+  ") { rgb(\"#f2f2f2\") } else { none },\n",
+  ")\n```\n"
+))
+```
+
+```{r}
+#| label: loco-results-eq4
+#| echo: false
+#| tbl-colwidths: [16, 22, 16, 23, 23]
 
 knitr::kable(
-  loco_eq4_results,
+  loco_highlight_influence(
+    loco_eq4_results, c("mean_gain_pp", "mean_change_pp"),
+    groups = "election_number"
+  ),
+  format = "pipe",
   digits = 2,
+  align = c("l", "l", "r", "r", "r"),
   col.names = c(
-    "Canton omitted", "Election number", "Cantons",
+    "Election number", "Canton omitted", "Cantons",
     "Mean gain (pp)", "Mean change (pp)"
   ),
   caption = paste(
     "Leave-one-canton-out sensitivity of successive-election summaries.",
-    "Changes are calculated within cantons before averaging."
+    "Changes are calculated within cantons before averaging.",
+    "Only cantons observed at the respective election number are omitted.",
+    "The full-sample reference row for each election number is shaded light grey."
   )
 )
 ```
