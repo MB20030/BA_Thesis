@@ -573,7 +573,7 @@ To examine successive elections, the seat-share difference $\Delta_e$ is plotted
 
 #### Hypothesis 1: Smaller parties' seat-share gain {#sec-h1-results}
 
-@fig-small-parties-relative compares smaller parties' combined seat shares under the observed Double Pukelsheim allocation and the counterfactual Hagenbach-Bischoff allocation for every cleaned election. Smaller parties are defined as parties with less than 10% of the vote share in the analyzed area. The x-axis reports their combined share of analyzed seats, while the y-axis reports their combined vote share. The grey line connects the two allocations derived from the same election, and each label reports the gain under Double Pukelsheim in percentage points. This seat-share difference is the outcome used to assess Hypothesis 1 and allows comparisons across elections with different numbers of analyzed seats. The corresponding comparison in absolute seat counts is provided in @fig-small-parties-absolute in Appendix 3.
+@fig-small-parties-relative compares smaller parties' combined seat shares under the observed Double Pukelsheim allocation and the counterfactual Hagenbach-Bischoff allocation for every cleaned election. Smaller parties are defined as parties with less than 10% of the vote share in the analyzed area. The x-axis reports their combined share of analyzed seats, while the y-axis reports their combined vote share. The grey line connects the two allocations derived from the same election, and each election is labelled at its Double Pukelsheim point. This seat-share difference is the outcome used to assess Hypothesis 1 and allows comparisons across elections with different numbers of analyzed seats. The corresponding comparison in absolute seat counts is provided in @fig-small-parties-absolute in Appendix 3.
 
 ```{r}
 #| label: h1-data-and-plot-setup
@@ -606,8 +606,7 @@ small_party_summary <- all_elections |>
   mutate(
     is_graubuenden = str_starts(election_id, "GR_"),
     # Express the DP gain as a share of seats included in the comparison.
-    seat_gain_pp = 100 * (seats_dp - seats_hb) / seats_allocated_dp,
-    gain_label = sprintf("%s (%+.1f pp)", election_id, seat_gain_pp)
+    seat_gain_pp = 100 * (seats_dp - seats_hb) / seats_allocated_dp
   )
 
 # Put both systems on separate rows for plotting and calculate seat shares.
@@ -637,32 +636,47 @@ h1_stats <- small_party_summary |>
 
 # Draw either the seat-count or seat-share version of the same comparison.
 small_party_plot <- function(x, x_title, label, percent = FALSE) {
-  # Label both systems for counts, but only DP points for the denser share plot.
-  label_data <- if (percent) filter(small_party_plot_data, system == "Double Pukelsheim") else small_party_plot_data
+  # Keep all endpoints in one repel layer
+  label_data <- small_party_plot_data |>
+    mutate(
+      plot_label = if_else(system == "Double Pukelsheim", .data[[label]], ""),
+      label_colour = if_else(is_graubuenden, "Context only", as.character(system))
+    )
+  # Repulsion needs obstacles along horizontal comparison lines
+  line_obstacles <- small_party_plot_data |>
+    group_by(election_id) |>
+    reframe(
+      !!x := seq(min(.data[[x]]), max(.data[[x]]), length.out = 25),
+      vote_share_small_parties = first(vote_share_small_parties),
+      plot_label = "", label_colour = "Context only"
+    )
   ggplot(small_party_plot_data, aes(x = .data[[x]], y = vote_share_small_parties,
                                    color = system, shape = system)) +
-    # Connect the two outcomes from each election.
+    # Connect the two outcomes from each election
     geom_line(aes(group = election_id), color = "grey75", linewidth = 0.6) +
     geom_point(data = filter(small_party_plot_data, !is_graubuenden), size = 3.2) +
     geom_point(data = filter(small_party_plot_data, is_graubuenden),
            color = "grey60", shape = 16, size = 3.2) +
-    # Place election or gain labels without overlapping points.
-    geom_text_repel(data = filter(label_data, !is_graubuenden),
-            aes(label = .data[[label]]), size = 3.2,
-                    show.legend = FALSE, max.overlaps = Inf, box.padding = 0.3,
-                    point.padding = 0.2, segment.color = "grey80",
-                    segment.linewidth = 0.4, seed = 2026) +
-    geom_text_repel(data = filter(label_data, is_graubuenden),
-            aes(label = .data[[label]]), color = "grey60", size = 3.2,
-            show.legend = FALSE, max.overlaps = Inf, box.padding = 0.3,
-            point.padding = 0.2, segment.color = "grey80",
-            segment.linewidth = 0.4, seed = 2026) +
+    # Solve all label positions together, white fills keep lines out of text.
+    geom_label_repel(
+      data = bind_rows(label_data, line_obstacles), inherit.aes = FALSE,
+      aes(x = .data[[x]], y = vote_share_small_parties,
+          label = plot_label, color = label_colour),
+      fill = "white", label.size = 0, label.padding = 0.12,
+      size = 3.2, show.legend = FALSE, max.overlaps = Inf,
+      box.padding = 0.4, point.padding = 0.15, force = 3,
+      max.time = Inf, max.iter = 30000,
+      min.segment.length = 0, segment.color = "grey65",
+      segment.size = 0.35, seed = 2026
+    ) +
     scale_color_manual(values = c("Hagenbach-Bischoff" = "#D55E00",
-                                  "Double Pukelsheim" = "#0072B2")) +
+                                  "Double Pukelsheim" = "#0072B2",
+                                  "Context only" = "grey60"),
+                       breaks = c("Hagenbach-Bischoff", "Double Pukelsheim")) +
     # Format the x-axis as percentages only in the relative figure.
     scale_x_continuous(labels = if (percent) \(x) paste0(x, "%") else waiver(),
-                       expand = expansion(mult = c(0.05, 0.08))) +
-    scale_y_continuous(expand = expansion(mult = c(0.05, 0.10))) +
+                       expand = expansion(mult = c(0.08, 0.12))) +
+    scale_y_continuous(expand = expansion(mult = c(0.08, 0.12))) +
     labs(title = "Representation of Smaller Parties Across Elections",
          subtitle = "Observed Double Pukelsheim and counterfactual Hagenbach-Bischoff allocations",
          x = x_title, y = "Aggregated vote share of smaller parties (%)",
@@ -714,8 +728,8 @@ no_gain_8 <- sensitivity_8 |>
 #| warning: false
 #| message: false
 
-# Reuse the plot with seat shares and percentage-point gain labels.
-small_party_plot("seat_share_small_parties", "Seats won by smaller parties (%)", "gain_label", TRUE)
+# Reuse the plot with seat shares and one election identifier per comparison.
+small_party_plot("seat_share_small_parties", "Seats won by smaller parties (%)", "election_id", TRUE)
 ```
 
 ::: {.callout-note title="Hypothesis 1 summary"}
@@ -1872,7 +1886,7 @@ The table below identifies the election data and legal sources used in the canto
 #show <fig-small-parties-absolute>: set figure(placement: none)
 ```
 
-@fig-small-parties-absolute supplements the seat-share comparison used to assess Hypothesis 1 in @fig-small-parties-relative. It shows the absolute number of seats won collectively by parties below the 10% vote-share threshold under the observed Double Pukelsheim allocation and the counterfactual Hagenbach-Bischoff allocation. The grey line connects the two outcomes for each election. Because the number of analyzed seats differs across elections, these absolute counts provide context for the magnitude of the gains, while Hypothesis 1 is assessed using the difference in seat shares.
+@fig-small-parties-absolute supplements the seat-share comparison used to assess Hypothesis 1 in @fig-small-parties-relative. It shows the absolute number of seats won collectively by parties below the 10% vote-share threshold under the observed Double Pukelsheim allocation and the counterfactual Hagenbach-Bischoff allocation. The grey line connects the two outcomes for each election, with each election labelled at its Double Pukelsheim point. Because the number of analyzed seats differs across elections, these absolute counts provide context for the magnitude of the gains, while Hypothesis 1 is assessed using the difference in seat shares.
 
 ```{r}
 #| label: fig-small-parties-absolute
