@@ -853,7 +853,7 @@ ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
 
 ```
 
-The summary of the `r nrow(party_size_data)` party-election observations shows that parties between 4-6% vote share tend to profit the most from the implementation of the Double Pukelsheim. For parties with more than 10% the seat-share gain is on average significantly lower. For parties with atleast 12 and below 15% the average gain reaches a point, where the parties with 0.46 percentage points barely profit anymore from the implementation. On the other side of the scale for the parties below 2% one can see that they profit slightly, while there are multiple observations were a list didn't profit at all. From the 66 observations below 2%, 45 lists receive no seats under eiter allocation. This partly explains the limited gains for parties in that group. Overall does the analysis, show that smaller parties tend to profit from the implementation whereas bigger parties in average subsequently lose their prior advantage under the old system. To be able to identify a possible gradual pattern, the analysis was also done without grouping. The figure there shows no clear monotonic relationship, further can the substantial variation between parties of the same vote share be seen throughout the analysis. With the observation, that observations at a very low share cluster around zeero, while positive gains occur across most of the remaining range. Further do most negative observations appear in the upper end of the range. The figure can be found in the Appendix in @sec-additional-analysis.
+The summary of the `r nrow(party_size_data)` party-election observations shows that parties between 4-6% vote share tend to profit the most from the implementation of the Double Pukelsheim. For parties with more than 10% the seat-share gain is on average markedly lower. For parties with atleast 12 and below 15% the average gain reaches a point, where the parties with 0.46 percentage points barely profit anymore from the implementation. On the other side of the scale for the parties below 2% one can see that they profit slightly, while there are multiple observations were a list didn't profit at all. From the 66 observations below 2%, 45 lists receive no seats under eiter allocation. This partly explains the limited gains for parties in that group. Overall does the analysis, show that smaller parties tend to profit from the implementation whereas bigger parties in average subsequently lose their prior advantage under the old system. To be able to identify a possible gradual pattern, the analysis was also done without grouping. The figure there shows no clear monotonic relationship, further can the substantial variation between parties of the same vote share be seen throughout the analysis. With the observation, that observations at a very low share cluster around zeero, while positive gains occur across most of the remaining range. Further do most negative observations appear in the upper end of the range. The figure can be found in the Appendix in @sec-additional-analysis.
 
 To sum up the analysis of Hypothesis 1: It covers all 31 cantonal parliamentary elections held under Double Pukelsheim in Switzerland from the cantons that transitioned from Hagenbach-Bischoff. Across these elections, smaller parties received under all definitions of smaller parties, a higher aggregate seat share under Double Pukelsheim. This pattern also persisted throghout almost every within election comparison of smaller parties. Further did the analyis show, that parties between 4% and below 10% profited most from the implementation of the Double Pukelsheim. These findings are based on the mechanical allocation difference conditional on the observed votes and specified counterfactual rules and therefore do not capture the whole transition effect. The next section examines whether the magnitude of this effect is associated with the cantons district magnitudes. 
 
@@ -1093,19 +1093,19 @@ Figure 2, shows no clear, consistent relationship between the former district st
 #| message: false
 
 eq1_group_points <- filter(eq1_points, canton != "GR") # only include the 8 relevant transition cantons
-eq1_group_means <- eq1_groups # Start with equally weighted group means calculated above
+eq1_group_means <- eq1_groups # Start with equally weighted group means 
 eq1_size_membership <- eq1_group_points |>
   filter(metric %in% c("Mean district size (seats)", "Pre-reform median size (seats)")) |>
   select(canton, metric, group) |>
-  pivot_wider(names_from = metric, values_from = group) # Put each canton's mean-size and median-size group side by side.
-eq1_combine_size <- all(eq1_size_membership[[2]] == eq1_size_membership[[3]]) # Check whether every canton has the same group in both.
-if (eq1_combine_size) { # Combine these panels only when their group membership is identical.
+  pivot_wider(names_from = metric, values_from = group) # Put each cantons results/measures together
+eq1_combine_size <- all(eq1_size_membership[[2]] == eq1_size_membership[[3]]) # Check whether every canton has the same group in both
+if (eq1_combine_size) { # Combine panels only when the group membership matches
   eq1_group_points <- eq1_group_points |>
-    filter(metric != "Pre-reform median size (seats)") |> # Remove the duplicate median grouping from the plotted points.
+    filter(metric != "Pre-reform median size (seats)") |> # Remove duplicate median grouping from plotted points
     mutate(metric = recode(as.character(metric),
                            `Mean district size (seats)` = "Baseline mean / median size"))
   eq1_group_means <- eq1_group_means |>
-    filter(metric != "Pre-reform median size (seats)") |> # Remove duplicate group means; underlying baseline measures stay separate.
+    filter(metric != "Pre-reform median size (seats)") |> # Remove duplicate group means
     mutate(metric = recode(as.character(metric),
                            `Mean district size (seats)` = "Baseline mean / median size"))
   eq1_group_levels <- c("Baseline mean / median size", "Districts below 9 seats (%)",
@@ -1124,16 +1124,16 @@ eq1_group_plot <- ggplot(eq1_group_points, aes(group, mean_gain_pp, colour = gro
   scale_colour_manual(values = eq1_colours, drop = TRUE) + # Reuse blue/orange colours
   scale_y_continuous(expand = expansion(mult = c(.12, .15))) +
   labs(x = NULL, y = "Mean smaller-party seat-share gain (pp)", colour = NULL,
-       caption = "Points: canton averages. Black diamonds: equally weighted group means. GR excluded.") +
+       caption = "Notes: canton averages. Black diamonds: equally weighted group means. GR excluded.") +
   theme_minimal(base_size = 11) +
   theme(legend.position = "none", panel.grid.minor = element_blank(),
         axis.text.x = element_text(size = 14),
         strip.text = element_text(face = "bold", size = 10),
-        plot.caption = element_text(hjust = 0, size = 9)) 
+        plot.caption = element_text(hjust = 0, size = 14, lineheight = 1.1))
 eq1_group_plot # Print the saved group-comparison plot into the thesis.
 ```
 
-*Notes:* Cantons are grouped below or at or above the cross-canton mean of each historical district measure. Points show canton-level mean gains and black diamonds indicate equally weighted group means. Graubünden is excluded. 
+*Notes:* Cantons are grouped below or at or above the cross-canton mean of each historical district measure. 
 
 For both mean district magnitude and pre-reform median district magnitude, the average gains for the below mean group are `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Mean district size (seats)" & eq1_groups$group == "Below mean"])` and `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Mean district size (seats)" & eq1_groups$group == "At/above mean"])` percentage points for the at/above mean group. The at/above group results, are relatively spread out, while the below groups cantons are quite close to eachother. The below-minus-above difference is `r sprintf("%+.2f", eq1_differences$below_minus_above_pp[eq1_differences$metric == "Mean district size (seats)"])` percentage points and with that opposite to the expected direction. 
 
@@ -1141,7 +1141,7 @@ For the share of districts below nine seats, the average gains for the below mea
 
 For pre-reform district-size variation, the average gains for the below mean group are `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Pre-reform district-size CV" & eq1_groups$group == "Below mean"])` and `r sprintf("%.2f", eq1_groups$mean_gain_pp[eq1_groups$metric == "Pre-reform district-size CV" & eq1_groups$group == "At/above mean"])` percentage points for the at/above mean group.  The below-minus-above difference is  therefore `r sprintf("%+.2f", eq1_differences$below_minus_above_pp[eq1_differences$metric == "Pre-reform district-size CV"])` percentage points. This means that the group of cantons with the higher variation in district sizes relative to their mean in average had higher gains. Here, too Schaffhausen's relatively high gain raises the group average, leading to that the result should be interpreted sensitively.
 
-To analyze the sensitivity of the results to certain cantons, a leave one canton out check was carried out. The check showed that the results in exploratory question 1 are sensitive to the omission of the canton of Schaffhausen. The omission of the canton of Schaffhausen, lets the mean and median measure decline from -3.06 to -1.06. For the share below 9 seats and the CV measure though the direction switches with the omission of the canton. This means that without the canton of Schaffhausen, the average gains for the below mean groups are higher than for the above mean group, which oposses the estimated direction. Generally is there substantial variation in both groups, which means that also the omission of cantons like Uri and Valais have substantial impact on some of the measures. The exact results to the robustness checks can be found in @sec-sec-leave-one-out.
+To analyze the sensitivity of the results to certain cantons, a leave one canton out check was carried out. The check showed that the results in exploratory question 1 are sensitive to the omission of the canton of Schaffhausen. The omission of the canton of Schaffhausen, lets the mean and median measure decline from -3.06 to -1.06. For the share below 9 seats and the CV measure though the direction switches with the omission of the canton. This means that without the canton of Schaffhausen, the average gains for the below mean groups are higher than for the above mean group, which oposses the estimated direction. Generally is there substantial variation in both groups, which means that also the omission of cantons like Uri and Valais have substantial impact on some of the measures. The exact results to the robustness checks can be found in @sec-leave-one-out.
 
 Taken together, the four district measures reveal no consistent pattern linking the initial district structure to smaller parties’ gains. This is combined with substantial variation within the analyzed groups. Further are the four measures sensitive to the omission of single cantons. Which supports the assesment of a missing pattern. The sensitivity to Schaffhausen can be linked to its comparatively high seat-share gain. Which is partly caused as discussed in @sec-data-cleaning by the separate classification of affiliated lists as smaller parties. These descriptive comparisons therefore can not show any causal effect of district magnitude or its dispersion.
 
@@ -1306,21 +1306,24 @@ eq3_groups <- eq3_cantons |> # Summarize the mean gain for each quorum category.
 eq3_group_plot <- ggplot(eq3_elections, aes(quorum, seat_gain_pp, colour = quorum)) + # x = quorum category; y = canton-average gain.
   geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) +
   geom_point(aes(colour = if_else(canton == "GR", "context only", as.character(quorum))), size = 2.5) +
-    geom_text_repel( # Repel canton labels to avoid overlap
+    geom_text_repel( # Place election labels around points with short connectors
     aes(label = election_id, colour = if_else(canton == "GR", "context only", as.character(quorum))), # label GR consistently with grey colour
     seed = 1,
     size = 3,
-    nudge_x = .35,
-    hjust = 0, 
-    direction = "y",
-    box.padding = .4,
+    nudge_x = .08,
+    direction = "both",
+    box.padding = .2,
+    point.padding = .15,
+    force_pull = 2,
+    max.time = Inf, max.iter = 30000,
+    segment.colour = "grey65", segment.size = .25,
     max.overlaps = Inf,
     show.legend = FALSE
   ) +
   geom_point(data = eq3_cantons, aes(quorum, mean_gain_pp), shape = 18, size = 5, colour = "black") + # Add black diamond for group's mean gain.
   scale_colour_manual(values = c("Without explicit quorum" = "#0072B2", "With explicit quorum" = "#D55E00", "context only" = "#8A8A8A")) + # colour the three categories
-  labs(x = NULL, y = "Mean smaller-party seat-share gain (pp)", colour = NULL,
-       caption = "Points: individual elections Black diamonds: equally weighted group means") +
+  labs(x = NULL, y = "Aggregate smaller-party seat-share gain (pp)", colour = NULL,
+       caption = "Notes: individual elections Black diamonds: equally weighted group means") +
   theme_minimal(base_size = 11) +
   theme(legend.position = "none", panel.grid.minor = element_blank(),
         axis.text.x = element_text(size = 12),
@@ -1342,13 +1345,13 @@ The preceding analysis showed that cantons differ in their implementation of the
 
 Since @fig-successive-elections aligns every Double Pukelsheim election for each canton independently by their order, the first election under the system is numbered 1, the next is numbered 2, and so on. This means that the same election number represents different calendar years across cantons.  As in the main hypothesis the outcome is the observed Double Pukelsheim seat share minus the counterfactual Hagenbach-Bischoff seat share, expressed in percentage points of the seats included in the comparison. The smaller-party category is recalculated for each election using the existing vote-share cutoff of less than 10%.
 
-Regarding the events and their noteboxes, there are two different formats. The bigger boxes mark electoral rule changes, from which there were three relevant ones: Aargau's introduction of a 5% district-level or 3% cantonwide quorum in 2012 (second election); Schaffhausen's majority clause, applied in 2016 (third election); and Zurich's additional 3% cantonwide eligibility route, first applied in 2023 (fifth election). The Zurich rule supplements the existing 5% district-level quroum and as in Aargau, the parties have to only reach either 5% within a district or 3% on the cantonal level. These dates follow the institutional history in @sec-adoption; Schaffhausen's amendment history records 1 March 2016 as the effective date of implementation (Kanton Schaffhausen, 1904/2019). The smaller boxes are marking the point, when there's a memberchange within the smaller parties group. Graubünden is shown as priorly only contextual.
+Regarding the events and their noteboxes, there are two different formats. The bigger boxes mark electoral rule changes, from which there were three relevant ones: Aargau's introduction of a 5% district-level or 3% cantonwide quorum in 2012 (second election); Schaffhausen's majority clause, applied in 2016 (third election); and Zurich's additional 3% cantonwide eligibility route, first applied in 2023 (fifth election). The Zurich rule supplements the existing 5% district-level quroum and as in Aargau, the parties have to only reach either 5% within a district or 3% on the cantonal level. These dates follow the institutional history in @sec-adoption; Schaffhausen's amendment history records 1 March 2016 as the effective date of implementation (Kanton Schaffhausen, 1904/2019). The E/L annotations mark parliamentary parties entering or leaving the below-10% vote-share group; a preceding 2 indicates two parties. Graubünden is shown as priorly only contextual.
 
 ```{r}
 #| label: fig-successive-elections
 #| fig-cap: "Smaller-party seat-share gains across successive elections under Double Pukelsheim"
 #| fig-width: 8.3
-#| fig-height: 6
+#| fig-height: 6.5
 #| echo: false
 #| warning: false
 #| message: false
@@ -1376,9 +1379,9 @@ stopifnot(
 
 eq4_events <- tribble(
   ~canton, ~election_year, ~label, ~label_x,
-  "AG", 2012L, "AG: quorum introduced\n5% district OR 3% canton\nFirst applied: 2012 (2nd)", 1.55,
-  "SH", 2016L, "SH: majority clause\nFirst applied: 2016 (3rd)", 3.15,
-  "ZH", 2023L, "ZH: quorum change\n3% canton added to 5% district\nFirst applied: 2023 (5th)", 4.75
+  "AG", 2012L, "AG: quorum introduced", 1.55,
+  "SH", 2016L, "SH: majority clause added", 3.15,
+  "ZH", 2023L, "ZH: quorum changed", 4.75
 ) |>
   left_join(
     select(eq4_elections, canton, election_year, election_number, seat_gain_pp),
@@ -1386,18 +1389,18 @@ eq4_events <- tribble(
     relationship = "one-to-one"
   )
 
-# Smaller boxed notes identify changes in membership of the below-10% group.
-# label_x uses election numbers; label_y uses seat-gain percentage points.
+# Smalle notes identify changes in membership of parliamentary parties in the below 10% group.
+# E = one party enters below 10% Group, L = one party leaves below 10% Group , 2L = two parties ...
 eq4_notes <- tribble(
   ~canton, ~election_year, ~label, ~label_x, ~label_y,
-  "AG", 2020L, "AG 2020: Greens\n move above 10%", 3.75, 2.15,
-  "AG", 2024L, "AG 2024: Greens\n fall below 10%", 4.75, 6.0,
-  "NW", 2026L, "NW 2026: Greens\nfall below 10%", 4.25, 13.65,
-  "UR", 2024L, "UR 2024: GLP\nenters <10% group", 2.50, 0.70,
-  "ZG", 2018L, "ZG 2018: SP\nmoves above 10%", 1.50, 6.60,
-  "ZH", 2011L, "ZH 2011: GLP\nmoves above 10%", 2.35, 15.00,
-  "ZH", 2015L, "ZH 2015: GLP + Greens\nfall below 10%", 3.00, 16.40,
-  "ZH", 2019L, "ZH 2019: GLP + Greens\nmove above 10%", 4.35, 8.70
+  "AG", 2020L, "L", 3.75, 2.15,
+  "AG", 2024L, "E", 4.75, 6.0,
+  "NW", 2026L, "E", 4.25, 13.65,
+  "UR", 2024L, "E", 2.50, 0.70,
+  "ZG", 2018L, "L", 1.50, 6.60,
+  "ZH", 2011L, "L", 2.35, 15.00,
+  "ZH", 2015L, "2E", 3.00, 16.40,
+  "ZH", 2019L, "2L", 4.35, 8.70
 ) |>
   left_join(
     select(eq4_elections, canton, election_year, election_number, seat_gain_pp),
@@ -1412,16 +1415,32 @@ stopifnot(
   !anyNA(eq4_notes$election_number)
 )
 
-eq4_colours <- c(
-  AG = "#0072B2", GR = "#8A8A8A", NW = "#009E73",
-  SH = "#D55E00", SZ = "#AA4499", UR = "#332288",
-  VS = "#882255", ZG = "#44AA99", ZH = "#9A7300"
+eq4_colours <- setNames(
+  rep("#0e0000", 9),
+  c("AG", "GR", "NW", "SH", "SZ", "UR", "VS", "ZG", "ZH")
 )
 eq4_canton_labels <- c(
-  AG = "AG - Aargau", GR = "GR - Graubünden (context)", NW = "NW - Nidwalden",
-  SH = "SH - Schaffhausen", SZ = "SZ - Schwyz", UR = "UR - Uri",
-  VS = "VS - Valais", ZG = "ZG - Zug", ZH = "ZH - Zurich"
+  AG = "Aargau", GR = "Graubünden (context)", NW = "Nidwalden",
+  SH = "Schaffhausen", SZ = "Schwyz", UR = "Uri",
+  VS = "Valais", ZG = "Zug", ZH = "Zurich"
 )
+
+# Label each trajectory at its final available election.
+# Offset the crowded endpoints while keeping their labels connected to the data.
+eq4_line_labels <- eq4_elections |>
+  group_by(canton) |>
+  slice_max(election_number, n = 1, with_ties = FALSE) |>
+  ungroup() |>
+  mutate(
+    label = if_else(canton == "GR", "Graubünden\n(context)",
+                    unname(eq4_canton_labels[canton])),
+    label_x = election_number + if_else(canton == "GR", -.15, .15),
+    label_y = seat_gain_pp + case_when(
+      canton == "GR" ~ 2, canton == "UR" ~ -2,
+      TRUE ~ 0
+    ),
+    label_hjust = if_else(canton == "GR", 1, 0)
+  )
 
 # Reserve a band above the observed outcomes for the three arrow labels.
 eq4_top <- max(eq4_elections$seat_gain_pp)
@@ -1437,16 +1456,16 @@ eq4_plot <- ggplot(eq4_elections,
   # Arrowheads end at the actual election outcome, not at its text label.
   geom_segment(
     data = eq4_events,
-    aes(x = label_x, y = label_y - .09 * eq4_span,
-        xend = election_number, yend = seat_gain_pp, colour = canton),
-    inherit.aes = FALSE, linewidth = .45,
+    aes(x = label_x, y = label_y,
+        xend = election_number, yend = seat_gain_pp),
+    inherit.aes = FALSE, colour = "grey55", linewidth = .3,
     arrow = grid::arrow(length = grid::unit(2, "mm"), type = "closed"),
     show.legend = FALSE
   ) +
   geom_label(
     data = eq4_events,
     aes(label_x, label_y, label = label, colour = canton),
-    inherit.aes = FALSE, size = 2.8, lineheight = 1.05,
+    inherit.aes = FALSE, size = 3.8, lineheight = 1.05,
     fill = "white", linewidth = .25,
     label.padding = grid::unit(.25, "lines"), show.legend = FALSE
   ) +
@@ -1460,7 +1479,7 @@ eq4_plot <- ggplot(eq4_elections,
   scale_x_continuous(
     breaks = seq_len(max(eq4_elections$election_number)),
     labels = function(x) paste0(x, ifelse(x == 1, "st", ifelse(x == 2, "nd", ifelse(x == 3, "rd", "th")))),
-    expand = expansion(mult = c(.10, .10))
+    limits = c(.6, 6.2), expand = expansion(mult = 0)
   ) +
   scale_y_continuous(breaks = pretty(c(0, eq4_top)),
                      expand = expansion(mult = c(.06, .10))) +
@@ -1468,20 +1487,19 @@ eq4_plot <- ggplot(eq4_elections,
     x = "Election under Double Pukelsheim (within each canton)",
     y = "Smaller-party net seat-share gain (pp)", colour = NULL, shape = NULL,
     caption = paste(
-      "Gain = observed DP minus counterfactual HB; smaller parties have less than 10% of the vote.",
-      "GR: hypothetical HB comparison. Uri: 37 proportional seats. Calendar years differ across cantons.",
+      "Gain = observed DP minus counterfactual HB; vote-share cutoff: below 10%.",
+      "E / L: a parliamentary party enters / leaves the below-10% vote-share group.",
+      "2E / 2L: two parliamentary parties enter / leave that group.",
+      "Calendar years differ across cantons.",
       sep = "\n"
     )
   ) +
-  guides(colour = guide_legend(ncol = 3, byrow = TRUE,
-                              override.aes = list(linetype = ifelse(names(eq4_colours) == "GR", "dashed", "solid"))),
-         shape = guide_legend(ncol = 3, byrow = TRUE)) +
   theme_minimal(base_size = 11) +
   theme(
-    legend.position = "bottom", legend.text = element_text(size = 9),
+    legend.position = "none",
     panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(),
     axis.text.x = element_text(size = 11),
-    plot.caption = element_text(hjust = 0, size = 8),
+    plot.caption = element_text(hjust = 0, size = 11, lineheight = 1.1),
     plot.margin = margin(10, 12, 8, 8)
   )
 
@@ -1489,22 +1507,35 @@ eq4_plot <- eq4_plot +
   geom_segment(
     data = eq4_notes,
     aes(x = label_x, y = label_y,
-        xend = election_number, yend = seat_gain_pp, colour = canton),
-    inherit.aes = FALSE, linewidth = .3,
+        xend = election_number, yend = seat_gain_pp),
+    inherit.aes = FALSE, colour = "grey55", linewidth = .25,
     arrow = grid::arrow(length = grid::unit(1.2, "mm"), type = "closed"),
     show.legend = FALSE
   ) +
-  geom_label(
+  geom_text(
     data = eq4_notes,
     aes(x = label_x, y = label_y, label = label, colour = canton),
-    inherit.aes = FALSE, size = 2.3, lineheight = 1.05,
-    fill = "white", linewidth = .2,
-    label.padding = grid::unit(.2, "lines"), show.legend = FALSE
+    inherit.aes = FALSE, size = 3.2, lineheight = 1.05,
+    show.legend = FALSE
+  ) +
+  geom_segment(
+    data = filter(eq4_line_labels, label_y != seat_gain_pp),
+    aes(x = election_number, y = seat_gain_pp,
+        xend = label_x, yend = label_y),
+    inherit.aes = FALSE, colour = "grey55", linewidth = .25,
+    show.legend = FALSE
+  ) +
+  geom_text(
+    data = eq4_line_labels,
+    aes(x = label_x, y = label_y, label = label,
+        hjust = label_hjust, colour = canton),
+    inherit.aes = FALSE, size = 3.4, lineheight = .95,
+    show.legend = FALSE
   )
 eq4_plot
 ```
 
-*Notes* Sources: Large text boxes are based on the sources discussed in @sec-adoption; small text boxes are based on the author's calculations.
+*Notes* Sources: Large text boxes are based on the sources discussed in @sec-adoption. 
 ```{r}
 #| label: eq4-summary
 #| include: false
@@ -1547,6 +1578,12 @@ As for the other analyses, was here also a robustness check performed. The check
 The analyis across all 31 elections, therefore indicates that the mechanical seat-share gain for smaller parties persists across sucessive elections. The strength and variation in the magnitude differ between the cantons. In the analyzed elections, the gain not only persisted, but rose across sucessive elections. The average within-canton change though isn't rising consecutively with a small decline between the third and fourth election. Moreover is the analysis for the within-canton change sensitive to the canton of Zurich, respectively Aargau in the two last transitions. The analysis and it's effects may be partly affected through the changes in the party composition of the smaller parties group. The results therefore imply a consistent gain for smaller-parties across cantons and elections. However it can't be established and is not inferred or mentioned by the literature, that additional elections under Double Pukelsheim increase the gain.
 
 ## Discussion
+
+In this paper, the general question: "20 Years of the Double Pukelsheim System in Switzerland: What Is the Mechanical Effect of the Transition from the Hagenbach-Bischoff Method on the Seat Distribution of Smaller Parties? " was answered in two parts. In the first step, the mechanical effect on the smaller parties was examined. Subsequently the study examined which conditions could lead to differences in the strength of the mechanical effect across cantons or elections. 
+
+
+
+
 
 ## Conclusion
 
