@@ -5,3 +5,8 @@
 FOR R -SCRIPTS --> CHECK WITH UNIVERSITY --> they said upload R-scripts to thesis plattform separately, 
 AI -USAGE --> TABLE OR PAGE --> tool explanation
 plus SELF -REFLECTION on ai usage 
+
+18. in appendix 4 --> describe in beginning again shortly what the leave one canton out check does
+
+
+19. external validity, --> what learning can cantons take --> discussion -->
