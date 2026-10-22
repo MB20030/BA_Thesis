@@ -1581,6 +1581,11 @@ The analyis across all 31 elections, therefore indicates that the mechanical sea
 
 In this paper, the general question: "20 Years of the Double Pukelsheim System in Switzerland: What Is the Mechanical Effect of the Transition from the Hagenbach-Bischoff Method on the Seat Distribution of Smaller Parties? " was answered in two parts. In the first step, the mechanical effect on the smaller parties was examined. Subsequently the study examined which conditions could lead to differences in the strength of the mechanical effect across cantons or elections. 
 
+Regarding the first step, it was found that across elections the smaller sparties collectivel gain seat shares under Double Pukelsheim compared to Hagenbach Bischoff. In 30 of the 31 analyzed elections, the smaller parties aggregately received a higher seat-share. In the Uri 2020 election, no eligible smaller party contested, thus no seat-share difference could be observed. Further was it observed, that out of the smaller parties group, that the lists with atleast 4% and below 6% across all elections profited the most from the transition. These findings are consistent with the idea of the upper apportionment process. It lowers the share of ineffective votes and with that highers the equality of electoral sucess.
+
+This finding matches the observations of the existing literature. Leuzinger states that in his analysis across seven elections, smaller parties generally received more seats under the new system (Leuzinger, 2018, p.42) Also in the by Pukelsheim and Schuchmacher analyzed Zurich 2011 election and in the Schwyz 2016 election by Lüscher, did smaller parties profit from the implementation (Pukelsheiim & Schuhmacher, 2011 ; Lüscher , 2024, p.13). 
+
+In the second step, potential differences in the effect according to the different implementation of the Double Pukelsheim were examined. First it was analyzed whether the pre-reform district sizes have an impact on the seat-share gain or not. There no consistent relationship between the prior constituency sizes and the gain for smaller parties was found. This is contrary to the expectation which was derived from the theoretical mechanism and Lüschers Thesis. In his research Lüscher had found that in cantons which priorly had smaller districts, that there the proportionality increased stronger (Lüscher, 2024, pp.132-133).
 
 
 
