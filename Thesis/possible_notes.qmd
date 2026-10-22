@@ -12,3 +12,5 @@ plus SELF -REFLECTION on ai usage
 19. external validity, --> what learning can cantons take --> discussion -->
 
 20. format title better
+
+21. Explicit electoral quorums --> add Pukelsheim & Schuhmacher (2011, p. 1593) to the existing justification in "Expected Effects of the Transition". Their Zurich 2011 example shows that without the 5% quorum, the SD and Pirates would each have received a seat, at the expense of the SVP and GLP. This supports the mechanism that legal quorums can exclude smaller parties that would otherwise win seats through upper apportionment; it does not establish a systematic difference in collective smaller-party gains between elections with and without quorums.
