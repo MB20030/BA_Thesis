@@ -97,9 +97,6 @@ The main finding is that across all 31 elections, the smaller parties aggregatel
 
 The persistent mechanical seat-share gain for smaller parties observed here, indicate the reduction of the prior representational disadvantage under the Double Pukelsheim system. This while behavioural responses to the reform remain outside the scope of the analysis.
 
-
-
-
 ```{=typst}
 #pagebreak()
 ```
@@ -2030,7 +2027,7 @@ ggplot(party_size_plot_data, aes(x = vote_share, y = gain_pp)) + # Include GR fo
 
 ### Appendix 4:  Leave-one-canton-out robustness checks {#sec-leave-one-out}
 
-Bold values identify the canton omission that produces the largest absolute change from the full-sample result in each outcome column. For EQ4, this comparison is made separately within each election number. The comparisons use unrounded results. 
+The leave-one-canton-out check, is a sensitivity and robustness check, where the statistical results of the thesis are recalculated after the omission of each single canton. Through that it can be observed, whether the results are sensitive to the inclusion of a specific canton or not. The bold values in the following tables, identify the canton omission that produces the largest absolute change from the full-sample result in each outcome column. For EQ4, this comparison is made separately within each election number. The comparisons use unrounded results. 
 
 ```{r}
 #| label: loco-highlight-helper
