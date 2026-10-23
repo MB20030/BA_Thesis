@@ -91,6 +91,14 @@ format:
 
 ## Abstract
 
+This thesis examines how the parliamentary representation of smaller parties is affected by the transition from Hagenbach-Bischoff to Double Pukelsheim. To do so, all 31 available cantonal parliamentary elections for the eight transition cantons between 2007 and 2026 are analyzed. The smaller parties groups, combines all electoral lists and parties which received less than 10% of the total votes in the analyzed area. To make this comparison, the offical results under Double Pukelsheim are taken and the counterfactual seat allocation under Hagenbach-Bischoff is computed. This while including the former canton electoral law and holding electoral units, observed votes, seat totals and reported list structures constant. 
+
+The main finding is that across all 31 elections, the smaller parties aggregately receive a 7.6 percentage points higher seat-share under Double Pukelsheim than under the conterfactual Hagenbach-Bischoff. An aggregate gain for the smaller parties occurs in 30 of 31 elections. Further is the observed gain persistent to alternative smaller-party thresholds, across succesive elections and to the omission of individual cantons. While analyses regarding the pre-reform district magnitude or explicit electoral thresholds, reveal no consistent relationship, respectively are sensitive to the inclusion of individual cantons.
+
+The persistent mechanical seat-share gain for smaller parties observed here, indicate the reduction of the prior representational disadvantage under the Double Pukelsheim system. This while behavioural responses to the reform remain outside the scope of the analysis.
+
+
+
 
 ```{=typst}
 #pagebreak()
@@ -1604,7 +1612,7 @@ In this paper, I examined the mechanical effect of the transition from the Hagen
 
 For all held elections, the average unweighted seat-share gain was 7.6 percentage points for the aggregate smaller parties group. In 30 of 31 elections, did the smaller parties collectively gain seat-shares. With the Uri 2020 election being the exception, where no list below the 10% smaller parties threshold contested, thus no seat-share difference could be observed. The result of a positive seat-share difference, further persisted with alternative cutoffs for the smaller-parties group and when excluding individual cantons. This findings therefore descriptively support Hypothesis 1. 
 
-The further analysis, explored potential differences between cantons, based on pre-reform district sizes and explicit quroums. For the relationship between the pre-reform district sizes and the seat-share gain, no consistent pattern could be observed. Regarding differences between elections held with and without a quroum, a higher seat-share gain for elections without a quroum was observed. However is the observed difference sensitive to individual cantons. Further was it found, that average gains persisted and even increased across succesive elcetion numbers, even when individual cantons were excluded. However were the average within-canton changes less consistent and sensitive to canton exclusions. This pattern doesn't establish that additional elections under Double Pukelsheim increase the seat-share gain.
+The further analysis, explored potential differences between cantons, based on pre-reform district sizes and explicit quroums. For the relationship between the pre-reform district sizes and the seat-share gain, no consistent pattern could be observed. Regarding differences between elections held with and without a quroum, a higher seat-share gain for elections without a quroum was observed. However is the observed difference sensitive to individual cantons. Further was it found, that average gains persisted and even increased across succesive election numbers, even when individual cantons were excluded. However were the average within-canton changes less consistent and sensitive to canton exclusions. This pattern doesn't establish that additional elections under Double Pukelsheim increase the seat-share gain.
 
 However is this analysis only focusing on mechanical differences conditional on the canton specific rules and on the observed post-reform votes and not estimating the reforms complete effect. This paper extends the existing knowledge about the mechanical seat-share gains for smaller parties by covering all 31 available elections for the eight transition cantons, including the succesive elections within each canton. This enables a wider basis to assess the magnitude and consistency of the smaller parties advantage under the Double Pukelsheim.
 
