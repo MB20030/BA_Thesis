@@ -1600,6 +1600,14 @@ Further research could extend this thesis in the following ways. With examining 
 
 ## Conclusion
 
+In this paper, I examined the mechanical effect of the transition from the Hagenbach-Bischoff Method to the Double Pukelsheim on the seat distribution of smaller parties. The thesis focused on examining the seat-share differences between the two systems, for parties with less than 10% vote share. For this all 31 elections held by the eight transition cantons from HB to DP were, while holding observed votes constant analyzed. 
+
+For all held elections, the average unweighted seat-share gain was 7.6 percentage points for the aggregate smaller parties group. In 30 of 31 elections, did the smaller parties collectively gain seat-shares. With the Uri 2020 election being the exception, where no eligible smaller party ran, thus no seat-share difference could be observed. The result of a positive seat-share difference, further persisted with alternative cutoffs for the smaller-parties group and when excluding individual cantons. This findings therefore descriptively support Hypothesis 1. 
+
+The further analysis, explored potential differences between cantons, based on pre-reform district sizes and explicit quroums. For the relationship between the pre-reform district sizes and the seat-share gain, no pattern could be observed. Regarding differences between elections held with and without a quroum, a higher seat-share gain for elections without a quroum was observed. However is the effect sensitive to individual cantons. Further was it found, that positive gains persisted across successive eletions and that gains increased from election to election. Nevertheless, is the increasing gain not supported by the literature and further sensitive to 
+
+
+
 ```{=typst}
 #pagebreak()
 ```
