@@ -60,7 +60,8 @@ format:
   #v(12mm)
   #line(length: 100%, stroke: 0.7pt + rgb("8398b9"))
   #v(6mm)
-  #text(size: 15pt, font: "Libertinus Serif")[20 Years of the Double Pukelsheim System in Switzerland: What Is the Mechanical Effect of the Transition from the Hagenbach-Bischoff Method on the Seat Distribution of Smaller Parties?]
+  #text(size: 15pt, font: "Libertinus Serif")[20 Years of the Double Pukelsheim System in Switzerland:#linebreak()
+  What Is the Mechanical Effect of the Transition from the Hagenbach-Bischoff Method on the Seat Distribution of Smaller Parties?]
   #v(25mm)
   #text(size: 11pt)[Jan Moritz Beyn]
   #v(4mm)
@@ -1592,6 +1593,10 @@ A sedond exploratory question, examined whether there is a difference in the mec
 The third exploratory question analyzes the seat-share gains across sucessive elections within and with respect to each cantons electoral rules. Through this approach, it brings together elements of the preceding analyses. The results show that the positive seat-share advantage generally persists across successive elections, further supporting the main finding. Although average gains are higher at later election numbers, mean within-canton changes do not follow a consistently increasing pattern. Moreover, fewer cantons contribute to the later comparisons, and some changes are sensitive to the inclusion of individual cantons. The findings therefore do not establish that additional elections under Double Pukelsheim increase smaller parties mechanical seat-share gain.
 
 In order to analyze all relevant elections and their various underlying assumptions, a few assumption had to be made. The analyis, holds all post-reform votes constant and identifies the conditional mechanical difference, without capturing the behavioural effect of the transition. For the cantons, in which priorly list alliances were allowed, are in this thesis no hypothetical list alliances formed. This decision might in the relevant cantons understate the smaller lists representation under the Hagenbach-Bischoff counterfactual. Further was each list, which ran independently, treated as a separate party, since the Double Pukelsheim algorithm also treats them separately. This decision is especially relevant in Schaffhausen, were across multiple elections, several affiliated list such as Youth or special-interest lists ran. In addition to this decisions, do the limited amount of eight cantons and their different electoral laws, limit the extent to which the observed differences in gains can be attributed to a single feature. 
+
+For cantons considering a transition from Hagenbach–Bischoff to Double Pukelsheim, the following can be stated. With 30 of the 31 analyzed elections showing a collective seat-share gain for smaller parties, the findings suggest that a similar mechanical advantage may arise in other cantons adopting DP. However, its magnitude depends on canton-specific circumstances, such as electoral rules, district sizes, and vote distributions. Behavioural responses by parties and voters introduce further uncertainty. It therefore makes sense for cantons to calculate a hypothetical DP allocation based on their observed Hagenbach–Bischoff election results. This allows them to assess the potential mechanical seat-share changes while explicitly accounting for their electoral structure and the proposed DP rules. 
+
+Further research could extend this thesis in the following ways. With examining how plausible counterfactual list-alliances affect the estimated gains. As also with adressing the explicit quroums and their possible effects. Specifically it could recalculate each observed election under different electoral quroums, ceteris paribus, to isolate their mechanical effect on smaller parties representation. 
 
 ## Conclusion
 
