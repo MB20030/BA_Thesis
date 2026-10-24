@@ -183,7 +183,7 @@ Since Zurich first used the system in 2007, eight further cantons have used it: 
 
 The amount of cantons who have already implemented the system or are debating about doing so, suggests that the decision by the FSC had a substantial impact on how Swiss citizens elect their regional parliaments today. It seems that the double-Pukelsheimer through its wide implementation across cantons is a success story. Since the first election under double Pukelsheim in Zurich in 2007, the system has been used in 32 cantonal parliamentary elections.^[The 32 elections comprise Zurich (2007, 2011, 2015, 2019, and 2023; Amt für Statistik und Daten Kanton Zürich, 2026); Schaffhausen (2008, 2012, 2016, 2020, and 2024; Kanton Schaffhausen, n.d.; Staatskanzlei Kanton Schaffhausen, 2020, 2024); Aargau (2009, 2012, 2016, 2020, and 2024; Department für Finanzen und Ressourcen des Kantons Aargau, 2009; Regierungsrat des Kantons Aargau, 2013; Statistisches Amt Kanton Aargau, n.d.); Nidwalden (2014, 2018, 2022, and 2026; Staatskanzlei Nidwalden, 2014, 2018, 2022, 2026); Zug (2014, 2018, and 2022; Kanton Zug, 2022a, 2022b, 2022c, 2026); Schwyz (2016, 2020, and 2024; Staatskanzlei Kanton Schwyz, 2016, 2020, 2024); Valais (2017, 2021, and 2025; Kanton Wallis, 2016, 2020, 2024; Staat Wallis, 2017); Uri (2020 and 2024; Standeskanzlei Uri, 2024a, 2024b); and Graubünden (2022 and 2026; Kanton Graubünden, 2022, 2026).] 
 
-Taken together, this number of elections and almost 20 years of experience provide a reason to evaluate the impact of the reform, especially on smaller parties. How much has the reform changed smaller parties' seat shares and how large is the actual difference in seat allocation between the Hagenbach-Bischoff and Double Pukelsheim system? Are there other major differences, for example in how the reform performs in smaller versus larger parliaments, and how do smaller parties' seat shares and gains evolve across successive elections?
+Taken together, this number of elections and almost 20 years of experience provide a reason to evaluate the impact of the reform, especially on smaller parties. How much has the reform changed smaller parties' seat shares and how large is the actual difference in seat allocation between the Hagenbach-Bischoff and Double Pukelsheim system? Are there other major differences, for example based on the pre-reform district sizes and how do smaller parties seat shares evolve across successive elections?
 
 Existing research primarily examines Double Pukelsheim in legal, normative, or system-level terms. A few studies also conduct counterfactual comparisons, but these cover either individual elections or only one election per canton (Pukelsheim & Schuhmacher, 2011, pp. 1590–1592; Leuzinger, 2018, p. 42; Lüscher, 2024, p. 13). Although their results indicate that smaller parties can benefit from Double Pukelsheim, the magnitude and consistency of this mechanical allocation difference across successive elections remain less systematically examined.
 
@@ -265,7 +265,7 @@ In the following paragraphs the arguments brought up in each reform canton will 
 
 To summarize, in 8 of 10 reform cantons, a raised complaint at the FSC led to a later reform. Only in the cantons of Schaffhausen and Basel-Landschaft did the reform process take place without a Federal Supreme Court ruling. Nevertheless the canton of Schaffhausen's decision was directly influenced by the FSC's decisions in Aargau and Zurich. Throughout all complaints, the concern was electoral equality. In seven of them excessively high natural thresholds in proportional constituencies were central. While in Graubünden the concerns were mainly raised by the use of of the majority system for its large districts and the allocation of seats among constituencies. This demonstrates the influence of the 2002 Federal Supreme Court decision regarding Zurich's City Parliament.
 
-Beyond their different paths to reform, the cantons also implemented Double Pukelsheim under substantially different institutional conditions. The number of seats included in the Double Pukelsheim allocation varies from 37 in Uri where the system applies only to four municipalities to 180 in Zurich (Standeskanzlei Uri, 2020, p. 1; Kanton Zürich, 2003, § 88).  Moreover, some cantons introduced explicit local or canton-wide electoral quorums, whereas others did not, potentially limiting smaller parties’ ability to benefit from the more proportional allocation method. These arrangements have also changed over time—for example through the later introduction of thresholds or majority clauses while party competition and vote distributions vary between elections. This institutional variation motivates the exploratory comparisons below: whether smaller parties’ seat-share gains differ by the number of seats allocated through Double Pukelsheim, by the presence of an explicit quorum, and across successive elections within the same canton.
+Beyond their different paths to reform, the cantons also implemented Double Pukelsheim under substantially different institutional conditions. The number of seats included in the Double Pukelsheim allocation varies from 37 in Uri where the system applies only to four municipalities to 180 in Zurich (Standeskanzlei Uri, 2020, p. 1; Kanton Zürich, 2003, § 88).  Moreover, some cantons introduced explicit local or canton-wide electoral quorums, whereas others did not, potentially limiting smaller parties’ ability to benefit from the more proportional allocation method. These arrangements have also changed over time—for example through the later introduction of thresholds or majority clauses while party competition and vote distributions vary between elections. This institutional variation motivates the exploratory comparisons below: whether smaller parties seat-share gains differ by the presence of an explicit quorum, and across successive elections within the same canton.
 
 ### Literature Review
 
@@ -298,14 +298,11 @@ The effect is also expected to depend on the specific institutional design adopt
 
 Valais and Uri are particularly important special cases because Double Pukelsheim does not cover the canton through a single canton-wide upper apportionment. Valais conducts separate upper apportionments in six electoral regions, so votes aren't pooled across the entire canton. This is expected to limit the proportionality-enhancing effect relative to a fully canton-wide implementation, particularly for parties whose support is dispersed across regions (Lüscher, 2024, p. 57). In Uri, Double Pukelsheim applies only to the four biggest muncipialities, while the remaining ones use Majorz. This limits the territorial and numerical scope of the reform, although it does not necessarily reduce the mechanical effect among the four municipalities included in the upper apportionment (Kanton Uri, 2019, pp. 4, 10–11; Lüscher, 2024, pp. 64–67).
 
-The total number of seats allocated through Double Pukelsheim may provide further context. All else equal, a larger number of seats allows vote shares to be translated into seat shares more finely (Lüscher, 2024, p. 106). However, parliament size does not generate an unambiguous expectation for the difference between the two allocation methods because the Double Pukelsheim and Hagenbach–Bischoff allocations being compared distribute the same total number of seats. How those seats are divided among districts under Hagenbach–Bischoff is the more direct mechanism. The differences between parliaments of various sizes, are therefore only presented as exploratory context.
-
 Comparisons across successive elections also provide exploratory context by examining whether smaller parties’ mechanical seat-share gains persist or vary over time. No directional trend is hypothesized, as vote distributions, the composition of the smaller-party group, and electoral rules can change between elections
 
 The estimated difference may additionally depend on the electoral rules used to construct the counterfactual outcomes, including the treatment of list alliances and canton-specific allocation provisions. 
 
 Together, these expectations provide the foundation for the following hypothesis and exploratory questions concerning differences in smaller parties' seat shares.
-
 
 ## Hypotheses
 
@@ -358,14 +355,7 @@ Here, $c$ denotes the canton and $0$ its pre-reform baseline; $D_{c,0}$ is the n
 
 The motivation to include CV as a measure is based on the FSC reasoning in BGE 136 I 352 E. 3.5, where it identifies unequal district seat counts as problematic for the equality of electoral success. Equal to the other additional measures, this measure is shown to provide additional insight and not to test a specific hypothesis. 
 
-#### Exploratory question 2: Differences by DP seat count (Parliament size)
-
-The second exploratory question examines the relationship between the parliament size and the average gain of smaller parties, with the following question:
-How is the number of seats allocated through Double Pukelsheim associated with the average gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach–Bischoff allocation?
-
-For each canton, the election-level gains $\Delta_e$ are averaged first so that cantons with more observed elections receive no extra weight. The resulting canton-level mean is then examined in relation to the number of seats allocated through Double Pukelsheim. As a cutoff value for the two comparison groups 100 was chosen, since then the eight relevant cantons split equally. Because both allocation methods distribute the same number of seats within each election and district magnitude is the more direct mechanism, no directional relationship is hypothesized. The association is interpreted descriptively rather than as an isolated causal effect of the number of Double Pukelsheim seats. Graubünden is shown separately because its pre-reform system was Majorz and its Hagenbach–Bischoff allocation is hypothetical (Bundeskanzlei, 2013, Table 1).
-
-#### Exploratory question 3: Explicit electoral quorums
+#### Exploratory question 2: Explicit electoral quorums
 
 How does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation vary between elections conducted with and without an explicit electoral quorum?
 
@@ -377,7 +367,7 @@ Because such quorums may prevent smaller parties from benefiting from the poolin
 
 This comparison is interpreted descriptively because the level and geographical application of the quorums differ across cantons and elections and coincide with other institutional differences.
 
-#### Exploratory question 4: Change across successive elections
+#### Exploratory question 3: Change across successive elections
 
 How does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation evolve across successive elections within each canton?
 
@@ -556,15 +546,13 @@ The election-level outcome is the difference between these two seat shares, deno
 
 Hypothesis 1 is assessed using the average seat-share differnce aross all 31 elections. In that analysis every elections receives equal weight, which means that cantons with more elections held under DP are influencing the average stronger. Since the parliament sizes differ, a supplementary weighted mean is added, where elections with a bigger parliament influence the mean stronger. It expresses the total net seat gain of smaller parties across the included elections as a percentage of the total analyzed seats, giving greater weight to elections with more seats. To better display the variation and typical gain, the median ,the first and third quartiles are reported additionally. The main summaries exclude Graubünden for the reasons set out in @sec-assumptions-scope its observations are presented separately for context.
 
-All four exploratory analyses are descriptive. They examine differences across institutional settings and successive elections without isolating the causal effects of individual electoral rules.
+All three exploratory analyses are descriptive. They examine differences across institutional settings and successive elections without isolating the causal effects of individual electoral rules.
 
 For EQ1, election-level seat-share gains are first averaged within each canton. These canton-level outcomes are examined against mean district magnitude, median district magnitude, the share of districts below nine seats, and CV.  These measure are all calculated from the same fixed allocation in each canton's last pre-reform election and the Schaffhausen parliament adjusted to 60 seats. These historical characteristics are held fixed when comparing the canton-level average gains across the analyzed elections. Uri covers the same four municipalities included in the HB–DP comparison, and Valais's district count refers to its 14 Hagenbach-Bischoff allocation districts. CV divides the population standard deviation of the baseline district magnitudes by their baseline mean. A higher CV indicates greater dispersion relative to average district size. All district measures are calculated once per canton from this baseline and are held fixed across its analyzed elections. For each measure, cantons are grouped below or at or above its unweighted mean across the eight transition cantons. Group means give each canton equal weight, and the group difference is calculated as below-mean minus at-or-above-mean. Graubünden is shown only for context and excluded from cutoffs and group means.
 
 The historical reference year applies to all district measures. Historical seat allocations are documented in the cantonal publications and court judgments cited below.^[Sources by canton and reference year: Aargau 2005 (Kanton Aargau, 2004); Graubünden 2018 (Kanton Graubünden, n.d.); Nidwalden 2010 (BGE 136 I 352, E. 3.5); Schaffhausen 2004, adjusted to 60 seats (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2); Schwyz 2012 (Urteil des Bundesgerichts 1C_407/2011 vom 19. März 2012, Sachverhalt A); Uri 2016 (Standeskanzlei Uri, 2016, p. 5); Valais 2013 (BGE 140 I 107, Sachverhalt A); Zug 2010 (Staatskanzlei des Kantons Zug, 2010, p. 92); Zurich 2003 (Regierungsrat des Kantons Zürich, 2002).] Later district magnitudes may change, so the district measures describe associations with the initial structure. For Schaffhausen, the 2004 structure is adjusted from 80 to 60 seats using the published hypotethical allocation in the government's reform report (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2). The election-specific Hagebach-Bischoff to Double Pukelsheim allocations are unchanged.
 
-For the comparison by Double Pukelsheim seat count, election-level differences are first averaged within each canton. Cantons are then grouped according to whether they allocate atleast 100 or fewer than 100 seats through Double Pukelsheim. The 100-seat cutoff serves as a descriptive grouping of the observed cantons. Group means are calculated from the canton-level averages, giving each canton equal weight irrespective of the number of observed elections. The difference between the group means is calculated as the mean for cantons with atleast 100 seats minus the mean for cantons with fewer than 100 seats. Graubünden is excluded from these group means. Given the small number of cantons and their differing electoral rules, the comparison is interpreted descriptively.
-
-For EQ3, elections are grouped by whether or not an explicit electoral quorum applied under Double Pukelsheim. Within each group, the mean of $\Delta_e$ gives each election equal weight, so cantons with more observed elections contribute more. The group difference is calculated as the mean without a quorum minus the mean with one. Graubünden is shown for context and excluded from both means. Since the observations differ structurally in terms of quorum levels, geographical scope and others, the analysis is only descriptive.
+For EQ2, elections are grouped by whether or not an explicit electoral quorum applied under Double Pukelsheim. Within each group, the mean of $\Delta_e$ gives each election equal weight, so cantons with more observed elections contribute more. The group difference is calculated as the mean without a quorum minus the mean with one. Graubünden is shown for context and excluded from both means. Since the observations differ structurally in terms of quorum levels, geographical scope and others, the analysis is only descriptive.
 
 To examine successive elections, the seat-share difference $\Delta_e$ is plotted separately for each canton and its successive elections. The aim is to analyze whether the mechanical seat-share gain persists across elections. To identify possible influencing factors, they are noted next to the election in which they ocurred. Later changes and fluctuations are interpreted with the help of the additional context provided by the notes. Besides the separate analyis of each canton, the results are also set into the between-canton context to possibly identify general patterns. 
 
@@ -1151,96 +1139,9 @@ To analyze the sensitivity of the results to certain cantons, a leave one canton
 
 Taken together, the four district measures reveal no consistent pattern linking the initial district structure to smaller parties’ gains. This is combined with substantial variation within the analyzed groups. Further are the four measures sensitive to the omission of single cantons. Which supports the assesment of a missing pattern. The sensitivity to Schaffhausen can be linked to its comparatively high seat-share gain. Which is partly caused as discussed in @sec-data-cleaning by the separate classification of affiliated lists as smaller parties. These descriptive comparisons therefore can not show any causal effect of district magnitude or its dispersion.
 
-#### Exploratory question 2: Differences by DP seat count (Parliament size)
+#### Exploratory question 2: Explicit electoral quorums {#sec-eq2}
 
-The following expoloratory question examines possible differences of the smaller party seat share gain between the different amounts of seats distributed with DP and with the parliament size. As priorly mentioned is the variable *seats_allocated_dp* used since in the canton of Uri only four municipialities use the Double Pukelsheim system and with that only 37 of the parliaments 64 seats are distributed by the new system. The comparison below averages elections within each canton before comparing the two groups defined by the number of seats allocated through Double Pukelsheim. Graubünden is as always only shown for context and excluded from the group means.
-
-```{r}
-#| label: tbl-dp-seat-count
-#| tbl-cap: "Mean smaller-party seat-share gain by number of seats allocated under Double Pukelsheim (Parliament size)"
-#| echo: false
-
-h1a_cantons <- small_party_summary |>
-  mutate(canton = str_sub(election_id, 1L, 2L)) |> 
-  group_by(canton) |>
-  summarise(
-    elections = n(),
-    dp_seats = first(seats_allocated_dp),
-    parliament_seats = first(parliament_size),
-    mean_gain_pp = mean(seat_gain_pp),
-    .groups = "drop"
-  ) |>
- mutate(
-  size_group = case_when(
-    canton == "GR" ~ "Context only (former Majorz)",
-    dp_seats >= 100L ~ "At least 100 DP seats",
-    TRUE ~ "Fewer than 100 DP seats"
-  )
-) |>
-arrange(desc(dp_seats), canton)
-
-h1a_groups <- h1a_cantons |>
-  filter(canton != "GR") |>
-  group_by(size_group) |>
-  summarise(cantons = n(), mean_gain_pp = mean(mean_gain_pp), .groups = "drop")
-knitr::kable( 
-  h1a_cantons |>
-    transmute(Canton = canton, Group = size_group,
-              Elections = elections,
-              `DP seats (parliament)` = paste0(dp_seats, " (", parliament_seats, ")"),
-              `Mean gain (pp)` = sprintf("%.1f", mean_gain_pp))
-)
-```
-
-*Notes* Source: author's aggregation of the official cantonal election datasets.
-
-The mean of the canton-level gains is `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At least 100 DP seats"])` percentage points in the group with atleast 100 Double Pukelsheim seats and `r sprintf("%.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "Fewer than 100 DP seats"])` percentage points in the group with at most 100. The atleast-fewer difference is therefore `r sprintf("%+.1f", h1a_groups$mean_gain_pp[h1a_groups$size_group == "At least 100 DP seats"] - h1a_groups$mean_gain_pp[h1a_groups$size_group == "Fewer than 100 DP seats"])` percentage points.
-
-To visualize the analysis of a possible relationship between parliament size and the smaller parties seat-share gain, is visualized in a scatterplot. In @fig-dp-seat-count each canton's average smaller-party-seat-share is plotted against the number of seats allocated through Double Pukelsheim. The two cantons are distinguished by colours, while Graubünden is displayed separately for context. 
-
-```{r}
-#| label: fig-dp-seat-count
-#| fig-cap: "Smaller-party seat-share gains by Double Pukelsheim seat count"
-#| fig-width: 8.3
-#| fig-height: 4.5
-#| echo: false
-#| warning: false
-#| message: false
-
-ggplot(h1a_cantons, # reuse the table's dataset
-       aes(x = dp_seats, y = mean_gain_pp, colour = size_group)) + # set y and x-axis
-  geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) + 
-  geom_vline(xintercept = 100, linetype = "dashed", # mark cutoff value
-             colour = "grey60", linewidth = .4) +
-  geom_point(size = 2.8) +
-  geom_text_repel(aes(label = canton), seed = 1, size = 3.3, # label all cantons and reduce overlap
-                  max.overlaps = Inf, show.legend = FALSE) +
-  scale_colour_manual(values = c( # set colors for groups
-    "Fewer than 100 DP seats" = "#0072B2",
-    "At least 100 DP seats" = "#D55E00",
-    "Context only (former Majorz)" = "#8A8A8A"
-  )) +
-  scale_x_continuous(expand = expansion(mult = c(.12, .15))) + 
-  scale_y_continuous(expand = expansion(mult = c(.12, .15))) +
-  labs(
-    x = "Seats allocated through Double Pukelsheim", # label the x-axis
-    y = "Mean smaller-party seat-share gain (pp)", # label the y-axis
-    colour = NULL,
-    caption = "Dashed line: 100-seat cutoff. Uri covers four DP municipalities."
-  ) +
-  theme_minimal(base_size = 11) + # apply the minimal theme
-  theme(
-    legend.position = "bottom",
-    panel.grid.minor = element_blank(),
-    plot.caption = element_text(hjust = 0, size = 8.5)
-  )
-```
-
-The @fig-dp-seat-count reveals no clear consistent relationship between DP seat count and smaller parties average seat share gains across the eight cantons in the main analysis. Which is also illustrated through the fact, that the mean of both groups is with 6.3, respectively 6.7 percentage points close together. Noticeable again is the high seat-gain share of Schaffhausen, which was priorly discussed for e.g. in @sec-h1-results. Since this comparison is based on only `r sum(h1a_groups$cantons)`  cantons operating under distinct electoral rules. Group averages may also conceal substantial variation between individual cantons, and the observed difference could reflect other institutional characteristics rather than the number of seats itself. The results therefore describe a difference within this sample but do not establish that a larger number of Double Pukelsheim seats causes greater gains.
-
-#### Exploratory question 3: Explicit electoral quorums {#sec-eq3}
-
-Exploratory question 3 researches on whether the implementation of explicit electoral quroums have an influence on the smaller parties seat-share gain. The explicit quroums ensure that only parties which reach a specific vote-share are considered for the allocation of seats. This may prevent smaller parties from entering the parliament, which is why it's expected in this thesis, that in cantons with a quorum, the seat-share gain of smaller parties is reduced. This directional estimation is analyzed followingly: 
+Exploratory question 2 researches on whether the implementation of explicit electoral quroums have an influence on the smaller parties seat-share gain. The explicit quroums ensure that only parties which reach a specific vote-share are considered for the allocation of seats. This may prevent smaller parties from entering the parliament, which is why it's expected in this thesis, that in cantons with a quorum, the seat-share gain of smaller parties is reduced. This directional estimation is analyzed followingly: 
 ```{=typst}
 #[
 #set table(
@@ -1345,7 +1246,7 @@ Especially interesting, is the case of the canton Aargau, where in 2009 the elec
 
 To summarize the analysis about the effect of the implementation of explicit quoroms, it can be stated that within the 31 relevant election a difference which matches the expectaion can be seen. This difference though is sensitive to the inclusion of Schaffhausen. Further is the limited amount of elections held till date and the different application of thresholds and electoral law, encouraging to interpret the difference with caution.
 
-#### Exploratory question 4: Change across successive elections
+#### Exploratory question 3: Change across successive elections
 
 The preceding analysis showed that cantons differ in their implementation of the Double Pukelsheimer system. These institutional differences motivate a closer examination of within-canton patterns. The last exploratory question therefore examines how the smaller parties seat-share gain changed across successive elections within a canton. For that each canton and it's successive changes are analyzed separately. To possibly better understand changes, events such as electoral reforms and changes in the party composition are documented. Generally stable positive values of $\Delta_e$ indicate a persistent mechanical advantage for smaller parties, while substantial fluctuation or even changes in sign would suggest that the effect is strongly dependent on the individual circumstances of an election. 
 
@@ -1569,7 +1470,7 @@ eq4_election_stats <- eq4_elections |>
   arrange(election_number) # Display the results
 ```
 
-::: {.callout-note title="EQ4 summary"} 
+::: {.callout-note title="EQ3 summary"} 
 Excluding Graubünden, the average within-canton change in smaller parties’ seat-share gain was `r with(filter(eq4_election_stats, election_number > 1L), paste(sprintf("%+.1f percentage points from election %d to %d (%d cantons)", mean_change_pp, election_number - 1L, election_number, cantons), collapse = "; "))`. The average seat-share gains across the cantons were `r paste(sprintf("%.1f percentage points in election %d (%d cantons)", eq4_election_stats$mean_gain_pp, eq4_election_stats$election_number, eq4_election_stats$cantons), collapse = "; ")`. Each average gives equal weight to the cantons observed in both elections of the respective transition.
 :::
 
@@ -1577,7 +1478,7 @@ Generally spoken, are the seat-share gains with some canton-specific fluctuation
 
 Besides the broader image, there are also interesting patterns within the cantons. The biggest changes between two elections, can be seen for Schaffhausen, Zurich and Nidwalden. In Schaffhausen the seat-share gain rose from the first to the 2nd election from roughly 10 to roughly 17 percentage points, where it settled afterward quite stable. A possible partial reason, is the higher number of smaller parties in the parliament which increased from seven in 2008 to nine in 2012. From the 2015 Zurich, to the 2019 Zurich election, the seat-share gain dropped by roughly 5 percentage points, a reason for this is possibly, that both the GLP and the Greens exceeded the 10% smaller-parties threshold while the BDP lost its parliamentary representation. This led to the circumstance, that from seven smaller parliamentary parties in 2015, the number dropped to four in 2019. In Nidwalden since the implementation the seat-gain share rose continously. The strongest difference  was observed from the 3rd to the 4th election, where the share rose by 5 percentage points. This effect might be partially influenced by the in the smaller party composition, since the green party fell below the 10% threshold.  For Aargau, Zug, Schwyz and Valais we can observe relatively stable patterns with smaller fluctuations. For the canton of Uri only two elections were observed, which is why no pattern can be inferred. 
 
-In the three cantons Aargau, Schaffhausen and Zurich, the Double Pukelsheim system, was adjusted after its implementation. The case of the canton of Aargau was priorly discussed in @sec-eq3. The assumption of the implementation of a threshold is that the smaller-party seat share gain declines with it. The post electoral change results for the canton of Aargau don't present a clear picture there with results aswell in accordance as also speaking against the assumption. The absence of a clear effect, may be partly explained through that in each election the biggest list without parliamentary representation, received only between 0.1% to 0.7% vote shares.^[For cantonal vote shares and parliamentary representation, see T. Schaub (2012, p. 12), Staatskanzlei des Kantons Aargau (2016b, p. 2), Staatskanzlei des Kantons Aargau (2020, p. 2), and Staatskanzlei des Kantons Aargau (2024).] This suggests that the explicit quroums in Aargau only had limited scope to exclude parties, which otherwise would have won seats. In Schaffhausen in 2016 as described in @sec-adoption, a majority clause was implemented. This majority clause ensures that the strongest list in each constituency receives at least one seat. It does this, while preserving the seat allocation of the canton-wide upper apportionment. (Kanton Schaffhausen, 1904/2019, Art. 2d paras. 1bis and 2(b)) Thus it has no effect on the smaller party seat-share gain. In the canton of Zurich, in the year 2023 a quroum change applied. Since to the existing 5% district-level quroum a 3% canton-wide one was added, of which parties have to reach either one. This electoral change is in the tendency highering the seat-share gain, since it possibly enables more parties to reach the seat-allocation process. In the 2023 election, though no party profited from this clause, since every qualifying party also reached the 5% district-level threshold (Regierungsrat des Kantons Zürich, 2023, p.9). Further did the seat-share gain drop from the 2019 to the 2023 election. Overall did the three electoral changes therefore have no visible effect on the smaller party seat-share gain.
+In the three cantons Aargau, Schaffhausen and Zurich, the Double Pukelsheim system, was adjusted after its implementation. The case of the canton of Aargau was priorly discussed in @sec-eq2. The assumption of the implementation of a threshold is that the smaller-party seat share gain declines with it. The post electoral change results for the canton of Aargau don't present a clear picture there with results aswell in accordance as also speaking against the assumption. The absence of a clear effect, may be partly explained through that in each election the biggest list without parliamentary representation, received only between 0.1% to 0.7% vote shares.^[For cantonal vote shares and parliamentary representation, see T. Schaub (2012, p. 12), Staatskanzlei des Kantons Aargau (2016b, p. 2), Staatskanzlei des Kantons Aargau (2020, p. 2), and Staatskanzlei des Kantons Aargau (2024).] This suggests that the explicit quroums in Aargau only had limited scope to exclude parties, which otherwise would have won seats. In Schaffhausen in 2016 as described in @sec-adoption, a majority clause was implemented. This majority clause ensures that the strongest list in each constituency receives at least one seat. It does this, while preserving the seat allocation of the canton-wide upper apportionment. (Kanton Schaffhausen, 1904/2019, Art. 2d paras. 1bis and 2(b)) Thus it has no effect on the smaller party seat-share gain. In the canton of Zurich, in the year 2023 a quroum change applied. Since to the existing 5% district-level quroum a 3% canton-wide one was added, of which parties have to reach either one. This electoral change is in the tendency highering the seat-share gain, since it possibly enables more parties to reach the seat-allocation process. In the 2023 election, though no party profited from this clause, since every qualifying party also reached the 5% district-level threshold (Regierungsrat des Kantons Zürich, 2023, p.9). Further did the seat-share gain drop from the 2019 to the 2023 election. Overall did the three electoral changes therefore have no visible effect on the smaller party seat-share gain.
 
 As for the other analyses, was here also a robustness check performed. The check was done for each election number separately. Throghout all checks does the seat-share gain remain positive. The mean change though from election three to four and from four to five switches signs when Zurich, respectively the canton of Aargau is excluded. These later transition include only five respectively three cantons and are therefore more sensitive to indidvidual cantons. The exact statistics for the robustness check can be found in @sec-leave-one-out.
 
@@ -2027,7 +1928,7 @@ ggplot(party_size_plot_data, aes(x = vote_share, y = gain_pp)) + # Include GR fo
 
 ### Appendix 4:  Leave-one-canton-out robustness checks {#sec-leave-one-out}
 
-The leave-one-canton-out check, is a sensitivity and robustness check, where the statistical results of the thesis are recalculated after the omission of each single canton. Through that it can be observed, whether the results are sensitive to the inclusion of a specific canton or not. The bold values in the following tables, identify the canton omission that produces the largest absolute change from the full-sample result in each outcome column. For EQ4, this comparison is made separately within each election number. The comparisons use unrounded results. 
+The leave-one-canton-out check, is a sensitivity and robustness check, where the statistical results of the thesis are recalculated after the omission of each single canton. Through that it can be observed, whether the results are sensitive to the inclusion of a specific canton or not. The bold values in the following tables, identify the canton omission that produces the largest absolute change from the full-sample result in each outcome column. For EQ3, this comparison is made separately within each election number. The comparisons use unrounded results. 
 
 ```{r}
 #| label: loco-highlight-helper
@@ -2187,7 +2088,7 @@ knitr::kable(
 
 As for Hypothesis 1, the omission of Schaffhausen comes with the highest absolute differences in all four measures. The differences for mean and median district magnitude remain negative, whereas those for the share of districts below nine seats and the CV change from negative to positive. The direction of the two latter comparisons therefore depends on the inclusion of Schaffhausen. These robustness checks therefore demonstrate sensitivity to the sample composition. 
 
-#### Exploratory Question 3 
+#### Exploratory Question 2 
 
 ```{r}
 #| label: loco-results-eq3
@@ -2262,7 +2163,7 @@ knitr::kable(
 
 As in the prior robustness checks are the cantons of Zurich and Schaffhausen responsible for the highest absolute differences. The omission of Schaffhausen reverses the group difference. This leads to that without the Schaffhausen elections, the average seat-gain share is higher for elections with quorums compared to the ones without quroums. The sample for the without quroum group consists of twelve elections, from which five are from Schaffhausen. Further do all Schaffhausen elections, experience an above average seat-share gain. Thus is the observed difference sensitive to Schaffhausen's inclusion and should not be interpreted as a stable relationship betwenn an explicit electoral quroum and the smaller party seat-share gains.
 
-#### Exploratory Question 4
+#### Exploratory Question 3
 ```{r}
 #| label: loco-eq4-data
 #| echo: false
