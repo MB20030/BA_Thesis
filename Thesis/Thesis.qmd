@@ -1084,36 +1084,9 @@ Taken together, the two district measures reveal no consistent pattern linking t
 
 #### Exploratory question 2: Explicit electoral quorums {#sec-eq2}
 
-Exploratory question 2 researches on whether the implementation of explicit electoral quroums have an influence on the smaller parties seat-share gain. The explicit quroums ensure that only parties which reach a specific vote-share are considered for the allocation of seats. This may prevent smaller parties from entering the parliament, which is why it's expected in this thesis, that in cantons with a quorum, the seat-share gain of smaller parties is reduced. This directional estimation is analyzed followingly: 
-```{=typst}
-#[
-#set table(
-  stroke: 0.5pt,
-  inset: 5pt,
-)
-```
-| Canton | implemented Thresholds | relevant years |
-|---|---|---|
-| Aargau | none | 2009 |
-| Aargau | 5% district level or 3% cantonal level | 2012, 2016, 2020, 2024 |
-| Graubünden |3% cantonal level | 2022, 2026|
-| Nidwalden | none | 2014, 2018, 2022, 2026 |
-| Schaffhausen | none | 2008, 2012, 2016, 2020, 2024 |
-| Schwyz | 1% cantonal level | 2016, 2020, 2024 |
-| Uri | none | 2020, 2024 |
-| Valais | 8% district level | 2017, 2021 ,2025  |
-| Zug | 5% district level or 3% cantonal level | 2014, 2018, 2022, 2026 |
-| Zurich | 5% district level | 2007, 2011, 2015, 2019 |
-| Zurich | 5% district level or 3% cantonal level | 2023 |
+Exploratory question 2 researches on whether the implementation of explicit electoral quroums have an influence on the smaller parties seat-share gain. The explicit quroums ensure that only parties which reach a specific vote-share are considered for the allocation of seats. This may prevent smaller parties from entering the parliament, which is why it's expected in this thesis, that in cantons with a quorum, the seat-share gain of smaller parties is reduced.
 
-: Situation regarding explicit electoral thresholds under Double Pukelsheim in the elections studied. {#tbl-explicit-quroums tbl-colwidths="[20, 45, 35]"}
-
-Source: Author’s compilation. Threshold rules are based on the sources discussed in @sec-adoption. Election years refer to the elections included in the empirical analysis, whose data sources are documented in @sec-data-appendix.
-
-```{=typst}
-]
-```
-As documented in the table, out of eight analysis cantons, five applied a threshold. With Aargau being a special case, since the canton applied it only after their first election under Double Pukelsheim. The most often used explicit qourum is the combination of a 5% district-level and a 3% cantonal level threshold of which atleast one has to be reached. This combination was used in 9 of 19 elections held with an explicit threshold. 
+As documented in the @tbl-dp-adoption, have out of eight analysis cantons, five applied a threshold. With Aargau being a special case, since the canton applied it only after their first election under Double Pukelsheim. The most often used explicit qourum is the combination of a 5% district-level and a 3% cantonal level threshold of which atleast one has to be reached. This combination was used in 9 of 19 elections held with an explicit threshold. 
 
 The difference is visualized followingly, in a bivariate analyisis presented as a grouped dot plot.
 ```{r}
