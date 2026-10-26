@@ -253,16 +253,16 @@ As outlined in the section Historical Development, did the Double Pukelsheim gai
 ```
 | **Canton** | **First election under DP** | **Main reform driver** | **Explicit electoral thresholds** |
 |:---|:---:|:---|:---|
-| Zurich | 2007 | Reaction to the FSC ruling for the City of Zurich, since the canton faced the same issues | 5% district-level (2007-2019), 5% district-level or 3% cantonal-level (2023-) |
-| Schaffhausen | 2008 | Parliament was downsized subsequently reforms were needed, in view of the FSC judgements in Zurich and Aargau, Double Pukelsheim was chosen | None |
-| Aargau | 2009 | Parliament was downsized, no Action regarding electoral equality was taken, the FSC ruled for change and following implementation of DP was decided | None (2009), 5% district-level or 3% cantonal-level (2012-) |
+| Zurich | 2007 | Reaction to the FSC ruling for the City of Zurich, since the canton faced similiar issues | 5% district-level (2007-2019), 5% district-level or 3% cantonal-level (2023-) |
+| Schaffhausen | 2008 | Parliament was downsized, subsequently reforms were needed, In view of the FSC judgements in Zurich and Aargau, Double Pukelsheim was chosen | None |
+| Aargau | 2009 | Parliament was downsized, no Action regarding electoral equality was taken, the FSC ruled for change and followingly the implementation of DP was decided | None (2009), 5% district-level or 3% cantonal-level (2012-) |
 | Nidwalden | 2014 | Voters appeal at cantonal court and later at FSC, FSC decided in favour of the appeal, the DP system was favoured as a solution and implemented | None |
-| Zug | 2014 | Voters and parties appeal at the FSC. Court agrees on the main point, the DP system is favoured and implemented | 5% district-level or 3% cantonal-level |
-| Schwyz | 2016 | Voters appeal at the FSC, based on the new constitution and its districts. FSC agreed partly, multiple options were explored, finally the DP-system was implemented. | 1% cantonal-level |
-| Valais | 2017 | FSC appeal in 2004 was rejected. A second appeal was approved by the FSC, subsequently implementation of DP was done via a temporary decree because of lacking electorate approval. Later the system was officially incorporated. | 8% sub-district-level |
-| Uri | 2020 | Appeal at the FSC was partially upheld. Subsequently Double Pukelsheim was implemented for municipialities with at least five seats. | None |
-| Graubünden | 2022 | Voters and parties appeal at FSC was partially upheld. Multiple options were evaluated, finally transition from Majority to DP system was decided. | 3% cantonal-level |
-| Basel-Landschaft | 2027 | A single parliamentarian advocated for the Double Pukelsheim over multiple years. Subsequently, the implementation was proposed and approved by Parliament and voters. | 5% district-level or 3% cantonal-level |
+| Zug | 2014 | Voters and parties appeal at the FSC, Court agrees on the main point, the DP system is favoured and implemented | 5% district-level or 3% cantonal-level |
+| Schwyz | 2016 | Voters appeal at the FSC based on the new constitution and its districts, FSC agreed partly, multiple options were explored, finally the DP-system was implemented. | 1% cantonal-level |
+| Valais | 2017 | FSC appeal in 2004 was rejected, a second appeal was approved by the FSC, subsequently implementation of DP was done via a temporary decree because of lacking electorate approval, later the system was officially incorporated | 8% sub-district-level |
+| Uri | 2020 | Appeal at the FSC was partially upheld, subsequently Double Pukelsheim was implemented for municipialities with at least five seats | None |
+| Graubünden | 2022 | Voters and parties appeal at FSC was partially upheld, multiple options were evaluated, finally transition from Majority to DP system was decided | 3% cantonal-level |
+| Basel-Landschaft | 2027 | A single parliamentarian advocated for the Double Pukelsheim over multiple years, subsequently the implementation was proposed and approved by Parliament and voters | 5% district-level or 3% cantonal-level |
 
 : Adoption of Double Pukelsheim and explicit electoral quorums by canton. {#tbl-dp-adoption tbl-colwidths="[16,14,43,27]"}
 

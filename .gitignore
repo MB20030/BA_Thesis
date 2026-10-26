@@ -11,6 +11,7 @@ renv/staging/
 renv/python/
 renv/sandbox/
 
-
+# ignore temporary files
+temp/
 # Quarto's local working directory
 .quarto/
