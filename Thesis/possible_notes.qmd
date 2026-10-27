@@ -24,4 +24,5 @@ plus SELF -REFLECTION on ai usage
 
 26. add more substance to eq2?
 
+27. eq3 add colours again to the figure
 ```
