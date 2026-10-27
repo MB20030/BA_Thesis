@@ -1,4 +1,4 @@
-# Zug-specific data cleaning for the 2014, 2018, and 2022 elections.
+# Zug-specific data cleaning for the 2014, 2018, 2022, and 2026 elections.
 # Each election is supplied as one candidate-results CSV containing all
 # municipalities, lists, candidates, votes, and official mandates.
 
@@ -240,7 +240,7 @@ process_canton_ZG <- function() {
   map2_dfr(
     zg_source_files$file_name,
     zg_source_files$year,
-    ~ read_zg_election(zg_source_dir, .x, .y) # Process and combine all three elections.
+    ~ read_zg_election(zg_source_dir, .x, .y) # Process and combine all four elections.
   )
 }
 
