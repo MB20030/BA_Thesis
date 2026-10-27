@@ -8,11 +8,7 @@ plus SELF -REFLECTION on ai usage
 
 19. external validity, --> what learning can cantons take --> discussion -->done --> ask aurelien , if that's enough?
 
-23. not mentioned in expected effects --> general effect estimated --> h1
-
-25. in expected effects --> noted that valais might have limited effect --> because of pooling only across subdistricts --> maybe check if there's a difference observed in eq3
 
 26. add more substance to eq2?
 
-27. eq3 add colours again to the figure
 ```
