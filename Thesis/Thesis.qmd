@@ -744,7 +744,7 @@ no_gain_8 <- sensitivity_8 |>
 
 ```{r}
 #| label: fig-small-parties-relative
-#| fig-cap: "Smaller-party seat-shares under HB and DP: 31 transition elections and two contextual GR comparisons" 
+#| fig-cap: "Smaller party seat-shares under HB and DP" 
 #| fig-width: 8.3
 #| fig-height: 6.5
 #| echo: false
@@ -1907,7 +1907,7 @@ The table below identifies the election data and legal sources used in the canto
 #figure(
   kind: "quarto-float-tbl",
   supplement: [Table],
-  caption: [Election data sources and legal bases for the counterfactual Hagenbach–Bischoff allocation.],
+  caption: [Election data sources and legal bases for the counterfactual HB allocation.],
   {
     set text(size: 10pt)
     set par(justify: false, leading: 0.45em)
