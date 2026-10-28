@@ -107,7 +107,7 @@ I would like to thank my supervisor, Dr. Aurélien Sallin, for his support in ch
 
 I am grateful to Sandro Lüscher for sharing his PhD thesis, to Adrian Zurfluh (Canton of Uri), Stefanie Haldimann (Canton of Nidwalden) and Anton Waldvogel (Canton of Schwyz) for providing election data. Further am I thankful to Roland E. Hofer (Canton of Schaffhausen) for providing a legal text, and to Simon Graf (Canton of Zurich) for his assistance with corrections to the Zurich 2011 dataset. Their assistance was valuable in obtaining and preparing the material for this thesis.
 
-Finally, I would like to thank my father Martin Beyn-Hansmann, lecturer at Lucerne University of Applied Sciences, Clara Burmeister (B.Sc. in Management & Information Systems) and Eric Oehler (B.A. in Economics), for proofreading the thesis and helping to improve its clarity and readability.
+Finally, I would like to thank my father Martin Beyn-Hansmann, lecturer at Lucerne University of Applied Sciences, Clara Burmeister (B.Sc. in Business Administration) and Eric Oehler (B.A. in Economics), for proofreading the thesis and helping to improve its clarity and readability.
 
 ```{=typst}
 #pagebreak()
@@ -135,6 +135,7 @@ Finally, I would like to thank my father Martin Beyn-Hansmann, lecturer at Lucer
   columns: (28mm, 1fr),
   row-gutter: 2.2mm,
   [*AG*], [Canton of Aargau],
+  [*AI*], [Artificial intelligence],
   [*ALG*], [Alternative – the Greens Zug (Alternative – die Grünen Zug)],
   [*BDP*], [Conservative Democratic Party],
   [*BGE*], [Decisions of the Swiss Federal Supreme Court (official collection)],
@@ -142,19 +143,25 @@ Finally, I would like to thank my father Martin Beyn-Hansmann, lecturer at Lucer
   [*CVP*], [Christian Democratic People's Party],
   [*DP*], [Double Pukelsheim system],
   [*EQ1*], [Exploratory question 1 (district magnitude)],
+  [*EQ2*], [Exploratory question 2 (explicit electoral quorums)],
+  [*EQ3*], [Exploratory question 3 (successive elections)],
   [*FDP*], [FDP.The Liberals],
   [*FSC*], [Swiss Federal Supreme Court],
   [*GLP*], [Green Liberal Party],
   [*GR*], [Canton of Graubünden],
   [*HB*], [Hagenbach-Bischoff method],
+  [*HSG*], [University of St. Gallen],
   [*JFSH*], [Young Liberals Schaffhausen (Jungfreisinnige Schaffhausen)],
   [*JUSO*], [Young Socialists Switzerland],
+  [*LLM*], [Large language model],
+  [*NA*], [Not available or not applicable (no reported value in the appendix tables)],
   [*NW*], [Canton of Nidwalden],
   [*PDF*], [Portable Document Format],
   [*pp*], [percentage points],
   [*PR*], [proportional representation],
   [*Q1*], [First quartile (25th percentile)],
   [*Q3*], [Third quartile (75th percentile)],
+  [*SD*], [Swiss Democrats (Schweizer Demokraten)],
   [*SH*], [Canton of Schaffhausen],
   [*SP*], [Social Democratic Party of Switzerland],
   [*SVP*], [Swiss People's Party],
@@ -202,7 +209,7 @@ In the last 20 years the prior dominance of the Hagenbach-Bischoff system has be
 
 To be able to comprehend later the differences between the HB and the DP Method one has to understand the allocation under the priorly used Hagenbach-Bischoff system. 
 
-Under Hagenbach-Bischoff, seats are allocated separately in each constituency. Let $M$ denote the number of mandates in the constituency, $v_i$ the votes for an eligible list $i$, $V$ the total list votes used to calculate the distribution number and $D$ the distribution number for the smallest integer strictly greater than $V/(M+1)$. In the first allocation, each list receives the integer part of its votes divided by $D$. (Bundeskanzlei, 2025, p. 41)
+Under Hagenbach-Bischoff, seats are allocated separately in each constituency. Let $M$ denote the number of mandates in the constituency, $v_i$ the votes for an eligible list $i$, $V$ the total number of valid list votes of all lists in the constituency used to calculate the distribution number and $D$ the distribution number for the smallest integer strictly greater than $V/(M+1)$. In the first allocation, each list receives the integer part of its votes divided by $D$. (Bundeskanzlei, 2025, p. 41)
 
 $$
 D = \left\lfloor \frac{V}{M + 1} \right\rfloor + 1, \qquad s_i = \left\lfloor \frac{v_i}{D} \right\rfloor.
