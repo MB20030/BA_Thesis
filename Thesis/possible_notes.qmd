@@ -11,4 +11,6 @@ plus SELF -REFLECTION on ai usage
 
 26. add more substance to eq2?
 
+27. mention somewhere how i improved visualization?
+
 ```
