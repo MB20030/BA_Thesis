@@ -13,4 +13,6 @@ plus SELF -REFLECTION on ai usage
 
 28. write ai usage part and sel-reflection
 
+
+29. absatz linie 304 --> hoch ziehen zu line 303
 ```
