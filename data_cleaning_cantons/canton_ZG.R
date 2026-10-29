@@ -2,23 +2,22 @@
 # Each election is supplied as one candidate-results CSV containing all
 # municipalities, lists, candidates, votes, and official mandates.
 
-# Load only the packages used directly in this script.
+
 library(tidyverse)
 library(here)
 
 here::i_am("data_cleaning_cantons/canton_ZG.R") # Set a stable project root.
 
-# Load the shared allocation and output-format helpers when this script runs
-# on its own rather than after 00_functions.R.
+# Load shared helpers if either required function is unavailable
 if (!exists("allocate_hb", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
   source(here("data_cleaning_cantons", "00_functions.R")) # Load shared helpers if needed.
 }
 
-# Load the Zug election data from the official CSV exports. 
+# Load the Zug election data from the official CSV exports 
 # (Kanton Zug, 2022a, 2022b, 2022c, 2026)
-zg_source_dir <- here("data", "datasets", "zug") # Folder containing the raw files.
-zg_source_files <- tribble( # Match each election year to its source file.
+zg_source_dir <- here("data", "datasets", "zug") # Folder containing the raw files
+zg_source_files <- tribble( # Match year and file
   ~year, ~file_name,
   2014L, "ZG_14_kandidierendenresultate.csv",
   2018L, "ZG_18_kandidierendenresultate.csv",
@@ -27,26 +26,26 @@ zg_source_files <- tribble( # Match each election year to its source file.
 )
 
 as_zg_number <- function(value) {
-  suppressWarnings(as.numeric(as.character(value))) # Convert imported text to numbers.
+  suppressWarnings(as.numeric(as.character(value))) # Convert imported text to numbers
 }
 
-standardize_zg_party <- function(party_label) {
+standardize_zg_party <- function(party_label) { # Standardize party labels
   normalized <- party_label |>
-    as.character() |> # Ensure labels are text.
-    str_replace_all("[\r\n]+", " ") |> # Remove line breaks.
-    str_squish() |> # Remove repeated whitespace.
-    str_to_upper() |> # Ignore capitalization differences.
-    stringi::stri_trans_general("Latin-ASCII") # Replace umlauts and accents.
+    as.character() |> 
+    str_replace_all("[\r\n]+", " ") |> 
+    str_squish() |> 
+    str_to_upper() |> 
+    stringi::stri_trans_general("Latin-ASCII") 
 
-  case_when(
-    normalized %in% c("ALTERNATIVE", "ALG") ~ "ALG", # Merge ALG labels.
-    normalized %in% c("GRUNLIBERALE", "GLP") ~ "GLP", # Merge GLP labels.
-    normalized %in% c("DIE MITTE", "MITTE") ~ "DIEMITTE", # Use one Mitte label.
-    normalized == "AUBU" ~ "AUBUE", # Restore the transliterated party code.
+  case_when( # Merge party labels
+    normalized %in% c("ALTERNATIVE", "ALG") ~ "ALG", 
+    normalized %in% c("GRUNLIBERALE", "GLP") ~ "GLP", 
+    normalized %in% c("DIE MITTE", "MITTE") ~ "DIEMITTE", 
+    normalized == "AUBU" ~ "AUBUE", # Restore the transliterated party code
     TRUE ~ normalized |>
-      str_replace_all("[^A-Z0-9]+", "_") |> # Replace punctuation with underscores.
+      str_replace_all("[^A-Z0-9]+", "_") |> 
       str_remove("^_+") |>
-      str_remove("_+$") # Remove leading and trailing underscores.
+      str_remove("_+$") # Remove leading and trailing underscores
   )
 }
 
@@ -59,7 +58,7 @@ standardize_zg_party <- function(party_label) {
 # seat magnitude, then summed by party to obtain canton-wide seat totals.
 summarize_zg_hb <- function(district_results) {
   district_results |>
-    group_by(district) |> # Allocate seats separately in each municipality.
+    group_by(district) |> # Allocate seats separately in each municipality/constituency
     mutate(
       seats_hb = allocate_hb(party_votes, first(district_seats)) # calling the shared allocation helper.
     ) |>
