@@ -8,31 +8,29 @@
 # General HB allocator with configurable quota and tie-breaking rules.
 # Canton-specific eligibility, alliances and candidate limits require
 # separate implementation where applicable.
-#
-# Exact quotient ties are detected by integer cross-multiplication rather than
-# floating-point equality. Because cantonal laws can prescribe different
-# tie-breakers, `tie_resolver` may narrow the tied indices according to the
-# applicable law. If more than one legally possible winner remains, every
-# possible final allocation is retained instead of silently choosing the first
-# row. A hypothetical drawing of lots is therefore never invented.
+# Quotient ties are checked by cross-multiplication.
+# Because cantonal laws can prescribe different tie-breakers, `tie_resolver` 
+# may narrow the tied indices according to the applicable law. 
+# If more than one legally possible winner remains, every
+# possible final allocation is retained.
 # `quota_rule` allows cantons whose law rounds an exact quota up differently.
 
-validate_hb_inputs <- function(votes, n_seats, party_names) {
-  if (
+validate_hb_inputs <- function(votes, n_seats, party_names) { # Defines the validator
+  if (  # Starts and invalid-input check
     !is.numeric(votes) || any(!is.finite(votes)) || any(votes < 0) ||
-      any(votes != floor(votes))
-  ) {
-    stop("`votes` must contain non-negative finite integers.")
-  }
+      any(votes != floor(votes)) # Check if votes have appropriate type, direction...
+  ) { 
+    stop("`votes` must be a numeric vector of non-negative finite whole numbers.")
+  } # explicit error message
   if (
     length(n_seats) != 1L || !is.numeric(n_seats) || !is.finite(n_seats) ||
-      n_seats < 0 || n_seats != floor(n_seats)
+      n_seats < 0 || n_seats != floor(n_seats) || n_seats > 180L # Validate number of seats
   ) {
-    stop("`n_seats` must be one non-negative integer.")
+    stop("`n_seats` must be one non-negative integer and can be maximum 180 (canton of Zurich).")
   }
   if (
     length(party_names) != length(votes) || anyNA(party_names) ||
-      any(party_names == "") || anyDuplicated(party_names)
+    any(!nzchar(trimws(party_names))) || anyDuplicated(party_names)
   ) {
     stop("`party_names` must contain one unique, non-empty label per vote total.")
   }
@@ -41,6 +39,7 @@ validate_hb_inputs <- function(votes, n_seats, party_names) {
   }
 }
 
+# Define the main allocation function
 hb_allocation_outcomes <- function(
     votes,
     n_seats,
@@ -49,7 +48,6 @@ hb_allocation_outcomes <- function(
     max_outcomes = 1000L,
     quota_rule = c("floor_plus_one", "ceiling")
 ) {
-  votes <- as.numeric(votes)
   if (is.null(party_names)) {
     party_names <- paste0("party_", seq_along(votes))
   }
@@ -70,11 +68,12 @@ hb_allocation_outcomes <- function(
   }
 
   if (n_seats == 0L) {
-    return(matrix(integer(length(votes)), nrow = 1L))
+    return(matrix(integer(length(votes)), nrow = 1L, dimnames = list(NULL, party_names)))
   }
 
+  # Hagenbach-Bischoff allocation process
   raw_quota <- sum(votes) / (n_seats + 1L)
-  distribution_number <- if (quota_rule == "ceiling") {
+  distribution_number <- if (quota_rule == "ceiling") { # Apply the selected quota runding rule
     ceiling(raw_quota)
   } else {
     floor(raw_quota) + 1L
@@ -83,13 +82,14 @@ hb_allocation_outcomes <- function(
   if (sum(initial_seats) > n_seats) {
     stop("The initial HB allocation exceeds the number of available seats.")
   }
-
+  
+  # Allocation of left-over seats
   states <- matrix(initial_seats, nrow = 1L)
   while (sum(states[1L, ]) < n_seats) {
     next_states <- lapply(seq_len(nrow(states)), function(state_index) {
       state <- states[state_index, ]
-      provisional <- which.max(votes / (state + 1L))
-      tied <- which(
+      provisional <- which.max(votes / (state + 1L)) # Find eligible recipient for seat: highest quotient
+      tied <- which( # Identify all tied maxima
         votes * (state[provisional] + 1L) ==
           votes[provisional] * (state + 1L)
       )
