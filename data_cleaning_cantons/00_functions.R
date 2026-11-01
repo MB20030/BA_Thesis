@@ -15,6 +15,8 @@
 # possible final allocation is retained.
 # `quota_rule` allows cantons whose law rounds an exact quota up differently.
 
+library(dplyr)
+
 validate_hb_inputs <- function(votes, n_seats, party_names) { # Defines the validator
   if (  # Starts and invalid-input check
     !is.numeric(votes) || any(!is.finite(votes)) || any(votes < 0) ||
@@ -72,11 +74,11 @@ hb_allocation_outcomes <- function(
   }
 
   # Hagenbach-Bischoff allocation process
-  raw_quota <- sum(votes) / (n_seats + 1L)
+  raw_quota <- sum(votes) / (n_seats + 1L) # Initial quota allocation
   distribution_number <- if (quota_rule == "ceiling") { # Apply the selected quota runding rule
-    ceiling(raw_quota)
+    ceiling(raw_quota) # Rounds upward to the nearest integer
   } else {
-    floor(raw_quota) + 1L
+    floor(raw_quota) + 1L # Rounds downward and adds one
   }
   initial_seats <- as.integer(floor(votes / distribution_number))
   if (sum(initial_seats) > n_seats) {
@@ -93,9 +95,9 @@ hb_allocation_outcomes <- function(
         votes * (state[provisional] + 1L) ==
           votes[provisional] * (state + 1L)
       )
-
+      # Apply the canton specific tie rule
       admissible <- tied
-      if (length(tied) > 1L && is.function(tie_resolver)) {
+      if (length(tied) > 1L && is.function(tie_resolver)) { # Call the tie resolver if needed and available
         admissible <- tie_resolver(
           tied = tied,
           votes = votes,
@@ -105,14 +107,17 @@ hb_allocation_outcomes <- function(
         )
       }
       if (
-        length(admissible) == 0L || anyNA(admissible) ||
-          any(admissible != as.integer(admissible)) ||
+        !is.numeric(admissible) || length(admissible) == 0L ||
+          any(!is.finite(admissible)) ||
+          any(admissible != floor(admissible)) ||
           any(!admissible %in% tied)
       ) {
         stop("`tie_resolver` must return one or more indices from `tied`.")
       }
 
-      do.call(rbind, lapply(as.integer(admissible), function(winner) {
+      admissible <- unique(as.integer(admissible))
+
+      do.call(rbind, lapply(admissible, function(winner) {
         outcome <- state
         outcome[winner] <- outcome[winner] + 1L
         outcome
@@ -126,12 +131,12 @@ hb_allocation_outcomes <- function(
       )
     }
   }
-
+  # Return the final allocation matrix
   storage.mode(states) <- "integer"
   colnames(states) <- party_names
   states
 }
-
+# Define the user-facing allocation wrapper
 allocate_hb_with_notes <- function(
     votes,
     n_seats,
@@ -143,22 +148,23 @@ allocate_hb_with_notes <- function(
     party_names <- paste0("party_", seq_along(votes))
   }
   outcomes <- hb_allocation_outcomes(
-    votes,
-    n_seats,
-    party_names,
-    tie_resolver,
+    votes = votes,
+    n_seats = n_seats,
+    party_names = party_names,
+    tie_resolver = tie_resolver,
     quota_rule = quota_rule
   )
-
+  # Summarize each party's possible seats
   possible_seats <- lapply(seq_along(party_names), function(index) {
     sort(unique(outcomes[, index]))
   })
-  ambiguous <- lengths(possible_seats) > 1L
+  ambiguous <- lengths(possible_seats) > 1L # Identify parties with multiple possible seat allocations
   seats_hb <- vapply(possible_seats, function(values) {
     if (length(values) == 1L) values else NA_integer_
   }, integer(1L))
   hb_tie_note <- rep(NA_character_, length(party_names))
-
+  
+  #  Note the allocation alternatives if there are any unresolved ties
   if (any(ambiguous)) {
     alternatives <- apply(
       outcomes[, ambiguous, drop = FALSE],
@@ -171,7 +177,7 @@ allocate_hb_with_notes <- function(
       }
     )
     note <- paste0(
-      "Unresolved exact HB tie; no hypothetical draw was imposed. ",
+      "Unresolved exact HB tie, no hypothetical draw was imposed. ",
       "Possible final allocations: ",
       paste(alternatives, collapse = " or "),
       "."
@@ -179,12 +185,13 @@ allocate_hb_with_notes <- function(
     hb_tie_note[ambiguous] <- note
   }
 
+  # Return the party-level tibble
   tibble::tibble(
     seats_hb = seats_hb,
     seats_hb_options = vapply(
       possible_seats,
       paste,
-      collapse = "/",
+      collapse = "/", # Separate alternatives with a slash for display
       FUN.VALUE = character(1L)
     ),
     hb_tie_note = hb_tie_note
@@ -192,10 +199,18 @@ allocate_hb_with_notes <- function(
 }
 
 # Combine a party's possible district results into possible canton-wide totals.
-# For example, c("1", "2/3", "8") becomes "11/12".
+# Thus c("1", "2/3", "8") becomes "11/12".
 combine_hb_seat_options <- function(options) {
   if (length(options) == 0L || anyNA(options)) {
     stop("`options` must contain one non-missing HB option per district.")
+  }
+
+  # Check the format before converting options to integers.
+  if (
+    !is.character(options) ||
+      any(!grepl("^[0-9]+(/[0-9]+)*$", options))
+  ) {
+    stop("Each HB option must contain non-negative integers separated by '/'.")
   }
 
   possible_totals <- 0L
@@ -204,7 +219,7 @@ combine_hb_seat_options <- function(options) {
       as.integer(strsplit(option, "/", fixed = TRUE)[[1L]])
     )
     if (length(values) == 0L || anyNA(values) || any(values < 0L)) {
-      stop("Each HB option must contain non-negative integers separated by '/'.")
+      stop("HB seat options could not be converted to valid non-negative integers.")
     }
     possible_totals <- sort(unique(
       as.integer(outer(possible_totals, values, "+"))
@@ -215,23 +230,36 @@ combine_hb_seat_options <- function(options) {
 }
 
 unique_hb_seat_value <- function(options) {
-  values <- suppressWarnings(
-    as.integer(strsplit(options, "/", fixed = TRUE)[[1L]])
-  )
-  if (length(values) == 1L && !is.na(values)) values else NA_integer_
+  # Require one correctly formatted seat-option string
+  if (
+    !is.character(options) || length(options) != 1L ||
+      is.na(options) || !grepl("^[0-9]+(/[0-9]+)*$", options)
+  ) {
+    stop("`options` must be one valid HB seat-option string.")
+  }
+
+  values <- as.numeric(strsplit(options, "/", fixed = TRUE)[[1L]])
+
+  # Check that the values can be stored as integers
+  if (any(!is.finite(values)) || any(values > .Machine$integer.max)) {
+    stop("HB seat options exceed the supported integer range.")
+  }
+
+  values <- unique(as.integer(values))
+
+  # Return a definite count only, when one unique value exists
+  if (length(values) == 1L) values else NA_integer_
 }
 
-# Returns the usual integer vector when the allocation is unique. If an exact
-# tie can change the final allocation, fail explicitly so callers cannot mistake
-# row order for a legal tie-break. Call `allocate_hb_with_notes()` when the
-# ambiguity should be retained in the output data.
+# Return integer seat counts, stop if an unresolved tie allows multiple allocations.
+# Use allocate_hb_with_notes() to preserve those alternatives.
 allocate_hb <- function(
     votes, n_seats, tie_resolver = NULL,
     quota_rule = c("floor_plus_one", "ceiling")
 ) {
   result <- allocate_hb_with_notes(
-    votes,
-    n_seats,
+    votes = votes,
+    n_seats = n_seats,
     party_names = names(votes),
     tie_resolver = tie_resolver,
     quota_rule = quota_rule
@@ -249,26 +277,27 @@ allocate_hb <- function(
 # ==============================================================================
 # Finalize Election Data
 # ==============================================================================
-# Standardizes and validates the final cleaned election dataset
-#
-# Args:
-#   hb_results: tibble with party, votes, seats_hb
-#   dp_results: tibble with official seats_dp
-#   canton: character, canton abbreviation (e.g., "AG")
-#   year: numeric, election year
-#   parliament_size: total seats in parliament; defaults to the analyzed DP seats
-#
-# Returns:
-#   tibble with standardized columns: 
-#   election_id, parliament_size, seats_allocated_dp, parties, vote_share,
-#   small_party, seats_hb, seats_dp
+# Join HB and official DP results, standardize columns, and validate the output.
+# hb_results requires parties, vote_share, seats_hb.
+# dp_results requires canton, year, party, seats_dp.
+# parliament_size defaults to the analyzed DP seat total.
+
 finalize_election_data <- function(
     hb_results, dp_results, canton, year, parliament_size = NULL
 ) {
-  
+  # Check required arguments and input columns before processing
+  stopifnot(
+    is.character(canton), length(canton) == 1L,
+    !is.na(canton), nzchar(canton),
+    is.numeric(year), length(year) == 1L,
+    is.finite(year), year == floor(year),
+    all(c("parties", "vote_share", "seats_hb") %in% names(hb_results)),
+    all(c("canton", "year", "party", "seats_dp") %in% names(dp_results))
+  )
+
   election_id <- paste0(canton, "_", sprintf("%02d", year %% 100))
   
-  # Merge HB results with official DP results
+  # Merge HB with DP results
   if (!"hb_tie_note" %in% names(hb_results)) {
     hb_results <- hb_results |>
       mutate(hb_tie_note = NA_character_)
@@ -278,21 +307,40 @@ finalize_election_data <- function(
       mutate(seats_hb_options = as.character(seats_hb))
   }
 
+  # Select the official results for this election.
+  official <- dp_results |>
+    dplyr::filter(
+      .data$canton == .env$canton,
+      .data$year == .env$year
+    ) |>
+    dplyr::select(party, seats_dp)
+
+  # Check party matching and seat values before joining
+  stopifnot(
+    !anyNA(hb_results$parties),
+    !anyNA(official$party),
+    !anyDuplicated(hb_results$parties),
+    !anyDuplicated(official$party),
+    setequal(hb_results$parties, official$party),
+    is.numeric(official$seats_dp),
+    all(is.finite(official$seats_dp)),
+    all(official$seats_dp >= 0),
+    all(official$seats_dp == floor(official$seats_dp))
+  )
+
   result <- hb_results |>
     left_join(
-      dp_results |> filter(canton == !!canton, year == !!year) |> 
-        select(party, seats_dp),
+      official,
       by = c("parties" = "party")
     ) |>
     mutate(
-      election_id = !!election_id,
+      election_id = .env$election_id,
       seats_allocated_dp = sum(seats_dp),
       parliament_size = if (is.null(.env$parliament_size)) {
         seats_allocated_dp
       } else {
         as.integer(.env$parliament_size)
       },
-      vote_share = round(vote_share, 4),
       small_party = as.integer(vote_share < 10),
       seats_hb = as.character(seats_hb_options),
       seats_dp = as.integer(seats_dp),
