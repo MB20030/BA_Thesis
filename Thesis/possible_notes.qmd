@@ -17,8 +17,6 @@ plus SELF -REFLECTION on ai usage
 
 30. check procedure for exploratoryquestions / hypotheses --> is it the same?
 
-33. hypothesis 1 --> main hypothesis
-
 34. chapter 6 --> sensible to add p-level, significance, etc.?
 
 35. differentiation discussion and results chapter? 
