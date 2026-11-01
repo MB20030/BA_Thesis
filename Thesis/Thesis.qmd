@@ -89,13 +89,13 @@ format:
 #counter(page).update(1)
 ```
 
-## Abstract
+## Abstract {.unnumbered}
 
 This thesis examines how the parliamentary representation of smaller parties is affected by the transition from Hagenbach-Bischoff to Double Pukelsheim. To do so, all 31 available cantonal parliamentary elections for the eight transition cantons between 2007 and 2026 are analyzed. The smaller parties group combines all electoral lists and parties which received less than 10% of the total votes in the analyzed area. To make this comparison, the official results under Double Pukelsheim are taken and the counterfactual seat allocation under Hagenbach-Bischoff is computed. In addition are the former cantonal electoral laws included and the electoral units, observed votes, seat totals and reported list structures are held constant. 
 
 The main finding is that across all 31 elections, the smaller parties aggregately receive a seat-share 7.6 percentage points higher under Double Pukelsheim than under the counterfactual Hagenbach-Bischoff. An aggregate gain for the smaller parties occurs in 30 of 31 elections. Further is the observed gain persistent to alternative smaller-party thresholds, across successive elections and to the omission of individual cantons. While analyses regarding the pre-reform district magnitude or explicit electoral thresholds, reveal no consistent relationship, respectively are sensitive to the inclusion of individual cantons.
 
-The persistent mechanical seat-share gain for smaller parties observed here indicates the reduction of the prior representational disadvantage under the Double Pukelsheim system. Behavioural responses to the reform remain outside the scope of the analysis.
+The persistent mechanical seat-share gain indicates that Double Pukelsheim reduces smaller parties’ representational disadvantage under Hagenbach–Bischoff. Behavioural responses to the reform remain outside the scope of the analysis.
 
 ```{=typst}
 #pagebreak()
@@ -128,7 +128,7 @@ Finally, I would like to thank my father Martin Beyn-Hansmann, lecturer at Lucer
 #pagebreak()
 ```
 
-## List of Abbreviations
+## List of Abbreviations {.unnumbered}
 
 ```{=typst}
 #grid(
@@ -308,7 +308,7 @@ This thesis addresses that gap by applying a consistent Hagenbach–Bischoff cou
 ### Expected Effects of the Transition {#sec-expected-effects}
 
 Based on the theoretical considerations outlined in the preceding sections, several effects can be expected from the transition from the Hagenbach–Bischoff method to the Double Pukelsheim system. Under a district-by-district Hagenbach–Bischoff allocation, small district magnitudes create high natural thresholds for winning a parliamentary seat. Votes for parties which fail to win a seat in a district won't contribute elsewhere. This produces ineffective votes and therefore disproportionately disadvantages smaller parties. The biproportional apportionment instead through the upper apportionment pools votes across the whole canton, before it distributes each party's seats among the districts. This should increase the equality of electoral success and reduce vote–seat disproportionality. 
-The changed seat-allocation mechanism provides the basis for Hypothesis 1. When holding the observed votes constant, smaller parties are expected to aggregately receive a higher seat-share under Double Pukelsheim than under the counterfactual Hagenbach-Bischoff across the analyzed elections. (Pukelsheim & Schuhmacher, 2004, pp. 506–508, 513-514 , 518)
+The changed seat-allocation mechanism provides the basis for the main hypothesis. When holding the observed votes constant, smaller parties are expected to aggregately receive a higher seat-share under Double Pukelsheim than under the counterfactual Hagenbach-Bischoff across the analyzed elections. (Pukelsheim & Schuhmacher, 2004, pp. 506–508, 513-514 , 518)
 
 Followingly to the prior explanation, the changed seat allocation procedure should have a higher effect in cantons with many low-magnitude districts. This expectation is consistent with Lüscher's finding that the reduction in disproportionality was stronger in cantons with smaller pre-reform average district magnitudes (Lüscher, 2024, pp. 132–133). Furthermore, the effect is expected to depend on the specific institutional design adopted by each canton. Reflecting Switzerland's federal structure, the reformed cantons differ in their use of canton-wide and district-level legal thresholds, majority clauses, and other supplementary adjustments. Explicit electoral thresholds can restrict gains among smaller parties by excluding lists that do not reach the required vote share and may therefore partly offset the greater proportionality of the DP system. (Bundeskanzlei, 2013, p. 18; Lüscher, 2024, pp. 107, 135) In the Zurich 2011 election for example, the SD and Piraten would have received a seat, if there had not been a 5% district-level threshold (Pukelsheim & Schuhmacher, 2011, p.1593). The majority clause in constrast has no direct effect on the smaller party seat-share gain, since the cantons ensure in their law, that the seat entitlements according to the upper apportionment must hold. Zug's law for e.g. explicitly states that the majority clause gets deactivated if it is essential to fulfill the upper apportionment seat entitlement. (Kanton Schaffhausen, 1904/2019, Art. 2d para. 1bis and 2(b); Kanton Zug, 2006/2026, § 52e para. 1a, 1b and 2(b); Kanton Graubünden, 2021/2026, Art. 28 para. 2 and 4(b)) 
 
@@ -322,9 +322,9 @@ The estimated difference may additionally depend on the electoral rules used to 
 
 To answer the research question, the thesis tests one main hypothesis concerning how the transition from the Hagenbach–Bischoff system to Double Pukelsheim mechanically affects the seat shares of smaller parties. Complementary exploratory analyses evaluate whether this effect varies with district magnitude, the presence of an explicit electoral threshold, and successive elections since implementation within each canton. Together, these analyses identify both the immediate mechanical and potentially evolving consequences of the electoral-system reform. For all analyses, Graubünden is shown as a contextual comparison and not included in the calculations.
 
-### Hypothesis 1
+### Main Hypothesis 
 
-The Hypothesis 1 researches whether smaller parties when holding votes constant collectively receive a larger seat share under Double Pukelsheim than under the counterfactual Hagenbach-Bischoff allocation. 
+The main hypothesis researches whether smaller parties when holding votes constant collectively receive a larger seat share under Double Pukelsheim than under the counterfactual Hagenbach-Bischoff allocation. 
 
 For the analysis the following prerequisites and decisions are specified. In each election $e$, smaller parties or electoral lists are those with less than 10% of the vote in the *analyzed area*. The variable *analyzed area* describes the whole canton except in Uri, where the *analyzed area* includes only the four municipalities using the DP-System. The 10% cutoff is chosen with reference to the Swiss Federal Supreme Court's benchmark that natural (implicit) thresholds should not exceed 10% when an electoral system is redesigned (BGE 131 I 74 E. 5.3–5.4; Bundeskanzlei, 2013, p. 8). This benchmark motivates the definition of smaller parties used in this analysis. As a sensitivity check, the 10% threshold is complemented by an analysis with an 8% and 12% threshold.
 
@@ -337,7 +337,7 @@ $$
 The hypothesis uses the unweighted mean, $\bar{\Delta} = \frac{1}{E}\sum_{e=1}^{E}\Delta_e$, so each election counts equally. The analysis also reports a mean weighted by the number of analyzed seats in each election for comparison.
 
 This leads to the following directional hypothesis: 
-**$H_1$:** Across the analyzed elections, the mean mechanical difference $\bar{\Delta}$ is positive: electoral lists or list groups with less than 10% of the vote receive, on average, a larger share of the analyzed seats under Double Pukelsheim than under the counterfactual Hagenbach–Bischoff allocation.
+**Main Hypothesis:** Across the analyzed elections, the mean mechanical difference $\bar{\Delta}$ is positive: electoral lists or list groups with less than 10% of the vote receive, on average, a larger share of the analyzed seats under Double Pukelsheim than under the counterfactual Hagenbach–Bischoff allocation.
 
 As a supplementary and exploratory analysis, it's examined how individual parties' seat-share gains vary across vote-share groups. Here no directional hypothesis regarding the ordering of the groups is formulated. Instead the comparison provides context for the aggregate results by showing which party-sizes experience higher and lower seat-share gains. 
 
@@ -358,7 +358,7 @@ $$
 q_{c,0}=\frac{1}{D_{c,0}}\sum_{d=1}^{D_{c,0}}\mathbb{1}(m_{dc,0}<9).
 $$
 
-The nine-seat cutoff follows the FSC reasoning in Hypothesis 1. Under the natural-quorum approximation $1/(M+1)$, districts with fewer than nine seats impose a threshold above 10%. A larger baseline value of $q_{c,0}$ is therefore expected to be associated with a larger average gain.(BGE 131 I 74 E. 5.3–5.4 ; Bundeskanzlei, 2013, p. 8) Because of the limited number of transition cantons and their differing rules, this relationship is interpreted descriptively. 
+The nine-seat cutoff follows the FSC reasoning in the main hypothesis. Under the natural-quorum approximation $1/(M+1)$, districts with fewer than nine seats impose a threshold above 10%. A larger baseline value of $q_{c,0}$ is therefore expected to be associated with a larger average gain.(BGE 131 I 74 E. 5.3–5.4 ; Bundeskanzlei, 2013, p. 8) Because of the limited number of transition cantons and their differing rules, this relationship is interpreted descriptively. 
 
 #### Exploratory question 2: Explicit electoral quorums
 
@@ -372,7 +372,7 @@ This comparison is interpreted descriptively because the level and geographical 
 
 How does the gain in smaller parties' seat share under Double Pukelsheim relative to the counterfactual Hagenbach-Bischoff allocation evolve across successive elections within each canton?
 
-This analysis extends Hypothesis 1 by following the seat shares under both allocation rules and their difference $\Delta_e$ from each canton's first election under Double Pukelsheim onward. It assesses whether the overall difference identified in Hypothesis 1 is persistent across elections or driven by particular election-specific outcomes.
+This analysis extends the main hypothesis by following the seat shares under both allocation rules and their difference $\Delta_e$ from each canton's first election under Double Pukelsheim onward. It assesses whether the overall difference identified in the main hypothesis is persistent across elections or driven by particular election-specific outcomes.
 
 Stable positive values of $\Delta_e$ would indicate a persistent mechanical advantage for smaller parties, whereas substantial fluctuations or changes in sign would suggest that the effect is strongly dependent on the circumstances of individual elections. The within-canton perspective further provides a clear separate image for each canton, without mixing their different electoral systems. Given that the smaller parties' seat share, the party composition,  as well as the district magnitudes and electoral rules can change between elections, no directional trend can be hypothesized.
 
@@ -552,9 +552,9 @@ For the purposes of this thesis, a smaller party is defined as an electoral list
 
 The main analysis compares the combined seat shares of smaller parties within each election. For this purpose, the seats of all lists below the 10% vote-share threshold are summed separately under Double Pukelsheim and Hagenbach–Bischoff. Each total is divided by the number of analyzed seats, recorded in *seats_allocated_dp*, and multiplied by 100 to obtain the corresponding seat share as a percentage. This produces one aggregate seat-share difference per election. Using *seats_allocated_dp* ensures that the results for Uri are not distorted.
 
-The election-level outcome is the difference between these two seat shares, denoted by $\Delta_e$ and defined in Hypothesis 1. Positive values indicate that smaller parties collectively receive a larger seat share under Double Pukelsheim while negative values indicate a smaller share. A negative or positive aggregate difference, does not mean that each included party loses or gains seats respectively. 
+The election-level outcome is the difference between these two seat shares, denoted by $\Delta_e$ and defined in the main hypothesis. Positive values indicate that smaller parties collectively receive a larger seat share under Double Pukelsheim while negative values indicate a smaller share. A negative or positive aggregate difference, does not mean that each included party loses or gains seats respectively. 
 
-Hypothesis 1 is assessed using the average seat-share difference aross all 31 elections. In that analysis every election receives equal weight, which means that cantons with more elections held under DP are influencing the average more strongly. Since the parliament sizes differ, a supplementary weighted mean is added, where more weight to bigger parliaments is given. To better display the variation and typical gain, the median ,the first and third quartiles are reported additionally. The main summaries show Graubünden only contextually for the reasons set out in @sec-assumptions-scope.
+The main hypothesis is assessed using the average seat-share difference aross all 31 elections. In that analysis every election receives equal weight, which means that cantons with more elections held under DP are influencing the average more strongly. Since the parliament sizes differ, a supplementary weighted mean is added, where more weight to bigger parliaments is given. To better display the variation and typical gain, the median ,the first and third quartiles are reported additionally. The main summaries show Graubünden only contextually for the reasons set out in @sec-assumptions-scope.
 
 All three exploratory analyses are descriptive. They examine differences across institutional settings and successive elections without isolating the causal effects of individual electoral rules.
 
@@ -572,7 +572,7 @@ To examine successive elections, the seat-share difference $\Delta_e$ is plotted
 #show <fig-successive-elections>: set figure(placement: none)
 ```
 
-#### Hypothesis 1: Smaller parties' seat-share difference {#sec-h1-results}
+#### Main Hypothesis: Smaller parties' seat-share difference {#sec-h1-results}
 
 @fig-small-parties-relative compares the aggregate smaller parties' combined seat shares under the observed Double Pukelsheim allocation and the counterfactual Hagenbach-Bischoff allocation for every available election. Smaller parties are defined as parties with less than 10% of the vote share in the analyzed area. This seat-share difference allows comparisons across elections with different numbers of analyzed seats. 
 
@@ -762,11 +762,11 @@ no_gain_8 <- sensitivity_8 |>
 small_party_plot("seat_share_small_parties", "Aggregated seat share of smaller parties (%)", "election_id", TRUE)
 ```
 
-::: {.callout-note title="Hypothesis 1 summary"}
+::: {.callout-note title="Main Hypothesis summary"}
 Across all `r h1_stats$elections` transition elections (Graubünden excluded), the unweighted mean gain in smaller parties' share of analyzed seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's number of analyzed seats was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
 :::
 
-These results descriptively support Hypothesis 1 and indicate that smaller parties indeed in the 31 elections held, receive a larger share of the analyzed seats under Double Pukelsheim than under Hagenbach-Bischoff. This effect is partically evident, through that in every election where small parties contested (every election but Uri 2020), they aggregately received a larger seat share. This finding is in accordance with Leuzinger's observation that smaller parties tend to profit from the transition (Leuzinger, 2018a, p.42). The weighted mean, unweighted mean and median are all relatively close to each other, indicating that the effect is not driven by a few elections with many seats and that the positive effect isn't determined by extreme outliers. 
+These results descriptively support the main hypothesis and indicate that smaller parties indeed in the 31 elections held, receive a larger share of the analyzed seats under Double Pukelsheim than under Hagenbach-Bischoff. This effect is partically evident, through that in every election where small parties contested (every election but Uri 2020), they aggregately received a larger seat share. This finding is in accordance with Leuzinger's observation that smaller parties tend to profit from the transition (Leuzinger, 2018a, p.42). The weighted mean, unweighted mean and median are all relatively close to each other, indicating that the effect is not driven by a few elections with many seats and that the positive effect isn't determined by extreme outliers. 
 
 The average gain differs across the cantons. For example the Canton of Schaffhausen has a stable high seat gain for smaller parties. There the high seat-share gain may be partially explained through the decision to treat affiliated parties as independent lists. Therefore these affiliated lists were classified as smaller parties, if they didn't reach the 10% threshold themselves and with that increase the relative gain for smaller parties. When the affiliated parties were attributed to their mother parties, the gain dropped from 15.67 to 8.67 percentage points. No matter the treatment of the affiliated lists, are the gains in Schaffhausen comparatively high. By contrast, the gains were constantly relatively low in Uri and Schwyz, where on average 0.5 and 1.66 smaller parties contested per election. 
 
@@ -899,7 +899,7 @@ ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
 
 The analysis shows, that the vast majority of the smaller parties below 10% not only profit aggregately from the transition but also independently. The summary of the `r nrow(party_size_data)` party-election observations shows that parties between 4-6% vote share tend to profit the most from the implementation of the Double Pukelsheim. For parties with more than 10% the seat-share gain is on average markedly lower and reaches for parties above 12 and below 15% a point, where the parties with 0.46 percentage points barely profit anymore from the implementation. Also parties on the other side of the scale with less than 2% only benefit slightly, there 45 of 66 observed parties receive no seats under either allocation. Overall, the analysis shows that smaller parties tend to profit from the implementation whereas bigger parties on average subsequently lose their prior advantage under the old system. To be able to identify a possible gradual pattern, the analysis was also done without grouping. The figure there shows no clear monotonic relationship. Furthermore, substantial variation between parties of the same vote share be seen throughout the analysis. Another observation is, that parties with a very low share cluster around zero, while positive gains occur across most of the remaining range. Furthermore, most negative observations appear in the upper end of the range. The figure can be found in the Appendix in @sec-additional-analysis.
 
-To sum up the analysis of Hypothesis 1: It covers all 31 cantonal parliamentary elections held under Double Pukelsheim in Switzerland from the cantons that transitioned from Hagenbach-Bischoff. Across these elections, smaller parties received under all definitions of smaller parties, a higher aggregate seat share under Double Pukelsheim. This pattern also persisted throughout almost every within election comparison of smaller parties. Furthermore, the analysis showed that most smaller parties also profit on an individual basis from the transition. These findings are based on the mechanical allocation difference conditional on the observed votes and specified counterfactual rules and therefore do not capture the whole transition effect. The next section examines whether the magnitude of this effect is associated with 'the cantons' district magnitudes. 
+To sum up the analysis of the main hypothesis: It covers all 31 cantonal parliamentary elections held under Double Pukelsheim in Switzerland from the cantons that transitioned from Hagenbach-Bischoff. Across these elections, smaller parties received under all definitions of smaller parties, a higher aggregate seat share under Double Pukelsheim. This pattern also persisted throughout almost every within election comparison of smaller parties. Furthermore, the analysis showed that most smaller parties also profit on an individual basis from the transition. These findings are based on the mechanical allocation difference conditional on the observed votes and specified counterfactual rules and therefore do not capture the whole transition effect. The next section examines whether the magnitude of this effect is associated with 'the cantons' district magnitudes. 
 
 #### Exploratory question 1: Differences by district magnitude
 
@@ -959,7 +959,7 @@ stopifnot(n_distinct(eq1_parties$election_id) == 33L,
           isTRUE(all.equal(arrange(eq1_parties, election_id, parties),
                            arrange(all_elections, election_id, parties)))) 
 
-# Use the same election-level outcome as H1; validate analyzed seat coverage.
+# Use the same election-level outcome as the main hypothesis; validate analyzed seat coverage.
 eq1_elections <- eq1_districts |>
   group_by(canton, election_id, year) |> # Calculate coverage separately for each election.
   summarise(
@@ -968,7 +968,7 @@ eq1_elections <- eq1_districts |>
   ) |>
   left_join(small_party_summary |>
               select(election_id, seats_allocated_dp, seat_gain_pp),
-            by = "election_id") # Match each election to H1's smaller-party gain
+            by = "election_id") # Match each election to the main hypothesis's smaller-party gain
 stopifnot(!anyNA(eq1_elections),
           all(eq1_elections$analyzed_seats == eq1_elections$seats_allocated_dp)) # Check complete matches and equal seat coverage.
 
@@ -1409,7 +1409,7 @@ Since @fig-successive-elections aligns every Double Pukelsheim election for each
 #| warning: false
 #| message: false
 
-# Reuse the election-level outcome calculated from the main Hypothesis.
+# Reuse the election-level outcome calculated from the main hypothesis.
 # Number elections chronologically within each canton.
 eq3_elections <- small_party_summary |>
   mutate(
@@ -1648,7 +1648,7 @@ eq3_election_stats <- eq3_elections |>
 The average within-canton change in smaller parties' seat-share gain was `r with(filter(eq3_election_stats, election_number > 1L), paste(sprintf("%+.1f pp from election %d to %d (%d cantons)", mean_change_pp, election_number - 1L, election_number, cantons), collapse = "; "))`. The average seat-share gains across the cantons were `r paste(sprintf("%.1f pp in election %d (%d cantons)", eq3_election_stats$mean_gain_pp, eq3_election_stats$election_number, eq3_election_stats$cantons), collapse = "; ")`. For each transition, the average gives equal weight to all cantons observed in both elections. Graubünden is excluded.
 :::
 
-Generally speaking, the seat-share gains with some canton-specific fluctuations, are relatively persistent. As seen in the analysis of Hypothesis 1, there is with Uri 2020 only one election, in which no positive seat-share gain was seen. This is the case, since there no *smaller_party* ran. Another interesting observation, is the fact that the average seat-share gain rises successively from election to election. Despite the seen effect is the number of cantons limited and further lowers throughout the later elections. For a possible effect speaking is, that the cantons of Schaffhausen and Zurich which appear in all comparisons and have relatively high seat-gain shares also experience drops in their share throughout the elections. These dropps occurr, while the average seat-share gain rises continuously. Additionally, the analysis is less dependent on political trends specific to a single election year, since for example the second elections held under Double Pukelsheim range from 2011 in Zurich to 2024 in Uri. The range though does not isolate the pattern from political trends. A possible partial explanation for the observed pattern, is the broader increase in party-system fragmentation, which was documented by Lüscher (2024, pp. 133-135). This because if smaller parties receive wider support, their combined disadvantage under the former Hagenbach-Bischoff and with that their seat-share gain under Double Pukelsheim may increase. Nevertheless, whether this mechanism actually explains the observed pattern remains untested.
+Generally speaking, the seat-share gains with some canton-specific fluctuations, are relatively persistent. As seen in the analysis of the main hypothesis, there is with Uri 2020 only one election, in which no positive seat-share gain was seen. This is the case, since there no *smaller_party* ran. Another interesting observation, is the fact that the average seat-share gain rises successively from election to election. Despite the seen effect is the number of cantons limited and further lowers throughout the later elections. For a possible effect speaking is, that the cantons of Schaffhausen and Zurich which appear in all comparisons and have relatively high seat-gain shares also experience drops in their share throughout the elections. These dropps occurr, while the average seat-share gain rises continuously. Additionally, the analysis is less dependent on political trends specific to a single election year, since for example the second elections held under Double Pukelsheim range from 2011 in Zurich to 2024 in Uri. The range though does not isolate the pattern from political trends. A possible partial explanation for the observed pattern, is the broader increase in party-system fragmentation, which was documented by Lüscher (2024, pp. 133-135). This because if smaller parties receive wider support, their combined disadvantage under the former Hagenbach-Bischoff and with that their seat-share gain under Double Pukelsheim may increase. Nevertheless, whether this mechanism actually explains the observed pattern remains untested.
 
 Besides the broader image, there are also interesting patterns within the cantons. The biggest changes between two elections, can be seen for Schaffhausen, Zurich and Nidwalden. In Schaffhausen the seat-share gain rose from the first to the 2nd election from roughly 10 to roughly 17 percentage points, where it settled afterward quite stably. A possible partial reason, is the higher number of smaller parties in the parliament which increased from seven in 2008 to nine in 2012. From the 2015 Zurich, to the 2019 Zurich election, the seat-share gain dropped by roughly 5 percentage points, a reason for this is possibly, that both the GLP and the Greens exceeded the 10% smaller-parties threshold while the BDP lost its parliamentary representation. This led to the circumstance, that from seven smaller parliamentary parties in 2015, the number dropped to four in 2019. In Nidwalden since the implementation the seat-gain share rose continuously. The strongest difference  was observed from the 3rd to the 4th election, where the share rose by 5 percentage points. This effect might be partially influenced by the smaller party composition, since the green party fell below the 10% threshold.  For Aargau, Zug, Schwyz and Valais we can observe relatively stable patterns with smaller fluctuations. The canton of Valais, records relatively low seat-share gains  across the three elections. This pattern is consistent with the possibility, that the restricted pooling, has a limiting effect. Nevertheless this analysis is not isolating this feature and a potential effect. For the canton of Uri only two elections were observed, which is why no pattern can be inferred.
 
@@ -1662,7 +1662,7 @@ The analysis across all 31 elections, therefore indicates that the mechanical se
 
 In this paper, the general question: "20 Years of the Double Pukelsheim System in Switzerland: What Is the Mechanical Effect of the Transition from the Hagenbach-Bischoff Method on the Seat Distribution of Smaller Parties? " was answered in two parts. In the first step, the mechanical effect on the smaller parties was examined. Subsequently the study examined which conditions could lead to differences in the strength of the mechanical effect across cantons or elections. 
 
-Regarding the first step, it was found that across elections the smaller parties collectively gain seat shares under Double Pukelsheim compared to Hagenbach Bischoff. The average aggregate unweighted seat-share gain was 7.6 percentage points. Further in 30 of the 31 analyzed elections, the smaller parties aggregately received a higher seat-share. In the Uri 2020 election, no eligible smaller party contested, thus no seat-share difference could be observed. The gain also persisted when adapting the 10% smaller parties threshold to 8% and 12%, and after the exclusion of any single canton. Further it was observed that most smaller parties also individually profited from the transition. The findings in Hypothesis 1 are consistent with the idea of the upper apportionment process, that it lowers the share of ineffective votes and with that increases the equality of electoral success. (Lüscher, 2024, p. 3)
+Regarding the first step, it was found that across elections the smaller parties collectively gain seat shares under Double Pukelsheim compared to Hagenbach Bischoff. The average aggregate unweighted seat-share gain was 7.6 percentage points. Further in 30 of the 31 analyzed elections, the smaller parties aggregately received a higher seat-share. In the Uri 2020 election, no eligible smaller party contested, thus no seat-share difference could be observed. The gain also persisted when adapting the 10% smaller parties threshold to 8% and 12%, and after the exclusion of any single canton. Further it was observed that most smaller parties also individually profited from the transition. The findings in the main hypothesis are consistent with the idea of the upper apportionment process, that it lowers the share of ineffective votes and with that increases the equality of electoral success. (Lüscher, 2024, p. 3)
 
 This finding further matches the observations of the existing literature. Leuzinger states that in his analysis across seven elections, smaller parties generally received more seats under the new system (Leuzinger, 2018, p.42) Also in the Zurich 2011 election by Pukelsheim and Schuhmacher and in the Schwyz 2016 election analyzed by Lüscher, smaller parties profited from the implementation (Pukelsheim & Schuhmacher, 2011 ; Lüscher , 2024, p.13). 
 
@@ -1682,7 +1682,7 @@ Further research could extend this thesis in the following ways: With examining 
 
 In this paper, I examined the mechanical effect of the transition from the Hagenbach-Bischoff Method to the Double Pukelsheim on the seat distribution of smaller parties. The thesis focused on examining the seat-share differences between the two systems, for parties with less than 10% vote share. For this all 31 elections held by the eight transition cantons from HB to DP were analyzed, while holding all votes constant. 
 
-For all held elections, the average unweighted seat-share gain was 7.6 percentage points for the aggregate smaller parties group. In 30 of 31 elections, the smaller parties collectively gained seat-shares. The Uri 2020 election is the exception, where no list below the 10% smaller parties threshold contested. The result of a positive seat-share difference, further persisted with alternative cutoffs for the smaller-parties group and when excluding individual cantons. These findings therefore descriptively support Hypothesis 1. 
+For all held elections, the average unweighted seat-share gain was 7.6 percentage points for the aggregate smaller parties group. In 30 of 31 elections, the smaller parties collectively gained seat-shares. The Uri 2020 election is the exception, where no list below the 10% smaller parties threshold contested. The result of a positive seat-share difference, further persisted with alternative cutoffs for the smaller-parties group and when excluding individual cantons. These findings therefore descriptively support the main hypothesis. 
 
 The further analysis, explored potential differences between cantons, based on pre-reform district sizes and explicit quorums. For the relationship between the pre-reform district sizes and the seat-share gain, no consistent pattern could be observed. Regarding differences between elections held with and without a quroum, a higher seat-share gain for elections without a quroum was observed. However, the observed difference is sensitive to individual cantons. Further it was found, that average gains persisted and even increased across successive election numbers, even when individual cantons were excluded. However the average within-canton changes were less consistent and sensitive to canton exclusions. This pattern doesn't establish that additional elections under Double Pukelsheim increase the seat-share gain.
 
@@ -2024,7 +2024,7 @@ The table below identifies the election data and legal sources used in the canto
  
 #### Mechanical seat-share gains by exact party vote share
 
-@fig-party-size-gains-continuous supplements the @fig-party-size-gains in the Analysis of Hypothesis 1. Conversely to @fig-party-size-gains it uses no grouping and plots each party-election observation at its exact vote share. It shows substantial variation in mechanical seat-share gains among parties with similar vote shares as well as no clear monotonic relationship. Additionally to @fig-party-size-gains it shows that lists with very low vote shares cluster around zero.  @fig-party-size-gains-continuous therefore provides additional context for the group averages reported in the main analysis. As in the grouped figure, grey open circles show Graubünden's hypothetical HB comparison for context only and the observations do not enter the transition summaries.
+@fig-party-size-gains-continuous supplements the @fig-party-size-gains in the Analysis of the main hypothesis. Conversely to @fig-party-size-gains it uses no grouping and plots each party-election observation at its exact vote share. It shows substantial variation in mechanical seat-share gains among parties with similar vote shares as well as no clear monotonic relationship. Additionally to @fig-party-size-gains it shows that lists with very low vote shares cluster around zero.  @fig-party-size-gains-continuous therefore provides additional context for the group averages reported in the main analysis. As in the grouped figure, grey open circles show Graubünden's hypothetical HB comparison for context only and the observations do not enter the transition summaries.
 
 ```{r}
 #| label: fig-party-size-gains-continuous
@@ -2140,7 +2140,7 @@ loco_highlight_influence <- function(data, measures, groups = character()) {
 }
 ```
 
-#### Hypothesis 1 
+#### Main Hypothesis 
 
 ```{r}
 #| label: loco-results-h1

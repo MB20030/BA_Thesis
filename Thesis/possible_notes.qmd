@@ -13,5 +13,15 @@ plus SELF -REFLECTION on ai usage
 
 28. write ai usage part and sel-reflection
 
+29. make sure every canton cleaning script starts with the same structure
 
+30. check procedure for exploratoryquestions / hypotheses --> is it the same?
+
+33. hypothesis 1 --> main hypothesis
+
+34. chapter 6 --> sensible to add p-level, significance, etc.?
+
+35. differentiation discussion and results chapter? 
+
+36. first sentence 4.1.3 --> repetition of introduction? --> check , also potentially add a formula for DP method=
 ```

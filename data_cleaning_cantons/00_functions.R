@@ -1,10 +1,9 @@
 # Shared functions for all cantons
-# Used by canton_AG.R, canton_SZ.R, canton_VS.R, etc.
 
 # ==============================================================================
 # Hagenbach-Bischoff Allocation Algorithm
 # ==============================================================================
-# Applies the Hagenbach-Bischoff method to allocate seats based on party votes
+# Applies the Hagenbach-Bischoff method to allocate seats based on party votes.
 # General HB allocator with configurable quota and tie-breaking rules.
 # Canton-specific eligibility, alliances and candidate limits require
 # separate implementation where applicable.

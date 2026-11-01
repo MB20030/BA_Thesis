@@ -6,7 +6,7 @@
 #
 # Dependencies: 00_functions.R (allocate_hb, finalize_election_data)
 
-# Load only the packages used directly in this script.
+# Load required libraries
 library(tidyverse)
 library(readxl)
 library(here)
@@ -172,278 +172,99 @@ finalize_ag_election <- function(districts, parties, official_results, election_
   final
 }
 
-process_canton_AG <- function() {
-
-  # ===========================================================================
-  # 2009 Election
-  # ===========================================================================
-
-  # Import raw Aargau 2009 dataset
-  # (Statistisches Amt Kanton Aargau, n.d.)
-  # Import the raw Aargau 2009 dataset and standardize its column names.
-ag_09_raw <- read_excel(
-  here("data", "datasets", "aargau", "AG_09_kantonsratswahlen.xlsx"),
-  sheet = "Data"
-) |>
-  janitor::clean_names()
-
-# Identify the columns containing administrative information rather than parties.
-non_party_columns <- c(
-  "bfs_nr",
-  "year",
-  "month",
-  "day",
-  "location_name",
-  "location_type",
-  "total"
-)
-
-# Treat all remaining columns as party columns.
-ag_09_parties <- setdiff(
-  names(ag_09_raw),
-  non_party_columns
-)
-
-  # Official Double Pukelsheim results for Aargau 2009
-  # (Department für Finanzen und Ressourcen des Kantons Aargau, 2009)
-  ag_09_official_results <- read_ag_cantonal_seats(
-    "AG_09_seats_cantonal_level.xlsx", # File containing the official cantonal seat totals.
-    2009,                               # Select the 2009 cantonal result row.
-    ag_09_parties                       # Ensure every party contesting in 2009 appears in the output.
-  )
-  
-  # District seat magnitudes for 2009
-  # Source: Staatskanzlei des Kantons Aargau (2008)
-  ag_09_district_seats <- c(
-    "Bezirk Aarau" = 16L,
-    "Bezirk Baden" = 30L,
-    "Bezirk Bremgarten" = 16L,
-    "Bezirk Brugg" = 11L,
-    "Bezirk Kulm" = 9L,
-    "Bezirk Laufenburg" = 7L,
-    "Bezirk Lenzburg" = 12L,
-    "Bezirk Muri" = 7L,
-    "Bezirk Rheinfelden" = 10L,
-    "Bezirk Zofingen" = 15L,
-    "Bezirk Zurzach" = 7L
-  )
-  
-  # Clean and prepare district-level data
-  # "..." (empty) entries are converted to zero
- ag_09_districts <- ag_09_raw |>
-  filter(location_type == "DISTRICT") |> # Keep only district-level observations.
-  mutate(
-    district_seats = unname(
-      ag_09_district_seats[location_name]
-    ),
-    across(
-      c(total, all_of(ag_09_parties)),
-      ~ replace_na(
-        as.numeric(na_if(as.character(.x), "...")),
-        0
-      )
-    )
-  )
-  
-  ag_09_final <- finalize_ag_election(
-    ag_09_districts, ag_09_parties, ag_09_official_results, 2009
-  )
-
-  # ===========================================================================
-  # 2012 Election
-  # ===========================================================================
-
-  # Import raw Aargau 2012 dataset
-  # (Statistisches Amt Kanton Aargau, n.d.)
-  ag_12_raw <- read_excel(
-    here("data", "datasets", "aargau", "AG_12_kantonsratswahlen.xlsx"),
-    sheet = "Data"
-  )
-
-  # Parties correspond to the party columns of the raw Aargau 2012 dataset.
-  ag_12_parties <- c(
-    "svp", "sp", "cvp", "fdp", "gruene", "evp", "sd",
-    "edu", "bdp", "slb", "glp", "pp", "igg"
-  )
-
-  # Official Double Pukelsheim results for Aargau 2012
-  # (Regierungsrat des Kantons Aargau, 2013)
-  ag_12_official_results <- read_ag_cantonal_seats(
-    "AG_12_seats_cantonal_level.xlsx", # File containing the official cantonal seat totals.
-    2012,                               # Select the 2012 cantonal result row.
-    ag_12_parties                       # Ensure every party contesting in 2012 appears in the output.
-  )
-
-  # District seat magnitudes for 2012 (Staatskanzlei des Kantons Aargau, 2012)
-  ag_12_district_seats <- c(
-    "Bezirk Aarau" = 16L,
-    "Bezirk Baden" = 30L,
-    "Bezirk Bremgarten" = 16L,
-    "Bezirk Brugg" = 11L,
-    "Bezirk Kulm" = 9L,
-    "Bezirk Laufenburg" = 7L,
-    "Bezirk Lenzburg" = 12L,
-    "Bezirk Muri" = 7L,
-    "Bezirk Rheinfelden" = 10L,
-    "Bezirk Zofingen" = 15L,
-    "Bezirk Zurzach" = 7L
-  )
-
-  # Clean and prepare district-level data
-  # "..." entries (party did not stand) are converted to zero
-  ag_12_districts <- ag_12_raw |>
-    janitor::clean_names() |> # Standardize the imported Excel column names to snake_case.
-    filter(location_type == "DISTRICT") |> # Exclude canton-level and other non-district rows.
-    mutate(
-      district_seats = unname(ag_12_district_seats[location_name]), # Match each district to its seat magnitude.
-      across(
-        c(total, all_of(ag_12_parties)),
-        ~ replace_na(as.numeric(na_if(as.character(.x), "...")), 0) # Convert vote fields to numbers and non-participation to zero.
-      )
-    )
-
-  ag_12_final <- finalize_ag_election(
-    ag_12_districts, ag_12_parties, ag_12_official_results, 2012
-  )
-
-  # ===========================================================================
-  # 2016 Election
-  # ===========================================================================
-
-  # Import raw Aargau 2016 dataset
-  # (Statistisches Amt Kanton Aargau, n.d.)
-  ag_16_raw <- read_excel(
-    here("data", "datasets", "aargau", "AG_16_kantonsratswahlen.xlsx"),
-    sheet = "Data"
-  ) |>
-    janitor::clean_names()
-
-  ag_16_parties <- setdiff(names(ag_16_raw), non_party_columns)
-
-  # Import raw seat allocation result 
-  # (Statistisches Amt Kanton Aargau, n.d.)
-  ag_16_official_results <- read_ag_cantonal_seats(
-    "AG_16_seats_cantonal_level.xlsx",
-    2016,
-    ag_16_parties
-  )
-
-  # District seat magnitudes for 2016, (Staatskanzlei des Kantons Aargau, 2016)
-  ag_16_district_seats <- c(
-    "Bezirk Aarau" = 16L,
-    "Bezirk Baden" = 30L,
-    "Bezirk Bremgarten" = 16L,
-    "Bezirk Brugg" = 11L,
-    "Bezirk Kulm" = 9L,
-    "Bezirk Laufenburg" = 7L,
-    "Bezirk Lenzburg" = 12L,
-    "Bezirk Muri" = 7L,
-    "Bezirk Rheinfelden" = 10L,
-    "Bezirk Zofingen" = 15L,
-    "Bezirk Zurzach" = 7L
-  )
-
-  ag_16_districts <- ag_16_raw |>
-    filter(location_type == "DISTRICT") |>
-    mutate(
-      district_seats = unname(ag_16_district_seats[location_name]),
-      across(
-        c(total, all_of(ag_16_parties)),
-        ~ replace_na(as.numeric(na_if(as.character(.x), "...")), 0)
-      )
-    )
-
-  ag_16_final <- finalize_ag_election(
-    ag_16_districts, ag_16_parties, ag_16_official_results, 2016
-  )
-
-  # ===========================================================================
-  # 2020 Election
-  # ===========================================================================
-  
-  # Import raw Aargau 2020 dataset
-  # (Statistisches Amt Kanton Aargau, n.d.)
-  ag_20_raw <- read_excel(
-    here("data", "datasets", "aargau", "AG_20_kantonsratswahlen.xlsx"),
-    sheet = "Data"
-  ) |>
-    janitor::clean_names()
-
-  ag_20_parties <- setdiff(names(ag_20_raw), non_party_columns)
-
-  # Import raw district seat allocation and results dataset
-  # (Statistisches Amt Kanton Aargau, n.d.)
-  ag_20_reference <- read_ag_district_seats_and_results(
-    "AG_20_district_magnitudes_seat_allocation.xlsx",
-    2020,
-    ag_20_parties,
-    c("svp", "fdp", "sp", "cvp", "gruene", "glp", "evp", "edu", "lovb", "fff", "ppag")
-  )
-
-  ag_20_districts <- ag_20_raw |>
-    filter(location_type == "DISTRICT") |>
-    left_join(ag_20_reference$district_seats, by = "location_name") |>
-    mutate(
-      across(
-        c(total, all_of(ag_20_parties)),
-        ~ replace_na(as.numeric(na_if(as.character(.x), "...")), 0)
-      )
-    )
-
-  ag_20_final <- finalize_ag_election(
-    ag_20_districts, ag_20_parties, ag_20_reference$official_results, 2020
-  )
-
-  # ===========================================================================
-  # 2024 Election
-  # ===========================================================================
-
-  # Import raw Aargau 2024 dataset
-  # (Statistisches Amt Kanton Aargau, n.d.)
-  ag_24_raw <- read_excel(
-    here("data", "datasets", "aargau", "AG_24_kantonsratswahlen.xlsx"),
-    sheet = "Data"
-  ) |>
-    janitor::clean_names()
-
-  ag_24_parties <- setdiff(names(ag_24_raw), non_party_columns)
-
-   # Import raw district seat allocation and results dataset
-   # (Statistisches Amt Kanton Aargau, n.d.)
-  ag_24_reference <- read_ag_district_seats_and_results(
-    "AG_24_district_magnitudes_seat_allocation.xlsx",
-    2024,
-    ag_24_parties,
+# Raw vote workbooks for all five elections:
+# (Statistisches Amt Kanton Aargau, n.d.)
+# Official Double Pukelsheim results:
+# 2009: (Department für Finanzen und Ressourcen des Kantons Aargau, 2009)
+# 2012: (Regierungsrat des Kantons Aargau, 2013)
+# 2016 cantonal results and 2020/2024 district magnitudes and seat allocations:
+# (Statistisches Amt Kanton Aargau, n.d.)
+# NULL means that the reference workbook contains cantonal seat totals only.
+# Otherwise, result_party_names gives the party order in the allocation workbook.
+ag_source_files <- tribble(
+  ~election_year, ~vote_file, ~reference_file, ~result_party_names,
+  2009L, "AG_09_kantonsratswahlen.xlsx", "AG_09_seats_cantonal_level.xlsx", NULL,
+  2012L, "AG_12_kantonsratswahlen.xlsx", "AG_12_seats_cantonal_level.xlsx", NULL,
+  2016L, "AG_16_kantonsratswahlen.xlsx", "AG_16_seats_cantonal_level.xlsx", NULL,
+  2020L, "AG_20_kantonsratswahlen.xlsx", "AG_20_district_magnitudes_seat_allocation.xlsx",
+    c("svp", "fdp", "sp", "cvp", "gruene", "glp", "evp", "edu", "lovb", "fff", "ppag"),
+  2024L, "AG_24_kantonsratswahlen.xlsx", "AG_24_district_magnitudes_seat_allocation.xlsx",
     c("svp", "fdp", "sp", "diemitte", "gruene", "glp", "evp", "edu", "lovb", "fff", "ppag")
-  )
+)
 
-  ag_24_districts <- ag_24_raw |>
+# The district magnitudes are identical in 2009, 2012, and 2016.
+# 2009 source: Staatskanzlei des Kantons Aargau (2008)
+# 2012: (Staatskanzlei des Kantons Aargau, 2012)
+# 2016: (Staatskanzlei des Kantons Aargau, 2016)
+ag_district_seats_2009_2016 <- tribble(
+  ~location_name, ~district_seats,
+  "Bezirk Aarau", 16L,
+  "Bezirk Baden", 30L,
+  "Bezirk Bremgarten", 16L,
+  "Bezirk Brugg", 11L,
+  "Bezirk Kulm", 9L,
+  "Bezirk Laufenburg", 7L,
+  "Bezirk Lenzburg", 12L,
+  "Bezirk Muri", 7L,
+  "Bezirk Rheinfelden", 10L,
+  "Bezirk Zofingen", 15L,
+  "Bezirk Zurzach", 7L
+)
+
+# Read and process one election using its row in ag_source_files.
+read_ag_election <- function(
+  election_year, vote_file, reference_file, result_party_names
+) {
+  raw <- read_excel(
+    here("data", "datasets", "aargau", vote_file),
+    sheet = "Data"
+  ) |>
+    janitor::clean_names()
+
+  # The vote workbooks share these administrative columns in every election.
+  non_party_columns <- c(
+    "bfs_nr", "year", "month", "day", "location_name", "location_type", "total"
+  )
+  parties <- setdiff(names(raw), non_party_columns)
+
+  if (is.null(result_party_names)) {
+    # The 2009/2012/2016 references report only the official cantonal seats.
+    official_results <- read_ag_cantonal_seats(
+      reference_file, election_year, parties
+    )
+    district_seats <- ag_district_seats_2009_2016
+  } else {
+    # The 2020/2024 references also supply the district magnitudes.
+    reference <- read_ag_district_seats_and_results(
+      reference_file, election_year, parties, result_party_names
+    )
+    official_results <- reference$official_results
+    district_seats <- reference$district_seats
+  }
+
+  districts <- raw |>
     filter(location_type == "DISTRICT") |>
-    left_join(ag_24_reference$district_seats, by = "location_name") |>
+    left_join(district_seats, by = "location_name") |>
     mutate(
       across(
-        c(total, all_of(ag_24_parties)),
+        c(total, all_of(parties)),
         ~ replace_na(as.numeric(na_if(as.character(.x), "...")), 0)
       )
     )
 
-  ag_24_final <- finalize_ag_election(
-    ag_24_districts, ag_24_parties, ag_24_reference$official_results, 2024
+  stopifnot(
+    nrow(districts) == 11L,
+    !anyDuplicated(districts$location_name),
+    !anyNA(districts$district_seats),
+    sum(districts$district_seats) == 140L
   )
 
-  # ===========================================================================
-  # Combine all Aargau elections
-  # ===========================================================================
+  finalize_ag_election(districts, parties, official_results, election_year)
+}
 
-  ag_final <- bind_rows(
-    ag_09_final,
-    ag_12_final,
-    ag_16_final,
-    ag_20_final,
-    ag_24_final
-  ) # Stack the standardized election results into one Aargau dataset.
-
-  return(ag_final) # Make the combined Aargau dataset available to the calling script.
+# Process every registered election and combine the standardized results.
+process_canton_AG <- function() {
+  purrr::pmap_dfr(ag_source_files, read_ag_election)
 }
 
 # Temporary check - delete in the end
