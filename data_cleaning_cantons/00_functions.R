@@ -352,11 +352,16 @@ finalize_election_data <- function(
     ) |>
     arrange(desc(vote_share))
   
-  # Validation checks
+   # Validate the final dataset
   stopifnot(
+    all(nzchar(trimws(result$parties))),
+    is.numeric(result$vote_share),
+    all(is.finite(result$vote_share)),
+    all(result$vote_share >= 0 & result$vote_share <= 100),
     !anyNA(result$seats_hb),
-    all(grepl('^[0-9]+(?:/[0-9]+)*$', result$seats_hb)),
+    all(grepl("^[0-9]+(/[0-9]+)*$", result$seats_hb)),
     !anyNA(result$seats_dp),
+    all(result$parliament_size >= result$seats_allocated_dp),
     abs(sum(result$vote_share) - 100) < 0.01
   )
   

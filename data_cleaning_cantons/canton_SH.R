@@ -338,6 +338,7 @@ read_sh_election <- function(path, year) {
     group_by(parties) |>
     summarise(
       seats_hb_options = combine_hb_seat_options(seats_hb_options), # Keep tie options.
+      seats_hb = unique_hb_seat_value(seats_hb_options),
       hb_tie_note = {
         notes <- unique(na.omit(hb_tie_note))
         if (length(notes) == 0L) NA_character_ else paste(notes, collapse = " | ")
