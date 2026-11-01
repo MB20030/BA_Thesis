@@ -293,15 +293,14 @@ read_ur_election <- function(election_year) {
     sum(source_check$seats_dp) == 37L
   )
 
-  # The Excel vote shares in the Excel are already based only on Altdorf, Bürglen,
-  # Erstfeld, and Schattdorf. Therefore they can be directly used.
-
-  vote_shares <- reported_party_results |>
-    filter(parties %in% active_parties) |>
-    transmute(
-      parties,
-      vote_share = as.numeric(vote_share_reported)
-    )
+  # The workbook percentages use raw party votes. Account for district magnitudes
+  # using unrounded voter equivalents before calculating the combined shares.
+  vote_shares <- district_results |>
+    mutate(voter_number = party_votes / district_seats) |>
+    group_by(parties) |>
+    summarise(voter_number = sum(voter_number), .groups = "drop") |>
+    mutate(vote_share = 100 * voter_number / sum(voter_number)) |>
+    select(parties, vote_share)
 
   # Prepare the official DP results in the common canton-year format.
   official_results <- aggregated_results |>

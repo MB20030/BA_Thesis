@@ -130,11 +130,20 @@ read_sz_2016 <- function(source_dir, file_names) {
     mutate(district_seats = sum(seats_dp)) |>             # The municipal seat total is the historical district magnitude.
     ungroup()
 
+  # Calculate vote shares from unrounded municipality-level voter equivalents.
   vote_shares <- district_results |>
-    group_by(parties) |>
-    summarise(party_votes = sum(party_votes), .groups = "drop") |> # Sum votes across all municipalities before dividing.
-    mutate(vote_share = 100 * party_votes / sum(party_votes)) |>    # Use the canton-wide party-vote denominator.
-    select(parties, vote_share)
+  mutate(
+    voter_number = party_votes / district_seats
+  ) |>
+  group_by(parties) |>
+  summarise(
+    voter_number = sum(voter_number),
+    .groups = "drop"
+  ) |>
+  mutate(
+    vote_share = 100 * voter_number / sum(voter_number)
+  ) |>
+  select(parties, vote_share)
 
   official_results <- district_results |>
     group_by(parties) |>
@@ -223,11 +232,21 @@ read_sz_2020 <- function(source_dir, file_name) {
   )
 
   total_accounted_votes <- sum(district_checks$accounted_votes) # Count column AO once per municipality.
+
+  # Calculate vote shares from unrounded municipality-level voter equivalents.
   vote_shares <- district_results |>
-    group_by(parties) |>
-    summarise(party_votes = sum(party_votes), .groups = "drop") |> # Add each party's municipal list votes canton-wide.
-    mutate(vote_share = 100 * party_votes / total_accounted_votes) |> # Divide by all accounted votes in the election.
-    select(parties, vote_share)
+  mutate(
+    voter_number = party_votes / district_seats
+  ) |>
+  group_by(parties) |>
+  summarise(
+    voter_number = sum(voter_number),
+    .groups = "drop"
+  ) |>
+  mutate(
+    vote_share = 100 * voter_number / sum(voter_number)
+  ) |>
+  select(parties, vote_share)
 
   elected_results <- raw |>
     transmute(
