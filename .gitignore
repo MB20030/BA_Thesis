@@ -12,7 +12,7 @@ renv/python/
 renv/sandbox/
 
 # Ignore temporary files
-temp/
+temp/pdfs
 # Quarto's local working directory
 .quarto/
 

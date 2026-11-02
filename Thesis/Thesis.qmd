@@ -2450,9 +2450,31 @@ knitr::kable(
 ```
 For exploratory question three, the robustness check was done for each election number separately. Zurich or Schaffhausen produces the largest absolute change in six out of nine comparisons. The mean seat-share gains remain positive under every omission. However, the mean change from election three to four switches from negative to positive when Zurich is excluded, while the change from election four to five switches from positive to negative when Aargau is excluded. These later transitions include only five respectively three cantons. This makes their averages particularly sensitive to individual cantons.
 
-### Declaration of AI-Assistance
+### Appendix 4: Declaration of AI-Assistance
+
+```{=typst}
+#[
+#set table(
+  stroke: 0.5pt,
+  inset: 5pt,
+)
+```
+| Tool | Usage | Affected sections |
+|---|---|---|
+|ChatGPT/Codex (mainly 6.1 Sol) | Used for structuring, advising and coding. | Throughout the thesis and Code |
+| DeepL Free | Translating single thoughts and words from German to English. | Throughout the Thesis. |
+| Claude Free | Used to challenge statements from ChatGPT (Codex) | Throughout the Thesis. |
+| Github CoPilot Free | Used to help with inline comments |Throughout the Code. |
+
+: AI-Tools used in the Thesis. {#tbl-ai-tools tbl-colwidths="[22,42,36]"}
+
+```{=typst}
+]
+```
 
 #### Self Reflection on AI-Usage 
---> add how to deal with tendency of LLMs to glaze you --> e.g. say reason why you think one should consider this particular aspect or not, then respond to me with a suggestion
---> add how to deal with LLMs giving too long texts --> repetitive explanations 
---> add AI better than me at structuring, table of contents, finding discrepancies there etc
+Generally, I see AI as a useful tool. It helped me throughout the process of writing this Thesis. As to any technology are there down and upsides to the usage of it. On the positive side, I want to highlight, that AI helps me to better structure. Especially, since this is something, where I myself still have potential. Further did it help me finding discrepancies throughout the code and text and it does this with a much higher precision than I could. Further is the usage of AI models, helpful for recreating repetitive tasks. For example, did I use it to help me build the data cleaning files. Before writing this thesis, I had never orchestrated and coded such a comprehensive project. Therefore I could use it as a sparring partner, especially at first when I wasn't sure on how to structure the cleaning process. Codex in that case, helped me to build a helper function, without AI possibly I might have had not the idea to build such a helper. Therefore did the AI help me to build the cleaning and standardizing process quicker and with more precision.
+
+One of the biggest downsides, for me is that AI models when their message is challenged very often immediately agree on the users opinion. This for me weakens the trust into the models and makes it harder to evaluate properly whether the AI or my reasoning is now better. Or whether there is a middle ground. Further are the AI models in my perception tending when asked for improvements in a text or similar, suggesting to long of a text. Similar happened to me when coding, where I felt that the AI wants to implement fail-safes which when looking at the scope of my thesis, made no or only little sense.
+
+I see AI therefore as a very helpful tool for the thesis, especially in  outlining both the thesis structure  and the code, but rather less as a tool for writing the text, where it needs more of human judgment.
