@@ -29,7 +29,6 @@ The data come from official cantonal election results published by statistical o
 - [Thesis](Thesis/Thesis.pdf): the thesis PDF; its source is in `Thesis/`.
 - `data/datasets/`: election data organized by canton.
 - `data_cleaning_cantons/`: R scripts for cleaning data and calculating counterfactual seat allocations.
-- `sources/`: some of the literature and reference material.
 
 ## Contact
 
