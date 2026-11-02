@@ -11,15 +11,32 @@ renv/staging/
 renv/python/
 renv/sandbox/
 
-# ignore temporary files
+# Ignore temporary files
 temp/
 # Quarto's local working directory
 .quarto/
 
-# ignore folders for personal use
+# Ignore working folders
 data/preparation_and_training/
 data_handling_slides/
 formalities/
 proposal/
 sources/
 thesis_colloqium/
+
+# Keep unused source data locally; exclude from the repository
+/data/datasets/aargau/eDossier_GRWA_2024.xlsx
+/data/datasets/ch/CH_79-23_patterns_of_democracy.xlsx
+/data/datasets/ch/CH_79-23_patterns_of_democracy_codebook.pdf
+/data/datasets/nidwalden/nw_2014_kandidatenstimmen.xlsx
+/data/datasets/nidwalden/nw_2018_kandidatenstimmen.xlsx
+/data/datasets/nidwalden/nw_2022_kandidatenstimmen.xlsx
+/data/datasets/nidwalden/nw_2026_kandidatenstimmen.xlsx
+/data/datasets/schaffhausen/SH_1919_2020_bfs.xlsx
+/data/datasets/schwyz/SZ_20_parteidaten.csv
+/data/datasets/uri/UR_20_altdorf.xlsx
+/data/datasets/uri/UR_20_buerglen.xlsx
+/data/datasets/uri/UR_20_erstfeld.xlsx
+/data/datasets/uri/UR_20_schattdorf.xlsx
+/data/datasets/uri/UR_24_beispiel.xlsx
+/data/datasets/uri/UR_24_proporzgemeinden.xlsx
