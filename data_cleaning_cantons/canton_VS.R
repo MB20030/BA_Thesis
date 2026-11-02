@@ -74,7 +74,7 @@ vs_district_config <- function(election_year) {
     region = unname(district_region[district_names]),
     district_seats = unname(district_seats),
     file_path = here(
-      "data", "datasets", "wallis", paste0("VS_", election_year %% 100),
+      "data", "datasets", "valais", paste0("VS_", election_year %% 100),
       paste0("VS_", election_year %% 100, "_", district_names, ".xlsx")
     )
   )

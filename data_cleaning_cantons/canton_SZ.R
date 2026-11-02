@@ -25,9 +25,9 @@ sz_source_files <- list(
     "SZ_16_",
     c(
       "alpthal", "altendorf", "arth", "einsiedeln", "feusisberg", "freienbach",
-      "galgenen", "gersau", "illgau", "ingenbohl", "innerthal", "k\u00fcssnacht",
+      "galgenen", "gersau", "illgau", "ingenbohl", "innerthal", "kuessnacht",
       "lachen", "lauerz", "morschach", "moutathal", "oberiberg", "reichenburg",
-      "riemenstalden", "rothenturm", "sattel", "schwyz", "sch\u00fcbelbach", "steinen",
+      "riemenstalden", "rothenturm", "sattel", "schwyz", "schuebelbach", "steinen",
       "steinerberg", "tuggen", "unteriberg", "vorderthal", "wangen", "wollerau"
     ),
     ".csv"

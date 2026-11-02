@@ -227,15 +227,36 @@ The central weakness of the traditional cantonal application of Hagenbach–Bisc
 
 #### The Double Pukelsheim Method
 
-Based on the weaknesses of the Hagenbach-Bischoff Method and the FSC decision, the canton of Zurich commissioned the mathematician Friedrich Pukelsheim to develop a new method (Lüscher, 2024, p.10). The following section explores its mechanism and differences to the Hagenbach-Bischoff method.
+The following section explores the mechanism of the Double Pukelsheim and its differences to the Hagenbach-Bischoff method.
 
 Based on Articles 8 and 34 of the Federal Constitution, there are three dimensions of electoral equality, which have to be followed. These are the principle of equal voting value, equality of voting power  and equality of electoral success. The equal voting value ensures that each voter within an electoral district gets allocated the identical number of votes. The second principle requires the population represented per seat to be approximately equal across electoral districts. Thirdly the equality of electoral success should assure, that all votes contribute equally to the election and that as many votes as possible are included in the allocation of the mandates. (Pukelsheim & Schuhmacher, 2004, pp. 506-507) Districts with fewer than nine seats have a natural quorum above 10%, making it difficult for smaller parties to enter the seat allocation in that district. The FSC treats 10% as a target for natural quorums when redesigning an electoral system. (Pukelsheim & Schuhmacher, 2004, p. 505; BGE 131 I 74 E. 5.2–5.4) For the traditional application of Hagenbach–Bischoff, the main difficulty is, that small districts contradict the 10% target. (Pukelsheim & Schuhmacher, 2004, p. 508; BGE 129 I 185 E. 7.1.1 and E. 7.6.2)
 
 To approach this issue, the Double Pukelsheim uses an upper and a lower apportionment (Pukelsheim & Schuhmacher, 2004, p.513). 
 
-- **Upper Apportionment** To bypass the natural quorums, in the upper apportionment, the whole canton is seen as one single district. Seats are allocated to parties in proportion to their cantonal vote shares. To achieve this, the votes from the district-level have to be summarized on a cantonal level. Because of the different district magnitudes, voters receive a different amount of votes. Therefore, the number of votes has to be translated to a cantonal level. This is done by dividing the number of party votes per constituency by the respective number of seats. The resulting quotient stays unrounded or is rounded to the nearest integer, depending on the applicable electoral law. The result represents the voter equivalents and can then be summed across all districts and divided by the cantonal divisor to get each party's total seats. (Pukelsheim & Schuhmacher, 2011, p.1584-1585) The divisor itself is set by an official authority, in Zurich for example, it's the Department of Justice and Home Affairs (Kanton Zürich, 2003/2021, § 10 and 103). The divisor needs to be set so, that exactly as many seats can be allocated as there are available. The number of seats which result per party, are rounded to the nearest integer to receive the upper apportionment seat entitlement. (Pukelsheim & Schuhmacher, 2011, p.1584-1585)
+- **Upper Apportionment** To bypass the natural quorums, in the upper apportionment, the whole canton is seen as one single district. Seats are allocated to parties in proportion to their cantonal vote shares. To achieve this, the votes from the district-level have to be summarized on a cantonal level. Because of the different district magnitudes, voters receive a different amount of votes. Therefore the voter equivalents have to be obtained, which is done as followingly: 
+$$
+w_{ij} = R_c\left(\frac{v_{ij}}{M_j}\right),\qquad W_i = \sum_j w_{ij}.
+$$
+Here, $i$ denotes a party, $j$ a constituency, $v_{ij}$ a party's votes in a specific district and $M_j$is  the number of mandates in the constituency. $R_c$ represents the applicable cantonal rule: leaving the qoutient unrounded or rounding to the nearest integer and $W_i$ is the party's aggregated voter equivalent. (Pukelsheim & Schuhmacher, 2011, pp. 1584–1585, 1594–1595) Each party's total seat entitlement, is then calculated followingly: 
+$$
+S_i = \operatorname{round}\left(\frac{W_i}{d}\right) 
+$$
+The divisor $d$ needs to be set so, that exactly as many seats can be allocated as there are available. (Pukelsheim & Schuhmacher, 2011, p. 1585)
 
-- **Lower Apportionment** This part of the apportionment process, assigns each party's cantonwide seats from the upper apportionment to its district lists while preserving each district's predetermined seat total. First, the party votes in each district are divided by the corresponding district divisor. The divisor is chosen so that the rounded results add up to the district's seats (Pukelsheim & Schuhmacher, 2011, p. 1585). These initial allocations may not match the parties' cantonwide entitlements. For example in the 2011 Zurich election this ocurred, where the SVP would have received 55 seats instead of the 54 assigned in the upper apportionment . To correct such differences, every district list of a party is divided by the same additional list group divisor. A divisor above one reduces the party's unrounded quotients and can remove seats while a divisor below one can add seats. (Pukelsheim & Schuhmacher, 2011, p. 1586) The arising effect can be illustrated with a hypothetical numerical example based on the 2011 seat mismatch for the SVP. Now it could be that the SVP list in District Y would have a quotient after division by the district divisor of 2.51. With the standard rounding, the SVP would receive three seats in this district. Given that the SVP quotient is closest to downrounding in that district, one would choose a number which rounds the quotient down to two seats e.g. with $2.51/1.01 \approx 2.49$. Through that the mismatch would be resolved, but the change in District Y might cause, that the district gets allocated one seat too few. The party and district divisors are then adjusted in turn until every party receives its cantonwide entitlement and every district retains its fixed number of seats. (Pukelsheim & Schuhmacher, 2011, p. 1586)
+- **Lower Apportionment** The lower apportionment, assigns each party's cantonwide seats from the upper apportionment to its district lists while preserving each district's predetermined seat total. For that first the party votes in each district are divided by a district divisor which ensures that the exact amount of seats are allocated. The results are then rounded. (Pukelsheim & Schuhmacher, 2011, p. 1585). However, the resulting party totals may differ from the upper apportionment results. To correct such differences, each party's vote total in every district is divided by the same additional list group divisor.  (Pukelsheim & Schuhmacher, 2011, p. 1586) With $a_j$ denoting the district divisor, $b_i$ the list-group divisor, party $i$ receives the following seats in district $j$:
+
+$$
+s_{ij} = \operatorname{round}\left(\frac{v_{ij}}{a_j b_i}\right).
+$$
+(Pukelsheim & Schuhmacher, 2004, p. 515)
+
+An hypothetical example illustrates this correction. A party has received in the lower apportionment, one seat more than in the seat entitlement from the upper apportionment. Let's say, this party has in District Y a quotient after division by the district divisor of 2.51. With the standard rounding, the party would receive three seats in this district. Given that the party's quotient is closest to downrounding in that district, one would choose a number which rounds the quotient down to two seats e.g. with $2.51/1.01 \approx 2.49$. However, this change might cause that the district gets allocated one seat too few. Both sets of divisors must therefore be adjusted until the party entitlements $S_i$ and district seat totals $M_j$ are simultaneously satisfied (Pukelsheim & Schuhmacher, 2011, p. 1586):
+$$
+\sum_j s_{ij} = S_i \quad \text{for every } i,
+\qquad
+\sum_i s_{ij} = M_j \quad \text{for every } j.
+$$
+(Pukelsheim & Schuhmacher, 2004, p. 515)
 
 To summarize, the upper apportionment in the Double Pukelsheim system reduces inequalities in electoral success caused by the high natural thresholds of small constituencies under the previous district-by-district Hagenbach-Bischoff system. It does so by pooling parties' votes across the canton before seats are assigned to constituencies. This is also the main improvement of DP regarding the three dimensions of electoral equality in contrast to Hagenbach-Bischoff. 
 
@@ -1739,13 +1760,13 @@ Initiativkomitee “Damit jede Stimme zählt.” (n.d.). *Initiative für ein fa
 
 Kanton Aargau. (1988/2004). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 8. Juni 2004, in Kraft seit 1. November 2004* (SAR 152.100). https://www.lexfind.ch/tolv/2551/de
 
+Kanton Aargau. (1988/2009). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; Stand 1. Januar 2009)*. https://gesetzessammlungen.ag.ch/api/de/versions/519/pdf_file
+
 Kanton Aargau. (1988/2012). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 7. Juni 2011, in Kraft seit 1. Mai 2012* (SAR 152.100). https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file
 
 Kanton Aargau. (2004, December 14). *SVP/FDP, SP/Grüne und CVP/EVP: Grossratswahlen 2005: Listenverbindungen*. https://www.ag.ch/de/medien/medienmitteilungen?mm=svp-fdp-sp-gruene-und-cvp-evp-c849a7cb-e1b5-4aaf-9c77-2513b9eecbdf_de
 
 Kanton Aargau. (2008). *Abstimmungsvorlagen vom 24. Februar 2008: Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates), Änderung vom 18. September 2007*, pp. 6--25. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20080224-abstimmungsbroschuere.pdf
-
-Kanton Aargau. (2009). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; Stand 1. Januar 2009)*. https://gesetzessammlungen.ag.ch/api/de/versions/519/pdf_file
 
 Kanton Basel-Landschaft. (1981/2025). *Gesetz über die politischen Rechte (GpR; SGS 120; Stand 1. Mai 2025)*. https://bl.clex.ch/api/de/versions/4260/pdf_file
 
