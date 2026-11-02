@@ -293,8 +293,9 @@ read_ur_election <- function(election_year) {
     sum(source_check$seats_dp) == 37L
   )
 
-  # The workbook percentages use raw party votes. Account for district magnitudes
-  # using unrounded voter equivalents before calculating the combined shares.
+  # The workbook percentages use raw party votes. 
+  # Therefore to account for district magnitudes
+  # they have to be recalculated, with voter equivalents.  
   vote_shares <- district_results |>
     mutate(voter_number = party_votes / district_seats) |>
     group_by(parties) |>

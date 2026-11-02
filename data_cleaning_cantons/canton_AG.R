@@ -160,8 +160,12 @@ finalize_ag_election <- function(districts, parties, official_results, election_
     group_by(location_name) |>
     mutate(
       seats_hb = allocate_hb(party_votes, first(district_seats)), # Call the HB allocator 
-      # Normalize for district magnitude and round halves upward per district
-      voter_number = floor(party_votes / first(district_seats) + 0.5)
+      # Normalize for district magnitude 
+      voter_number = if (.env$election_year == 2009L) { # Round for 2009 (Kanton Aargau, 1988/2009, § 14(1))
+        floor(party_votes / first(district_seats) + 0.5)
+      } else {
+        party_votes / first(district_seats) # Law change requires no rounding for elections from 2012 on (Kanton Aargau, 1988/2012, § 14(1))
+      }
     ) |>
     ungroup()
 

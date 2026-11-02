@@ -179,8 +179,12 @@ read_zg_election <- function(source_dir, file_name, election_year) {
  
   vote_shares <- district_results |>
     mutate(
-      voter_number = floor(party_votes / district_seats + 0.5) # Convert list votes to voter numbers
-    ) |>
+    voter_number = if (.env$election_year <= 2022L) { # Round voter equivalent (Kanton Zug, 2006/2023, § 52d(1))
+      floor(party_votes / district_seats + 0.5)
+    } else { # No rounding from 2026 onwards (Kanton Zug, 2006/2026, § 52d(1))
+      party_votes / district_seats
+    }
+    )|>
     group_by(parties) |> # Aggregate voter numbers across districts
     summarise(voter_number = sum(voter_number), .groups = "drop") |>
     mutate(vote_share = 100 * voter_number / sum(voter_number)) |> # Calculate canton-wide vote-shares

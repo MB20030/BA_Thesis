@@ -233,7 +233,7 @@ Based on Articles 8 and 34 of the Federal Constitution, there are three dimensio
 
 To approach this issue, the Double Pukelsheim uses an upper and a lower apportionment (Pukelsheim & Schuhmacher, 2004, p.513). 
 
-- **Upper Apportionment** To bypass the natural quorums, in the upper apportionment, the whole canton is seen as one single district. Seats are allocated to parties in proportion to their cantonal vote shares. To achieve this, the votes from the district-level have to be summarized on a cantonal level. Because of the different district magnitudes, voters receive a different amount of votes. Therefore, the number of votes has to be translated to a cantonal level. This is done by dividing the number of party votes per constituency by the respective number of seats. The resulting quotient gets rounded to the nearest integer and represents the voter equivalents. The rounded quotients, can then be summed across all districts and divided by the cantonal divisor to get each party's total seats. The divisor itself is set by an official authority, in Zurich for example, it's the Department of Justice and Home Affairs. The divisor needs to be set so, that exactly as many seats can be allocated as there are available. The number of seats which result per party, are rounded again to the next number to receive the upper apportionment seat entitlement. (Pukelsheim & Schuhmacher, 2011, p.1584-1585 ; Kanton Zürich, 2003, § 10 and 103)
+- **Upper Apportionment** To bypass the natural quorums, in the upper apportionment, the whole canton is seen as one single district. Seats are allocated to parties in proportion to their cantonal vote shares. To achieve this, the votes from the district-level have to be summarized on a cantonal level. Because of the different district magnitudes, voters receive a different amount of votes. Therefore, the number of votes has to be translated to a cantonal level. This is done by dividing the number of party votes per constituency by the respective number of seats. The resulting quotient stays unrounded or is rounded to the nearest integer, depending on the applicable electoral law. The result represents the voter equivalents and can then be summed across all districts and divided by the cantonal divisor to get each party's total seats. (Pukelsheim & Schuhmacher, 2011, p.1584-1585) The divisor itself is set by an official authority, in Zurich for example, it's the Department of Justice and Home Affairs (Kanton Zürich, 2003/2021, § 10 and 103). The divisor needs to be set so, that exactly as many seats can be allocated as there are available. The number of seats which result per party, are rounded to the nearest integer to receive the upper apportionment seat entitlement. (Pukelsheim & Schuhmacher, 2011, p.1584-1585)
 
 - **Lower Apportionment** This part of the apportionment process, assigns each party's cantonwide seats from the upper apportionment to its district lists while preserving each district's predetermined seat total. First, the party votes in each district are divided by the corresponding district divisor. The divisor is chosen so that the rounded results add up to the district's seats (Pukelsheim & Schuhmacher, 2011, p. 1585). These initial allocations may not match the parties' cantonwide entitlements. For example in the 2011 Zurich election this ocurred, where the SVP would have received 55 seats instead of the 54 assigned in the upper apportionment . To correct such differences, every district list of a party is divided by the same additional list group divisor. A divisor above one reduces the party's unrounded quotients and can remove seats while a divisor below one can add seats. (Pukelsheim & Schuhmacher, 2011, p. 1586) The arising effect can be illustrated with a hypothetical numerical example based on the 2011 seat mismatch for the SVP. Now it could be that the SVP list in District Y would have a quotient after division by the district divisor of 2.51. With the standard rounding, the SVP would receive three seats in this district. Given that the SVP quotient is closest to downrounding in that district, one would choose a number which rounds the quotient down to two seats e.g. with $2.51/1.01 \approx 2.49$. Through that the mismatch would be resolved, but the change in District Y might cause, that the district gets allocated one seat too few. The party and district divisors are then adjusted in turn until every party receives its cantonwide entitlement and every district retains its fixed number of seats. (Pukelsheim & Schuhmacher, 2011, p. 1586)
 
@@ -282,7 +282,7 @@ Graubünden, 2021/2026, Art. 26 para.1 ; Lüscher, 2024, pp. 68 and 71-72) ; Bas
 
 To summarize, in 8 of 10 reform cantons, a raised complaint at the FSC led to a later reform. Only in the cantons of Schaffhausen and Basel-Landschaft did the reform process take place without a Federal Supreme Court ruling. Nevertheless the canton of Schaffhausen's decision was directly influenced by the FSC's decisions in Aargau and Zurich. Throughout all complaints, the concern was electoral equality. In seven of them excessively high natural thresholds in proportional constituencies were central. In Graubünden though, the concerns were mainly raised by its use of the majority system for its large districts and the allocation of seats among constituencies. This demonstrates the influence of the 2002 Federal Supreme Court decision regarding Zurich's City Parliament.
 
-Beyond their different paths to reform, the cantons also implemented Double Pukelsheim under substantially different institutional conditions. The number of seats included in the Double Pukelsheim allocation varies from 37 in Uri where the system applies only to four municipalities to 180 in Zurich (Standeskanzlei Uri, 2020, p. 1; Kanton Zürich, 2003, § 88).  Moreover, some cantons introduced explicit local or canton-wide electoral quorums, whereas others did not, potentially limiting smaller parties’ ability to benefit from the more proportional allocation method. These arrangements have also changed over time for example through the later introduction of thresholds or majority clauses while party competition and vote distributions vary between elections. This institutional variation motivates the later exploratory comparisons : Whether smaller parties' seat-share gains differ by the presence of an explicit electoral threshold and across successive elections within the same canton.
+Beyond their different paths to reform, the cantons also implemented Double Pukelsheim under substantially different institutional conditions. The number of seats included in the Double Pukelsheim allocation varies from 37 in Uri where the system applies only to four municipalities to 180 in Zurich (Standeskanzlei Uri, 2020, p. 1; Kanton Zürich, 2003/2021, § 88).  Moreover, some cantons introduced explicit local or canton-wide electoral quorums, whereas others did not, potentially limiting smaller parties’ ability to benefit from the more proportional allocation method. These arrangements have also changed over time for example through the later introduction of thresholds or majority clauses while party competition and vote distributions vary between elections. This institutional variation motivates the later exploratory comparisons : Whether smaller parties' seat-share gains differ by the presence of an explicit electoral threshold and across successive elections within the same canton.
 
 ### Literature Review
 
@@ -471,7 +471,7 @@ District seat magnitudes were obtained from the available official information f
 
 The shared finalization function then produced one observation per standardized party or list code and election. It created an election identifier combining the canton abbreviation and election year, such as *ZH_23*, and joined the HB and DP seat totals by party. The final columns were *election_id*, *parties*, *vote_share*, *small_party*, *seats_hb*, *seats_dp*, *parliament_size*, and *seats_allocated_dp*. The last two variables distinguish the full parliament from the seats covered by the comparison, this because of the Canton Uri, where these values are 64 and 37, respectively. District identifiers, raw party votes, and district magnitudes served as intermediate inputs and were not included in the final combined dataset.
 
-Vote shares were derived using the information available in each canton's official election files. For Aargau, Zurich, Zug, and Valais for example, party votes were divided by the corresponding district's seat magnitude to obtain voter equivalents. These quotients were rounded to the nearest integer, with half values rounded upwards, before being summed by party across districts. Each party’s vote share was then calculated as its aggregated voter number divided by the total voter number of all included parties, multiplied by 100. For Uri, the provided vote shares, did not account for the district magnitudes, therefore they were recalculated. The shared finalization function rounded all vote shares to four decimal places.
+Vote shares were derived using the information available in each canton's official election files. For Aargau, Zurich, Zug, Valais, Uri and Schwyz 2016 and 2020 elections, party votes were divided by the corresponding district's seat magnitude to obtain voter equivalents. Based on the applicable law, were the quotients, either rounded to the nearest integer or kept unrounded. The equivalents were summed by party across constituencies, and each party’s vote share was then calculated as its aggregated voter number divided by the total voter number of all included parties, multiplied by 100. For the remaining cantons, the voter equivalents or a share based on it was given in the respective files. The shared finalization function then retained these vote shares.
 
 The Double Pukelsheim results were assembled separately within the canton-specific scripts from official seat tables, municipal allocations, or elected-candidate records. Each script supplied its election-specific DP results to the shared finalization function, which joined them to the HB counterfactuals by standardized party identifier. Validation routines checked electoral-unit coverage and seat totals and where alternative representations were available, reconciled candidate counts or aggregated lower allocations with reported list mandates or upper-apportionment totals. District-level consistency checks and final allocation totals were applied according to the available source structure. Uri’s allocation checks covered the 37 proportional seats included in the analysis. Unresolved Hagenbach-Bischoff ties were retained as alternative allocations.
 
@@ -1739,6 +1739,8 @@ Initiativkomitee “Damit jede Stimme zählt.” (n.d.). *Initiative für ein fa
 
 Kanton Aargau. (1988/2004). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 8. Juni 2004, in Kraft seit 1. November 2004* (SAR 152.100). https://www.lexfind.ch/tolv/2551/de
 
+Kanton Aargau. (1988/2012). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 7. Juni 2011, in Kraft seit 1. Mai 2012* (SAR 152.100). https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file
+
 Kanton Aargau. (2004, December 14). *SVP/FDP, SP/Grüne und CVP/EVP: Grossratswahlen 2005: Listenverbindungen*. https://www.ag.ch/de/medien/medienmitteilungen?mm=svp-fdp-sp-gruene-und-cvp-evp-c849a7cb-e1b5-4aaf-9c77-2513b9eecbdf_de
 
 Kanton Aargau. (2008). *Abstimmungsvorlagen vom 24. Februar 2008: Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates), Änderung vom 18. September 2007*, pp. 6--25. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/abstimmungsbroschueren/20080224-abstimmungsbroschuere.pdf
@@ -1785,7 +1787,11 @@ Kanton Wallis. (2024, 20. September). *Anhang zur Verteilung der Anzahl Grossrat
 
 Kanton Zürich. (1983/2005). *Gesetz über die Wahlen und Abstimmungen (Wahlgesetz)* (LS 161; Nachtrag 47, Stand 1. Januar 2005), §§ 87–88b. https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf
 
-Kanton Zürich. (2003). *Gesetz über die politischen Rechte* (GPR) of 1 September 2003, LS 161. https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/1EED0F259F53BB22C1258D4C004EB46A/%24File/161_1.9.03_131.pdf
+Kanton Zürich. (2003/2005). *Gesetz über die politischen Rechte vom 1. September 2003, Stand 1. April 2005* (LS 161; Nachtrag 48). https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/F783DB9B7749997DC1256FCC0025D1D7/$File/161_1.9.03_48.pdf
+
+Kanton Zürich. (2003/2021). *Gesetz über die politischen Rechte (GPR) vom 1. September 2003, in der Fassung der Änderung vom 22. März 2021, in Kraft seit 1. Oktober 2021* (LS 161; Nachtrag 114). https://www.zh.ch/de/politik-staat/gesetze-beschluesse/gesetzessammlung/zhlex-ls/erlass-161-2003_09_01-2005_01_01-114.html
+
+Kanton Zug. (2006/2023). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG) vom 28. September 2006, Stand 1. Januar 2023* (BGS 131.1). https://bgs.zg.ch/api/de/versions/2386/pdf_file
 
 Kanton Zug. (2006/2026). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (BGS 131.1; Stand 1. Januar 2026). https://bgs.zg.ch/app/de/texts_of_law/131.1 
 
@@ -1914,7 +1920,7 @@ The table below identifies the election data and legal sources used in the canto
 #figure(
   kind: "quarto-float-tbl",
   supplement: [Table],
-  caption: [Election data sources and legal bases for the counterfactual HB allocation.],
+  caption: [Election data sources and legal bases for HB allocation and vote-share calculation.],
   {
     set text(size: 10pt)
     set par(justify: false, leading: 0.45em)
@@ -1928,7 +1934,7 @@ The table below identifies the election data and legal sources used in the canto
       table.header(
         [*Canton*],
         [*Election data: description and source*],
-        [*HB allocation: legal basis and source*],
+        [*HB allocation and vote-share calculation: Legal bases*],
       ),
       [Aargau],
       [
@@ -1939,7 +1945,11 @@ The table below identifies the election data and legal sources used in the canto
         _Gemeinsame Grossrats- und Regierungsratswahlen: Vorverfahren gestartet_ (2012) and _Ausschreibung der Grossrats- und Regierungsratswahlen 2016_: district seat magnitudes (#link("https://www.ag.ch/de/medien/medienmitteilungen?mm=gemeinsame-grossrats-und-regierungsratswahlen-e7d48210-c7f0-46ac-8a70-ffc1aab7b4d6_de")[Staatskanzlei des Kantons Aargau, 2012]\; #link("https://www.ag.ch/de/medien/medienmitteilungen?mm=ausschreibung-der-grossrats-und-regierungsratswahlen-2016-f7404346-a5eb-46e0-8627-301716c82855_de")[2016a]).
       ],
       [
-        _Grossratswahlgesetz (SAR 152.100), version in force from 1 November 2004_: initial allocation and allocation of remaining seats (#link("https://www.lexfind.ch/tolv/2551/de")[Kanton Aargau, 1988/2004, § 12 and § 13(1)(a–b)]).
+        _Grossratswahlgesetz (SAR 152.100), version from 1 November 2004_: initial allocation and allocation of remaining seats (#link("https://www.lexfind.ch/tolv/2551/de")[Kanton Aargau, 1988/2004, § 12 and § 13(1)(a–b)]).
+      
+        _Grossratswahlgesetz (SAR 152.100), Stand 1 January 2009_: rounded district-level voter equivalents for the 2009 election (#link("https://gesetzessammlungen.ag.ch/api/de/versions/519/pdf_file")[Kanton Aargau, 1988/2009, § 14(1)]).
+
+        _Grossratswahlgesetz (SAR 152.100), version in force from 1 May 2012_ : unrounded district-level voter equivalents from the 2012 election on (#link("https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file")[Kanton Aargau, 1988/2012, § 14(1)]).
       ],
       [Graubünden],
       [
@@ -2007,6 +2017,10 @@ The table below identifies the election data and legal sources used in the canto
         _Wahl- und Abstimmungsgesetz (WAG), original text of 28 September 2006_: former HB and Majorz provisions (#link("https://kr-geschaefte.zug.ch/dokumente/2793/pdoc_1494_1.pdf")[Kanton Zug, 2006, §§ 46–47, 55–56]).
 
         _BGE 136 I 376_: confirms Neuheim’s former Majorz system; Neuheim is included using a hypothetical HB allocation (#link("https://search.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-376%3Ade&lang=de&type=show_document&zoom=IN")[BGE 136 I 376, E. 5.1]).
+
+        _Wahl- und Abstimmungsgesetz (WAG; BGS 131.1), Stand 1 January 2023_: rounded constituency-level voter equivalents for the 2014, 2018, and 2022 elections (#link("https://bgs.zg.ch/api/de/versions/2386/pdf_file")[Kanton Zug, 2006/2023, § 52d(1)]).
+
+        _Wahl- und Abstimmungsgesetz (WAG; BGS 131.1), Stand 1 January 2026_: unrounded constituency-level voter equivalents for the 2026 election (#link("https://bgs.zg.ch/api/de/versions/2967/pdf_file")[Kanton Zug, 2006/2026, § 52d(1)]).
       ],
       [Zürich],
       [
@@ -2014,6 +2028,10 @@ The table below identifies the election data and legal sources used in the canto
       ],
       [
         _Gesetz über die Wahlen und Abstimmungen (Wahlgesetz; LS 161), version of 1 January 2005_: former HB allocation and tie-breaking provisions (#link("https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf")[Kanton Zürich, 1983/2005, §§ 87–88b]).
+        
+        _Gesetz über die politischen Rechte (GPR; LS 161), Stand 1 April 2005_: rounded constituency-level voter equivalents for the 2007, 2011, 2015, and 2019 elections (#link("https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/F783DB9B7749997DC1256FCC0025D1D7/$File/161_1.9.03_48.pdf")[Kanton Zürich, 2003/2005, § 103(1)]).
+
+       _Gesetz über die politischen Rechte (GPR; LS 161), amendment effective 1 October 2021_: unrounded constituency-level voter equivalents for the 2023 election (#link("https://www.zh.ch/de/politik-staat/gesetze-beschluesse/gesetzessammlung/zhlex-ls/erlass-161-2003_09_01-2005_01_01-114.html")[Kanton Zürich, 2003/2021, § 103(1)]).
       ],
     )
   },

@@ -130,7 +130,7 @@ read_sz_2016 <- function(source_dir, file_names) {
     mutate(district_seats = sum(seats_dp)) |>             # The municipal seat total is the historical district magnitude.
     ungroup()
 
-  # Calculate vote shares from unrounded municipality-level voter equivalents.
+  # Calculate vote shares from unrounded municipality-level voter equivalents
   vote_shares <- district_results |>
   mutate(
     voter_number = party_votes / district_seats
@@ -233,7 +233,7 @@ read_sz_2020 <- function(source_dir, file_name) {
 
   total_accounted_votes <- sum(district_checks$accounted_votes) # Count column AO once per municipality.
 
-  # Calculate vote shares from unrounded municipality-level voter equivalents.
+  # Calculate vote shares from unrounded municipality-level voter equivalents
   vote_shares <- district_results |>
   mutate(
     voter_number = party_votes / district_seats

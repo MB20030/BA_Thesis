@@ -188,7 +188,7 @@ read_nw_election <- function(file_name, election_year) {
     transmute(
       parties = party,
       # The thesis defines vote share using the cantonal Wahlerzahl. Dividing
-      # exact voter numbers by their cantonal total avoids using the rounded
+      # reported official voter numbers by their cantonal total avoids using the rounded
       # seat quotients reported in column D as percentages.
       vote_share = 100 * voter_number / sum(voter_number)
     )

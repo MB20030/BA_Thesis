@@ -214,10 +214,12 @@ read_zh_election <- function(
             is.na(hb_tie_note),
             NA_character_,
             paste0("District ", key$district, ": ", hb_tie_note)
-          ),
-          voter_number = floor(
-            party_votes / first(district_seats) + 0.5
-          ) # Comparable voters.
+          ), 
+          voter_number = if (.env$election_year <= 2019L) { # Round voter equivalents through 2019 (Kanton Zürich, 2003/2005, § 103(1))
+            floor(party_votes / first(district_seats) + 0.5)
+          } else { # No rounding for 2023 election (Kanton Zürich, 2003/2021, § 103(1))
+            party_votes / first(district_seats)
+          }
         )
     }) |>
     ungroup()
