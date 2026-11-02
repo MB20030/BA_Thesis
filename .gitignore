@@ -3,7 +3,7 @@
 .RData
 .Ruserdata
 .positai
-sources/Textsources_Text/PhD-Thesis_Luescher_20240828.pdf
+.uv-cache/
 
 # Local R/renv state (keep renv.lock and renv/activate.R tracked)
 renv/library/
@@ -15,3 +15,11 @@ renv/sandbox/
 temp/
 # Quarto's local working directory
 .quarto/
+
+# ignore folders for personal use
+data/preparation_and_training/
+data_handling_slides/
+formalities/
+proposal/
+sources/
+thesis_colloqium/
