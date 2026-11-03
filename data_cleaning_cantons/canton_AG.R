@@ -15,7 +15,7 @@ here::i_am("data_cleaning_cantons/canton_AG.R") # Set the project root
 # Load shared helpers when this file runs on its own
 if (!exists("allocate_hb", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
-  source(here("data_cleaning_cantons", "00_functions.R"))
+  source(here("data_cleaning_cantons", "00_hb_allocator.R"))
 }
 
 # Convert vote and seat counts to numeric, interpreting "..." as zero.

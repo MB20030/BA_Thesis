@@ -22,7 +22,7 @@ here::i_am("data_cleaning_cantons/canton_VS.R")
 
 # Load the common output helper when this file runs on its own.
 if (!exists("finalize_election_data", mode = "function")) {
-  source(here("data_cleaning_cantons", "00_functions.R"))
+  source(here("data_cleaning_cantons", "00_hb_allocator.R"))
 }
 
 # Official district magnitudes:

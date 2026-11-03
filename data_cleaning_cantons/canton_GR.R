@@ -29,7 +29,7 @@ helpers_available <- vapply(
 
 if (!all(helpers_available) ||
     !"parliament_size" %in% names(formals(finalize_election_data))) {
-  source(here("data_cleaning_cantons", "00_functions.R"), local = TRUE)
+  source(here("data_cleaning_cantons", "00_hb_allocator.R"), local = TRUE)
 }
 
 standardize_gr_party <- function(party_label) {

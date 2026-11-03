@@ -12,14 +12,13 @@ library(here)
 # Make all file references independent of the current working directory.
 here::i_am("data_cleaning_cantons/canton_UR.R")
 
-# Load the shared allocation and output-format helpers when this file runs on
-# its own rather than after 00_functions.R.
+# Load the shared allocation and output-format helpers when this file runs on its on
 if (!exists("allocate_hb_with_notes", mode = "function") ||
     !exists("combine_hb_seat_options", mode = "function") ||
     !exists("unique_hb_seat_value", mode = "function") ||
     !exists("finalize_election_data", mode = "function") ||
     !"parliament_size" %in% names(formals(finalize_election_data))) {
-  source(here("data_cleaning_cantons", "00_functions.R"))
+  source(here("data_cleaning_cantons", "00_hb_allocator.R"))
 }
 
 # Load the election data for 2020 and 2024

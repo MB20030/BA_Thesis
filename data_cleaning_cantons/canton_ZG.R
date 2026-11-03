@@ -11,7 +11,7 @@ here::i_am("data_cleaning_cantons/canton_ZG.R") # Set a stable project root.
 # Load shared helpers if either required function is unavailable
 if (!exists("allocate_hb", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
-  source(here("data_cleaning_cantons", "00_functions.R")) # Load shared helpers if needed.
+  source(here("data_cleaning_cantons", "00_hb_allocator.R")) # Load shared helpers if needed.
 }
 
 # Load the Zug election data from the official CSV exports 

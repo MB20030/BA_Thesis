@@ -10,7 +10,7 @@ here::i_am("data_cleaning_cantons/canton_SH.R") # Fix the project root.
 if (!exists("allocate_hb_with_notes", mode = "function") ||
     !exists("combine_hb_seat_options", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
-  source(here("data_cleaning_cantons", "00_functions.R")) # Load shared seat functions.
+  source(here("data_cleaning_cantons", "00_hb_allocator.R")) # Load shared seat functions.
 }
 
 # Historical HB allocation rule:

@@ -13,7 +13,7 @@ here::i_am("data_cleaning_cantons/canton_NW.R")
 # on its own rather than sourced after 00_functions.R.
 if (!exists("allocate_hb", mode = "function") ||
     !exists("finalize_election_data", mode = "function")) {
-  source(here("data_cleaning_cantons", "00_functions.R"))
+  source(here("data_cleaning_cantons", "00_hb_allocator.R"))
 }
 
 # Convert workbook labels to stable ASCII text before matching them. This
