@@ -4,6 +4,7 @@
 .Ruserdata
 .positai
 .uv-cache/
+signature.png
 
 # Local R/renv state (keep renv.lock and renv/activate.R tracked)
 renv/library/

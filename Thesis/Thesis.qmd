@@ -2450,7 +2450,7 @@ knitr::kable(
 ```
 For exploratory question three, the robustness check was done for each election number separately. Zurich or Schaffhausen produces the largest absolute change in six out of nine comparisons. The mean seat-share gains remain positive under every omission. However, the mean change from election three to four switches from negative to positive when Zurich is excluded, while the change from election four to five switches from positive to negative when Aargau is excluded. These later transitions include only five respectively three cantons. This makes their averages particularly sensitive to individual cantons.
 
-### Appendix 4: Declaration of AI-Assistance
+### Appendix 4: Declaration of Aids and Assistance
 
 ```{=typst}
 #[
@@ -2459,12 +2459,13 @@ For exploratory question three, the robustness check was done for each election 
   inset: 5pt,
 )
 ```
-| Tool | Usage | Affected sections |
+| Ressource | Usage | Affected sections |
 |---|---|---|
-|ChatGPT/Codex (mainly 6.1 Sol) | Used for structuring, advising and coding. | Throughout the thesis and Code |
-| DeepL Free | Translating single thoughts and words from German to English. | Throughout the Thesis. |
-| Claude Free | Used to challenge statements from ChatGPT/Codex | Throughout the Thesis. |
-| Github CoPilot Free | Used to help with inline comments |Throughout the Code. |
+|ChatGPT/Codex (mainly 6.1 Sol) | Used for structuring, advising and coding. | Throughout the thesis and code |
+| DeepL Free | Translating single thoughts and words from German to English. | Throughout the thesis |
+| Claude Free | Used to challenge statements from ChatGPT/Codex | Throughout the thesis |
+| Github CoPilot Free | Used to help with inline comments |Throughout the code |
+| Private proofreading: Martin Beyn, Clara Burmeister, Eric Oehler | Corrections and suggestions concerning language, clarity and readability. | Throughout the thesis
 
 : AI-Tools used in the Thesis. {#tbl-ai-tools tbl-colwidths="[22,42,36]"}
 
@@ -2478,3 +2479,55 @@ Generally, I see AI as a useful tool. It helped me throughout the process of wri
 One point of criticism I have when using an AI is that when one challenges a statement of it, the AI often immediately agrees with the user's opinion. For me this phenomenon weakens the trust into the statements of an LLM and makes it harder to reason whether my proposal or the AI's is closer to what's needed. Moreover, I perceive that AI models when asked to propose a rewording of a paragraph or similar, tend to lenghten the text quite massively. In my perception,the longer text is only providing a limited amount of further value, especially since i saw a tendency towards duplication. The latter phenomenon may come from that the AI possibly only reads the proposed part and has no further knowledge about other relevant parts of the text. In this case of duplicates it's the users (my) obligation to prompt better. Not only when asked to propose improvements to the text, did I perceive that it was often longer than needed, but also when asking the AI to help me find weaknesses in the code. In the case of coding, I felt that the AI sometimes wanted to implement fail-safes which when looking at the scope of my thesis, made no or only little sense. This, again, might be connected to the AI of analyzing only a limited context of the thesis. 
 
 To sum up, I see AI as a very helpful tool for the thesis, especially when it comes to outlining both the thesis structure and the code. For me, the main weakness is the as perceived limited reasoning about whether the addition of text/code adds real value or not. 
+
+```{=typst}
+#pagebreak()
+```
+
+### Appendix 5: Declaration of Authorship
+
+```{=typst}
+#[
+#set par(justify: false, leading: 0.6em)
+#set list(indent: 0pt, body-indent: 0.7em, spacing: 4pt)
+
+“I hereby declare,
+
+- that I have written this thesis independently,
+- that I have written the thesis using only the aids specified in the index;
+- that all parts of the thesis produced with the help of aids have been declared;
+- that I have handled both input and output responsibly when using AI. I confirm that I have therefore only read in public data or data released with consent and that I have checked, declared and comprehensibly referenced all results and/or other forms of AI assistance in the required form and that I am aware that I am responsible if incorrect content, violations of data protection law, copyright law or scientific misconduct (e.g. plagiarism) have also occurred unintentionally;
+- that I have mentioned all sources used and cited them correctly according to established academic citation rules;
+- that I have acquired all immaterial rights to any materials I may have used, such as images or graphics, or that these materials were created by me;
+- that the topic, the thesis or parts of it have not already been the object of any work or examination of another course, unless this has been expressly agreed with the faculty member in advance and is stated as such in the thesis;
+- that I am aware of the legal provisions regarding the publication and dissemination of parts or the entire thesis and that I comply with them accordingly;
+- that I am aware that my thesis can be electronically checked for plagiarism and for third-party authorship of human or technical origin and that I hereby grant the University of St.Gallen the copyright according to the Examination Regulations as far as it is necessary for the administrative actions;
+- that I am aware that the University will prosecute a violation of this Declaration of Authorship and that disciplinary as well as criminal consequences may result, which may lead to expulsion from the University or to the withdrawal of my title.”
+
+By submitting this thesis, I confirm through my conclusive action that I am submitting the Declaration of Authorship, that I have read and understood it, and that it is true.
+
+#v(8mm)
+#let declaration-place = "Tägerwilen"
+#let declaration-date = datetime.today().display("[day].[month].[year]")
+#block(breakable: false)[
+#grid(
+  columns: (1fr, 1fr),
+  column-gutter: 18mm,
+  [
+    #block(height: 14mm)[
+      #align(bottom)[#declaration-place, #declaration-date]
+    ]
+    #line(length: 100%, stroke: 0.5pt)
+    Place and date
+  ],
+  [
+    #block(height: 14mm)[
+      #image("signature.png", width: 45mm, height: 14mm, fit: "contain", alt: "Signature of Jan Moritz Beyn")
+    ]
+    #line(length: 100%, stroke: 0.5pt)
+    Jan Moritz Beyn
+  ],
+)
+]
+]
+```
