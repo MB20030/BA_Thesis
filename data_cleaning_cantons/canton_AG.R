@@ -1,7 +1,7 @@
 # Aargau-specific data cleaning for the 2009, 2012, 2016, 2020, and 2024 elections.
-# Returns one row per election and party, comparing district-level HB allocations
-# with the observed official Double-Pukelsheim seats.
-# Shared helpers: 00_functions.R (allocate_hb, finalize_election_data).
+# Processes the elections and returns the standardized cleaned table.
+# Using shared helpers: 00_hb_allocator.R (allocate_hb, finalize_election_data).
+
 # The source files differ, therefore two reference readers are needed:
 # 2009/2012/2016 references contain cantonal party seats while district magnitudes
 # are entered in the table below. The 2020/2024 references contain both.
