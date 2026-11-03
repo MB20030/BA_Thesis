@@ -6,6 +6,10 @@
 .uv-cache/
 signature.png
 
+# Keep only Thesis.pdf tracked in Thesis folder
+/Thesis/*
+!/Thesis/Thesis.pdf
+
 # Local R/renv state (keep renv.lock and renv/activate.R tracked)
 renv/library/
 renv/staging/
