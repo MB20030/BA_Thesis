@@ -8,7 +8,6 @@ plus SELF -REFLECTION on ai usage
 
 19. external validity, --> what learning can cantons take --> discussion -->done --> ask aurelien , if that's enough?
 
-28. write ai usage part and self-reflection
 
 29. make sure every canton cleaning script starts with the same structure --> continue
 
