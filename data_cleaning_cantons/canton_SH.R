@@ -375,6 +375,3 @@ process_canton_SH <- function() {
     read_sh_election
   )
 }
-
-options(width = 200) # Temporary check: fit all columns in the terminal.
-print(process_canton_SH(), n = Inf, width = 200) # Review every party row.

@@ -178,7 +178,7 @@ finalize_ag_election <- function(districts, parties, official_results, election_
     ) |>
     mutate(
       parties = str_to_upper(parties),
-      # Aggregate the district-rounded voter equivalents into cantonal shares
+      # Aggregate the applicable district-level voter equivalents into cantonal shares
       vote_share = 100 * voter_number / sum(voter_number)
     ) |>
     select(parties, vote_share, seats_hb)

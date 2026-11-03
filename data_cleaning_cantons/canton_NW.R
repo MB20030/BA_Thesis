@@ -7,7 +7,7 @@ library(tidyverse)
 library(here)
 
 # Make all file references independent of the current working directory.
-here::i_am("data_cleaning_cantons/canton_NW.r")
+here::i_am("data_cleaning_cantons/canton_NW.R")
 
 # Load the shared allocation and output-format helpers when this file is run
 # on its own rather than sourced after 00_functions.R.
@@ -131,7 +131,7 @@ read_nw_election <- function(file_name, election_year) {
   )
 
   # -------------------------------------------------------------------------
-  # Oberzuteilung: exact voter numbers and official cantonal seat totals
+  # Oberzuteilung: reported official numbers and official cantonal seat totals
   # -------------------------------------------------------------------------
   upper_header_row <- find_nw_row(upper_raw, "LISTE")
   upper_header <- normalize_nw_label(as.character(unlist(
@@ -299,7 +299,3 @@ process_canton_NW <- function() {
     nw_26_final
   )
 }
-
-# Temporary check - delete in the end.
-options(width = 200) 
-print(process_canton_NW(), n = 200)

@@ -343,7 +343,3 @@ process_canton_UR <- function() {
     read_ur_election
   )
 }
-
-# Temporary check - delete in the end.
-options(width = 200)
-print(process_canton_UR(), n = 200)

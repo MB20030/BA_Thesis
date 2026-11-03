@@ -578,7 +578,3 @@ process_canton_VS <- function() {
     process_vs_election(2025)
   )
 }
-
-# temporary check - delete in the end.
-options(width = 200) 
-print(process_canton_VS(), n = 200)

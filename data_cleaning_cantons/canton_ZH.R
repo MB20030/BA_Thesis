@@ -11,15 +11,26 @@ library(here)
 
 here::i_am("data_cleaning_cantons/canton_ZH.R") # Set a stable project root.
 
-# Load the shared allocation and output helpers when this script runs alone.
-if (!exists("allocate_hb", mode = "function") ||
-    !exists("allocate_hb_with_notes", mode = "function") ||
-    !exists("finalize_election_data", mode = "function")) {
-  source(here("data_cleaning_cantons", "00_functions.R"))
-}
+# Load shared helpers when they are not already available
+required_helpers <- c(
+  "validate_hb_inputs",
+  "hb_allocation_outcomes",
+  "allocate_hb",
+  "allocate_hb_with_notes",
+  "combine_hb_seat_options",
+  "unique_hb_seat_value",
+  "finalize_election_data"
+)
 
-if (!exists('combine_hb_seat_options', mode = 'function')) {
-  source(here('data_cleaning_cantons', '00_functions.R'))
+helpers_available <- vapply(
+  required_helpers,
+  function(name) exists(name, mode = "function", inherits = TRUE),
+  logical(1)
+)
+
+if (!all(helpers_available) ||
+    !"parliament_size" %in% names(formals(finalize_election_data))) {
+  source(here("data_cleaning_cantons", "00_functions.R"), local = TRUE)
 }
 
 # Loading the raw  election files for 2007, 2011, 2015, 2019, and 2023.
@@ -286,7 +297,3 @@ process_canton_ZH <- function() {
     }
   )
 }
-
-# Temporary check - delete in the end.
-options(width = 200)
-print(process_canton_ZH(), n = Inf, width = 200)

@@ -1,7 +1,6 @@
-# Shared functions for all cantons
 
 # ==============================================================================
-# Hagenbach-Bischoff Allocation Algorithm
+# Shared function for all cantons: Hagenbach-Bischoff Allocation Algorithm
 # ==============================================================================
 # Applies the Hagenbach-Bischoff method to allocate seats based on party votes.
 # General HB allocator with configurable quota and tie-breaking rules.
@@ -133,6 +132,15 @@ hb_allocation_outcomes <- function(
   # Return the final allocation matrix
   storage.mode(states) <- "integer"
   colnames(states) <- party_names
+
+    # Check every complete allocation, including ties
+  stopifnot(
+    all(is.finite(states)),
+    all(states >= 0L),
+    all(states == floor(states)),
+    all(rowSums(states) == n_seats)
+  )
+
   states
 }
 # Define the user-facing allocation wrapper
@@ -347,7 +355,7 @@ finalize_election_data <- function(
     ) |>
     select(
       election_id, parliament_size, seats_allocated_dp, parties, vote_share,
-      small_party, seats_hb, seats_dp
+      small_party, seats_hb, seats_dp, hb_tie_note
     ) |>
     arrange(desc(vote_share))
   
