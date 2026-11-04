@@ -1,10 +1,10 @@
 # Uri-specific data cleaning for the 2020 and 2024 Landrat elections.
+# Processes the elections and returns the standardized cleaned table.
+# Using shared helpers: 00_hb_allocator.R (allocate_hb, finalize_election_data).
+
 # Only the 4 municipalities with proportional representation are included in the analysis.
 # This because they are the ones showing the effects of the double Pukelsheim system.
-# The 4 municipalities elect 37 of the Landrat's 64 members.
 
-
-# Load the necessary packages
 library(tidyverse)
 library(readxl)
 library(here)
