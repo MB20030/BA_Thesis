@@ -1,6 +1,6 @@
 # Zurich-specific data cleaning for the 2007, 2011, 2015, 2019, and 2023
-# cantonal elections. Each election has separate party- and candidate-results
-# workbooks.
+# Processes the elections and returnes the standardized cleaned table.
+# Using shared helpers: 00_hb_allocator.R (allocate_hb_with_notes, finalize_election_data).
 
 # An initially obtained version of the 2011 Zurich party-results dataset contained incorrect SP totals.
 # After the discrepancy was reported to the Statistical Office of the Canton of Zurich,
@@ -9,7 +9,7 @@
 library(tidyverse)
 library(here)
 
-here::i_am("data_cleaning_cantons/canton_ZH.R") # Set a stable project root.
+here::i_am("data_cleaning_cantons/canton_ZH.R") 
 
 # Load shared helpers when they are not already available
 required_helpers <- c(
@@ -33,10 +33,10 @@ if (!all(helpers_available) ||
   source(here("data_cleaning_cantons", "00_hb_allocator.R"), local = TRUE)
 }
 
-# Loading the raw  election files for 2007, 2011, 2015, 2019, and 2023.
+# Loading the raw  election files for 2007, 2011, 2015, 2019, and 2023
 # (Amt für Statistik und Daten Kanton Zürich, 2026)
-zh_source_dir <- here("data", "datasets", "zurich") # Raw Zurich files.
-zh_source_files <- tribble( # Match each year to its two source workbooks.
+zh_source_dir <- here("data", "datasets", "zurich") 
+zh_source_files <- tribble( 
   ~year, ~party_file, ~candidate_file,
   2007L, "ZH_07_parteiresultate.xlsx", "ZH_07_kandidierendenresultate.xlsx",
   2011L, "ZH_11_parteiresultate.xlsx", "ZH_11_kandidierendenresultate.xlsx",
@@ -46,18 +46,18 @@ zh_source_files <- tribble( # Match each year to its two source workbooks.
 )
 
 as_zh_number <- function(value) {
-  suppressWarnings(as.numeric(as.character(value))) # Convert imported text.
+  suppressWarnings(as.numeric(as.character(value))) # Invalid text becomes NA; checked below
 }
 
 normalize_zh_label <- function(label) {
   label |>
-    as.character() |> # Treat every label as text.
-    str_replace_all("[\r\n]+", " ") |> # Remove line breaks.
-    str_squish() |> # Remove repeated spaces.
-    str_to_upper() |> # Ignore capitalization differences.
-    stringi::stri_trans_general("Latin-ASCII") |> # Remove accents and umlauts.
-    str_replace_all("[^A-Z0-9]+", " ") |> # Standardize punctuation.
-    str_squish() # Return one clean label.
+    as.character() |> 
+    str_replace_all("[\r\n]+", " ") |> 
+    str_squish() |> 
+    str_to_upper() |> 
+    stringi::stri_trans_general("Latin-ASCII") |> # Remove accents and umlauts
+    str_replace_all("[^A-Z0-9]+", " ") |> 
+    str_squish() 
 }
 
 standardize_zh_party <- function(party_label) {
@@ -65,18 +65,17 @@ standardize_zh_party <- function(party_label) {
 
   # The party-results files aggregate minor lists as "Uebrige". The candidate
   # files identify them as: 2007 Hanf Ueli; 2011 Piraten and ERP; 2015
-  # Piraten, IP ZH, and JUSO; 2019 die Guten and Helvida; 2023 AuFL, SaPaPo,
-  # and Stopp. (Amt für Statistik und Daten Kanton Zürich, 2026) None of these minor 
-  # list have won a seat under DP or would have won one under HB, therefore this doesn't influence our results.
+  # Piraten, IP ZH, and JUSO; 2019 die Guten and Helvida; 2023 AuFL, SaPaPo, and Stopp. (Amt für Statistik und Daten Kanton Zürich, 2026) 
+  # None of these minor list have won a seat under DP or would have won one under HB.
   case_when(
-    normalized %in% c("GP", "GRUNE") ~ "GRUENE", # Match both Green labels.
-    normalized %in% c("MITTE", "DIE MITTE") ~ "DIEMITTE", # Match Mitte labels.
-    normalized %in% c("FGA AL PDA", "AL", "PDA") ~ "FGA_AL_PDA", # Join the alliance.
+    normalized %in% c("GP", "GRUNE") ~ "GRUENE", 
+    normalized %in% c("MITTE", "DIE MITTE") ~ "DIEMITTE", 
+    normalized %in% c("FGA AL PDA", "AL", "PDA") ~ "FGA_AL_PDA", 
     normalized %in% c(
       "UBRIGE", "HANF UELI", "PIRATEN", "ERP", "IP ZH", "JUSO",
       "DIE GUTEN", "HELVIDA", "AUFL", "SAPAPO", "STOPP"
     ) ~ "UEBRIGE", # Match the minor-list codes to the source's aggregated "Uebrige" vote row.
-    TRUE ~ str_replace_all(normalized, " ", "_") # Keep other party codes.
+    TRUE ~ str_replace_all(normalized, " ", "_") # Keep other party codes
   )
 }
 
@@ -86,14 +85,14 @@ read_zh_election <- function(
   candidate_file,
   election_year
 ) {
-  party_path <- file.path(source_dir, party_file) # Complete party-file path.
-  candidate_path <- file.path(source_dir, candidate_file) # Candidate-file path.
-  stopifnot(file.exists(party_path), file.exists(candidate_path)) # Require both files.
+  party_path <- file.path(source_dir, party_file) 
+  candidate_path <- file.path(source_dir, candidate_file) 
+  stopifnot(file.exists(party_path), file.exists(candidate_path)) 
 
-  party_raw <- readxl::read_excel(party_path, col_types = "text") # Read party votes.
-  candidate_raw <- readxl::read_excel(candidate_path, col_types = "text") # Read candidates.
+  party_raw <- readxl::read_excel(party_path, col_types = "text") 
+  candidate_raw <- readxl::read_excel(candidate_path, col_types = "text") 
 
-  # Guard the fixed source columns supplied by the canton: B/H/K and A/C/L.
+  # Guard the fixed source columns supplied by the canton
   stopifnot(
     identical(
       names(party_raw)[c(2, 8, 11)],
@@ -107,11 +106,11 @@ read_zh_election <- function(
 
   party_observations <- party_raw |>
     transmute(
-      district = str_squish(Geschaeft),                      # Column B.
+      district = str_squish(Geschaeft),                    
       unit_id = str_squish(Einheit_Code),
       unit_vote_total = as_zh_number(Einheit_StimmenTotal),
-      parties = standardize_zh_party(Partei),                # Column H.
-      party_votes = as_zh_number(Partei_ParteistimmenTotal)  # Column K.
+      parties = standardize_zh_party(Partei),                
+      party_votes = as_zh_number(Partei_ParteistimmenTotal)  
     )
 
   stopifnot(
@@ -123,7 +122,7 @@ read_zh_election <- function(
   )
 
   unit_checks <- party_observations |>
-    group_by(district, unit_id) |> # Check each municipality separately.
+    group_by(district, unit_id) |> # Check each reporting unit separately
     summarise(
       total_values = n_distinct(unit_vote_total),
       unit_vote_total = first(unit_vote_total),
@@ -135,19 +134,19 @@ read_zh_election <- function(
     all(unit_checks$unit_vote_total == unit_checks$party_votes)
   )
 
-
   district_results <- party_observations |>
-    group_by(district, parties) |> # Combine municipalities by district and party.
-    summarise(party_votes = sum(party_votes), .groups = "drop") # District totals.
+    group_by(district, parties) |> # Sum reporting units within each electoral district
+    summarise(party_votes = sum(party_votes), .groups = "drop") 
 
-  elected_code <- as_zh_number(candidate_raw$Kand_Gewaehlt) # Column L: 1 = elected.
+  # Reconstruct the official seat results from the candidate records
+  elected_code <- as_zh_number(candidate_raw$Kand_Gewaehlt)
   candidate_results <- candidate_raw |>
     transmute(
-      district = str_squish(Geschaeft), # Column A: voting district.
-      candidate_id = str_squish(Liste_KandID), # Unique within a district.
-      parties = standardize_zh_party(Liste_Code), # Column C: party code.
+      district = str_squish(Geschaeft), 
+      candidate_id = str_squish(Liste_KandID),
+      parties = standardize_zh_party(Liste_Code),
       elected_code,
-      elected = elected_code == 1 # Convert the binary code to logical.
+      elected = elected_code == 1 
     )
 
   stopifnot(
@@ -158,7 +157,7 @@ read_zh_election <- function(
   )
 
   # Every mapped candidate list must correspond to one party group in the
-  # party-results workbook, including FGA/AL/PdA and the miscellaneous lists.
+  # party-results workbook.
   party_coverage <- district_results |>
     distinct(district, parties)
   candidate_coverage <- candidate_results |>
@@ -175,22 +174,23 @@ read_zh_election <- function(
   # Counting elected candidates in each district reconstructs its magnitude;
   # counting them by party gives the official DP result.
   district_seats <- candidate_results |>
-    group_by(district) |> # One elected candidate equals one district seat.
+    group_by(district) |> 
     summarise(district_seats = sum(elected), .groups = "drop")
 
   elected_results <- candidate_results |>
-    filter(elected) |> # Keep elected candidates only.
-    count(parties, name = "seats_dp") # Official seats by party.
+    filter(elected) |>
+    count(parties, name = "seats_dp") 
 
   official_results <- district_results |>
-    distinct(parties) |> # Keep every party, including those with zero seats.
-    left_join(elected_results, by = "parties") |> # Add official DP seats.
+    distinct(parties) |> # Keep every party, including zero seat parties
+    left_join(elected_results, by = "parties") |> # Add official DP seats
     transmute(
       canton = "ZH",
       year = as.integer(election_year),
       party = parties,
       seats_dp = replace_na(as.integer(seats_dp), 0L)
     )
+  
   # Implementing the HB Allocation method used in Zurich before the reform.
   # (Kanton Zürich, 1983/2005, §§ 87–88b)
 
@@ -209,8 +209,8 @@ read_zh_election <- function(
   }
 
   hb_by_district <- district_results |>
-    left_join(district_seats, by = "district") |> # Add each district magnitude.
-    group_by(district) |> # Allocate seats independently in each district.
+    left_join(district_seats, by = "district") |> # Add each district magnitude
+    group_by(district) |> # Allocate seats independently in each district
     group_modify(function(data, key) {
       allocation <- allocate_hb_with_notes(
         data$party_votes,
@@ -227,7 +227,7 @@ read_zh_election <- function(
             paste0("District ", key$district, ": ", hb_tie_note)
           ), 
           voter_number = if (.env$election_year <= 2019L) { # Round voter equivalents through 2019 (Kanton Zürich, 2003/2005, § 103(1))
-            floor(party_votes / first(district_seats) + 0.5)
+            floor(party_votes / first(district_seats) + 0.5)  # Round exact halves upward
           } else { # No rounding for 2023 election (Kanton Zürich, 2003/2021, § 103(1))
             party_votes / first(district_seats)
           }
@@ -236,10 +236,10 @@ read_zh_election <- function(
     ungroup()
 
   hb_results <- hb_by_district |>
-    group_by(parties) |> # Combine district results at canton level.
+    group_by(parties) |> # Combine district results at canton level
     summarise(
-      voter_number = sum(voter_number),
-      seats_hb_options = combine_hb_seat_options(seats_hb_options),
+      voter_number = sum(voter_number),# Voter equivalents
+      seats_hb_options = combine_hb_seat_options(seats_hb_options),  # Sum district alternatives, e.g. 1 + 2/3 -> 3/4.
       seats_hb = unique_hb_seat_value(seats_hb_options),
       hb_tie_note = {
         notes <- unique(na.omit(hb_tie_note))
@@ -247,10 +247,10 @@ read_zh_election <- function(
       },
       .groups = "drop"
     ) |>
-    mutate(vote_share = 100 * voter_number / sum(voter_number)) |> # Percent share.
+    mutate(vote_share = 100 * voter_number / sum(voter_number)) |> 
     select(parties, vote_share, seats_hb, seats_hb_options, hb_tie_note)
 
-  final <- finalize_election_data( # Apply the common canton output format.
+  final <- finalize_election_data( # Apply the common canton output format
     hb_results,
     official_results,
     "ZH",
@@ -266,6 +266,7 @@ read_zh_election <- function(
       .groups = "drop"
     )
 
+  # Check if cantonal totals and whether Uebrige remain seatless
   stopifnot(
     nrow(district_checks) == 18L,
     !anyNA(district_checks$district_seats),
@@ -274,6 +275,8 @@ read_zh_election <- function(
       district_checks$has_hb_tie |
         district_checks$seats_hb == district_checks$district_seats
     ),
+    all(final$seats_dp[final$parties == "UEBRIGE"] == 0L),
+    all(final$seats_hb[final$parties == "UEBRIGE"] == "0"),
     sum(district_checks$district_seats) == 180L,
     nrow(final) == n_distinct(district_results$parties),
     any(grepl('/', final$seats_hb, fixed = TRUE)) ||
@@ -286,7 +289,7 @@ read_zh_election <- function(
 
 process_canton_ZH <- function() {
   purrr::pmap_dfr(
-    zh_source_files, # Process all registered elections and stack the results.
+    zh_source_files, # Process all registered elections and stack the results
     function(year, party_file, candidate_file) {
       read_zh_election(
         zh_source_dir,
