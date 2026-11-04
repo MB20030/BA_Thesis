@@ -1,40 +1,33 @@
-# Valais-specific data cleaning and processing
-# Processes the 2017, 2021, and 2025 elections and returns the standardized table
+# Valais-specific data cleaning and processing for the 2017, 2021 and 2025 elections.
+# Processes the elections and returns the standardized cleaned table.
+# Uses the shared finalizer in 00_hb_allocator.R (finalize_election_data).
 
-# Disclaimer for the Canton of Valais:
 # Valais is a special case because upper-tier apportionment is conducted separately
 # within six electoral regions rather than canton-wide (Lüscher, 2024, p. 57).
 # Under the rules applicable to each election, seats in this allocation are assigned
 # to regional list groups (the temporary 2016 decree for 2017; Kanton Wallis, 2004b,
 # art. 138a, version at 1 July 2018, for 2021 and 2025).
-# This script preserves those regional units while allocating seats, but subsequently
-# standardizes historically and linguistically related list labels into analytical
-# party families and aggregates them for the final canton-year table. The resulting
-# rows are therefore analytical party-family totals, not canton-wide legal allocation
-# units. 
+# List labels are standardized before allocation, while sub-districts and electoral
+# districts remain separate. Allocated seats are then aggregated into canton-year
+# analytical party-family totals.
 
-# Load only the packages used directly in this script.
 library(tidyverse)
 library(here)
 
-# Make all file references independent of the current working directory.
 here::i_am("data_cleaning_cantons/canton_VS.R")
 
-# Load the common output helper when this file runs on its own.
+# Load the common output helper when this file runs on its own
 if (!exists("finalize_election_data", mode = "function")) {
   source(here("data_cleaning_cantons", "00_hb_allocator.R"))
 }
 
-# Official district magnitudes:
-# District Magnitudes for 2017: (Kanton Wallis, 2016, p. 2)
-# District Magnitudes for 2021: (Kanton Wallis, 2020, p. 2)
-# District Magnitudes for 2025: (Kanton Wallis, 2024, p. 1)
-
-
+# Sub-district magnitudes for 2017: (Kanton Wallis, 2016, p. 2)
+# Sub-district magnitudes for 2021: (Kanton Wallis, 2020, p. 2)
+# Sub-district magnitudes for 2025: (Kanton Wallis, 2024, p. 1)
 vs_district_config <- function(election_year) {
   election_year <- as.integer(election_year)
 
-  # creating the list of district seats for each election year
+  # Sub-district seat totals for each election year.
   district_seats <- switch(
     as.character(election_year),
     "2017" = c(
@@ -58,7 +51,9 @@ vs_district_config <- function(election_year) {
     stop("Unsupported Valais election year: ", election_year)
   )
 
-  district_region <- c(
+  # In this script, `district` denotes one of 14 sub-districts (Unterwahlkreise);
+  # `region` denotes one of six electoral districts (Wahlkreise) for DP upper allocation.
+  district_region <- c( 
     goms = "brig", oestlich_raron = "brig", brig = "brig",
     visp = "visp", westlich_raron = "visp", leuk = "visp",
     sierre = "sierre",
@@ -74,28 +69,43 @@ vs_district_config <- function(election_year) {
     region = unname(district_region[district_names]),
     district_seats = unname(district_seats),
     file_path = here(
-      "data", "datasets", "valais", paste0("VS_", election_year %% 100),
+      "data", "datasets", "valais", paste0("VS_", election_year %% 100), # 
       paste0("VS_", election_year %% 100, "_", district_names, ".xlsx")
     )
   )
 }
 
 as_vs_number <- function(value) {
-  value <- as.character(value)
-  parsed <- str_replace_all(value, "[^0-9.-]", "")
-  suppressWarnings(as.numeric(na_if(parsed, "")))
+  if (is.numeric(value)) return(as.numeric(value))
+
+  value <- str_trim(as.character(value))
+  # Accept plain integers or consistent three-digit grouping with apostrophes,
+  # commas or spaces. Unexpected text and decimal strings remain missing.
+  valid <- !is.na(value) & (
+    str_detect(value, "^[0-9]+$") |
+      str_detect(
+        value,
+        "^[0-9]{1,3}(['\u2019, \u00A0\u202F])[0-9]{3}(?:\\1[0-9]{3})*$"
+      )
+  )
+  parsed <- rep(NA_real_, length(value))
+  parsed[valid] <- as.numeric(
+    str_remove_all(value[valid], "['\u2019, \u00A0\u202F]")
+  )
+  parsed
 }
 
 standardize_vs_party <- function(party_label, election_year) {
   normalized <- party_label |>
     iconv(from = "UTF-8", to = "ASCII//TRANSLIT") |>
     str_to_upper() |>
-    str_replace_all("[^A-Z0-9]+", " ") |>
+    str_replace_all("[^A-Z0-9]+", " ") |> 
     str_squish()
 
-  # Use one language-neutral key for the same party across Upper and Lower
-  # Valais. Joint electoral lists remain separate because their list votes
+  # Use one key for the same party across Upper and Lower
+  # Valais. Joint electoral lists remain separate since their list votes
   # cannot be divided reliably among the participating parties.
+  # First match wins: identify joint lists and Green Liberals before broader patterns.
   party <- case_when(
     str_detect(normalized, "RASSEMBLEMENT CITOYEN") ~ "RCV",
     str_detect(normalized, "CSPO GLP") ~ "CSP_GLP",
@@ -144,22 +154,30 @@ read_vs_district <- function(
     .name_repair = ~ paste0("x", seq_along(.x))
   )
 
-  # Every workbook contains municipal results and a district-total column at
-  # the far right.
+  # Every workbook contains municipal results and a sub-district-total column 
   party_labels <- as.character(raw[[1]])
   district_total <- raw[[ncol(raw)]]
   party_rows <- which(
     str_detect(party_labels, "^\\d+[.]?\\s+") &
-      !str_detect(party_labels, "^\\d+[.]\\d+") &
-      !is.na(as_vs_number(district_total))
+      !str_detect(party_labels, "^\\d+[.]\\d+")
   )
+  # The overview precedes repeated list headings in the candidate-detail section
+  list_numbers <- str_extract(party_labels[party_rows], "^\\d+")
+  party_rows <- party_rows[!duplicated(list_numbers)]
+  party_votes <- as_vs_number(district_total[party_rows])
+  
+  if (
+    length(party_rows) == 0L ||
+    any(!is.finite(party_votes)) ||
+    any(party_votes < 0) ||
+    any(party_votes != floor(party_votes))
+  ) {
+    stop("Missing or invalid Valais list totals in: ", file_path)
+  }
 
   district_results <- tibble(
-    party_label = str_remove(
-      party_labels[party_rows],
-      "^\\d+[.]?\\s+"
-    ),
-    party_votes = as_vs_number(district_total[party_rows])
+    party_label = str_remove(party_labels[party_rows], "^\\d+[.]?\\s+"),
+    party_votes = party_votes
   )
 
   district_results |>
@@ -176,8 +194,8 @@ read_vs_district <- function(
     )
 }
 
-# The HB counterfactual follows the district-level allocation method used in
-# Valais before the Double-Pukelsheim reform. Lists below 8% in a district are
+# The HB counterfactual follows the allocation method used in the 14 sub-districts
+# before the Double-Pukelsheim reform. Lists below 8% in a sub-district are
 # excluded, but their votes remain in the Hagenbach-Bischoff distribution
 # number (Kanton Wallis, 2004a, arts. 154-156).
 # Resolve an exact highest-average tie according to former kGPR art. 156:
@@ -206,7 +224,7 @@ resolve_vs_hb_tie <- function(
       "provide `max_candidate_votes` to apply former kGPR art. 156(1)(e)."
     )
   }
-  if (
+  if ( 
     !is.numeric(max_candidate_votes) ||
       length(max_candidate_votes) != length(votes) ||
       any(!is.finite(max_candidate_votes)) ||
@@ -234,10 +252,11 @@ resolve_vs_hb_tie <- function(
   as.integer(winner)
 }
 
+# Calculate the HB counterfactual for one sub-district
 allocate_vs_hb <- function(
     votes,
     n_seats,
-    quorum = 0.08,
+    quorum = 0.08, # 8% threshold in each sub-district for the HB counterfactual
     max_candidate_votes = NULL,
     draw_lots = NULL
 ) {
@@ -272,6 +291,7 @@ allocate_vs_hb <- function(
     stop("No list reached the Valais district quorum.")
   }
 
+  # Include votes from lists below the quorum in the distribution number
   distribution_number <- floor(sum(votes) / (n_seats + 1L)) + 1
   seats <- if_else(
     eligible,
@@ -282,6 +302,7 @@ allocate_vs_hb <- function(
   while (sum(seats) < n_seats) {
     quotients <- if_else(eligible, votes / (seats + 1L), -Inf)
     provisional_winner <- which.max(quotients)
+    # Detect equal highest quotients by cross-multiplication rather than division
     tied <- which(
       eligible &
         votes * (seats[provisional_winner] + 1L) ==
@@ -309,24 +330,47 @@ allocate_vs_hb <- function(
 # weight/(seats + 0.5) quotient is the equivalent sequential form of that
 # divisor method and avoids choosing a divisor by hand.
 allocate_vs_dp_upper <- function(weighted_voters, n_seats) {
-  stopifnot(
-    is.numeric(weighted_voters), all(is.finite(weighted_voters)),
-    all(weighted_voters >= 0), length(n_seats) == 1L, n_seats >= 0
-  )
+  if (
+    !is.numeric(weighted_voters) || any(!is.finite(weighted_voters)) ||
+      any(weighted_voters < 0)
+  ) {
+    stop("`weighted_voters` must contain non-negative finite numbers.")
+  }
+  if (
+    length(n_seats) != 1L || !is.numeric(n_seats) || !is.finite(n_seats) ||
+      n_seats < 0 || n_seats != floor(n_seats)
+  ) {
+    stop("`n_seats` must be one non-negative integer.")
+  }
 
   seats <- integer(length(weighted_voters))
+  if (n_seats == 0L) return(seats)
+  if (length(weighted_voters) == 0L || !any(weighted_voters > 0)) {
+    stop("At least one list group must have a positive weighted voter total.")
+  }
+
   for (seat in seq_len(n_seats)) {
     quotients <- weighted_voters / (seats + 0.5)
     winner <- which.max(quotients)
+    # Detect exact ties by cross-multiplication; input order must not decide a seat.
+    tied <- which(
+      weighted_voters * (2 * seats[winner] + 1) ==
+        weighted_voters[winner] * (2 * seats + 1)
+    )
+    if (length(tied) > 1L) {
+      stop(
+        "Exact DP upper-allocation tie for seat ", seat,
+        " between list-group indices ", paste(tied, collapse = ", "),
+        "; explicit tie resolution is required."
+      )
+    }
     seats[winner] <- seats[winner] + 1L
   }
 
   seats
 }
 
-# Published deputy-seat totals used to validate the reconstructed upper
-# allocation. Sources: the Grand Council validation-commission reports for the
-# constitutive sessions of April 2021 and April 2025.
+# Published deputy-seat totals used to validate the reconstructed upper allocation
 vs_official_dp_totals <- function(election_year) {
   switch(
     as.character(election_year),
@@ -355,8 +399,8 @@ vs_official_dp_totals <- function(election_year) {
   )
 }
 
-# Official 2017 district list seats, aggregated the 14 districts
-# to the 6 electoral regions (Staat Wallis, 2017).
+# Official 2017 list seats, aggregated from the 14 sub-districts
+# to the six electoral districts (Staat Wallis, 2017).
 
 vs_official_2017_region_seats <- function() {
   tribble(
@@ -427,11 +471,17 @@ process_vs_election <- function(election_year) {
     }
   )
 
-  # Recreate the pre-reform allocation separately in all 14 districts.
+  # Ensure standardized party keys identify one list per sub-district
+  if (anyDuplicated(district_results[c("district", "parties")])) {
+    stop("Multiple Valais lists map to the same party within a sub-district.")
+  }
+
+  # Recreate the pre-reform allocation separately in all 14 sub-districts
   hb_by_district <- district_results |>
     group_by(district) |>
     mutate(
       seats_hb = allocate_vs_hb(party_votes, first(district_seats)),
+      # Round each sub-district list's voter equivalents half upward before aggregation
       voter_number = floor(party_votes / first(district_seats) + 0.5)
     ) |>
     ungroup()
@@ -446,10 +496,9 @@ process_vs_election <- function(election_year) {
     mutate(vote_share = 100 * voter_number / sum(voter_number)) |>
     select(parties, vote_share, seats_hb)
 
-  # A list group enters a region's upper allocation when it reaches 8% in at
-  # least one of that region's districts (Kanton Wallis, 2004b, art. 154;
-  # version at 1 July 2018). Only eligible groups enter the standard-rounding
-  # allocation; unqualified groups retain zero DP seats.
+  # A list group enters an electoral district's DP upper allocation when it reaches
+  # 8% in at least one sub-district within it (Kanton Wallis, 2004b, art. 154;
+  # version at 1 July 2018). Unqualified groups retain zero DP seats.
   dp_eligibility <- district_results |>
     group_by(district) |>
     mutate(district_party_share = party_votes / sum(party_votes)) |>
@@ -457,6 +506,8 @@ process_vs_election <- function(election_year) {
     group_by(region, parties) |>
     summarise(
       qualified = any(district_party_share >= 0.08),
+      # Once qualified, include rounded voter equivalents from all its sub-districts
+      # within this electoral district, including those where the list is below 8%.
       weighted_voters = sum(
         floor(party_votes / district_seats + 0.5)
       ),
@@ -467,6 +518,7 @@ process_vs_election <- function(election_year) {
     group_by(region) |>
     summarise(region_seats = sum(district_seats), .groups = "drop")
 
+  # Upper allocation determines the party totals needed for canton-wide aggregation.
   dp_by_region <- dp_eligibility |>
     left_join(region_seats, by = "region") |>
     group_by(region) |>
@@ -525,7 +577,7 @@ process_vs_election <- function(election_year) {
   }
 
   # Validate every reconstructed 2017 region-party allocation against the
-  # official district list seats aggregated to the six electoral regions.
+  # official sub-district list seats aggregated to the six electoral districts.
   if (election_year == 2017L) {
     official_2017 <- vs_official_2017_region_seats()
     official_2017_check <- official_2017 |>
