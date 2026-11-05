@@ -30,6 +30,26 @@ The data come from official cantonal election results published by statistical o
 - `data/datasets/`: election data organized by canton.
 - `data_cleaning_cantons/`: R scripts for cleaning data and calculating counterfactual seat allocations.
 
+## Rendering the thesis on Windows
+
+In VS Code, press **Ctrl+Shift+B** to run **Render thesis safely**. Alternatively,
+run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Render-Thesis.ps1`
+from the project folder. Add `-CheckOnly` for a quick environment and syntax check.
+
+This task uses the configured R 4.5.1 and Quarto installation, checks required
+package versions against `renv.lock`, prevents overlapping task builds, and stops
+its own process tree if a build exceeds ten minutes. It replaces `Thesis.pdf`
+only after a successful build. Logs are saved under `.quarto/render-logs/`;
+local snapshots of `Thesis.qmd` and the previous PDF are saved under
+`.quarto/render-history/`. These local snapshots are not an off-device backup.
+The regular Quarto Render button does not run these additional safeguards.
+
+Keep `.Rprofile`'s Windows sandbox setting: it avoids the shared renv sandbox
+lock that previously blocked R startup. Keep non-ASCII mapping names as strings
+passed to `setNames()` rather than named arguments, so both source-loading paths
+handle umlauts consistently. After deliberately changing R or package versions,
+review the build configuration and `renv.lock` together.
+
 ## Contact
 
 If you have any questions about the thesis, data, or analysis, feel free to contact me at [beynmoritz@gmail.com](mailto:beynmoritz@gmail.com).

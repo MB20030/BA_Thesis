@@ -40,11 +40,9 @@ standardize_gr_party <- function(party_label) {
     str_squish() |>
     str_to_upper() |>
     # Convert German umlauts to stable ASCII identifiers
-    str_replace_all(c(
-      "Ä" = "AE",
-      "Ö" = "OE",
-      "Ü" = "UE"
-    )) |>
+    # Keep umlauts as string values so UTF-8 parsing does not turn argument
+    # names into literal <U+....> text under a Windows native locale.
+    str_replace_all(setNames(c("AE", "OE", "UE"), c("Ä", "Ö", "Ü"))) |>
     # Merge labels that represent the same party or list
     recode(
       "MITTE" = "DIEMITTE",

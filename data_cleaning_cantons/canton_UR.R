@@ -256,7 +256,12 @@ read_ur_election <- function(election_year) {
     )
 
     
-  expected_seats <- c(Altdorf = 15L, "Bürglen" = 7L, Erstfeld = 6L, Schattdorf = 9L)
+  # Set names as strings: parse(encoding = "UTF-8") can otherwise corrupt
+  # non-ASCII argument names when Windows cannot translate the native locale.
+  expected_seats <- setNames(
+    c(15L, 7L, 6L, 9L),
+    c("Altdorf", "Bürglen", "Erstfeld", "Schattdorf")
+  )
 
   district_checks <- district_results |>
     group_by(district) |>
