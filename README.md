@@ -20,7 +20,7 @@ The comparison measures the mechanical effect of applying different allocation r
 
 ## Data
 
-The main analysis covers 31 cantonal parliamentary elections between 2007 and 2026 in Aargau, Nidwalden, Schaffhausen, Schwyz, Uri, Valais, Zug, and Zurich. Two elections in Graubünden provide additional context, they are excluded from the main transition comparison because the canton previously used a majority voting system. These elections were till the completion, all available elections under Double Pukelsheim for regional parliaments in Switzerland.
+The dataset covers all 33 cantonal parliamentary elections between 2007 and 2026 in Aargau, Graubünden, Nidwalden, Schaffhausen, Schwyz, Uri, Valais, Zug and Zurich which where held under Double Pukelsheim. The main-sample consists out of the 31 elections from the cantons which priorly used Hagenbach-Bischoff, the two elections from the former majority system Graubünden provide additional context. These elections were till the completion, all available elections under Double Pukelsheim for regional parliaments in Switzerland.
 
 The data come from official cantonal election results published by statistical offices and state chancelleries, supplemented by files supplied directly by cantonal authorities. They include party and list votes, constituency seat totals, and official seat allocations, collected in CSV, Excel, and PDF formats and harmonized in R.
 
