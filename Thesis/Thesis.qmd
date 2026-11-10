@@ -827,17 +827,24 @@ party_size_plot_data <- all_elections |>
   filter(
     vote_share >= 0,
     vote_share < 15 # Filter only parties with vote-shares below 15%
-  ) |>
+  )
+
+# Check the full plotted range for unresolved HB seat allocations
+if (any(str_detect(party_size_plot_data$seats_hb, fixed("/")))) {
+  stop("Resolve HB ties among parties below 15% before plotting.")
+}
+
+party_size_plot_data <- party_size_plot_data |>
   mutate(
-    comparison = if_else(str_starts(election_id, "GR_"),
+    comparison = if_else(str_starts(election_id, "GR_"), # GR prev. used majority voting; the counterfactual is contextual
                          "Graubünden (context)", "Transition cantons"),
-    gain_pp = 100 * ( # Gain as percentage points of analyzed seats.
+    gain_pp = 100 * ( # Normalize by seats allocated through DP ; Uri only 37 of 64 seats
       seats_dp - as.integer(seats_hb)
     ) / seats_allocated_dp,
 
-    size_group = cut( # Group parties by their election-specific vote share.
+    size_group = cut( # Group parties by their election-specific vote share
       vote_share,
-      breaks = c(0, 2, 4, 6, 8, 10, 12, 15), # Eight boundaries define seven groups.
+      breaks = c(0, 2, 4, 6, 8, 10, 12, 15), # Define boundaries for groups
       labels = c(
         "0-<2%", "2-<4%", "4-<6%",
         "6-<8%", "8-<10%", "10-<12%", "12-<15%"
@@ -846,50 +853,50 @@ party_size_plot_data <- all_elections |>
     )
   )
 
-# Keep the transition sample separate for all summaries and counts.
+# Keep the transition sample separate for all summaries and counts
 party_size_data <- party_size_plot_data |>
   filter(comparison == "Transition cantons")
 
 party_size_means <- party_size_data |>
   group_by(size_group) |>
-  summarise(mean_gain_pp = mean(gain_pp), n = n(), .groups = "drop") # Equal weight per party-election.
+  summarise(mean_gain_pp = mean(gain_pp), n = n(), .groups = "drop") # Equal weight per party-election
 
 ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
   # Shade the groups outside the smaller-party definition
   annotate(
-    "rect", xmin = 5.5, xmax = Inf, ymin = -Inf, ymax = Inf,
+    "rect", xmin = 5.5, xmax = Inf, ymin = -Inf, ymax = Inf, # 5.5 lies between the <10% and the >= 10% category
     fill = "#F2F2F2"
   ) +
   geom_vline(
   xintercept = 5.5,
   linetype = "dashed",
-  colour = "grey50",
+  colour = "grey60",
   linewidth = 0.4
   ) +
   geom_hline(
     yintercept = 0,
-    colour = "grey50",
+    colour = "grey60",
     linewidth = 0.4
   ) +
   geom_point(
     data = party_size_plot_data,
     aes(colour = comparison, shape = comparison),
     position = position_jitter(
-      width = 0.12, height = 0, seed = 2026 # Separate dots horizontally only.
+      width = 0.12, height = 0, seed = 2026 # Separate dots horizontally only
     ),
     alpha = 0.6,
     size = 2
   ) +
   geom_point(
     data = party_size_means,
-    aes(y = mean_gain_pp), # Mark each group's mean.
+    aes(y = mean_gain_pp), # Mark each group's mean
     colour = "#000000",
     shape = 18,
     size = 4
   ) +
   geom_text(
     data = party_size_means,
-    aes(y = mean_gain_pp, label = sprintf("%.2f", mean_gain_pp)), # Label means in pp.
+    aes(y = mean_gain_pp, label = sprintf("%.2f", mean_gain_pp)), # Label means in pp
     nudge_x = 0.18,
     hjust = 0,
     colour = "#000000",
@@ -905,11 +912,11 @@ ggplot(party_size_data, aes(x = size_group, y = gain_pp)) +
     )
   ) +
   scale_colour_manual(
-    values = c("Transition cantons" = "#0072B2", "Graubünden (context)" = "#707070"),
+    values = c("Transition cantons" = "#0072B2", "Graubünden (context)" = "#8E8E8E"),
     breaks = c("Transition cantons", "Graubünden (context)"), name = NULL
   ) +
   scale_shape_manual(
-    values = c("Transition cantons" = 16, "Graubünden (context)" = 1),
+    values = c("Transition cantons" = 16, "Graubünden (context)" = 1), # solid respectively open circles for GR
     breaks = c("Transition cantons", "Graubünden (context)"), name = NULL
   ) +
   labs(
