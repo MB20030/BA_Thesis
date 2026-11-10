@@ -956,68 +956,69 @@ This section examines historical district structure using mean district magnitud
 #| echo: false
 #| warning: false
 #| message: false
-
+# Save district names and seat counts, which the normal party-level output does not retain. Also keep the modified finalizer separate from the main cleaning functions.
 eq1_env <- new.env(parent = globalenv()) 
 
 sys.source(here("data_cleaning_cantons", "00_hb_allocator.R"), eq1_env) # Load the shared cleaning functions 
-eq1_env$district_registry <- list() # create empty list to store the values
-eq1_env$original_finalize <- eq1_env$finalize_election_data # Keep the original function before wrapping it.
+eq1_env$district_registry <- list() 
+eq1_env$original_finalize <- eq1_env$finalize_election_data # Keep the original function before wrapping it
 eq1_env$finalize_election_data <- function(
     hb_results, dp_results, canton, year, parliament_size = NULL) {
-  caller <- parent.frame() # Access the reader that called this function and its local district table.
+  caller <- parent.frame() 
   table_name <- switch(canton, AG = "districts", GR = "hb_by_district",
                        SH = "district_totals", ZH = "district_seats",
                        "district_results") 
-  district_name <- if (canton == "AG") "location_name" else "district" # Standardize Aargau's name column.
+  district_name <- if (canton == "AG") "location_name" else "district" # Standardize Aargau's name column
   districts <- get(table_name, envir = caller, inherits = FALSE) |> 
     transmute(district = .data[[district_name]], district_seats) |> # Keep only district names and seat counts
-    distinct() # Remove repeated identical rows.
+    distinct()
+
   stopifnot(!anyDuplicated(districts$district), !anyNA(districts),
             all(districts$district_seats > 0),
-            all(districts$district_seats == floor(districts$district_seats))) # Stop if names or seat counts are invalid.
+            all(districts$district_seats == floor(districts$district_seats))) 
   result <- original_finalize(hb_results, dp_results, canton, year, parliament_size) # Calculate the usual election output
-  stopifnot(sum(districts$district_seats) == first(result$seats_allocated_dp)) # District seats must match DP seat coverage.
-  id <- first(result$election_id) # Election identifier
-  district_registry[[id]] <<- districts |>
+  
+  stopifnot(sum(districts$district_seats) == first(result$seats_allocated_dp))
+  id <- first(result$election_id)
+  district_registry[[id]] <<- districts |> # Update the registry in eq1_env, retaining it after this function returns
     mutate(election_id = id, canton = canton, year = year, .before = 1) 
   result # Return the original election output 
 }
-environment(eq1_env$finalize_election_data) <- eq1_env 
+environment(eq1_env$finalize_election_data) <- eq1_env  # Resolve saved helpers and registry here
+ 
+eq1_codes <- c("AG", "GR", "NW", "SH", "SZ", "UR", "VS", "ZG", "ZH") # Cantons included, with GR for context
 
-eq1_codes <- c("AG", "GR", "NW", "SH", "SZ", "UR", "VS", "ZG", "ZH") # Cantons included, with GR for context.
-for (code in eq1_codes) { # Load each canton's reader into the separate workspace.
-  expressions <- parse(here("data_cleaning_cantons", paste0("canton_", code, ".R")),
-                       encoding = "UTF-8") 
-  for (expression in expressions) {
-    
-    if (is.call(expression) && identical(expression[[1]], as.name("print"))) next
-    eval(expression, envir = eq1_env) # Run the remaining definitions in the separate workspace.
-  }
+for (code in eq1_codes) {
+  source(
+    here("data_cleaning_cantons", paste0("canton_", code, ".R")),
+    local = eq1_env,
+    encoding = "UTF-8"
+  )
 }
 eq1_parties <- map_dfr(eq1_codes, function(code) {
-  get(paste0("process_canton_", code), envir = eq1_env)() # Run each reader; map_dfr stacks the resulting rows.
+  get(paste0("process_canton_", code), envir = eq1_env)() # Run each reader; map_dfr stacks the resulting rows
 })
-eq1_districts <- bind_rows(eq1_env$district_registry) # Stack the captured district tables across elections.
+eq1_districts <- bind_rows(eq1_env$district_registry) # Stack the captured district tables across elections
+
 stopifnot(n_distinct(eq1_parties$election_id) == 33L,
           n_distinct(eq1_districts$election_id) == 33L,
           isTRUE(all.equal(arrange(eq1_parties, election_id, parties),
                            arrange(all_elections, election_id, parties)))) 
 
-# Use the same election-level outcome as the main hypothesis; validate analyzed seat coverage.
+# Use the same election-level outcome as the main hypothesis; validate DP seat coverage
 eq1_elections <- eq1_districts |>
-  group_by(canton, election_id, year) |> # Calculate coverage separately for each election.
+  group_by(canton, election_id, year) |> # Calculate coverage separately for each election
   summarise(
-    districts = n(), analyzed_seats = sum(district_seats), # Count districts and total their seats.
-    .groups = "drop" # Return an ordinary, ungrouped table.
+    districts = n(), analyzed_seats = sum(district_seats), # Count districts and total their seats
+    .groups = "drop" 
   ) |>
   left_join(small_party_summary |>
-              select(election_id, seats_allocated_dp, seat_gain_pp),
+              select(election_id, seats_allocated_dp, seat_gain_pp), # Use priorly calculated seat gain values
             by = "election_id") # Match each election to the main hypothesis's smaller-party gain
 stopifnot(!anyNA(eq1_elections),
-          all(eq1_elections$analyzed_seats == eq1_elections$seats_allocated_dp)) # Check complete matches and equal seat coverage.
+          all(eq1_elections$analyzed_seats == eq1_elections$seats_allocated_dp)) # Check complete matches and equal seat coverage
 
-# Fixed last-pre-reform allocations. Named vectors preserve district provenance.
-
+# Fixed last-pre-reform district magnitudes for each canton; these values represent the historical baseline. Uri includes only the  four DP muncipialities. Sources are cited in the methods section. 
 eq1_baseline_seats <- list( 
   AG = c(Aarau = 16, Baden = 30, Bremgarten = 16, Brugg = 11, Kulm = 9,
          Laufenburg = 6, Lenzburg = 12, Muri = 7, Rheinfelden = 10,
@@ -1074,58 +1075,59 @@ eq1_baseline <- imap_dfr(eq1_baseline_seats, function(seats, code) {
     canton = code,
     reference_year = eq1_baseline_years[[code]],
     baseline_districts = length(seats),
-    mean_magnitude_baseline = mean(seats),
-    share_below9_pct_baseline = 100 * mean(seats < 9)
+    mean_magnitude_baseline = mean(seats), # Define Measure one 
+    share_below9_pct_baseline = 100 * mean(seats < 9) # Define Measure two, exclude exactly 9 seats
   )
 })
 
 eq1_cantons <- eq1_elections |>
-  group_by(canton) |> # Collapse election-level outcomes into one row per canton.
+  group_by(canton) |> # Collapse election-level outcomes into one row per canton
   summarise(
     elections = n(), districts_min = min(districts), districts_max = max(districts),
-    mean_gain_pp = mean(seat_gain_pp), .groups = "drop" # Average outcomes across elections, giving each election equal weight.
+    mean_gain_pp = mean(seat_gain_pp), .groups = "drop" 
   ) |>
   left_join(eq1_baseline, by = "canton") # Attach fixed historical predictors
 stopifnot(!anyNA(eq1_cantons),
           all(eq1_cantons$districts_min == eq1_cantons$districts_max),
-          all(eq1_cantons$baseline_districts == eq1_cantons$districts_min)) # Check no missing values and consistent district counts.
+          all(eq1_cantons$baseline_districts == eq1_cantons$districts_min)) 
 
-# The cutoff for each measure is the unweighted mean across transition cantons.
+# The cutoff for each measure is the unweighted mean across transition cantons
 eq1_points <- eq1_cantons |>
-  select(canton, mean_gain_pp, ends_with("_baseline")) |> # Keep the outcome and two baseline measures for plotting.
-  pivot_longer(-c(canton, mean_gain_pp), names_to = "metric", values_to = "value") |> # One row per canton and measure.
-  group_by(metric) |> # Each measure has its own cutoff and groups.
-  mutate(cutoff = mean(value[canton != "GR"]), # Unweighted mean of the eight transition cantons; exclude GR.
+  select(canton, mean_gain_pp, ends_with("_baseline")) |> 
+
+  pivot_longer(-c(canton, mean_gain_pp), names_to = "metric", values_to = "value") |> 
+  group_by(metric) |> # Each measure has its own cutoff and groups
+  mutate(cutoff = mean(value[canton != "GR"]), 
          group = case_when(canton == "GR" ~ "GR: context only",
                            value < cutoff ~ "Below mean",
-                           TRUE ~ "At/above mean")) |> # GR gets a context label; equality with the cutoff goes in the upper group.
-  ungroup() |> # Remove grouping before setting display labels.
+                           TRUE ~ "At/above mean")) |> 
+  ungroup() |> 
   mutate(metric = factor(
     metric,
     levels = c("mean_magnitude_baseline", "share_below9_pct_baseline"),
     labels = c("Mean district size (seats)", "Districts below 9 seats (%)")),
-    group = factor(group, c("Below mean", "At/above mean", "GR: context only"))) # Factors control panel and legend order.
+    group = factor(group, c("Below mean", "At/above mean", "GR: context only"))) # Factors control panel and legend order
 eq1_groups <- eq1_points |>
-  filter(canton != "GR") |> # Context canton does not contribute to group comparisons.
-  group_by(metric, group) |> # Summarize each below-mean or upper group separately for each measure.
+  filter(canton != "GR") |>
+  group_by(metric, group) |> # Summarize each below-mean or upper group separately for each measure
   summarise(cantons = n(), mean_gain_pp = mean(mean_gain_pp),
-            members = paste(sort(canton), collapse = ", "), .groups = "drop") # Count cantons, average their gains equally, and list members.
+            members = paste(sort(canton), collapse = ", "), .groups = "drop") # Count cantons, average their gains equally, and list members
 eq1_differences <- eq1_groups |>
   select(metric, group, mean_gain_pp) |>
-  pivot_wider(names_from = group, values_from = mean_gain_pp) |> # Put the two group means in separate columns.
-  mutate(below_minus_above_pp = `Below mean` - `At/above mean`) # Negative = the below-mean group gained less.
+  pivot_wider(names_from = group, values_from = mean_gain_pp) |>
+  mutate(below_minus_above_pp = `Below mean` - `At/above mean`)
 eq1_cutoffs <- eq1_points |>
-  distinct(metric, cutoff) # One cutoff per measure, used in the text and dashed lines.
+  distinct(metric, cutoff) # One cutoff per measure, used in the text and dashed lines
 
 knitr::kable( # Render table
   eq1_cantons |>
     transmute(
       Canton = canton, Districts = baseline_districts,
       `Reference year` = reference_year,
-      `Mean seats` = sprintf("%.2f", mean_magnitude_baseline), # Display two decimals; underlying values remain unrounded.
-      `Below 9 seats (%)` = sprintf("%.1f", share_below9_pct_baseline) # Display this percentage with one decimal.
+      `Mean seats` = sprintf("%.2f", mean_magnitude_baseline), 
+      `Below 9 seats (%)` = sprintf("%.1f", share_below9_pct_baseline) 
     ),
-  align = c("l", "r", "r", "r", "r") # Left-align canton names; right-align the numerical columns.
+  align = c("l", "r", "r", "r", "r") # Left-align canton names; right-align the numerical columns
 )
 ```
 @fig-district-magnitude relates each district measure to the canton-level mean gain in smaller parties' seat share. The cutoffs are defined by the mean of the eight relevant cantons and are the following: `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Mean district size (seats)"])` seats for the unweighted mean magnitude and `r sprintf("%.2f", eq1_cutoffs$cutoff[eq1_cutoffs$metric == "Districts below 9 seats (%)"])`% for the share below nine seats. 
@@ -1141,16 +1143,19 @@ knitr::kable( # Render table
 
 eq1_colours <- c("Below mean" = "#0072B2", "At/above mean" = "#D55E00",
                  "GR: context only" = "#8A8A8A") 
-eq1_scatter <- ggplot(eq1_points, aes(value, mean_gain_pp, colour = group)) + # x = district measure; y = canton gain
-  geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) + # Reference line where DP and HB give equal smaller-party shares.
+eq1_scatter <- ggplot(eq1_points, aes(value, mean_gain_pp, colour = group)) + 
+
+  geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) + 
+
   geom_vline(data = eq1_cutoffs, aes(xintercept = cutoff), inherit.aes = FALSE,
              linetype = "dashed", colour = "grey60", linewidth = .4) + 
-  geom_point(size = 2.8) + # One point per canton in each panel.
+  geom_point(size = 2.8) + # One point per canton in each panel
   geom_text_repel(aes(label = canton), seed = 1, size = 3.3,
                   max.overlaps = Inf, show.legend = FALSE) + # Repel canton labels
-  facet_wrap(~ metric, scales = "free_x", ncol = 2) + # Two panels in two columns, separate x scales because units differ.
+  facet_wrap(~ metric, scales = "free_x", ncol = 2) + 
+
   scale_colour_manual(values = eq1_colours, drop = FALSE) + 
-  scale_x_continuous(expand = expansion(mult = c(.12, .15))) + # Add space at the plot edges for labels.
+  scale_x_continuous(expand = expansion(mult = c(.12, .15))) + 
   scale_y_continuous(expand = expansion(mult = c(.12, .15))) +
   labs(x = "District measure (fixed historical baseline)",
        y = "Mean smaller-party seat-share gain (pp)", colour = NULL, 
@@ -1160,9 +1165,9 @@ eq1_scatter <- ggplot(eq1_points, aes(value, mean_gain_pp, colour = group)) + # 
         strip.text = element_text(face = "bold", size = 10),
         plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0, size = 11, lineheight = 1.1,
-                                    margin = margin(t = 8))) # Legend below
+                                    margin = margin(t = 8)))
 
-eq1_scatter # Print plot
+eq1_scatter
 ```
 
 ::: {.callout-note title="EQ1 summary"}
