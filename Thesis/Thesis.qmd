@@ -617,63 +617,54 @@ To examine successive elections, the seat-share difference $\Delta_e$ is plotted
 #| warning: false
 #| message: false
 
-# Restrict the tie check to parties below the 10% vote-share threshold.
-small_party_rows <- all_elections |>
-  filter(small_party == 1L)
+# Check every party used in the main or sensitivity calculations
+hb_check_rows <- all_elections |>
+  filter(
+    small_party == 1L |
+      (!str_starts(election_id, "GR_") & vote_share < 12) # <12 because of sensitivity check
+  )
 
-# A slash marks alternative HB seat totals from an unresolved draw.
-if (any(str_detect(small_party_rows$seats_hb, fixed("/")))) {
-  stop("Resolve smaller-party HB ties before plotting.")
+if (any(str_detect(hb_check_rows$seats_hb, fixed("/")))) {
+  stop("Resolve HB ties affecting the main or sensitivity analyses.")
 }
-
-# Aggregate smaller parties within each election under both seat rules.
+# Aggregate smaller parties within each election under both systems
 small_party_summary <- all_elections |>
   group_by(election_id) |>
   summarise(
     parliament_size = first(parliament_size),
     seats_allocated_dp = first(seats_allocated_dp),
     vote_share_small_parties = sum(vote_share[small_party == 1L]),
-    # Only smaller-party seats enter the HB–DP comparison.
+    # Only smaller-party seats enter the HB–DP comparison
     seats_hb = sum(as.integer(seats_hb[small_party == 1L])),
     seats_dp = sum(seats_dp[small_party == 1L]),
     .groups = "drop"
   ) |>
   mutate(
     is_graubuenden = str_starts(election_id, "GR_"),
-    # Express the DP gain as a share of seats included in the comparison.
-    seat_gain_pp = 100 * (seats_dp - seats_hb) / seats_allocated_dp
+    # Express the DP gain as a share of seat allocated through DP; since Uri only uses it partly
+    seat_gain_pp = 100 * (seats_dp - seats_hb) / seats_allocated_dp 
   )
 
-# Put both systems on separate rows for plotting and calculate seat shares.
+# Put both systems on separate rows for plotting and calculate seat shares
 small_party_plot_data <- small_party_summary |>
-  pivot_longer(
+  pivot_longer( # Reshape from wide to long format
     cols = c(seats_hb, seats_dp),
     names_to = "system",
     values_to = "seats_small_parties"
   ) |>
   mutate(
     seat_share_small_parties = 100 * seats_small_parties / seats_allocated_dp,
-    # Fix the legend order across both figures.
+    # Fix the legend order across both figures
     system = factor(recode(system, seats_hb = "Hagenbach-Bischoff", seats_dp = "Double Pukelsheim"),
                     levels = c("Hagenbach-Bischoff", "Double Pukelsheim"))
   )
 
-# Summarize election-level gains and the mean weighted by analyzed seats.
-h1_stats <- small_party_summary |>
-  filter(!is_graubuenden) |>
-  summarise(
-    elections = n(), mean_gain = mean(seat_gain_pp),
-    weighted_mean_gain = weighted.mean(seat_gain_pp, seats_allocated_dp),
-    q1 = quantile(seat_gain_pp, .25), median = median(seat_gain_pp),
-    q3 = quantile(seat_gain_pp, .75),
-    above_five = sum(seat_gain_pp > 5)
-  )
-
+# Define the plotting function
 small_party_plot <- function(x, x_title, label, percent = FALSE) {
-  # Label selected examples
+  # Label selected examples across both axes for readability
   labelled_elections <- c("UR_20", "SZ_24", "SH_16", "ZH_15", "VS_21", "ZH_11")
-  gain_labelled_elections <- labelled_elections # add gain to the label
-  # Keep all endpoints in one repel layer
+  gain_labelled_elections <- labelled_elections 
+  # Keep all endpoints in one repel layer (placement calculation)
   label_data <- small_party_plot_data |>
     mutate(
       plot_label = if_else(
@@ -682,13 +673,13 @@ small_party_plot <- function(x, x_title, label, percent = FALSE) {
         .data[[label]], ""
       ),
       plot_label = if_else(
-        plot_label != "" & election_id %in% gain_labelled_elections,
-        sprintf("%s (%+.1f pp)", plot_label, seat_gain_pp),
+        plot_label != "" & election_id %in% gain_labelled_elections, # ZH_15 (+8.3pp) 
+        sprintf("%s (%+.1f pp)", plot_label, seat_gain_pp), 
         plot_label
       ),
       label_colour = if_else(is_graubuenden, "Context only", as.character(system))
     )
-  # Repulsion needs obstacles along horizontal comparison lines
+  # Approximate each connecting line with 25 invisible points that repel labels
   line_obstacles <- small_party_plot_data |>
     group_by(election_id) |>
     reframe(
@@ -698,7 +689,7 @@ small_party_plot <- function(x, x_title, label, percent = FALSE) {
     )
   ggplot(small_party_plot_data, aes(x = .data[[x]], y = vote_share_small_parties,
                                    color = system, shape = system)) +
-  geom_abline(
+  geom_abline(   # Add dashed diagonal; marking perfect proportionality
       intercept = 0,
       slope = 1,
       linetype = "dashed",
@@ -711,7 +702,7 @@ small_party_plot <- function(x, x_title, label, percent = FALSE) {
     geom_point(data = filter(small_party_plot_data, !is_graubuenden), size = 3.2) +
     geom_point(data = filter(small_party_plot_data, is_graubuenden),
            color = "grey60", size = 3.2, show.legend = FALSE) +
-    # Repel selected text labels from all endpoints and comparison lines.
+    # Repel selected text labels from all endpoints and comparison lines
     geom_text_repel(
       data = bind_rows(label_data, line_obstacles), inherit.aes = FALSE,
       aes(x = .data[[x]], y = vote_share_small_parties,
@@ -724,11 +715,11 @@ small_party_plot <- function(x, x_title, label, percent = FALSE) {
     ) +
     scale_color_manual(values = c("Hagenbach-Bischoff" = "#D55E00",
                                   "Double Pukelsheim" = "#0072B2",
-                                  "Context only" = "grey60"),
+                                  "Context only" = "#8E8E8E"),
                        breaks = c("Hagenbach-Bischoff", "Double Pukelsheim")) +
-    scale_shape_manual(values = c("Hagenbach-Bischoff" = 16,
-                                  "Double Pukelsheim" = 17)) +
-    # Format the x-axis as percentages only in the relative figure.
+    scale_shape_manual(values = c("Hagenbach-Bischoff" = 16, # filled circle
+                                  "Double Pukelsheim" = 17)) + # filled triangle
+    # Add percentage signs to the x-axis tick labels
     scale_x_continuous(labels = if (percent) \(x) paste0(x, "%") else waiver(),
                        expand = expansion(mult = c(0.08, 0.12))) +
     scale_y_continuous(expand = expansion(mult = c(0.08, 0.12))) +
@@ -761,7 +752,7 @@ sensitivity_8 <- all_elections |>
       sum(as.integer(seats_hb[vote_share < 8]))
     ) / first(seats_allocated_dp)
   )
-# second sensitivity check with 12% threshold
+# Second sensitivity check with 12% threshold
 sensitivity_12 <- all_elections |> 
   filter(!str_starts(election_id, "GR_")) |>
   group_by(election_id) |>
@@ -773,12 +764,22 @@ sensitivity_12 <- all_elections |>
     ) / first(seats_allocated_dp)
   )
 
-mean(sensitivity_8$gain_pp)
-mean(sensitivity_12$gain_pp)
-
-# Elections with parties below 8% but no aggregate seat gain under DP
+# Elections with parties below 8% but no aggregate seat gain ; for statistics in text
 no_gain_8 <- sensitivity_8 |>
   filter(small_parties > 0, gain_pp <= 0)
+# Calculate the statistics for the summary box and sensitivity checks
+h1_stats <- small_party_summary |>
+  filter(!is_graubuenden) |>
+  summarise(
+    elections = n(),
+    mean_gain = mean(seat_gain_pp),
+    weighted_mean_gain = weighted.mean(seat_gain_pp, seats_allocated_dp),
+    q1 = quantile(seat_gain_pp, .25),
+    median = median(seat_gain_pp),
+    q3 = quantile(seat_gain_pp, .75),
+    mean_gain_8 = mean(sensitivity_8$gain_pp),
+    mean_gain_12 = mean(sensitivity_12$gain_pp)
+  )
 ```
 
 ```{r}
@@ -790,19 +791,24 @@ no_gain_8 <- sensitivity_8 |>
 #| warning: false
 #| message: false
 
-# Reuse the plot with seat shares and one election identifier per comparison.
-small_party_plot("seat_share_small_parties", "Aggregated seat share of smaller parties (%)", "election_id", TRUE)
+# Plot smaller parties' combined seat shares under HB and DP
+small_party_plot(
+  x = "seat_share_small_parties",
+  x_title = "Aggregated seat share of smaller parties (%)",
+  label = "election_id",
+  percent = TRUE
+)
 ```
 
 ::: {.callout-note title="Main Hypothesis summary"}
-Across all `r h1_stats$elections` transition elections (Graubünden excluded), the unweighted mean gain in smaller parties' share of analyzed seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's number of analyzed seats was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. `r h1_stats$above_five` individual elections exceeded five percentage points.
+Across all `r h1_stats$elections` transition elections (Graubünden excluded), the unweighted mean gain in smaller parties' share of analyzed seats was `r sprintf("%.1f", h1_stats$mean_gain)` percentage points (Q1: `r sprintf("%.1f", h1_stats$q1)`; median: `r sprintf("%.1f", h1_stats$median)`; Q3: `r sprintf("%.1f", h1_stats$q3)`). The mean weighted by each election's number of analyzed seats was `r sprintf("%.1f", h1_stats$weighted_mean_gain)` percentage points. 
 :::
 
 These results descriptively support the main hypothesis and indicate that smaller parties indeed in the 31 elections receive a larger share of the analyzed seats under Double Pukelsheim than under Hagenbach-Bischoff. This effect is partically evident through that in every election where small parties contested (every election but Uri 2020), they aggregately received a larger seat share. This finding is in accordance with Leuzinger's observation that smaller parties tend to profit from the transition (Leuzinger, 2018a, p.42). The weighted mean, unweighted mean and median are all relatively close to each other, indicating that the effect is not driven by a few elections with many seats and that the positive effect isn't determined by extreme outliers. 
 
 The average gain differs across the cantons. For example the Canton of Schaffhausen has a stable high seat gain for smaller parties. There the high seat-share gain may be partially explained through the decision to treat affiliated parties as independent lists. Therefore these affiliated lists were classified as smaller parties if they didn't reach the 10% threshold themselves and with that increase the relative gain for smaller parties. When the affiliated parties were attributed to their mother parties, the gain dropped from 15.67 to 8.67 percentage points. No matter the treatment of the affiliated lists, are the gains in Schaffhausen comparatively high. By contrast, the gains were constantly relatively low in Uri and Schwyz, where on average 0.5 and 1.66 smaller parties contested per election. 
 
-The main finding, that smaller parties aggregately benefit from the transition, is robust to alternative definitions of smaller parties. Using a vote-share cutoff of less than 8%, the mean gain is `r sprintf("%.2f", mean(sensitivity_8$gain_pp))` percentage points. The smaller parties also collectively receive a higher seat share under Double Pukelsheim in `r sum(sensitivity_8$gain_pp > 0)` of the `r sum(sensitivity_8$small_parties > 0)` elections where at least one party with a vote-share below 8% contested. The exception is  `r paste(str_replace(no_gain_8$election_id, "_", " 20"), collapse = " and ")`, where the aggregated difference is zero and the upper-allocation process was not done across the whole canton. With a cutoff of less than 12%, the mean gain is `r sprintf("%.2f", mean(sensitivity_12$gain_pp))` percentage points. Regarding the collectively higher seat share in this case, in  `r sum(sensitivity_12$gain_pp > 0)` of the `r sum(sensitivity_12$small_parties > 0)` relevant elections, the smaller parties received a higher seat-share gain. The Uri 2020 is again the exception, where no party with less than 12% vote-share ran.
+The main finding, that smaller parties aggregately benefit from the transition, is robust to alternative definitions of smaller parties. Using a vote-share cutoff of less than 8%, the mean gain is `r sprintf("%.2f", h1_stats$mean_gain_8)` percentage points. The smaller parties also collectively receive a higher seat share under Double Pukelsheim in `r sum(sensitivity_8$gain_pp > 0)` of the `r sum(sensitivity_8$small_parties > 0)` elections where at least one party with a vote-share below 8% contested. The exception is  `r paste(str_replace(no_gain_8$election_id, "_", " 20"), collapse = " and ")`, where the aggregated difference is zero and the upper-allocation process was not done across the whole canton. With a cutoff of less than 12%, the mean gain is `r sprintf("%.2f", h1_stats$mean_gain_12)` percentage points. Regarding the collectively higher seat share in this case, in  `r sum(sensitivity_12$gain_pp > 0)` of the `r sum(sensitivity_12$small_parties > 0)` relevant elections, the smaller parties received a higher seat-share gain. In Uri 2020, no party received less than 12% of the vote, so this election is excluded from the count of elections with qualifying smaller parties.
 
 As a further sensitivity and robustness check, the results were tested with a leave one canton out check. In that check the means are recalculated with each canton being omitted once. The positive seat-share gain persisted across each check. This persistance fits the finding that in 30 of 31 elections of the main sample, a positive aggregated seat-share gain for smaller parties was observed. The detailed results for the checks can be found in the Appendix in @sec-leave-one-out. 
 
