@@ -1189,28 +1189,28 @@ As documented in the @tbl-dp-adoption, do five out of eight main-sample cantons 
 The difference is visualized followingly as two grouped dot plots.
 ```{r}
 #| label: fig-thresholds
-#| fig-cap: "Smaller-party seat-share gains by explicit electoral quorum"
+#| fig-cap: "Smaller-party seat-share gains by explicit electoral threshold"
 #| fig-height: 6
 #| fig-width: 8.3
 #| echo: false
 eq2_elections <- small_party_summary |>
   mutate(
     canton = str_sub(election_id, 1, 2), # Extract canton code
-    election_year = 2000L + as.integer(str_sub(election_id, 4, 5)), # Convert id to to full year
-    quorum = case_when(
-      election_id == "AG_09" ~ "Without explicit quorum", # Aargau had no quorum in 2009
-      canton %in% c("NW", "SH", "UR") ~ "Without explicit quorum",
-      canton %in% c("AG", "GR", "SZ", "VS", "ZG", "ZH") ~ "With explicit quorum",
+    election_year = 2000L + as.integer(str_sub(election_id, 4, 5)),
+    threshold_group = case_when( # Binary comparison group; threshold below records the specific regime.
+      election_id == "AG_09" ~ "Without explicit threshold", # Aargau had no threshold in 2009
+      canton %in% c("NW", "SH", "UR") ~ "Without explicit threshold",
+      canton %in% c("AG", "GR", "SZ", "VS", "ZG", "ZH") ~ "With explicit threshold",
       TRUE ~ NA_character_
     ),
-    quorum = factor(
-      quorum,
-      levels = c("Without explicit quorum", "With explicit quorum")
+    threshold_group = factor(
+      threshold_group,
+      levels = c("Without explicit threshold", "With explicit threshold")
     ),
-    threshold = case_when( # Distinguish thresholds within the explicit-quorum group
+    threshold = case_when( # Distinguish thresholds within the explicit-threshold group
       canton == "GR" ~ "GR (context only)",
-      quorum == "Without explicit quorum" ~ "Without explicit quorum",
-      canton == "ZH" & between(election_year, 2007, 2019) ~ # Zurich, changed quroum after 2019
+      threshold_group == "Without explicit threshold" ~ "Without explicit threshold", # Same Label for all elections without a threshold
+      canton == "ZH" & between(election_year, 2007, 2019) ~ # Zurich, changed threshold after 2019
         "5% district-level",
       (canton == "ZH" & election_year == 2023) | 
         (canton == "AG" & election_year >= 2012) |
@@ -1225,13 +1225,13 @@ eq2_elections <- small_party_summary |>
   )
 
 stopifnot(
-  !anyNA(eq2_elections$quorum),
+  !anyNA(eq2_elections$threshold_group),
   !anyNA(eq2_elections$threshold)
-) # Check that every election has a quorum category and threshold label
+) # Check that every election has a threshold group and regime label
 
-eq2_cantons <- eq2_elections |>
+eq2_quorum_summary <- eq2_elections |>
   filter(canton != "GR") |> # Exclude GR from group means
-  group_by(quorum) |>
+  group_by(threshold_group) |>
   summarise(
     cantons = n_distinct(canton),
     elections = n(),
@@ -1239,16 +1239,16 @@ eq2_cantons <- eq2_elections |>
     .groups = "drop"
   )
 
-eq2_groups <- eq2_cantons |>
-  select(quorum, mean_gain_pp) |>
-  pivot_wider(names_from = quorum, values_from = mean_gain_pp) |>
+eq2_groups <- eq2_quorum_summary |>
+  select(threshold_group, mean_gain_pp) |>
+  pivot_wider(names_from = threshold_group, values_from = mean_gain_pp) |>
   mutate(
     without_minus_with_pp =
-      `Without explicit quorum` - `With explicit quorum`
+      `Without explicit threshold` - `With explicit threshold`
   ) # Calculate the difference between group means
 
 threshold_colours <- c( # give each threshold group a different colour
-  "Without explicit quorum"   = "#0072B2", 
+  "Without explicit threshold"   = "#0072B2", 
   "1% cantonal"               = "#6e5d47", 
   "5% district-level"         = "#f8a765", 
   "5% district or 3% cantonal" = "#f06508", 
@@ -1271,35 +1271,35 @@ eq2_plot_data <- bind_rows(
     )
   )
 
-# Calculate the group means separately within each sample.
-# GR remains visible but is excluded from all means.
+# Calculate the group means separately within each sample
+# GR remains visible but is excluded from all means
 eq2_plot_means <- eq2_plot_data |>
   filter(canton != "GR") |>
-  group_by(sample, quorum) |>
+  group_by(sample, threshold_group) |>
   summarise(
     mean_gain_pp = mean(seat_gain_pp),
     .groups = "drop"
   )
 
-# Calculate the left-to-right mean difference: with quorum minus without quorum.
+# Calculate the without-threshold mean minus the with-threshold mean
 eq2_plot_differences <- eq2_plot_means |>
   pivot_wider(
-    names_from = quorum,
+    names_from = threshold_group,
     values_from = mean_gain_pp
   ) |>
   mutate(
-    difference_pp =
-      `With explicit quorum` - `Without explicit quorum`
+    without_minus_with_pp =
+      `Without explicit threshold` - `With explicit threshold`
   )
 
-# Place all visible labels in one repel layer so they avoid each other.
-# Empty labels make the mean diamonds obstacles without adding more text.
+# Place all visible labels in one repel layer so they avoid each other
+# Empty labels make the mean diamonds obstacles without adding more text
 eq2_label_data <- bind_rows(
     eq2_plot_data |>
     transmute(
       sample,
-      label_x = as.numeric(quorum),
-      seat_gain_pp,
+      label_x = as.numeric(threshold_group), # Factor order x = 1 with thr. x = 2 without
+      seat_gain_pp, 
       plot_label = if_else( # label only schaffhausen elections
         canton == "SH" & sample == "Full sample",
         election_id,
@@ -1312,23 +1312,23 @@ eq2_label_data <- bind_rows(
   eq2_plot_differences |>
     transmute(
       sample, label_x = 1.5,
-      seat_gain_pp = (`Without explicit quorum` + `With explicit quorum`) / 2,
-      plot_label = sprintf("%+.2f pp", difference_pp),
+      seat_gain_pp = (`Without explicit threshold` + `With explicit threshold`) / 2,
+      plot_label = sprintf("%+.2f pp", without_minus_with_pp),
       label_colour = "Mean difference", label_face = "bold", label_size = 3.5
     ),
   eq2_plot_means |>
     transmute(
-      sample, label_x = as.numeric(quorum), seat_gain_pp = mean_gain_pp,
+      sample, label_x = as.numeric(threshold_group), seat_gain_pp = mean_gain_pp,
       plot_label = "", label_colour = "Mean difference",
       label_face = "plain", label_size = 3
     ),
-  # Unlabelled points along each arrow keep text away from the connector.
+  #  Approximate each connector with 25 invis. point obstacles for label repulsion
   eq2_plot_differences |>
     group_by(sample) |>
     reframe(
       label_x = seq(1, 2, length.out = 25),
       seat_gain_pp = seq(
-        first(`Without explicit quorum`), first(`With explicit quorum`),
+        first(`Without explicit threshold`), first(`With explicit threshold`),
         length.out = 25
       ),
       plot_label = "", label_colour = "Mean difference",
@@ -1338,7 +1338,7 @@ eq2_label_data <- bind_rows(
 
 eq2_group_plot <- ggplot(
   eq2_plot_data,
-  aes(quorum, seat_gain_pp, colour = threshold) # Group on x-axis, threshold determines colour
+  aes(threshold_group, seat_gain_pp, colour = threshold) # Binary group on x-axis; specific regime determines colour
 ) +
   geom_hline(yintercept = 0, colour = "grey70", linewidth = .35) +
   geom_point(size = 2.5) +
@@ -1363,14 +1363,14 @@ eq2_group_plot <- ggplot(
     max.overlaps = Inf,
     show.legend = FALSE
   ) +
-  # Connect the two group means within each panel.
+  # Connect the two group means within each panel
 geom_segment(
   data = eq2_plot_differences,
   aes(
     x = 1,
     xend = 2,
-    y = `Without explicit quorum`,
-    yend = `With explicit quorum`
+    y = `Without explicit threshold`,
+    yend = `With explicit threshold`
   ),
   inherit.aes = FALSE,
   colour = "grey40",
@@ -1383,7 +1383,7 @@ geom_segment(
 ) +
   geom_point(
     data = eq2_plot_means,
-    aes(quorum, mean_gain_pp),
+    aes(threshold_group, mean_gain_pp),
     inherit.aes = FALSE, # Group means do not have a threshold category
     shape = 18,
     size = 5,
@@ -1400,17 +1400,17 @@ geom_segment(
   ) +
   scale_x_discrete(
   labels = c(
-    "Without explicit quorum" = "Without explicit\nquorum",
-    "With explicit quorum" = "With explicit\nquorum"
+    "Without explicit threshold" = "Without explicit\nthreshold",
+    "With explicit threshold" = "With explicit\nthreshold"
   )
 ) +
   labs( # Label the plot
     x = NULL,
     y = "Aggregate smaller-party seat-share gain (pp)",
-    colour = "Explicit electoral quorum",
+    colour = "Explicit electoral threshold",
     caption = wrap_plot_caption(
       "Notes: Black diamonds show equally weighted election means, excluding Graubünden.",
-      "Labels show the mean with quorum minus the mean without quorum (pp)."
+      "Labels show the mean without threshold minus the mean with threshold (pp)."
     )
   ) +
   theme_minimal(base_size = 11) +
@@ -1433,7 +1433,7 @@ eq2_group_plot # Display the plot
 ```
 
 ::: {.callout-note title="EQ2 summary"}
-Smaller parties' mean seat-share gain was `r sprintf("%.2f", eq2_cantons$mean_gain_pp[eq2_cantons$quorum == "Without explicit quorum"])` percentage points across `r eq2_cantons$elections[eq2_cantons$quorum == "Without explicit quorum"]` elections without an explicit quorum and `r sprintf("%.2f", eq2_cantons$mean_gain_pp[eq2_cantons$quorum == "With explicit quorum"])` percentage points across `r eq2_cantons$elections[eq2_cantons$quorum == "With explicit quorum"]` elections with one. The without-minus-with difference was `r sprintf("%+.2f", eq2_groups$without_minus_with_pp)` percentage points. Excluding Schaffhausen reverses the difference to `r sprintf("%+.2f", -eq2_plot_differences$difference_pp[eq2_plot_differences$sample == "Excluding Schaffhausen"])` percentage points. The full-sample comparison is consistent with the expected direction, but is sensitive to Schaffhausen's inclusion.
+Smaller parties' mean seat-share gain was `r sprintf("%.2f", eq2_quorum_summary$mean_gain_pp[eq2_quorum_summary$threshold_group == "Without explicit threshold"])` percentage points across `r eq2_quorum_summary$elections[eq2_quorum_summary$threshold_group == "Without explicit threshold"]` elections without an explicit threshold and `r sprintf("%.2f", eq2_quorum_summary$mean_gain_pp[eq2_quorum_summary$threshold_group == "With explicit threshold"])` percentage points across `r eq2_quorum_summary$elections[eq2_quorum_summary$threshold_group == "With explicit threshold"]` elections with one. The without-minus-with difference was `r sprintf("%+.2f", eq2_groups$without_minus_with_pp)` percentage points. Excluding Schaffhausen reverses the difference to `r sprintf("%+.2f", eq2_plot_differences$without_minus_with_pp[eq2_plot_differences$sample == "Excluding Schaffhausen"])` percentage points. The full-sample comparison is consistent with the expected direction, but is sensitive to Schaffhausen's inclusion.
 :::
 
 Especially interesting is the case of the canton Aargau, where in 2009 the election was held without a threshold and in the elections 2012, 2016, 2020 and 2024 with a threshold. The data shows that the seat-share gain for the pre-reform election 2009 and the first post-reform election 2012 is equally big with 9.3 percentage points. In the subsequent elections, though, the seat-share gain dropped accordingly to the assumption. While the unchanged gain between 2009 and 2012 contrasts with the assumption, the subsequent elections are in line with it. For Aargau there is therefore no clear pattern visible; moreover, might the seat-share gain difference be influenced by further unobserved circumstances. 
@@ -1679,8 +1679,8 @@ eq3_election_stats <- eq3_elections |>
   ungroup() |> # remove canton grouping for 2nd calculation
   group_by(election_number) |> # Group 1st, 2nd, 3rd etc elections together
   summarise(
-    cantons = n_distinct(canton), # Count cantons for each group
-    mean_gain_pp = mean(seat_gain_pp), # Calculate the equally weighted average seat-share gain.
+    cantons = n_distinct(canton), # AG contributes to both groups, because of the threshold change
+    mean_gain_pp = mean(seat_gain_pp), # Calculate the equally weighted average seat-share gain
     mean_change_pp = if (all(is.na(change_pp))) {
       NA_real_ # Election 0 does not exist, therefore excluded later in the note
     } else {
@@ -1713,7 +1713,7 @@ Regarding the first step, it was found that across elections the smaller parties
 
 In the second step, it was examined whether the effect varied based on the different circumstances of the cantons. In EQ1 two measures analyzed whether the pre-reform district sizes have an impact on the seat-share gain or not. No consistent relationship between the prior constituency sizes and the gain for smaller parties was found. This is contrary to the formulated directional expectation. The expectation was further based on Lüscher's finding that in cantons which priorly had smaller districts, the proportionality had increased more strongly (Lüscher, 2024, pp.132-133). The lack of evidence in this analysis does not contradict Lüscher's findings, since an improvement in overall proportionality does not need to have a direct impact on the seat-share gain for smaller parties.
 
-A second exploratory question examined whether there is a difference in the mechanical seat-share gain between elections held with and without an explicit quoroum. The examination here observed a higher seat-share gain for cantons without an explicit quroum. This fits the literature, since Lüscher and the Federal State Chancellery both argue that explicit thresholds can restrict the gains among smaller parties. This since thresholds may partly offset the greater proportionality achieved through the upper apportionment (Bundeskanzlei, 2013, p. 18; Lüscher, 2024, pp. 107, 135). Despite the observed effect and the support of the literature for one, is the effect in this analysis sensitive to the inclusion of Schaffhausen. The sensitivity goes to a point that without the Schaffhausen elections, the effect reverses. Therefore the observed effect needs to be interpreted cautiously.
+A second exploratory question examined whether there is a difference in the mechanical seat-share gain between elections held with and without an explicit quoroum. The examination here observed a higher seat-share gain for cantons without an explicit quorum. This fits the literature, since Lüscher and the Federal State Chancellery both argue that explicit thresholds can restrict the gains among smaller parties. This since thresholds may partly offset the greater proportionality achieved through the upper apportionment (Bundeskanzlei, 2013, p. 18; Lüscher, 2024, pp. 107, 135). Despite the observed effect and the support of the literature for one, is the effect in this analysis sensitive to the inclusion of Schaffhausen. The sensitivity goes to a point that without the Schaffhausen elections, the effect reverses. Therefore the observed effect needs to be interpreted cautiously.
 
 The third exploratory question analyzes the seat-share gains across successive elections within and with respect to each canton's electoral rules. Through this approach, it brings together elements of the preceding analyses. The results show that the positive seat-share advantage generally persists across successive elections, further supporting the main finding. Although average gains are higher at later election numbers, mean within-canton changes do not follow a consistently increasing pattern. Moreover, fewer cantons contribute to the later comparisons, and some changes are sensitive to the inclusion of individual cantons. The findings therefore do not establish that additional elections under Double Pukelsheim increase smaller parties' mechanical seat-share gain.
 
@@ -1721,7 +1721,7 @@ In order to analyze all relevant elections and their various underlying assumpti
 
 For cantons considering a transition from Hagenbach–Bischoff to Double Pukelsheim, the following can be stated. With 30 of the 31 analyzed elections showing a collective seat-share gain for smaller parties, the findings suggest that a similar mechanical advantage would arise in other cantons adopting DP. However, its magnitude depends on canton-specific circumstances, such as electoral rules, district sizes, and vote distributions. Behavioural responses by parties and voters introduce further uncertainty. It therefore makes sense for cantons to calculate a hypothetical DP allocation based on their observed Hagenbach–Bischoff election results. This allows them to assess the potential mechanical seat-share changes while explicitly accounting for their electoral structure and the proposed DP rules. 
 
-Further research could extend this thesis in the following ways: With examining how plausible counterfactual list-alliances affect the estimated gains. Another starting point would be addressing the explicit quoroums and their possible effects. Specifically it could recalculate each observed election under different electoral quroums, ceteris paribus, to isolate their mechanical effect on smaller parties' representation. 
+Further research could extend this thesis in the following ways: With examining how plausible counterfactual list-alliances affect the estimated gains. Another starting point would be addressing the explicit quoroums and their possible effects. Specifically it could recalculate each observed election under different electoral quorums, ceteris paribus, to isolate their mechanical effect on smaller parties' representation. 
 
 ## Conclusion
 
@@ -1729,7 +1729,7 @@ This paper examined the mechanical effect of the transition from the Hagenbach-B
 
 For the elections of the main-sample, the average unweighted seat-share gain was 7.6 percentage points for the aggregate smaller parties group. In 30 of 31 elections, the smaller parties collectively gained seat-shares. The Uri 2020 election is the exception, where no list below the 10% smaller parties threshold contested. The result of a positive seat-share difference further persisted with alternative cutoffs for the smaller-parties group and when excluding individual cantons. These findings therefore descriptively support the main hypothesis. 
 
-The further analysis explored potential differences between cantons, based on pre-reform district sizes and explicit thresholds. For the relationship between the pre-reform district sizes and the seat-share gain, no consistent pattern could be observed. Regarding differences between elections held with and without a quroum, a higher seat-share gain for elections without a quroum was observed. However, the observed difference is sensitive to individual cantons. Further it was found that average gains persisted and even increased across successive election numbers, even when individual cantons were excluded. However the average within-canton changes were less consistent and sensitive to canton exclusions. This pattern does not establish that additional elections under Double Pukelsheim increase the seat-share gain.
+The further analysis explored potential differences between cantons, based on pre-reform district sizes and explicit thresholds. For the relationship between the pre-reform district sizes and the seat-share gain, no consistent pattern could be observed. Regarding differences between elections held with and without a quorum, a higher seat-share gain for elections without a quorum was observed. However, the observed difference is sensitive to individual cantons. Further it was found that average gains persisted and even increased across successive election numbers, even when individual cantons were excluded. However the average within-canton changes were less consistent and sensitive to canton exclusions. This pattern does not establish that additional elections under Double Pukelsheim increase the seat-share gain.
 
 However, this analysis is only focusing on mechanical differences conditional on the canton specific rules and on the observed post-reform votes and not estimating the reform's complete effect. This paper extends the existing knowledge about the mechanical seat-share gains for smaller parties by covering all 31 available elections for the eight main sample cantons, including the successive elections within each canton. This enables a wider basis to assess the magnitude and consistency of the smaller parties' advantage under the Double Pukelsheim.
 ```{=typst}
@@ -2100,7 +2100,7 @@ The table below identifies the election data and legal sources used in the canto
 #| message: false
 
 ggplot(party_size_plot_data, aes(x = vote_share, y = gain_pp)) + # Include GR for context at exact vote shares.
-  annotate( # add a grey area for groups outside of 10% quroum
+  annotate( # add a grey area for groups outside of 10% quorum
     "rect", xmin = 10, xmax = Inf, ymin = -Inf, ymax = Inf,
     fill = "#F2F2F2"
   ) +
@@ -2327,27 +2327,27 @@ loco_eq2_results <- map_dfr(loco_eq2_cases, function(omitted) {
 
   omitted_groups <- eq2_elections |>
     filter(canton == omitted) |>
-    pull(quorum) |>
+    pull(threshold_group) |>
     as.character()
 
   eq2_elections |>
     filter(canton != "GR", canton != omitted) |> # Remove the whole canton.
-    group_by(quorum) |>
+    group_by(threshold_group) |>
     summarise(
       mean_gain_pp = mean(seat_gain_pp), # Equal weight per election.
       .groups = "drop"
     ) |>
     pivot_wider(
-      names_from = quorum,
+      names_from = threshold_group,
       values_from = mean_gain_pp
     ) |>
     mutate(
       omitted_canton = omitted,
-      difference_pp = `Without explicit quorum` -
-                      `With explicit quorum`,
+      difference_pp = `Without explicit threshold` -
+                      `With explicit threshold`,
       # Hide unaffected means after calculating the comparison with that group.
       across(
-        all_of(c("Without explicit quorum", "With explicit quorum")),
+        all_of(c("Without explicit threshold", "With explicit threshold")),
         ~ if (omitted != "Full sample" && !(cur_column() %in% omitted_groups)) {
           NA_real_
         } else {
@@ -2357,8 +2357,8 @@ loco_eq2_results <- map_dfr(loco_eq2_cases, function(omitted) {
     ) |>
     select(
       omitted_canton,
-      `Without explicit quorum`,
-      `With explicit quorum`,
+      `Without explicit threshold`,
+      `With explicit threshold`,
       difference_pp
     )
 })
@@ -2366,7 +2366,7 @@ loco_eq2_results <- map_dfr(loco_eq2_cases, function(omitted) {
 knitr::kable(
   loco_highlight_influence(
     loco_eq2_results,
-    c("Without explicit quorum", "With explicit quorum", "difference_pp")
+    c("Without explicit threshold", "With explicit threshold", "difference_pp")
   ),
   format = "pipe",
   align = c("l", "r", "r", "r"),
@@ -2380,7 +2380,7 @@ knitr::kable(
 
 *Notes:* NA marks a group in which the omitted canton has no elections. Aargau contributes to both groups and is omitted from both. The difference is calculated as without minus with quorum, using the full-sample mean for an unaffected group. Values are in percentage points.
 
-As in the prior robustness checks the cantons of Zurich and Schaffhausen are responsible for the highest absolute differences. The omission of Schaffhausen reverses the group difference. This means that without the Schaffhausen elections, the average seat-gain share is higher for elections with thresholds compared to the ones without. The sample for the without quorum group consists of twelve elections, from which five are from Schaffhausen. Further all Schaffhausen elections experience an above average seat-share gain. Thus is the observed difference sensitive to Schaffhausen's inclusion and should not be interpreted as a stable relationship between an explicit electoral quroum and the smaller party seat-share gains.
+As in the prior robustness checks the cantons of Zurich and Schaffhausen are responsible for the highest absolute differences. The omission of Schaffhausen reverses the group difference. This means that without the Schaffhausen elections, the average seat-gain share is higher for elections with thresholds compared to the ones without. The sample for the without quorum group consists of twelve elections, from which five are from Schaffhausen. Further all Schaffhausen elections experience an above average seat-share gain. Thus is the observed difference sensitive to Schaffhausen's inclusion and should not be interpreted as a stable relationship between an explicit electoral quorum and the smaller party seat-share gains.
 
 ```{=typst}
 #show <tbl-loco-eq3>: set figure(placement: none)
