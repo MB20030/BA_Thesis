@@ -1454,7 +1454,7 @@ Since @fig-successive-elections aligns every Double Pukelsheim election for each
 #| fig-width: 8.3
 #| fig-height: 7.1
 #| echo: false
-#| warning: false
+#| warning: true
 #| message: false
 
 # Reuse the election-level outcome calculated from the main hypothesis.
@@ -1463,8 +1463,7 @@ eq3_elections <- small_party_summary |>
   mutate(
     canton = str_sub(election_id, 1, 2),
     election_year = 2000L + as.integer(str_extract(election_id, "[0-9]{2}$")),
-    net_seat_gain = seats_dp - seats_hb,
-    comparison = if_else(is_graubuenden, "Context only", "HB transition")
+    comparison = if_else(is_graubuenden, "Context only", "HB transition") # Distinguish GR visually
   ) |>
   arrange(canton, election_year) |>
   group_by(canton) |>
@@ -1478,45 +1477,46 @@ stopifnot(
 )
 
 eq3_events <- tribble(
-  ~canton, ~election_year, ~label, ~label_x,
-  "AG", 2012L, "AG: quorum introduced", 1.55,
-  "ZH", 2023L, "ZH: quorum changed", 4.75
+  ~canton, ~election_year, ~label,
+  "AG", 2012L, "AG: quorum introduced",
+  "ZH", 2023L, "ZH: quorum changed",
 ) |>
   left_join(
-    select(eq3_elections, canton, election_year, election_number, seat_gain_pp),
+    select(eq3_elections, canton, election_year, election_number),
     by = c("canton", "election_year"),
     relationship = "one-to-one"
   )
 
-# E/L notes mark parties entering/leaving the below-10% group.
+# Manually recorded changes in parliamentary parties belonging to
+# below-10% group, notes mark parties entering/leaving the group.
 eq3_notes <- tribble(
-  ~canton, ~election_year, ~label, ~label_x, ~label_y,
-  "AG", 2020L, "L", 3.75, 2.15,
-  "AG", 2024L, "E", 4.75, 6.0,
-  "NW", 2026L, "E", 4.25, 13.65,
-  "UR", 2024L, "E", 2.50, 0.70,
-  "ZG", 2018L, "L", 1.50, 6.60,
-  "ZH", 2011L, "L", 2.35, 15.00,
-  "ZH", 2015L, "2E", 3.00, 16.40,
-  "ZH", 2019L, "2L", 4.35, 8.70
+  ~canton, ~election_year, ~label,
+  "AG", 2020L, "L",
+  "AG", 2024L, "E",
+  "NW", 2026L, "E",
+  "UR", 2024L, "E",
+  "ZG", 2018L, "L",
+  "ZH", 2011L, "L",
+  "ZH", 2015L, "2E",
+  "ZH", 2019L, "2L",
 ) |>
   left_join(
-    select(eq3_elections, canton, election_year, election_number, seat_gain_pp),
+    select(eq3_elections, canton, election_year, election_number),
     by = c("canton", "election_year"),
     relationship = "one-to-one"
   )
 
 stopifnot(
   !anyNA(eq3_events$election_number),
-  identical(eq3_events$election_number, c(2L, 5L)),
+  identical(eq3_events$election_number, c(2L, 5L)), # AG 2012 is election 2 ; ZH 2023 is election 5
   !anyNA(eq3_notes$election_number)
-) # Check that annotations match existing elections.
+) # Check that annotations match existing elections
 
 # Highlight cantons which are discussed deeper
 eq3_colours <- c(
-  AG = "#c9203c", GR = "#A0A0A0", NW = "#00856A",
-  SH = "#f38632", SZ = "#666666", UR = "#666666",
-  VS = "#666666", ZG = "#666666", ZH = "#0072B2"
+  AG = "#c9203c", GR = "#8E8E8E", NW = "#00856A",
+  SH = "#f38632", SZ = "#373737", UR = "#373737",
+  VS = "#373737", ZG = "#373737", ZH = "#0072B2"
 )
 
 eq3_canton_labels <- c(
@@ -1525,7 +1525,7 @@ eq3_canton_labels <- c(
   VS = "Valais", ZG = "Zug", ZH = "Zurich"
 )
 
-# Arrange the panels: highlighted trajectories first, contextual GR last.
+# Arrange the panels: highlighted trajectories first, contextual GR last
 eq3_panel_order <- c(
   "SH", "ZH", "NW",
   "AG", "SZ", "ZG",
@@ -1550,9 +1550,9 @@ eq3_panel_data <- eq3_elections |>
 eq3_panel_events <- eq3_events |>
   mutate(
     canton = factor(canton, levels = eq3_panel_order),
-    # Canton names already appear in the panel headings.
+    # Canton names already appear in the panel headings
     label = str_remove(label, "^[A-Z]{2}: "),
-    # Align Zurich's label with its rule-change line while keeping it inside the panel.
+    # Align Zurich's label with its rule-change line while keeping it inside the panel
     label_hjust = if_else(canton == "ZH", 1, 0.5)
   )
 
@@ -1581,13 +1581,13 @@ eq3_plot <- ggplot(
     aes(colour = canton, shape = comparison),
     size = 2.1
   ) +
-  # Repel year/E/L text without drawing label boxes.
+  # Repel year/E/L text
   ggrepel::geom_text_repel(
     aes(label = year_label),
     nudge_y = 1.5,
-    direction = "y",
-    seed = 2026,
-    max.overlaps = Inf,
+    direction = "y", # Keep year labels aligned with election number
+    seed = 2026, # Make label placement reproducible
+    max.overlaps = Inf, # Retain every election label
     max.iter = 10000,
     max.time = Inf,
     box.padding = 0.25,
@@ -1629,6 +1629,7 @@ eq3_plot <- ggplot(
     ),
     guide = "none"
   ) +
+  # Use common axes across cantons and reserve space above the data for rule-change labels
   scale_x_continuous(
     breaks = 1:5,
     limits = c(0.7, 5.3)
@@ -1642,8 +1643,7 @@ eq3_plot <- ggplot(
     y = "Smaller-party seat-share gain (pp)",
     caption = wrap_plot_caption(
      "Notes: Differences equal observed DP minus counterfactual HB combined smaller parties seat shares.", "Dotted vertical lines mark electoral rule changes.",
-      "E/L: one parliamentary party enters/leaves the below-10% group; 2E/2L: two parties.",
-      "Uri 2020: no list below 10% contested. Graubünden is shown for context only."
+      "E/L: one parliamentary party enters/leaves the below-10% group; 2E/2L: two parties."," Graubünden is shown for context only."
     )
   ) +
   theme_minimal(base_size = 10) +
@@ -1670,13 +1670,13 @@ eq3_plot
 
 # Calculate average transition changes and average seat-share gain by election number
 eq3_election_stats <- eq3_elections |>
-  filter(!is_graubuenden) |> # Exclude Graubünden 
-  arrange(canton, election_number) |> # Order elections chronologically for each canton
-  group_by(canton) |> # Calculate changes separately for each canton.
+  filter(!is_graubuenden) |>  
+  arrange(canton, election_number) |> # Order elections chronologically
+  group_by(canton) |>
   mutate(
-    change_pp = seat_gain_pp - lag(seat_gain_pp) # calculate difference between preceeding and current election
+    change_pp = seat_gain_pp - lag(seat_gain_pp)
   ) |>
-  ungroup() |> # remove canton grouping for 2nd calculation
+  ungroup() |> 
   group_by(election_number) |> # Group 1st, 2nd, 3rd etc elections together
   summarise(
     cantons = n_distinct(canton), # AG contributes to both groups, because of the threshold change
@@ -1684,11 +1684,11 @@ eq3_election_stats <- eq3_elections |>
     mean_change_pp = if (all(is.na(change_pp))) {
       NA_real_ # Election 0 does not exist, therefore excluded later in the note
     } else {
-      mean(change_pp, na.rm = TRUE) # Average the within-canton changes, excluding missing values.
+      mean(change_pp, na.rm = TRUE) # Average the within-canton changes
     },
     .groups = "drop" 
   ) |>
-  arrange(election_number) # Display the results
+  arrange(election_number)
 ```
 
 ::: {.callout-note title="EQ3 summary"} 
