@@ -371,6 +371,7 @@ allocate_vs_dp_upper <- function(weighted_voters, n_seats) {
 }
 
 # Published deputy-seat totals used to validate the reconstructed upper allocation
+# (Commission de validation du Grand Conseil, 2025, p. 5; Validierungskommission des Grossen Rates, 2021, p. 5).
 vs_official_dp_totals <- function(election_year) {
   switch(
     as.character(election_year),
