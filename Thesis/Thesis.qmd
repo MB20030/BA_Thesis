@@ -582,7 +582,7 @@ The 10% threshold analysis is complemented by sensitivity analyses with 8% and 1
 
 All three exploratory questions are descriptive since they examine differences across institutional settings and successive elections without isolating the causal effects of individual electoral rules.
 
-For exploratory question 1 (EQ1), election-level seat-share gains are first averaged within each canton. These canton-level outcomes are examined against mean district magnitude and the share of districts below nine seats. These two measures are calculated from the same fixed allocation in each canton's last pre-reform election and with the Schaffhausen parliament adjusted to 60 seats. These historical characteristics are held fixed when comparing the canton-level average gains across the analyzed elections. Uri covers the same four municipalities included in the HB–DP comparison, and Valais's district count refers to its 14 Hagenbach-Bischoff allocation districts. Both district measures are calculated once per canton from this baseline and are held fixed across its analyzed elections. For each measure, cantons are grouped below or at or above its unweighted mean across the eight main sample cantons. Group means give each canton equal weight, and the group difference is calculated as below-mean minus at-or-above-mean. Graubünden is shown only for context. The historical reference year applies to all district measures. Historical seat allocations are documented in the cantonal publications and court judgments cited below.^[Sources by canton and reference year: Aargau 2005 (Kanton Aargau, 2004); Graubünden 2018 (Kanton Graubünden, n.d.); Nidwalden 2010 (BGE 136 I 352, E. 3.5); Schaffhausen 2004, adjusted to 60 seats (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2); Schwyz 2012 (Urteil des Bundesgerichts 1C_407/2011 et al. vom 19. März 2012, Sachverhalt A); Uri 2016 (Standeskanzlei Uri, 2016, p. 5); Valais 2013 (BGE 140 I 107, Sachverhalt A); Zug 2010 (Staatskanzlei des Kantons Zug, 2010, p. 92); Zurich 2003 (Regierungsrat des Kantons Zürich, 2002).] Later district magnitudes may change, so the district measures describe associations with the initial structure. For Schaffhausen, the 2004 structure is adjusted from 80 to 60 seats using the published hypothetical allocation in the government's reform report (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2). The election-specific Hagenbach-Bischoff to Double Pukelsheim allocations are unchanged.
+For exploratory question 1 (EQ1), election-level seat-share gains are first averaged within each canton. These canton-level outcomes are examined against mean district magnitude and the share of districts below nine seats. These two measures are calculated from the same fixed allocation in each canton's last pre-reform election and with the Schaffhausen parliament adjusted to 60 seats. These historical characteristics are held fixed when comparing the canton-level average gains across the analyzed elections. Uri covers the same four municipalities included in the HB–DP comparison, and Valais's district count refers to its 14 Hagenbach-Bischoff allocation districts. Both district measures are calculated once per canton from this baseline and are held fixed across its analyzed elections. For each measure, cantons are grouped below or at or above its unweighted mean across the eight main sample cantons. Group means give each canton equal weight, and the group difference is calculated as below-mean minus at-or-above-mean. Graubünden is shown only for context. The historical reference year applies to all district measures. Historical seat allocations are documented in the cantonal publications and court judgments cited below.^[Sources by canton and reference year: Aargau 2005 (Grosser Rat des Kantons Aargau, 2004); Graubünden 2018 (Kanton Graubünden, n.d.); Nidwalden 2010 (BGE 136 I 352, E. 3.5); Schaffhausen 2004, adjusted to 60 seats (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2); Schwyz 2012 (Urteil des Bundesgerichts 1C_407/2011 et al. vom 19. März 2012, Sachverhalt A); Uri 2016 (Standeskanzlei Uri, 2016, p. 5); Valais 2013 (BGE 140 I 107, Sachverhalt A); Zug 2010 (Staatskanzlei des Kantons Zug, 2010, p. 92); Zurich 2003 (Regierungsrat des Kantons Zürich, 2002).] Later district magnitudes may change, so the district measures describe associations with the initial structure. For Schaffhausen, the 2004 structure is adjusted from 80 to 60 seats using the published hypothetical allocation in the government's reform report (Regierungsrat des Kantons Schaffhausen, 2007, Table 1, p. 2). The election-specific Hagenbach-Bischoff to Double Pukelsheim allocations are unchanged.
 
 For EQ2, elections are grouped by whether or not an explicit electoral quorum applied under Double Pukelsheim. Within each group, the mean of $\Delta_e$ gives each election equal weight, so cantons with more observed elections contribute more. The group difference is calculated as the mean without a quorum minus the mean with one. Graubünden is shown for context and excluded from both means. Since the observations differ structurally in terms of quorum levels, geographical scope and others, the analysis is only descriptive.
 
@@ -1732,170 +1732,170 @@ However, this analysis is only focusing on mechanical differences conditional on
 #set par(hanging-indent: 0.5in)
 ```
 
-Amt für Statistik und Daten Kanton Zürich. (2026). *Archiv Wahlresultate Kantonsratswahlen* [Data set]. Kanton Zürich. https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich
+Amt für Statistik und Daten Kanton Zürich. (2026). *Archiv Wahlresultate Kantonsratswahlen* [Data set]. Kanton Zürich.<https://www.zh.ch/de/politik-staat/wahlen-abstimmungen/wahlarchiv.zhweb-noredirect.zhweb-cache.html#/datasets/690@statistisches-amt-kanton-zuerich>
 
-Bentz, D. (2003). *Die Zürcher Kantonsratswahlen 2003 (statistik.info 23/2003)*. Statistisches Amt des Kantons Zürich. https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00000572_00001485.pdf
+Bentz, D. (2003). *Die Zürcher Kantonsratswahlen 2003 (statistik.info 23/2003)*. Statistisches Amt des Kantons Zürich. <https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00000572_00001485.pdf>
 
-BGE 129 I 185. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F129-I-185%3Ade&lang=de&type=show_document
+BGE 129 I 185. <https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F129-I-185%3Ade&lang=de&type=show_document>
 
-BGE 131 I 74. https://www.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F131-I-74&type=show_document
+BGE 131 I 74. <https://www.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F131-I-74&type=show_document>
 
-BGE 131 I 85. https://search.bger.ch/ext/eurospider/live/fr/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F131-I-85%3Ade&lang=de&type=show_document
+BGE 131 I 85. <https://search.bger.ch/ext/eurospider/live/fr/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F131-I-85%3Ade&lang=de&type=show_document>
 
-BGE 136 I 352. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document
+BGE 136 I 352. <https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-352%3Ade&lang=de&type=show_document>
 
-BGE 136 I 376. https://search.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-376%3Ade&lang=de&type=show_document&zoom=IN
+BGE 136 I 376. <https://search.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F136-I-376%3Ade&lang=de&type=show_document&zoom=IN>
 
-BGE 140 I 107. https://www.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F140-I-107&type=show_document
+BGE 140 I 107. <https://www.bger.ch/ext/eurospider/live/de/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F140-I-107&type=show_document>
 
-BGE 143 I 92. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F143-I-92%3Ade&lang=de&type=show_document
+BGE 143 I 92. <https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F143-I-92%3Ade&lang=de&type=show_document>
 
-BGE 145 I 259. https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F145-I-259%3Ade&lang=de&type=show_document
+BGE 145 I 259. <https://relevancy.bger.ch/php/clir/http/index.php?highlight_docid=atf%3A%2F%2F145-I-259%3Ade&lang=de&type=show_document>
 
-Bundeskanzlei. (2013, August 21). *Proporzwahlsysteme im Vergleich: Bericht der Bundeskanzlei*. https://politchronik.swiss/references/175498/download?filename=Bericht+BK+vom+21.8.13_1151_20130821.pdf&inline=true&locale=de
+Bundeskanzlei. (2013, August 21). *Proporzwahlsysteme im Vergleich: Bericht der Bundeskanzlei*. <https://politchronik.swiss/references/175498/download?filename=Bericht+BK+vom+21.8.13_1151_20130821.pdf&inline=true&locale=de>
 
-Bundeskanzlei. (2025, June 6). *Wahlsysteme und Sitzzuteilungsverfahren im Vergleich: Bericht der Bundeskanzlei*. https://cms.news.admin.ch/fileservice/sdweb-docs-prod-nsbcch-files/files/2025/08/21/fdacd8e9-e27f-4e8d-a5f0-c3da45ed88ff.pdf
+Bundeskanzlei. (2025, June 6). *Wahlsysteme und Sitzzuteilungsverfahren im Vergleich: Bericht der Bundeskanzlei*. <https://cms.news.admin.ch/fileservice/sdweb-docs-prod-nsbcch-files/files/2025/08/21/fdacd8e9-e27f-4e8d-a5f0-c3da45ed88ff.pdf>
 
-Departement für Finanzen und Ressourcen des Kantons Aargau. (2009, April 21). *Detailergebnisse der Grossratswahlen vom 8. März 2009*. https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de
+Departement Finanzen und Ressourcen des Kantons Aargau. (2009, April 21). *Detailergebnisse der Grossratswahlen vom 8. März 2009: Einblicke in das Verhalten der Wählerinnen und Wähler* [Press release]. Kanton Aargau. <https://www.ag.ch/de/medien/medienmitteilungen?mm=detailergebnisse-der-grossratswahlen-vom-8-maerz-2009-742f7d21-d4b0-454f-abd7-25471ef7f566_de>
 
-Deutscher Bundestag. (2007). *Entwurf eines Gesetzes zur Änderung des Wahl- und Abgeordnetenrechts* (Drucksache 16/7461). https://dserver.bundestag.de/btd/16/074/1607461.pdf
+Deutscher Bundestag. (2007). *Entwurf eines Gesetzes zur Änderung des Wahl- und Abgeordnetenrechts* (Drucksache 16/7461). <https://dserver.bundestag.de/btd/16/074/1607461.pdf>
 
-Fiva, J. H., & Folke, O. (2016). Mechanical and psychological effects of electoral reform. *British Journal of Political Science, 46(2)*, 265–279. https://doi.org/10.1017/S0007123414000209
+Fiva, J. H., & Folke, O. (2016). Mechanical and psychological effects of electoral reform. *British Journal of Political Science, 46(2)*, 265–279. <https://doi.org/10.1017/S0007123414000209>
 
-Gilg, P. (2014, December 27). Wahlsysteme. In *Historisches Lexikon der Schweiz*. https://hls-dhs-dss.ch/de/articles/026454/2014-12-27/
+Gilg, P. (2014, December 27). Wahlsysteme. In *Historisches Lexikon der Schweiz*. <https://hls-dhs-dss.ch/de/articles/026454/2014-12-27/>
 
-Grünliberale Partei Kanton Zürich. (n.d.). *Unsere Geschichte*. https://zh.grunliberale.ch/partei/verein/unsere-geschichte/
+Grünliberale Partei Kanton Zürich. (n.d.). *Unsere Geschichte*. <https://zh.grunliberale.ch/partei/verein/unsere-geschichte/>
 
-Grosser Rat des Kantons Thurgau. (n.d.). *Kantonale Volksinitiative „Mehr Transparenz bei Wahlen im Thurgau“ (Doppelproporz nach Pukelsheim)*. Retrieved September 17, 2026, from https://parlament.tg.ch/de/geschaefte/detail.php?gid=97e7bade75ba4cadabae69f649c29b94
+Grosser Rat des Kantons Thurgau. (n.d.). *Kantonale Volksinitiative „Mehr Transparenz bei Wahlen im Thurgau“ (Doppelproporz nach Pukelsheim)*. Retrieved September 17, 2026, from <https://parlament.tg.ch/de/geschaefte/detail.php?gid=97e7bade75ba4cadabae69f649c29b94>
 
-Initiativkomitee “Damit jede Stimme zählt”. (n.d.). *Initiative für ein faires Wahlsystem im Kanton St. Gallen*. Retrieved September 15, 2026, from https://jede-stimme-zaehlt.ch/
+Initiativkomitee “Damit jede Stimme zählt”. (n.d.). *Initiative für ein faires Wahlsystem im Kanton St. Gallen*. Retrieved September 15, 2026, from <https://jede-stimme-zaehlt.ch/>
 
-Kanton Aargau. (1988/2004). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 8. Juni 2004, in Kraft seit 1. November 2004* (SAR 152.100). https://www.lexfind.ch/tolv/2551/de
+Kanton Aargau. (1988/2004). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 8. Juni 2004, in Kraft seit 1. November 2004* (SAR 152.100). <https://www.lexfind.ch/tolv/2551/de>
 
-Kanton Aargau. (1988/2009). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz)* (SAR 152.100; Stand 1. Januar 2009). https://gesetzessammlungen.ag.ch/api/de/versions/519/pdf_file
+Kanton Aargau. (1988/2009). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz)* (SAR 152.100; Stand 1. Januar 2009). <https://gesetzessammlungen.ag.ch/api/de/versions/519/pdf_file>
 
-Kanton Aargau. (1988/2012). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 7. Juni 2011, in Kraft seit 1. Mai 2012* (SAR 152.100). https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file
+Kanton Aargau. (1988/2012). *Grossratswahlgesetz (Gesetz über die Wahl des Grossen Rates) vom 8. März 1988, in der Fassung der Änderung vom 7. Juni 2011, in Kraft seit 1. Mai 2012* (SAR 152.100). <https://gesetzessammlungen.ag.ch/api/de/versions/3570/pdf_file>
 
-Kanton Aargau. (2004, December 14). *SVP/FDP, SP/Grüne und CVP/EVP: Grossratswahlen 2005: Listenverbindungen*. https://www.ag.ch/de/medien/medienmitteilungen?mm=svp-fdp-sp-gruene-und-cvp-evp-c849a7cb-e1b5-4aaf-9c77-2513b9eecbdf_de
+Grosser Rat des Kantons Aargau. (2004, December 14). *SVP/FDP, SP/Grüne und CVP/EVP: Grossratswahlen 2005: Listenverbindungen* [Press release]. Kanton Aargau. <https://www.ag.ch/de/medien/medienmitteilungen?mm=svp-fdp-sp-gruene-und-cvp-evp-c849a7cb-e1b5-4aaf-9c77-2513b9eecbdf_de>
 
-Kanton Basel-Landschaft. (1981/2025). *Gesetz über die politischen Rechte (GpR; SGS 120; Stand 1. Mai 2025)*. https://bl.clex.ch/api/de/versions/4260/pdf_file
+Kanton Basel-Landschaft. (1981/2025). *Gesetz über die politischen Rechte (GpR; SGS 120; Stand 1. Mai 2025)*. <https://bl.clex.ch/api/de/versions/4260/pdf_file>
 
-Kanton Basel-Landschaft. (2025a). *Abstimmung vom 9. Februar 2025: Abstimmungsvorlagen* [Abstimmungsbroschüre]. https://abstimmungen.bl.ch/app/archive/de/storage/cd604418d5ac943f3373dd673738f3101f41769264c57eba9d692ea3d9a12347.pdf
+Kanton Basel-Landschaft. (2025a). *Abstimmung vom 9. Februar 2025: Abstimmungsvorlagen* [Abstimmungsbroschüre]. <https://abstimmungen.bl.ch/app/archive/de/storage/cd604418d5ac943f3373dd673738f3101f41769264c57eba9d692ea3d9a12347.pdf>
 
-Kanton Basel-Landschaft. (2025b). *Einführung des kantonalen Doppelproporzes im Kanton Basel-Landschaft – Teilrevision des Gesetzes über die politischen Rechte* [Abstimmungsresultat vom 9. Februar 2025]. https://abstimmungen.bl.ch/app/archive/de/vote/ct-13-100.html
+Kanton Basel-Landschaft. (2025b). *Einführung des kantonalen Doppelproporzes im Kanton Basel-Landschaft – Teilrevision des Gesetzes über die politischen Rechte* [Abstimmungsresultat vom 9. Februar 2025]. [Press release]. <https://abstimmungen.bl.ch/app/archive/de/vote/ct-13-100.html>
 
-Kanton Basel-Landschaft. (2026, March 13). *Gesamterneuerungswahlen des Landrats vom 11. April 2027: Mandatszuteilung an die Wahlkreise*. https://www.baselland.ch/politik-und-behorden/besondere-behoerden/landeskanzlei/medienmitteilungen/gesamterneuerungswahlen-des-landrats-vom-11-april-2027-mandatszuteilung-an-die-wahlkreise
+Kanton Basel-Landschaft. (2026, March 13). *Gesamterneuerungswahlen des Landrats vom 11. April 2027: Mandatszuteilung an die Wahlkreise*. <https://www.baselland.ch/politik-und-behorden/besondere-behoerden/landeskanzlei/medienmitteilungen/gesamterneuerungswahlen-des-landrats-vom-11-april-2027-mandatszuteilung-an-die-wahlkreise>
 
-Kanton Graubünden. (n.d.). *Verteilung der Grossratssitze auf die Wahlkreise aufgrund der Zahlen der eidgenössischen Statistik der Bevölkerung und der Haushalte (ständige schweizerische Wohnbevölkerung Graubündens per 31. Dezember 2016)* [Seat allocation for the 2018 Grand Council election]. https://www.gr.ch/DE/Medien/Mitteilungen/MMStaka/2018/MedienDokumente/Sitzverteilung%202018.pdf
+Kanton Graubünden. (n.d.). *Verteilung der Grossratssitze auf die Wahlkreise aufgrund der Zahlen der eidgenössischen Statistik der Bevölkerung und der Haushalte (ständige schweizerische Wohnbevölkerung Graubündens per 31. Dezember 2016)* [Seat allocation for the 2018 Grand Council election]. <https://www.gr.ch/DE/Medien/Mitteilungen/MMStaka/2018/MedienDokumente/Sitzverteilung%202018.pdf>
 
-Kanton Graubünden. (2003/2018). *Verfassung des Kantons Graubünden vom 14. September 2003* (BR 110.100; Stand 1. Januar 2018). https://www.gr-lex.gr.ch/api/de/versions/2812/pdf_file
+Kanton Graubünden. (2003/2018). *Verfassung des Kantons Graubünden vom 14. September 2003* (BR 110.100; Stand 1. Januar 2018). <https://www.gr-lex.gr.ch/api/de/versions/2812/pdf_file>
 
-Kanton Graubünden. (2021/2026). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG)* (BR 150.400; Stand 1. Januar 2026). https://www.gr-lex.gr.ch/api/de/versions/3754/pdf_file
+Kanton Graubünden. (2021/2026). *Gesetz über die Wahl des Grossen Rates (Grossratswahlgesetz; GRWG)* (BR 150.400; Stand 1. Januar 2026). <https://www.gr-lex.gr.ch/api/de/versions/3754/pdf_file>
 
-Kanton Graubünden. (2022). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2022* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx
+Kanton Graubünden. (2022). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2022* [Excel spreadsheet]. <https://www.gr.ch/DE/publikationen/abstimmungenwahlen/Grossratswahlen-2022/ResultateGrossratswahlen/20220515_Pressedaten_Proporzwahl_kantonal.xlsx>
 
-Kanton Graubünden. (2026). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2026* [Excel spreadsheet]. https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx
+Kanton Graubünden. (2026). *Pressedaten Proporzwahl kantonal: Grossratswahlen 2026* [Excel spreadsheet]. <https://www.gr.ch/DE/publikationen/abstimmungenwahlen/grw26/Resultate1/20260614_Pressedaten_Proporzwahl_kantonal.xlsx>
 
-Kanton Schaffhausen. (n.d.). *Frühere Urnengänge (seit 2003)*. https://archiv.sh.ch/daten/Fruehere-Urnengaenge-seit-200.1127.0.html
+Kanton Schaffhausen. (n.d.). *Frühere Urnengänge (seit 2003)*. <https://archiv.sh.ch/daten/Fruehere-Urnengaenge-seit-200.1127.0.html>
 
-Kanton Schaffhausen. (1904/2019). *Gesetz über die vom Volke vorzunehmenden Abstimmungen und Wahlen sowie über die Ausübung der Volksrechte (Wahlgesetz)* (SHR 160.100; Stand 1. Juli 2019). https://rechtsbuch.sh.ch/api/de/versions/1105/pdf_file
+Kanton Schaffhausen. (1904/2019). *Gesetz über die vom Volke vorzunehmenden Abstimmungen und Wahlen sowie über die Ausübung der Volksrechte (Wahlgesetz)* (SHR 160.100; Stand 1. Juli 2019). <https://rechtsbuch.sh.ch/api/de/versions/1105/pdf_file>
 
-Kanton Uri. (2018). *Synoptische Darstellung zum Gesetz über die Verhältniswahl des Landrats (Proporzgesetz)*. https://www.ur.ch/_docn/113506/LA.2017-0413_IV._Synoptische_Darstellung_Proporzgesetz.pdf
+Kanton Uri. (2018). *Synoptische Darstellung zum Gesetz über die Verhältniswahl des Landrats (Proporzgesetz)*. <https://www.ur.ch/_docn/113506/LA.2017-0413_IV._Synoptische_Darstellung_Proporzgesetz.pdf>
 
-Kanton Uri. (2019). *Botschaft zur Änderung des Gesetzes über die Verhältniswahl des Landrats (Proporzgesetz) und zur Änderung der Verfassung des Kantons Uri: Kantonale Volksabstimmung vom 19. Mai 2019*. https://www.ur.ch/_docn/169379/Abstimmungsbotschaft_kantonal.pdf
+Kanton Uri. (2019). *Botschaft zur Änderung des Gesetzes über die Verhältniswahl des Landrats (Proporzgesetz) und zur Änderung der Verfassung des Kantons Uri: Kantonale Volksabstimmung vom 19. Mai 2019*. <https://www.ur.ch/_docn/169379/Abstimmungsbotschaft_kantonal.pdf>
 
-Kanton Wallis. (2004/2017). *Gesetz über die politischen Rechte (kGPR) vom 13. Mai 2004* (SGS 160.1; Stand 9. April 2017). https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375
+Kanton Wallis. (2004/2017). *Gesetz über die politischen Rechte (kGPR) vom 13. Mai 2004* (SGS 160.1; Stand 9. April 2017). <https://lex.vs.ch/app/de/texts_of_law/160.1/versions/1375>
 
-Kanton Wallis. (2004/2023). *Gesetz über die politischen Rechte (kGPR) vom 13. Mai 2004* (SGS 160.1; Stand 1. April 2023). https://lex.vs.ch/api/de/versions/3202/pdf_file
+Kanton Wallis. (2004/2023). *Gesetz über die politischen Rechte (kGPR) vom 13. Mai 2004* (SGS 160.1; Stand 1. April 2023). <https://lex.vs.ch/api/de/versions/3202/pdf_file>
 
-Kanton Wallis. (2016, September 29). *Legislaturperiode 2017–2021: Verteilung der Anzahl Grossratssitze pro Bezirk*. https://www.vs.ch/documents/529400/2263784/MM_Verteilung_Grossratssitze.pdf/30be6442-6e9e-4d91-adef-76d3f60d6107
+Kanton Wallis. (2016, September 29). *Legislaturperiode 2017–2021: Verteilung der Anzahl Grossratssitze pro Bezirk*. [Press release]. <https://www.vs.ch/documents/529400/2263784/MM_Verteilung_Grossratssitze.pdf/30be6442-6e9e-4d91-adef-76d3f60d6107>
 
-Kanton Wallis. (2020, September 25). *Legislaturperiode 2021–2025: Verteilung der Anzahl Grossratssitze pro Bezirk*. https://www.vs.ch/documents/529400/8932772/2020+09+25+-+MM+-+Verteilung+Grossratssitze.pdf/62d59d10-2075-5231-e385-88688c7cb559
+Kanton Wallis. (2020, September 25). *Legislaturperiode 2021–2025: Verteilung der Anzahl Grossratssitze pro Bezirk*. <https://www.vs.ch/documents/529400/8932772/2020+09+25+-+MM+-+Verteilung+Grossratssitze.pdf/62d59d10-2075-5231-e385-88688c7cb559>
 
-Kanton Wallis. (2024, September 20). *Anhang zur Verteilung der Anzahl Grossratssitze pro Bezirk, Legislaturperiode 2025–2029*. https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09
+Kanton Wallis. (2024, September 20). *Anhang zur Verteilung der Anzahl Grossratssitze pro Bezirk, Legislaturperiode 2025–2029*. <https://www.vs.ch/documents/529400/33671442/Anhang+Verteilung.pdf/b1f92f33-f4b2-35ef-6149-838af6c70b09>
 
-Kanton Zürich. (1983/2005). *Gesetz über die Wahlen und Abstimmungen (Wahlgesetz)* (LS 161; Nachtrag 47, Stand 1. Januar 2005). https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf
+Kanton Zürich. (1983/2005). *Gesetz über die Wahlen und Abstimmungen (Wahlgesetz)* (LS 161; Nachtrag 47, Stand 1. Januar 2005). <https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/C4AB55033822301DC1256F4A0047A916/$File/161_4.9.83_47.pdf>
 
-Kanton Zürich. (2003/2005). *Gesetz über die politischen Rechte vom 1. September 2003, Stand 1. April 2005* (LS 161; Nachtrag 48). https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/F783DB9B7749997DC1256FCC0025D1D7/$File/161_1.9.03_48.pdf
+Kanton Zürich. (2003/2005). *Gesetz über die politischen Rechte vom 1. September 2003, Stand 1. April 2005* (LS 161; Nachtrag 48). <https://www.notes.zh.ch/appl/zhlex_r.nsf/WebView/F783DB9B7749997DC1256FCC0025D1D7/$File/161_1.9.03_48.pdf>
 
-Kanton Zürich. (2003/2021). *Gesetz über die politischen Rechte (GPR) vom 1. September 2003, in der Fassung der Änderung vom 22. März 2021, in Kraft seit 1. Oktober 2021* (LS 161; Nachtrag 114). https://www.zh.ch/de/politik-staat/gesetze-beschluesse/gesetzessammlung/zhlex-ls/erlass-161-2003_09_01-2005_01_01-114.html
+Kanton Zürich. (2003/2021). *Gesetz über die politischen Rechte (GPR) vom 1. September 2003, in der Fassung der Änderung vom 22. März 2021, in Kraft seit 1. Oktober 2021* (LS 161; Nachtrag 114). <https://www.zh.ch/de/politik-staat/gesetze-beschluesse/gesetzessammlung/zhlex-ls/erlass-161-2003_09_01-2005_01_01-114.html>
 
-Kanton Zug. (2006/2023). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG) vom 28. September 2006, Stand 1. Januar 2023* (BGS 131.1). https://bgs.zg.ch/api/de/versions/2386/pdf_file
+Kanton Zug. (2006/2023). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG) vom 28. September 2006, Stand 1. Januar 2023* (BGS 131.1). <https://bgs.zg.ch/api/de/versions/2386/pdf_file>
 
-Kanton Zug. (2006/2026). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (BGS 131.1; Stand 1. Januar 2026). https://bgs.zg.ch/api/de/versions/2967/pdf_file
+Kanton Zug. (2006/2026). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (BGS 131.1; Stand 1. Januar 2026). <https://bgs.zg.ch/api/de/versions/2967/pdf_file>
 
-Kanton Zug. (2006, September 28). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (Vorlage Nr. 1300.24, Laufnummer 12 198). https://kr-geschaefte.zug.ch/dokumente/2793/pdoc_1494_1.pdf
+Kanton Zug. (2006, September 28). *Gesetz über die Wahlen und Abstimmungen (Wahl- und Abstimmungsgesetz, WAG)* (Vorlage Nr. 1300.24, Laufnummer 12 198). <https://kr-geschaefte.zug.ch/dokumente/2793/pdoc_1494_1.pdf>
 
 Kanton Zug. (2022a, July 1). *Kantonsratswahl 2018* [Data set].
-https://wab.zug.ch/elections/kantonsratswahl-2018/data
+<https://wab.zug.ch/elections/kantonsratswahl-2018/data>
 
 Kanton Zug. (2022b, July 1). *Kantonsratswahl Kanton Zug* [Data set].
-https://wab.zug.ch/elections/kantonsratswahl-kanton-zug-2014/data
+<https://wab.zug.ch/elections/kantonsratswahl-kanton-zug-2014/data>
 
 Kanton Zug. (2022c, October 2). *Kantonsratswahl 2022* [Data set].
-https://wab.zug.ch/elections/kantonsratswahl-2022/data
+<https://wab.zug.ch/elections/kantonsratswahl-2022/data>
 
-Kanton Zug. (2026, October 4). *Erneuerungswahl für den Kantonsrat 2026* [Data set]. https://wab.zug.ch/elections/kr-wahl-2026/data-csv
+Kanton Zug. (2026, October 4). *Erneuerungswahl für den Kantonsrat 2026* [Data set]. <https://wab.zug.ch/elections/kr-wahl-2026/data-csv>
 
-Landrat des Kantons Basel-Landschaft. (2024, October 17). *Protokoll der 24. Sitzung vom 17. Oktober 2024*. https://baselland.talus.ch/de/politik/cdws/dok.php?bereich=sitzung&did=a6839efbe42849828ff5d8b0e1574870-332&filename=Protokoll_der_Landratssitzung_vom_17.10.2024&gremium=Landrat+Basel-Landschaft&r=PDF&sitzung=24.+Sitzung&sitzungsdatum=17.10.2024&typ=pdf&v=1
+Landrat des Kantons Basel-Landschaft. (2024, October 17). *Protokoll der 24. Sitzung vom 17. Oktober 2024*. <https://baselland.talus.ch/de/politik/cdws/dok.php?bereich=sitzung&did=a6839efbe42849828ff5d8b0e1574870-332&filename=Protokoll_der_Landratssitzung_vom_17.10.2024&gremium=Landrat+Basel-Landschaft&r=PDF&sitzung=24.+Sitzung&sitzungsdatum=17.10.2024&typ=pdf&v=1>
 
-Leuzinger, L. (2018a). Die Auswirkungen des Doppelproporz bei kantonalen Parlamentswahlen. *Parlament, Parlement, Parlamento, 21*(3), 38–47. https://pemmenegger.com/wp-content/uploads/2020/12/181122_buch_parlament_03_2018_pe-v2.pdf
+Leuzinger, L. (2018a). Die Auswirkungen des Doppelproporz bei kantonalen Parlamentswahlen. *Parlament, Parlement, Parlamento, 21*(3), 38–47. <https://pemmenegger.com/wp-content/uploads/2020/12/181122_buch_parlament_03_2018_pe-v2.pdf>
 
-Leuzinger, L. (2018b). [Excel dataset on the effects of biproportional apportionment in Swiss cantonal parliamentary elections]. Napoleon’s Nightmare. https://napoleonsnightmare.ch/wp-content/uploads/2018/10/auswirkungen-doppelproporz-kantone.xlsx
+Leuzinger, L. (2018b). [Excel dataset on the effects of biproportional apportionment in Swiss cantonal parliamentary elections]. Napoleon’s Nightmare. <https://napoleonsnightmare.ch/wp-content/uploads/2018/10/auswirkungen-doppelproporz-kantone.xlsx>
 
-Lüscher, S. (2023). Parlamentswahlen nach dem doppelt-proportionalen Sitzzuteilungsverfahren im Lichte der territorialen Repräsentation: Eine empirische Annäherung an ein konzeptionelles Dilemma. *Zeitschrift für Parlamentsfragen, 54*(3), 571–595. https://doi.org/10.5771/0340-1758-2023-3-571
+Lüscher, S. (2023). Parlamentswahlen nach dem doppelt-proportionalen Sitzzuteilungsverfahren im Lichte der territorialen Repräsentation: Eine empirische Annäherung an ein konzeptionelles Dilemma. *Zeitschrift für Parlamentsfragen, 54*(3), 571–595. <https://doi.org/10.5771/0340-1758-2023-3-571>
 
 Lüscher, S. (2024). Redeeming the pledge of electoral equity? A study of the roads to and effects of the divisor-based biproportional apportionment method in Switzerland [Unpublished doctoral dissertation, specimen copy dated August 28, 2024]. University of Zurich.
 
-Lüscher, S. (2025, February 20). *20 Jahre Doppelproporz—eine Rückschau*. DeFacto. https://www.zora.uzh.ch/entities/publication/9b83ccf9-a61f-45ff-b0c8-c52b5cfcb1c7
+Lüscher, S. (2025, February 20). *20 Jahre Doppelproporz—eine Rückschau*. DeFacto. <https://www.zora.uzh.ch/entities/publication/9b83ccf9-a61f-45ff-b0c8-c52b5cfcb1c7>
 
-Pukelsheim, F., & Schuhmacher, C. (2004). Das neue Zürcher Zuteilungsverfahren für Parlamentswahlen. *Aktuelle Juristische Praxis / Pratique Juridique Actuelle, 13(5)*, 505–522. https://www.math.uni-augsburg.de/htdocs/emeriti/pukelsheim/2004b.pdf
+Pukelsheim, F., & Schuhmacher, C. (2004). Das neue Zürcher Zuteilungsverfahren für Parlamentswahlen. *Aktuelle Juristische Praxis / Pratique Juridique Actuelle, 13(5)*, 505–522. <https://www.math.uni-augsburg.de/htdocs/emeriti/pukelsheim/2004b.pdf>
 
-Pukelsheim, F., & Schuhmacher, C. (2011). Doppelproporz bei Parlamentswahlen – ein Rück- und Ausblick. *Aktuelle Juristische Praxis / Pratique Juridique Actuelle, 20(12)*, 1581–1599. https://www.math.uni-augsburg.de/htdocs/emeriti/pukelsheim/2011e.pdf
+Pukelsheim, F., & Schuhmacher, C. (2011). Doppelproporz bei Parlamentswahlen – ein Rück- und Ausblick. *Aktuelle Juristische Praxis / Pratique Juridique Actuelle, 20(12)*, 1581–1599. <https://www.math.uni-augsburg.de/htdocs/emeriti/pukelsheim/2011e.pdf>
 
-Regierungsrat des Kantons Aargau. (2007, July 4). *Revision der Kantonsverfassung und des Grossratswahlgesetzes (Gesetz über die Wahl des Grossen Rates): Bericht und Entwurf zur 2. Beratung (Botschaft 07.176)*. https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/archiv/2008-02-24/v3-und-4-botschaft-rr-2-beratung.pdf
+Regierungsrat des Kantons Aargau. (2007, July 4). *Revision der Kantonsverfassung und des Grossratswahlgesetzes (Gesetz über die Wahl des Grossen Rates): Bericht und Entwurf zur 2. Beratung* (Botschaft 07.176). <https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/abstimmungen/archiv/2008-02-24/v3-und-4-botschaft-rr-2-beratung.pdf>
 
-Regierungsrat des Kantons Aargau. (2013). *Jahresbericht mit Jahresrechnung 2012. Kanton Aargau*. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf
+Regierungsrat des Kantons Aargau. (2013, March 20). *Jahresbericht mit Jahresrechnung 2012* (Botschaft 13.50). Kanton Aargau. <https://www.ag.ch/media/kanton-aargau/dfr/dokumente/finanzen/planung-und-berichterstattung/jahresbericht-mit-jahresrechnung/botschaft-2012.pdf>
 
-Regierungsrat des Kantons Basel-Landschaft. (2024, June 5). *Beschlossene Vorlagen und Stellungnahmen des Regierungsrats*. https://www.baselland.ch/politik-und-behorden/regierungsrat/medienmitteilungen/beschlossene-vorlagen-und-stellungnahmen-des-regierungsrats-1717493989.39
+Regierungsrat des Kantons Basel-Landschaft. (2024, June 5). *Beschlossene Vorlagen und Stellungnahmen des Regierungsrats*. <https://www.baselland.ch/politik-und-behorden/regierungsrat/medienmitteilungen/beschlossene-vorlagen-und-stellungnahmen-des-regierungsrats-1717493989.39>
 
-Regierungsrat des Kantons Luzern. (2026, March 31). *Volksinitiativen «Faire Wahlen ohne Listenflut» und «Stopp Listenflut»: Botschaft des Regierungsrates an den Kantonsrat* (B 93). https://www.lu.ch/-/klu/ris/cdws/document?fileid=641a78c026024e88bd438d2f0d3d0462
+Regierungsrat des Kantons Luzern. (2026, March 31). *Volksinitiativen «Faire Wahlen ohne Listenflut» und «Stopp Listenflut»: Botschaft des Regierungsrates an den Kantonsrat* (B 93). <https://www.lu.ch/-/klu/ris/cdws/document?fileid=641a78c026024e88bd438d2f0d3d0462>
 
 Regierungsrat des Kantons Schaffhausen. (1979, November 13). Verordnung des Regierungsrates des Kantons Schaffhausen über die Wahl des Grossen Rates und die Wahl der Einwohnerräte nach dem proportionalen Wahlverfahren (Proporzwahlverordnung) (Amtsdruckschrift 2734). Staatsarchiv des Kantons Schaffhausen, Schaffhausen, Switzerland.
 
-Regierungsrat des Kantons Schaffhausen. (2007, April 24). *Bericht und Antrag des Regierungsrates des Kantons Schaffhausen an den Kantonsrat betreffend Anpassung des Wahlsystems für den Kantonsrat (Bericht und Antrag 07-41)*. https://archiv.sh.ch/daten/fileadmin/Redaktoren/Dokumente_nicht_im_Formularpool/Regierung/Vorlagen/2007/24-4-07.pdf
+Regierungsrat des Kantons Schaffhausen. (2007, April 24). *Bericht und Antrag des Regierungsrates des Kantons Schaffhausen an den Kantonsrat betreffend Anpassung des Wahlsystems für den Kantonsrat* (Bericht und Antrag 07-41). <https://archiv.sh.ch/daten/fileadmin/Redaktoren/Dokumente_nicht_im_Formularpool/Regierung/Vorlagen/2007/24-4-07.pdf>
 
-Regierungsrat des Kantons Zürich. (2002, June 27). *Ein Kantonsratssitz mehr für Uster, einer weniger für Stadtzürcher Kreise 11 und 12*. Kanton Zürich. https://www.zh.ch/de/news-uebersicht/medienmitteilungen/2002/06/126_kantonsratssitz.html
+Regierungsrat des Kantons Zürich. (2002, June 27). *Ein Kantonsratssitz mehr für Uster, einer weniger für Stadtzürcher Kreise 11 und 12*. [Press release]. Kanton Zürich. <https://www.zh.ch/de/news-uebersicht/medienmitteilungen/2002/06/126_kantonsratssitz.html>
 
-Regierungsrat des Kantons Zürich. (2014, November 26). *Postulat (Änderung Wahlgesetz [Wahlkreiseinteilung]) (RRB Nr. 1254/2014; KR-Nr. 219/2014)*. https://parlzhcdws.cmicloud.ch/parlzh5/cdws//Files/89dffabbc7a240f08e824f7a30bebf4d-332/1/pdf
+Regierungsrat des Kantons Zürich. (2014, November 26). *Postulat (Änderung Wahlgesetz [Wahlkreiseinteilung])* (RRB Nr. 1254/2014; KR-Nr. 219/2014). <https://parlzhcdws.cmicloud.ch/parlzh5/cdws//Files/89dffabbc7a240f08e824f7a30bebf4d-332/1/pdf>
 
-Regierungsrat des Kantons Zürich. (2023, April 5). *Beschluss des Kantonsrates über die Erwahrung der Ergebnisse der Erneuerungswahl der Mitglieder des Kantonsrates vom 12. Februar 2023 für die Amtsdauer 2023–2027 (Vorlage 5898)*. https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2023/424/5898_Erwahrung%20Mitglieder%20KR%202023-2027.pdf
+Regierungsrat des Kantons Zürich. (2023, April 5). *Beschluss des Kantonsrates über die Erwahrung der Ergebnisse der Erneuerungswahl der Mitglieder des Kantonsrates vom 12. Februar 2023 für die Amtsdauer 2023–2027* (Vorlage 5898). <https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2023/424/5898_Erwahrung%20Mitglieder%20KR%202023-2027.pd>
 
-Regierungsrat des Kantons Zürich. (2024, March 27). *Gesetz über die politischen Rechte (GPR): Anpassung der Regelung zum 3%-Quorum bei Kantonsratswahlen* (Vorlage 5951). https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2024/338/5951_GPR_Aenderung.pdf
+Regierungsrat des Kantons Zürich. (2024, March 27). *Gesetz über die politischen Rechte (GPR): Anpassung der Regelung zum 3%-Quorum bei Kantonsratswahlen* (Vorlage 5951). <https://www.zh.ch/bin/zhweb/publish/regierungsratsbeschluss-unterlagen./2024/338/5951_GPR_Aenderung.pdf>
 
-Schaub, H.-P. (2022). *Auflösung der BDP und Zusammenschluss mit der CVP zur Mitte*. Politchronik, Année Politique Suisse. https://politchronik.swiss/de/prozesse/64748
+Schaub, H.-P. (2022). *Auflösung der BDP und Zusammenschluss mit der CVP zur Mitte*. Politchronik, Année Politique Suisse. <https://politchronik.swiss/de/prozesse/64748>
 
-Schaub, T. (2012, November). *Grossratswahlen 2012 – Wahlergebnisse* (stat.themen Nr. 25). Kanton Aargau, Departement Finanzen und Ressourcen, Statistik Aargau. https://www.ag.ch/media/kanton-aargau/dfr/dokumente/statistik/publikationen/statistikthemen/17-politik/grossratswahlen/2012/grossratswahlen2012-publikation.pdf
+Schaub, T. (2012, November). *Grossratswahlen 2012 – Wahlergebnisse* (stat.themen Nr. 25). Kanton Aargau, Departement Finanzen und Ressourcen, Statistik Aargau. <https://www.ag.ch/media/kanton-aargau/dfr/dokumente/statistik/publikationen/statistikthemen/17-politik/grossratswahlen/2012/grossratswahlen2012-publikation.pdf>
 
-Schweizerische Eidgenossenschaft. (1999). *Bundesverfassung der Schweizerischen Eidgenossenschaft vom 18. April 1999 (BV; SR 101)*. Fedlex. https://www.fedlex.admin.ch/eli/cc/1999/404/de
+Schweizerische Eidgenossenschaft. (1999). *Bundesverfassung der Schweizerischen Eidgenossenschaft vom 18. April 1999 (BV; SR 101)*. Fedlex. <https://www.fedlex.admin.ch/eli/cc/1999/404/de>
 
-Staat Wallis. (2017). *Grossräte 2017 – Resultate: Offizielle Endresultate. Archivierte Abstimmungs- und Wahlresultate*. https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137
+Staat Wallis. (2017). *Grossräte 2017 – Resultate: Offizielle Endresultate. Archivierte Abstimmungs- und Wahlresultate*. <https://vework-public.vs.ch/app/archive/sites/votel2/DE/1/result/gc/137>
 
-Staatskanzlei des Kantons Aargau. (2004, September 6). *Grossrats-Wahlen: Vorverfahren gestartet: Anmeldefrist ist der 6. Dezember 2004*. Kanton Aargau. https://www.ag.ch/de/medien/medienmitteilungen?mm=grossrats-wahlen-vorverfahren-gestartet-8c31221f-a220-4871-930f-2396f7b7ba33_de
+Staatskanzlei des Kantons Aargau. (2004, September 6). *Grossrats-Wahlen: Vorverfahren gestartet: Anmeldefrist ist der 6. Dezember 2004*. [Press release]. Kanton Aargau. <https://www.ag.ch/de/medien/medienmitteilungen?mm=grossrats-wahlen-vorverfahren-gestartet-8c31221f-a220-4871-930f-2396f7b7ba33_de>
 
-Staatskanzlei des Kantons Aargau. (2008, September 15). *Grossratswahlen: Vorverfahren gestartet*. https://www.ag.ch/de/medien/medienmitteilungen?mm=Grossratswahlen-Vorverfahren-gestartet-50a84551-3d6d-454c-a33c-5644c8bf50a5_de
+Staatskanzlei des Kantons Aargau. (2008, September 15). *Grossratswahlen: Vorverfahren gestartet*. [Press release]. Kanton Aargau. <https://www.ag.ch/de/medien/medienmitteilungen?mm=Grossratswahlen-Vorverfahren-gestartet-50a84551-3d6d-454c-a33c-5644c8bf50a5_de>
 
-Staatskanzlei des Kantons Aargau. (2012, April 5). *Gemeinsame Grossrats- und Regierungsratswahlen: Vorverfahren gestartet: Anmeldefristen sind bekannt*. https://www.ag.ch/de/medien/medienmitteilungen?mm=gemeinsame-grossrats-und-regierungsratswahlen-e7d48210-c7f0-46ac-8a70-ffc1aab7b4d6_de
+Staatskanzlei des Kantons Aargau. (2012, April 5). *Gemeinsame Grossrats- und Regierungsratswahlen: Vorverfahren gestartet: Anmeldefristen sind bekannt*. [Press release]. Kanton Aargau. <https://www.ag.ch/de/medien/medienmitteilungen mm=gemeinsame-grossrats-und-regierungsratswahlen-e7d48210-c7f0-46ac-8a70-ffc1aab7b4d6_de>
 
-Staatskanzlei des Kantons Aargau. (2016a, March 18). *Ausschreibung der Grossrats- und Regierungsratswahlen 2016: Unterlagen unter www.ag.ch/wabag verfügbar*. https://www.ag.ch/de/medien/medienmitteilungen?mm=ausschreibung-der-grossrats-und-regierungsratswahlen-2016-f7404346-a5eb-46e0-8627-301716c82855_de
+Staatskanzlei des Kantons Aargau. (2016a, March 18). *Ausschreibung der Grossrats- und Regierungsratswahlen 2016: Unterlagen unter www.ag.ch/wabag verfügbar*.[Press release]. Kanton Aargau. <https://www.ag.ch/de/medien/medienmitteilungen?mm=ausschreibung-der-grossrats-und-regierungsratswahlen-2016-f7404346-a5eb-46e0-8627-301716c82855_de>
 
-Staatskanzlei des Kantons Aargau. (2016b, October 28). *Ergebnis der Wahl von 140 Mitgliedern des Grossen Rats* (Amtsblattbeilage). https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/wahlen/grossratswahlen/2016-10-23-gr/amtsblatt-ergebnis-wahl-grosser-rat-2016.pdf
+Staatskanzlei des Kantons Aargau. (2016b, October 28). *Ergebnis der Wahl von 140 Mitgliedern des Grossen Rats* (Amtsblattbeilage). <https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/wahlen/grossratswahlen/2016-10-23-gr/amtsblatt-ergebnis-wahl-grosser-rat-2016.pdf>
 
-Staatskanzlei des Kantons Aargau. (2020, October 23). *Protokoll der Wahl von 140 Mitgliedern des Grossen Rats für die Amtsperiode 2021/2024* (Amtsblattbeilage). https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/wahlen/grossratswahlen/2020-10-18-gr/20201018-amtsblatt-ergebnisse-grossratswahlen-2020.pdf
+Staatskanzlei des Kantons Aargau. (2020, October 23). *Protokoll der Wahl von 140 Mitgliedern des Grossen Rats für die Amtsperiode 2021/2024* (Amtsblattbeilage). <https://www.ag.ch/media/kanton-aargau/portal/aktuell/wahlen-abstimmungen/wahlen/grossratswahlen/2020-10-18-gr/20201018-amtsblatt-ergebnisse-grossratswahlen-2020.pdf>
 
-Staatskanzlei des Kantons Aargau. (2024, October 25). *Ergebnis der Wahl von 140 Mitgliedern des Grossen Rats vom 20. Oktober 2024*. Amtsblatt des Kantons Aargau. https://amtsblatt.ag.ch/ekab/00.062.164/pdf/
+Staatskanzlei des Kantons Aargau. (2024, October 25). *Ergebnis der Wahl von 140 Mitgliedern des Grossen Rats vom 20. Oktober 2024*. Amtsblatt des Kantons Aargau. <https://amtsblatt.ag.ch/ekab/00.062.164/pdf/>
 
-Staatskanzlei des Kantons Zug. (2010, October 3). *Gesamterneuerungswahlen im Kanton Zug vom 3. Okt. 2010: Pressedokumentation: Schlussergebnisse*. Kanton Zug. https://cdn.zg.ch/dam/jcr%3Ad626fe28-3ba9-4192-9474-645344ce60b1/PressedokumentationSchlussergebnisse%20KR%20RR%202010.pdf
+Staatskanzlei des Kantons Zug. (2010, October 3). *Gesamterneuerungswahlen im Kanton Zug vom 3. Okt. 2010: Pressedokumentation: Schlussergebnisse*. Kanton Zug. <https://cdn.zg.ch/dam/jcr%3Ad626fe28-3ba9-4192-9474-645344ce60b1/PressedokumentationSchlussergebnisse%20KR%20RR%202010.pdf>
 
 Staatskanzlei Nidwalden. (2014). *Wahlergebnis der Landratswahlen vom 23. März 2014* [Unpublished raw data]. Kanton Nidwalden.
 
@@ -1907,31 +1907,31 @@ Staatskanzlei Nidwalden. (2026). *Wahlergebnis der Landratswahlen vom 8. März 2
 
 Staatskanzlei Kanton Schwyz. (2016). *Kantonsratswahlen vom 20. März 2016: Gemeindeergebnisse* [Unpublished data set; 30 municipality-level CSV files].
 
-Staatskanzlei Kanton Schwyz. (2020). *Kandidierendenresultate: Kantonsratswahlen vom 22. März 2020* [Data set; CSV file]. https://kanzlei.sz.ch/app/archive/de/elections/wahl-des-kantonsrates-vom-22-maerz-2020-in-der-gemeinde/data.html
+Staatskanzlei Kanton Schwyz. (2020). *Kandidierendenresultate: Kantonsratswahlen vom 22. März 2020* [Data set; CSV file]. <https://kanzlei.sz.ch/app/archive/de/elections/wahl-des-kantonsrates-vom-22-maerz-2020-in-der-gemeinde/data.html>
 
-Staatskanzlei Kanton Schwyz. (2024). *Kantonsprotokoll der Erneuerungswahl Kantonsrat 2024 vom 3. März 2024* [Data set; Excel workbook]. https://kanzlei.sz.ch/app/publication/de/03-03-2024/k1/downloads
+Staatskanzlei Kanton Schwyz. (2024). *Kantonsprotokoll der Erneuerungswahl Kantonsrat 2024 vom 3. März 2024* [Data set; Excel workbook]. <https://kanzlei.sz.ch/app/publication/de/03-03-2024/k1/downloads>
 
-Staatskanzlei Kanton Schaffhausen. (2020, September 27). *Kantonsratswahlen für die Amtsdauer 2021–2024: Sonntag, 27. September 2020*. Kanton Schaffhausen. https://sh.ch/CMS/get/file/c07eb045-81ab-4f70-962b-9ef53b9010e5
+Staatskanzlei Kanton Schaffhausen. (2020, September 27). *Kantonsratswahlen für die Amtsdauer 2021–2024: Sonntag, 27. September 2020*. Kanton Schaffhausen. <https://sh.ch/CMS/get/file/c07eb045-81ab-4f70-962b-9ef53b9010e5>
 
-Staatskanzlei Kanton Schaffhausen. (2024, September 22). *Kantonsratswahlen für die Amtsdauer 2025–2028: Sonntag, 22. September 2024*. Kanton Schaffhausen. https://www.sh.ch/CMS/get/file/e614bf0f-6eaf-44bf-9217-f4e483a236a6
+Staatskanzlei Kanton Schaffhausen. (2024, September 22). *Kantonsratswahlen für die Amtsdauer 2025–2028: Sonntag, 22. September 2024*. Kanton Schaffhausen. <https://www.sh.ch/CMS/get/file/e614bf0f-6eaf-44bf-9217-f4e483a236a6>
 
-Standeskanzlei Uri. (2016, July 4). *Landratswahlen 2016: Statistische Auswertung*. Kanton Uri. https://www.ur.ch/_docn/84386/Landratswahlen_2016_stat_Auswertung.pdf
+Standeskanzlei Uri. (2016, July 4). *Landratswahlen 2016: Statistische Auswertung*. Kanton Uri. <https://www.ur.ch/_docn/84386/Landratswahlen_2016_stat_Auswertung.pdf>
 
-Standeskanzlei Uri. (2020). *Landratswahlen 2020: Statistische Auswertung*. Kanton Uri. https://www.ur.ch/_docn/213898/Landratswahlen_2020_stat_Auswertung.pdf
+Standeskanzlei Uri. (2020). *Landratswahlen 2020: Statistische Auswertung*. Kanton Uri. <https://www.ur.ch/_docn/213898/Landratswahlen_2020_stat_Auswertung.pdf>
 
 Standeskanzlei Uri. (2024a). *AuswertungKapitel2-2024* [Unpublished Excel workbook]. Kanton Uri.
 
-Standeskanzlei Uri. (2024b). *Landratswahlen 2024: Statistische Auswertung*. Kanton Uri. https://www.ur.ch/_docn/384232/Landratswahlen_2024_stat_Auswertung.pdf
+Standeskanzlei Uri. (2024b). *Landratswahlen 2024: Statistische Auswertung*. Kanton Uri. <https://www.ur.ch/_docn/384232/Landratswahlen_2024_stat_Auswertung.pdf>
 
-Statistisches Amt Kanton Aargau. (n.d.). *Grossratswahlen: Detailresultate, ab 1985* [Data set]. Kanton Aargau. Retrieved September 1, 2026, from https://www.ag.ch/app/staag/statistikportal/
+Statistisches Amt Kanton Aargau. (n.d.). *Grossratswahlen: Detailresultate, ab 1985* [Data set]. Kanton Aargau. Retrieved September 1, 2026, from <https://www.ag.ch/app/staag/statistikportal/>
 
-Statistisches Amt des Kantons Zürich. (2003). *Die Zürcher Kantonsratswahlen 2003: Anhang Tabelle 3, Listen und Listenverbindungen*. Microsoft Excel spreadsheet. Accessed September 15, 2026. https://web.archive.org/web/20031207213505id_/http://www.statistik.zh.ch/statistik.info/xls/2003_23.xls
+Statistisches Amt des Kantons Zürich. (2003). *Die Zürcher Kantonsratswahlen 2003: Anhang Tabelle 3, Listen und Listenverbindungen*. Microsoft Excel spreadsheet. Accessed September 15, 2026. <https://web.archive.org/web/20031207213505id_/http://www.statistik.zh.ch/statistik.info/xls/2003_23.xls>
 
-Statistisches Amt des Kantons Zürich. (2011). *Statistisches Jahrbuch des Kantons Zürich 2011*. https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00000124_00001234.pdf
+Statistisches Amt des Kantons Zürich. (2011). *Statistisches Jahrbuch des Kantons Zürich 2011*. <https://www.web.statistik.zh.ch/ogd/daten/ressourcen/KTZH_00000124_00001234.pdf>
 
-Urteil des Bundesgerichts 1C_407/2011, 1C_445/2011 und 1C_447/2011 vom 19. März 2012. https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza%3A%2F%2F19-03-2012-1C_407-2011&lang=de&type=show_document
+Urteil des Bundesgerichts 1C_407/2011, 1C_445/2011 und 1C_447/2011 vom 19. März 2012. <https://search.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?highlight_docid=aza%3A%2F%2F19-03-2012-1C_407-2011&lang=de&type=show_document>
 
-Vatter, A. (2015, April 2). Kleine Parteien sind Verlierer des föderalen Wahlsystems. *Die Volkswirtschaft*. https://dievolkswirtschaft.ch/de/2015/04/vatter-wirkungen-des-wahlsystems/
+Vatter, A. (2015, April 2). Kleine Parteien sind Verlierer des föderalen Wahlsystems. *Die Volkswirtschaft*. <https://dievolkswirtschaft.ch/de/2015/04/vatter-wirkungen-des-wahlsystems/>
 
 ```{=typst}
 #set par(hanging-indent: 0pt)
